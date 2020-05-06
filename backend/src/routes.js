@@ -176,20 +176,20 @@ routes.post('/tipos-contato', TiposContatoController.create);
 routes.put('/tipos-contato/:id', TiposContatoController.update);
 
 //Dashboards
-routes.get('/dashboardv1', Dashboardv1Controller.getAll);
-routes.get('/dashboardv1/:id', Dashboardv1Controller.getById);
-routes.post('/dashboardv1', Dashboardv1Controller.create);
-routes.put('/dashboardv1/:id', Dashboardv1Controller.update);
+// routes.get('/dashboardv1', Dashboardv1Controller.getAll);
+// routes.get('/dashboardv1/:id', Dashboardv1Controller.getById);
+// routes.post('/dashboardv1', Dashboardv1Controller.create);
+// routes.put('/dashboardv1/:id', Dashboardv1Controller.update);
 
-routes.get('/dashboardv2', Dashboardv2Controller.getAll);
-routes.get('/dashboardv2/:id', Dashboardv2Controller.getById);
-routes.post('/dashboardv2', Dashboardv2Controller.create);
-routes.put('/dashboardv2/:id', Dashboardv2Controller.update);
+// routes.get('/dashboardv2', Dashboardv2Controller.getAll);
+// routes.get('/dashboardv2/:id', Dashboardv2Controller.getById);
+// routes.post('/dashboardv2', Dashboardv2Controller.create);
+// routes.put('/dashboardv2/:id', Dashboardv2Controller.update);
 
-routes.get('/dashboardv3', Dashboardv3Controller.getAll);
-routes.get('/dashboardv3/:id', Dashboardv3Controller.getById);
-routes.post('/dashboardv3', Dashboardv3Controller.create);
-routes.put('/dashboardv3/:id', Dashboardv3Controller.update);
+// routes.get('/dashboardv3', Dashboardv3Controller.getAll);
+// routes.get('/dashboardv3/:id', Dashboardv3Controller.getById);
+// routes.post('/dashboardv3', Dashboardv3Controller.create);
+// routes.put('/dashboardv3/:id', Dashboardv3Controller.update);
 
 
 module.exports = routes;
