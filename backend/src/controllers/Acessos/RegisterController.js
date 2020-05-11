@@ -22,7 +22,7 @@ module.exports = {
 
     async create (request, response) {
         
-        const  dataUltModif = getDate();
+        const  dataultmodif = getDate();
 
         const { nome, sobrenome, dataNasc, logradouro, numero, complemento, bairro, cep, cidade, estado,
             telefone, celular, cpf, rg, genero, email, login, senhaForm, ativo } = request.body;
@@ -51,7 +51,7 @@ module.exports = {
             login,
             senha,            
             ativo,
-            dataUltModif
+            dataultmodif
         })
 
         return response.json({ id, login });
@@ -59,10 +59,13 @@ module.exports = {
 
     async update (request, response) {
         const { id } = request.params;
+        
+        const  usuarioId  = request.headers.authorization;
+
         const { nome, sobrenome, dataNasc, logradouro, numero, complemento, bairro, cep, cidade, estado,
                 telefone, celular, cpf, rg, genero, email, login, senhaForm, ativo } = request.body;
         
-        const  dataUltModif = getDate();
+        const  dataultmodif = getDate();
         const senha = getPassword(senhaForm);          
 
         await connection('usuario').where('id', id).update({
@@ -85,7 +88,8 @@ module.exports = {
             login,
             senha,
             ativo,
-            dataUltModif
+            dataultmodif,
+            usuarioId
         });           
 
         return response.status(204).send();

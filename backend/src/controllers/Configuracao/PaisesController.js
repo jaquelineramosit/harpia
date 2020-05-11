@@ -2,35 +2,35 @@ const connection = require('../../database/connection');
 const getDate = require('../../utils/getDate');
 module.exports = {
     async getAll (request, response) {
-        const cargos = await connection('cargos').select('*');
+        const paises = await connection('paises').select('*');
     
-        return response.json(cargos);
+        return response.json(paises);
     },
 
     async getById (request, response) {
         const  { id }  = request.params;
 
-        const cargos = await connection('cargos')
+        const paises = await connection('paises')
             .where('id', id)
             .select()
             .first();
     
-        return response.json(cargos);
+        return response.json(paises);
     },
 
     async create(request, response) {
         const  usuarioId  = request.headers.authorization;
-        const  dataUltModif = getDate();
+        const  dataultmodif = getDate();
 
         const { nomepais, sigla, moeda, siglamoeda, ativo } = request.body;
         
-        const [id] = await connection('cargos').insert({
+        const [id] = await connection('paises').insert({
             nomepais,
-            sigla, 
-            moeda, 
+            sigla,
+            moeda,
             siglamoeda,
             ativo,
-            dataUltModif,
+            dataultmodif,
             usuarioId
         })
 
@@ -40,17 +40,17 @@ module.exports = {
     async update (request, response) {
         const   { id }   = request.params;
         const  usuarioId  = request.headers.authorization;
-        const  dataUltModif = getDate();
+        const  dataultmodif = getDate();
         
         const { nomepais, sigla, moeda, siglamoeda, ativo } = request.body;
 
-        await connection('cargos').where('id', id).update({
+        await connection('paises').where('id', id).update({
             nomepais,
             sigla, 
             moeda, 
             siglamoeda,
             ativo,
-            dataUltModif,
+            dataultmodif,
             usuarioId
         });           
 

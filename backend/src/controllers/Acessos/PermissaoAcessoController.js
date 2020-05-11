@@ -20,18 +20,16 @@ module.exports = {
 
     async create(request, response) {
         const  usuarioId  = request.headers.authorization;        
-        const  dataUltModif = getDate();
+        const  dataultmodif = getDate();
 
-        const {perfilacessoId, moduloId, paginaId, perfil, descricao, ativo } = request.body;
+        const {perfilacessoId, moduloId, paginaId, ativo } = request.body;
         
         const [id] = await connection('acessopagina').insert({    
                 perfilacessoId,
                 moduloId,
-                paginaId,
-                perfil,
-                descricao, 
+                paginaId,                             
                 ativo,
-                dataUltModif,
+                dataultmodif,
                 usuarioId
         })
 
@@ -41,18 +39,16 @@ module.exports = {
         async update (request, response) {
             const   { id }   = request.params;
             const  usuarioId  = request.headers.authorization;            
-            const  dataUltModif = getDate();
+            const  dataultmodif = getDate();
 
-            const {perfilacessoId, moduloId, paginaId, perfil, descricao, ativo } = request.body;
+            const {perfilacessoId, moduloId, paginaId, ativo } = request.body;
     
             await connection('acessopagina').where('id', id).update({                
                 perfilacessoId,
                 moduloId,
-                paginaId,
-                perfil,
-                descricao, 
+                paginaId,                          
                 ativo,
-                dataUltModif,
+                dataultmodif,
                 usuarioId
             });           
 

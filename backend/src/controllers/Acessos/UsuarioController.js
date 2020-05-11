@@ -24,7 +24,7 @@ module.exports = {
         
         const  dataUltModif = getDate();
 
-        const { nome, sobrenome, dataNasc, logradouro, numero, complemento, bairro, cep, cidade, estado,
+        const { nome, sobrenome, datanasc, logradouro, numero, complemento, bairro, cep, cidade, estado,
             telefone, celular, cpf, rg, genero, email, login, senhaForm, ativo } = request.body;
 
         console.log(request.body);
@@ -34,7 +34,7 @@ module.exports = {
         const [id] = await connection('usuario').insert({
             nome,
             sobrenome, 
-            dataNasc,
+            datanasc,
             logradouro,
             numero,
             complemento,
@@ -59,7 +59,7 @@ module.exports = {
 
     async update (request, response) {
         const { id } = request.params;
-        const { nome, sobrenome, dataNasc, logradouro, numero, complemento, bairro, cep, cidade, estado,
+        const { nome, sobrenome, datanasc, logradouro, numero, complemento, bairro, cep, cidade, estado,
                 telefone, celular, cpf, rg, genero, email, login, senhaForm, ativo } = request.body;
         
         const  dataUltModif = getDate();
@@ -68,7 +68,7 @@ module.exports = {
         await connection('usuario').where('id', id).update({
             nome,
             sobrenome, 
-            dataNasc,
+            datanasc,
             logradouro,
             numero,
             complemento,

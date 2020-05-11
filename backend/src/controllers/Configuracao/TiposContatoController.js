@@ -20,15 +20,14 @@ module.exports = {
 
     async create(request, response) {
         const  usuarioId  = request.headers.authorization;
-        const  dataUltModif = getDate();
+        const  dataultmodif = getDate();
 
         const { tipocontato, ativo } = request.body;
         
         const [id] = await connection('tiposcontato').insert({
-            tipocontato, 
-            descricao,               
+            tipocontato,                           
             ativo,
-            dataUltModif,
+            dataultmodif,
             usuarioId
         })
 
@@ -38,15 +37,14 @@ module.exports = {
     async update (request, response) {
         const   { id }   = request.params;
         const  usuarioId  = request.headers.authorization;
-        const  dataUltModif = getDate();
+        const  dataultmodif = getDate();
         
         const { tipocontato, ativo } = request.body;
 
         await connection('tiposcontato').where('id', id).update({
-            tipocontato, 
-            descricao,               
+            tipocontato,                          
             ativo,
-            dataUltModif,
+            dataultmodif,
             usuarioId
         });           
 

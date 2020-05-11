@@ -35,20 +35,20 @@ module.exports = {
         return response.json({ id });
     },
     
-        async update (request, response) {
-            const   { id }   = request.params;
-            const  usuarioId  = request.headers.authorization;
-            const  dataUltModif = getDate();
-            const { nomeModulo, descricao, ativo } = request.body;
-    
-            await connection('modulo').where('id', id).update({
-                nomeModulo,
-                descricao, 
-                ativo,
-                dataUltModif,
-                usuarioId
-            });           
+    async update (request, response) {
+        const   { id }   = request.params;
+        const  usuarioId  = request.headers.authorization;
+        const  dataUltModif = getDate();
+        const { nomeModulo, descricao, ativo } = request.body;
 
-            return response.status(204).send();
-        },
-    };
+        await connection('modulo').where('id', id).update({
+            nomeModulo,
+            descricao, 
+            ativo,
+            dataUltModif,
+            usuarioId
+        });           
+
+        return response.status(204).send();
+    },
+};

@@ -2,39 +2,39 @@ const connection = require('../../database/connection');
 const getDate = require('../../utils/getDate');
 module.exports = {
     async getAll (request, response) {
-        const pipes = await connection('pipes').select('*');
+        const produtos = await connection('produtos').select('*');
     
-        return response.json(pipes);
+        return response.json(produtos);
     },
 
     async getById (request, response) {
         const  { id }  = request.params;
 
-        const pipes = await connection('pipes')
+        const produtos = await connection('produtos')
             .where('id', id)
             .select()
             .first();
     
-        return response.json(pipes);
+        return response.json(produtos);
     },
 
     async create(request, response) {
         const  usuarioId  = request.headers.authorization;
-        const  dataUltModif = getDate();
+        const  dataultmodif = getDate();
 
         const { marcaId, nomeproduto, numerofabricante, quantidade, 
             valor, distribuidorId, tempoentrega, ativo } = request.body;
         
-        const [id] = await connection('pipes').insert({
-            marcaId, 
-            nomeproduto, 
-            numerofabricante, 
-            quantidade, 
-            valor, 
+        const [id] = await connection('produtos').insert({
+            marcaId,
+            nomeproduto,
+            numerofabricante,
+            quantidade,
+            valor,
             distribuidorId,
             tempoentrega, 
             ativo,
-            dataUltModif,
+            dataultmodif,
             usuarioId
         })
 
@@ -44,12 +44,12 @@ module.exports = {
     async update (request, response) {
         const   { id }   = request.params;
         const  usuarioId  = request.headers.authorization;
-        const  dataUltModif = getDate();
+        const  dataultmodif = getDate();
         
         const { marcaId, nomeproduto, numerofabricante, quantidade, 
             valor, distribuidorId, tempoentrega, ativo } = request.body;
 
-        await connection('pipes').where('id', id).update({
+        await connection('produtos').where('id', id).update({
             marcaId, 
             nomeproduto, 
             numerofabricante, 
@@ -58,7 +58,7 @@ module.exports = {
             distribuidorId,
             tempoentrega, 
             ativo,
-            dataUltModif,
+            dataultmodif,
             usuarioId
         });           
 

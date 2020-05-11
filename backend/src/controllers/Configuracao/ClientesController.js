@@ -22,7 +22,7 @@ module.exports = {
         const  usuarioId  = request.headers.authorization;
         const  dataUltModif = getDate();
 
-        const { nomecliente, tipopessoa, cnpj, cpf, contatoId,
+        const { nomecliente, razaosocial, tipopessoa, cnpj, cpf, contatoId,
             site, email, telefone, cep, logradouro, numero,
             complemento, bairro, cidade, uf, paisId,
             segmentomercadoId, ativo } = request.body;
@@ -59,7 +59,7 @@ module.exports = {
         const  usuarioId  = request.headers.authorization;
         const  dataUltModif = getDate();
         
-        const { nomecliente, tipopessoa, cnpj, cpf, contatoId,
+        const { nomecliente, razaosocial, tipopessoa, cnpj, cpf, contatoId,
             site, email, telefone, cep, logradouro, numero,
             complemento, bairro, cidade, uf, paisId,
             segmentomercadoId, ativo } = request.body;

@@ -27,8 +27,7 @@ module.exports = {
         const [id] = await connection('metasvendedores').insert({
             vendedorId,
             metaId,
-            observacao,
-            nomecargo,                
+            observacao,                    
             ativo,
             dataUltModif,
             usuarioId
@@ -47,8 +46,7 @@ module.exports = {
         await connection('metasvendedores').where('id', id).update({
             vendedorId,
             metaId,
-            observacao,
-            nomecargo,                
+            observacao,                          
             ativo,
             dataUltModif,
             usuarioId

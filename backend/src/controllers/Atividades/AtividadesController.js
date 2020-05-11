@@ -24,7 +24,7 @@ module.exports = {
 
         const { 
                 responsavelId, atividade, descricao, clienteId, contatoId, tipoatividadeId, dataatividade,
-                datainicio, datafim, temponotificacao, exibenotificacao, anexoId,  cancelada } = request.body;
+                datainicio, datafim, temponotificacao, exibenotificacao, anexoId,  cancelado } = request.body;
         
         const [id] = await connection('atividades').insert({
                 responsavelId,
@@ -39,7 +39,7 @@ module.exports = {
                 temponotificacao,
                 exibenotificacao,
                 anexoId,
-                cancelada,
+                cancelado,
                 dataUltModif,
                 usuarioId
         })
@@ -53,7 +53,7 @@ module.exports = {
         const  dataUltModif = getDate();
         const { 
             responsavelId, atividade, descricao, clienteId, contatoId, tipoatividadeId, dataatividade,
-            datainicio, datafim, temponotificacao, exibenotificacao, anexoId,  cancelada } = request.body;
+            datainicio, datafim, temponotificacao, exibenotificacao, anexoId,  cancelado } = request.body;
 
         await connection('atividades').where('id', id).update({
             responsavelId,
@@ -68,7 +68,7 @@ module.exports = {
             temponotificacao,
             exibenotificacao,
             anexoId,
-            cancelada,
+            cancelado,
             dataUltModif,
             usuarioId
         });           
