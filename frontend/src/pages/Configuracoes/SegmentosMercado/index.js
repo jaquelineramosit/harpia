@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button, InputGroup, InputGroupAddon, CardFooter, Form, FormFeedback } from 'reactstrap';
+import { Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button, CardFooter, Form,  } from 'reactstrap';
 import { AppSwitch } from '@coreui/react'
 import '../../../global.css';
 import api from '../../../../src/services/api';
@@ -46,8 +45,8 @@ export default function SegmentosMercado () {
                             <CardBody>
                                 <FormGroup row>
                                     <Col md="4">
-                                        <Label htmlFor="departamento">Nome do Segmento de Mercado</Label>
-                                        <Input type="text" required id="txtNomeoportunidade" placeholder="Digite o nome do Segmento"
+                                        <Label htmlFor="nomesegmento">Nome do Segmento de Mercado</Label>
+                                        <Input type="text" required id="txtNomesegmento" placeholder="Digite o nome do Segmento"
                                             value={nomesegmento}
                                             onChange={e => setNomesegmento(e.target.value)} />
                                     </Col>

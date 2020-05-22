@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button, InputGroup, InputGroupAddon, CardFooter, Form, FormFeedback } from 'reactstrap';
+import { Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button, CardFooter, Form } from 'reactstrap';
 import { AppSwitch } from '@coreui/react'
 import '../../../global.css';
 import api from '../../../../src/services/api';
@@ -47,7 +46,7 @@ export default function Departamentos() {
                                 <FormGroup row>
                                     <Col md="4">
                                         <Label htmlFor="departamento">Nome do Departamento</Label>
-                                        <Input type="text" required id="txtNomeoportunidade" placeholder="Digite o nome do Departamento"
+                                        <Input type="text" required id="txtDepartamento" placeholder="Digite o nome do Departamento"
                                             value={departamento}
                                             onChange={e => setDepartamento(e.target.value)} />
                                     </Col>

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button, InputGroup, InputGroupAddon, CardFooter, Form, FormFeedback } from 'reactstrap';
+import { Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button, InputGroup, InputGroupAddon, CardFooter, Form } from 'reactstrap';
 import { AppSwitch } from '@coreui/react'
 import '../../../global.css';
 import api from '../../../../src/services/api';
@@ -62,7 +61,7 @@ export default function Distribuidores() {
                                 <FormGroup row>
                                 <Col md="4">
                                         <Label htmlFor="nomedistribuidor">Nome Distribuidor</Label>
-                                        <Input type="text" required id="txtNomecliente" placeholder="Digite o nome do Distribuidor"
+                                        <Input type="text" required id="txtNomedistribuidor" placeholder="Digite o nome do Distribuidor"
                                         value={nomedistribuidor}
                                         onChange={ e => setNomedistribuidor(e.target.value)}/>                                        
                                     </Col>
@@ -97,7 +96,7 @@ export default function Distribuidores() {
                                     <Col md="2">
                                     <Label htmlFor="Telefone">Telefone</Label>                                        
                                         <InputGroup>
-                                            <Input type="text"  id="txtTelefoneFixo" placeholder="(11) 9999-9999"
+                                            <Input type="text"  id="txtTelefone" placeholder="(11) 9999-9999"
                                             value={telefone}
                                             onChange={ e => setTelefone(e.target.value)} />
                                             <InputGroupAddon addonType="append">
@@ -127,7 +126,7 @@ export default function Distribuidores() {
                                     </Col>
                                     <Col md="3">
                                     <Label htmlFor="contatoId">Contato</Label>
-                                        <Input type="text" required name="select" id="ddlContatoId" placeholder="Digite o nome do contato"
+                                        <Input type="text" required name="select" id="txtContato" placeholder="Digite o nome do contato"
                                         value={contato}
                                         onChange={ e => setContato(e.target.value)}> 
                                             

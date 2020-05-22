@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button, InputGroup, InputGroupAddon, CardFooter, Form, FormFeedback } from 'reactstrap';
+import { Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button , CardFooter, Form } from 'reactstrap';
 import { AppSwitch } from '@coreui/react'
 import '../../../global.css';
 import api from '../../../../src/services/api';
@@ -46,7 +45,7 @@ export default function Cargos() {
                             <CardBody>
                                 <FormGroup row>
                                     <Col md="4">
-                                        <Label htmlFor="tipoatividade">Nome do Cargo</Label>
+                                        <Label htmlFor="nomecargo">Nome do Cargo</Label>
                                         <Input type="text" required id="txtCargo" placeholder="Digite o nome do Cargo"
                                             value={nomecargo}
                                             onChange={e => setNomecargo(e.target.value)} />

@@ -1,6 +1,5 @@
 import React, { useState, useEffect} from 'react';
-import { useHistory } from 'react-router-dom';
-import { Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button, InputGroup, InputGroupAddon, CardFooter, Form, FormFeedback } from 'reactstrap';
+import { Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button, CardFooter, Form } from 'reactstrap';
 import { AppSwitch } from '@coreui/react'
 import '../../../global.css';
 import api from '../../../../src/services/api';
@@ -60,20 +59,20 @@ export default function Produtos() {
                                 <FormGroup row>
                                     <Col md="4">
                                         <Label htmlFor="nomeproduto">Nome Oportunidade</Label>
-                                        <Input type="text" required id="txtNomeoportunidade" placeholder="Digite o nome do Produto"
+                                        <Input type="text" required id="txtNomeproduto" placeholder="Digite o nome do Produto"
                                             value={nomeproduto}
                                             onChange={e => setNomeproduto(e.target.value)} />
                                     </Col>
                                     <Col md="3">
                                         <Label htmlFor="numerofabricante">Número  do Fabricante</Label>
-                                        <Input type="text" required name="select" id="ddlproprietarioId" placeholder="Digite o Número do fabricante"
+                                        <Input type="text" required name="select" id="txtNumerofabricante" placeholder="Digite o Número do fabricante"
                                             value={numerofabricante}
                                             onChange={e => setNumerofabricante(e.target.value)}>
                                         </Input>
                                     </Col>
                                     <Col md="2">
                                         <Label htmlFor="marcaId">Marca</Label>
-                                        <Input type="select" required name="select" id="ddlmarca"
+                                        <Input type="select" required name="select" id="cboMarcaId"
                                          value={marcaId}
                                          onChange={e => setMarcaId(e.target.value)}>
                                         >
@@ -88,14 +87,14 @@ export default function Produtos() {
                                 <FormGroup row>
                                     <Col md="3">
                                         <Label htmlFor="quantidade">Quantidade</Label>
-                                        <Input type="text" required name="select" id="ddlQuantidade" placeholder="Insira a quantidade"
+                                        <Input type="text" required name="select" id="txtQuantidade" placeholder="Insira a quantidade"
                                             value={quantidade}
                                             onChange={e => setQuantidade(e.target.value)}>
                                         </Input>
                                     </Col>                                    
                                     <Col md="3">
                                         <Label htmlFor="distribuidorId">Distribuidor</Label>
-                                        <Input type="select" required name="select" id="ddlmarcaId"
+                                        <Input type="select" required name="select" id="cbodistribuidorId"
                                             value={distribuidorId}
                                             onChange={e => setDistribuidorId(e.target.value)}>
                                             <option value={undefined}>Selecione...</option>
@@ -106,7 +105,7 @@ export default function Produtos() {
                                     </Col> 
                                     <Col md="2">
                                         <Label htmlFor="valor">Valor</Label>
-                                        <Input type="value" required id="txtvalor"
+                                        <Input type="value" required id="txtValor"
                                             value={valor}
                                             onChange={e => setValor(e.target.value)} />
                                     </Col>                                
@@ -114,7 +113,7 @@ export default function Produtos() {
                                 <FormGroup row>
                                 <Col md="3">
                                         <Label htmlFor="tempoentrega">Tempo de entrega</Label>
-                                        <Input type="time" required name="select" id="ddlQuantidade"
+                                        <Input type="time" required name="select" id="txtTempoentrega"
                                             value={tempoentrega}
                                             onChange={e => setTempoentrega(e.target.value)}>
                                         </Input>

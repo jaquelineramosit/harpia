@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button, InputGroup, InputGroupAddon, CardFooter, Form, FormFeedback } from 'reactstrap';
+import { Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button, CardFooter, Form } from 'reactstrap';
 import { AppSwitch } from '@coreui/react'
 import '../../../global.css';
 import api from '../../../../src/services/api';
@@ -24,7 +23,7 @@ export default function Metasvendedores() {
         try {
             const response = await api.post('metas-vendedores', data, {
                 headers: {
-                    Authorization: 18,
+                    Authorization: usuarioId,
                 }
             });
             alert(`Feito o cadastro com sucesso ${response.id}`);
@@ -48,8 +47,8 @@ export default function Metasvendedores() {
                             <CardBody>
                                 <FormGroup row>
                                 <Col md="3">
-                                        <Label htmlFor="Tipopessoa">Vendedor</Label>
-                                        <Input required type="select" name="select" id="txtTipopessoa"
+                                        <Label htmlFor="vendedorId">Vendedor</Label>
+                                        <Input required type="select" name="select" id="txtVendedorId"
                                         value={vendedorId}
                                         onChange={ e => setVendedorId(e.target.value)}
                                         >
@@ -59,8 +58,8 @@ export default function Metasvendedores() {
                                         </Input>
                                 </Col>                               
                                 <Col md="2">
-                                        <Label htmlFor="Tipopessoa">Metas</Label>
-                                        <Input required type="select" name="select" id="txtTipopessoa"
+                                        <Label htmlFor="metaId">Metas</Label>
+                                        <Input required type="select" name="select" id="cboMetaId"
                                         value={metaId}
                                         onChange={ e => setMetaId(e.target.value)}
                                         >

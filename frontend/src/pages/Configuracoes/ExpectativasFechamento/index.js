@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button, InputGroup, InputGroupAddon, CardFooter, Form, FormFeedback } from 'reactstrap';
+import { Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button, CardFooter, Form } from 'reactstrap';
 import { AppSwitch } from '@coreui/react'
 import '../../../global.css';
 import api from '../../../../src/services/api';
@@ -46,8 +45,8 @@ export default function Expectativasfechamento() {
                             <CardBody>
                                 <FormGroup row>
                                     <Col md="3">
-                                        <Label htmlFor="tipoatividade">Expectativas de Fechamento</Label>
-                                        <Input type="date" required id="txtCargo" placeholder="Digite o nome do Cargo"
+                                        <Label htmlFor="expectativafechamento">Expectativas de Fechamento</Label>
+                                        <Input type="date" required id="txtExpectativafechamento" placeholder="Digite o nome do Cargo"
                                             value={expectativafechamento}
                                             onChange={e => setExpectativafechamento(e.target.value)} />
                                     </Col>

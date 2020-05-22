@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button, InputGroup, InputGroupAddon, CardFooter, Form, FormFeedback } from 'reactstrap';
+import { Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button,CardFooter, Form } from 'reactstrap';
 import { AppSwitch } from '@coreui/react'
 import '../../../global.css';
 import api from '../../../../src/services/api';
@@ -46,8 +45,8 @@ export default function Pipes() {
                             <CardBody>
                                 <FormGroup row>
                                     <Col md="4">
-                                        <Label htmlFor="departamento">Nome do Pipe</Label>
-                                        <Input type="text" required id="txtNomeoportunidade" placeholder="Digite o nome do Pipe"
+                                        <Label htmlFor="nomepipe">Nome do Pipe</Label>
+                                        <Input type="text" required id="txtNomepipe" placeholder="Digite o nome do Pipe"
                                             value={nomepipe}
                                             onChange={e => setNomepipe(e.target.value)} />
                                     </Col>

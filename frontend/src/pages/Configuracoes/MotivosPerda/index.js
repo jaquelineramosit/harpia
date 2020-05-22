@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button, InputGroup, InputGroupAddon, CardFooter, Form, FormFeedback } from 'reactstrap';
+import { Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button ,CardFooter, Form,  } from 'reactstrap';
 import { AppSwitch } from '@coreui/react'
 import '../../../global.css';
 import api from '../../../../src/services/api';
@@ -45,8 +44,8 @@ export default function Motivosperda() {
                             <CardBody>
                                 <FormGroup row>
                                     <Col md="4">
-                                        <Label htmlFor="tipoatividade">Motivo da Perda</Label>
-                                        <Input type="text" required id="txtCargo" placeholder="Digite um motivo"
+                                        <Label htmlFor="motivoperda">Motivo da Perda</Label>
+                                        <Input type="text" required id="txtMotivoperda" placeholder="Digite um motivo"
                                             value={motivoperda}
                                             onChange={e => setMotivoperda(e.target.value)} />
                                     </Col>

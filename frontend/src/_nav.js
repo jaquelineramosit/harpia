@@ -48,22 +48,22 @@ export default {
       children: [
         {
           name: 'Contatos',
-          url: '/contatos',
+          url: '/list-contatos',
           icon: 'fa fa-address-book-o',
         },
         {
           name: 'Tipos de Contato',
-          url: '/tipos-contato',
+          url: '/list-tipocontato',
           icon: 'fa fa-address-card',
         },
         {
           name: 'Cargos',
-          url: '/cargos',
+          url: '/list-cargos',
           icon: 'fa fa-mortar-board',
         },
         {
           name: 'Departamentos',
-          url: '/departamentos',
+          url: '/list-departamentos',
           icon: 'fa fa-university',
         },        
       ],
@@ -74,12 +74,12 @@ export default {
       children: [
         {
           name: 'Metas',
-          url: '/metas',
+          url: '/list-metas',
           icon: 'icon-target',
         },
         {
           name: 'Metas Vendedores',
-          url: '/metas-vendedores',
+          url: '/list-metasvendedores',
           icon: 'fa fa-bullseye',
         },        
       ],
@@ -90,12 +90,12 @@ export default {
       children: [
         {
           name: 'Pipes',
-          url: '/pipes',
+          url: '/list-pipes',
           icon: 'icon-chart',
         },
         {
           name: 'Fases do Pipe',
-          url: '/fases-pipe',
+          url: '/list-fasespipes',
           icon: 'icon-layers',
         },        
       ],
@@ -106,17 +106,17 @@ export default {
       children: [
         {
         name: 'Produtos',
-        url: '/produtos',
+        url: '/list-produtos',
         icon: 'fa fa-th-large',          
         },
         {
           name: 'Distribuidores',
-          url: '/distribuidores',
+          url: '/list-distribuidores',
           icon: 'fa fa-building-o',          
         },        
         {
           name: 'Marcas',
-          url: '/marcas',
+          url: '/list-marcas',
           icon: 'fa fa-tags',
         },        
       ],
@@ -127,34 +127,34 @@ export default {
       children: [
         {
           name: 'Clientes',
-          url: '/clientes',
+          url: '/list-clientes',
           icon: 'fa fa-users',
         },
         {
           name: 'Paises',
-          url: '/paises',
+          url: '/list-paises',
           icon: 'fa fa-flag-o',
         },
         {
           name: 'Segmentos Mercado',
-          url: '/segmentos-mercado',
+          url: '/list-segmentosmercado',
           icon: 'icon-directions',
         },
       ],
     },
     {
       name: 'Tipos de Atividades',
-      url: '/tipos-atividade',
+      url: '/list-tiposatividade',
       icon: 'icon-list',      
     },
     {
       name: 'Expec. de Fechamento',
-      url: '/expectativas-fechamento',
+      url: '/list-expectativasfechamento',
       icon: 'fa fa-handshake-o',      
     },
     {
       name: 'Motivo da Perda',
-      url: '/motivos-perda',
+      url: '/list-motivosperda',
       icon: 'fa fa-comments',      
     },
     {

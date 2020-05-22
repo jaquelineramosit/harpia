@@ -40,6 +40,27 @@ const TiposAtividade = React.lazy(() => import('./pages/Configuracoes/TiposAtivi
 const TiposContato = React.lazy(() => import('./pages/Configuracoes/TiposContato'));
 
 
+  //Tabelas
+
+//Configuração
+const Listcargos = React.lazy(() => import('./pages/Listas/Configuracoes/Listcargos'));
+const Listcontatos = React.lazy(() => import('./pages/Listas/Configuracoes/Listcontatos'));
+const Listtipocontatos = React.lazy(() => import('./pages/Listas/Configuracoes/Listtipocontatos'));
+const Listdepartamentos = React.lazy(() => import('./pages/Listas/Configuracoes/Listdepartamentos'));
+const Listmetas = React.lazy(() => import('./pages/Listas/Configuracoes/Listmetas'));
+const Listmetasvendedores = React.lazy(() => import('./pages/Listas/Configuracoes/Listmetasvendedores'));
+const Listpipes = React.lazy(() => import('./pages/Listas/Configuracoes/Listpipes'));
+const Listfasespipes = React.lazy(() => import('./pages/Listas/Configuracoes/Listfasespipes'));
+const Listprodutos = React.lazy(() => import('./pages/Listas/Configuracoes/Listprodutos'));
+const Listdistribuidores = React.lazy(() => import('./pages/Listas/Configuracoes/Listdistribuidores'));
+const Listmarcas = React.lazy(() => import('./pages/Listas/Configuracoes/Listmarcas'));
+const Listclientes = React.lazy(() => import('./pages/Listas/Configuracoes/Listclientes'));
+const Listpaises = React.lazy(() => import('./pages/Listas/Configuracoes/Listpaises'));
+const Listsegmentosmercado = React.lazy(() => import('./pages/Listas/Configuracoes/Listsegmentosmercado'));
+const ListtiposAtividade = React.lazy(() => import('./pages/Listas/Configuracoes/ListtiposAtividade'));
+const Listexpectativasfechamento = React.lazy(() => import('./pages/Listas/Configuracoes/Listexpectativasfechamento'));
+const Listmotivosperda = React.lazy(() => import('./pages/Listas/Configuracoes/Listmotivosperda'));
+
 const routes = [
   
   // Dashboards
@@ -81,6 +102,30 @@ const routes = [
   { path: '/segmentos-mercado', name: 'Segmentos de Mercado', component: SegmentosMercado },
   { path: '/tipos-atividade', name: 'Tipos de Atividade', component: TiposAtividade },
   { path: '/tipos-contato', name: 'Tipos de Contato', component: TiposContato },
+
+  //Tabelas
+
+//Configuração
+{ path: '/List-cargos', name: 'Lista de Cargos', component: Listcargos },
+{ path: '/List-contatos', name: 'Lista de Contatos', component: Listcontatos },
+{ path: '/List-tipocontato', name: 'Lista de Tipo de Contatos', component: Listtipocontatos },
+{ path: '/List-departamentos', name: 'Lista de Departamentos', component: Listdepartamentos },
+{ path: '/List-metas', name: 'Lista de Metas', component: Listmetas },
+{ path: '/List-metasvendedores', name: 'Lista de Metas de Vendedores', component: Listmetasvendedores },
+{ path: '/List-metasvendedores', name: 'Lista de Metas de Vendedores', component: Listmetasvendedores },
+{ path: '/List-pipes', name: 'Lista de Pipes', component: Listpipes},
+{ path: '/List-fasespipes', name: 'Lista de Fases do Pipes', component: Listfasespipes},
+{ path: '/List-produtos', name: 'Lista de Fases de Produtos', component: Listprodutos},
+{ path: '/List-distribuidores', name: 'Lista de Distribuidores', component: Listdistribuidores},
+{ path: '/List-marcas', name: 'Lista de Marcas', component: Listmarcas},
+{ path: '/List-clientes', name: 'Lista de Clientes', component: Listclientes},
+{ path: '/List-paises', name: 'Lista de Países', component: Listpaises},
+{ path: '/List-segmentosmercado', name: 'Lista de Segmentos de Mercado', component: Listsegmentosmercado},
+{ path: '/List-segmentosmercado', name: 'Lista de Segmentos de Mercado', component: Listsegmentosmercado},
+{ path: '/List-tiposatividade', name: 'Lista de Tipos de Atividade', component: ListtiposAtividade },
+{ path: '/List-expectativasfechamento', name: 'Lista de Expectativas de fechamento', component: Listexpectativasfechamento },
+{ path: '/List-motivosperda', name: 'Lista de Motivos de Perda', component: Listmotivosperda },
 ];
+
 
 export default routes;

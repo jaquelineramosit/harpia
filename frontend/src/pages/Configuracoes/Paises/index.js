@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import { Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button, InputGroup, InputGroupAddon, CardFooter, Form, FormFeedback } from 'reactstrap';
 import { AppSwitch } from '@coreui/react'
 import '../../../global.css';
@@ -53,19 +52,19 @@ export default function Paises () {
                                 <FormGroup row>
                                     <Col md="3">
                                         <Label htmlFor="nomepais">Nome do País</Label>
-                                        <Input type="text" required id="txtNomeoportunidade" placeholder="Digite o nome do país"
+                                        <Input type="text" required id="txtNomepais" placeholder="Digite o nome do país"
                                             value={nomepais}
                                             onChange={e => setNomepais(e.target.value)} />
                                     </Col>
                                     <Col md="2">
                                         <Label htmlFor="sigla">Sigla</Label>
-                                        <Input type="text" required id="txtNomeoportunidade" placeholder="Digite o nome da Sigla"
+                                        <Input type="text" required id="txtSigla" placeholder="Digite o nome da Sigla"
                                             value={sigla}
                                             onChange={e => setSigla(e.target.value)} />
                                     </Col>
                                     <Col md="2">
                                         <Label htmlFor="moeda">Moeda</Label>
-                                        <Input type="text" required id="txtNomeoportunidade" placeholder="Digite moeda"
+                                        <Input type="text" required id="txtMoeda" placeholder="Digite moeda"
                                             value={moeda}
                                             onChange={e => setMoeda(e.target.value)} />
                                     </Col>
@@ -74,7 +73,7 @@ export default function Paises () {
                                 <FormGroup row>
                                 <Col md="3">
                                         <Label htmlFor="siglamoeda">Sigla da Moeda</Label>
-                                        <Input type="text" required id="txtNomeoportunidade" placeholder="Digite a sigla da moeda"
+                                        <Input type="text" required id="txtSiglamoeda" placeholder="Digite a sigla da moeda"
                                             value={siglamoeda}
                                             onChange={e => setSiglamoeda(e.target.value)} />
                                     </Col>

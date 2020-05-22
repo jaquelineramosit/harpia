@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button, InputGroup, InputGroupAddon, CardFooter, Form, FormFeedback } from 'reactstrap';
+import { Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button, CardFooter, Form } from 'reactstrap';
 import { AppSwitch } from '@coreui/react'
 import '../../../global.css';
 import api from '../../../../src/services/api';
@@ -47,7 +46,7 @@ export default function Fasespipe() {
                                 <FormGroup row>
                                 <Col md="3">
                                         <Label htmlFor="nomefase">Nome da Fase</Label>
-                                        <Input required type="text" name="select" id="txtTipopessoa" placeholder="Digite o Nome da Fase"
+                                        <Input required type="text" name="select" id="txtNomefase" placeholder="Digite o Nome da Fase"
                                         value={nomefase}
                                         onChange={ e => setNomefase(e.target.value)} />
                                                                                
@@ -55,7 +54,7 @@ export default function Fasespipe() {
                                 </Col>                               
                                 <Col md="2">
                                         <Label htmlFor="pipeId">Pipe</Label>
-                                        <Input required type="select" name="select" id="txtTipopessoa"
+                                        <Input required type="select" name="select" id="cboPipeId"
                                         value={pipeId}
                                         onChange={ e => setPipeId(e.target.value)}
                                         >

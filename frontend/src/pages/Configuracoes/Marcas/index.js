@@ -49,13 +49,13 @@ export default function Marcas() {
                                 <FormGroup row>
                                     <Col md="4">
                                         <Label htmlFor="nomemarca">Nome da Marca</Label>
-                                        <Input type="text" required id="txtNomeoportunidade" placeholder="Digite o nome do Pipe"
+                                        <Input type="text" required id="txtNomemarca" placeholder="Digite o nome do Pipe"
                                             value={nomemarca}
                                             onChange={e => setNomemarca     (e.target.value)} />
                                     </Col>
                                     <Col md="3">
-                                        <Label htmlFor="nomemarca">Nacionalidade</Label>
-                                        <Input type="text" required id="txtNomeoportunidade" placeholder="Digite a nacionalidade"
+                                        <Label htmlFor="nacional">Nacionalidade</Label>
+                                        <Input type="text" required id="txtNacional" placeholder="Digite a nacionalidade"
                                             value={nacional}
                                             onChange={e => setNacional(e.target.value)} />
                                     </Col>

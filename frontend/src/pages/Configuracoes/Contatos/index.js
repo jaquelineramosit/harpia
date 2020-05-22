@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button, InputGroup, InputGroupAddon, CardFooter, Form, FormFeedback } from 'reactstrap';
+import { Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button, InputGroup, InputGroupAddon, CardFooter, Form } from 'reactstrap';
 import { AppSwitch } from '@coreui/react'
 import '../../../global.css';
 import api from '../../../../src/services/api';
@@ -101,7 +100,7 @@ export default function Contatos() {
                                     </Col>
                                     <Col md="2">
                                     <Label htmlFor="departamentoId">Departamento</Label>
-                                        <Input type="select" required name="select" id="ddlDepartamentoId"
+                                        <Input type="select" required name="select" id="cboDepartamentoId"
                                         value={departamentoId}
                                         onChange={ e => setDepartamentoId(e.target.value)}>
                                             <option value={undefined}>Selecione...</option>
@@ -123,13 +122,13 @@ export default function Contatos() {
                                     </Col>                                                     
                                     <Col md="2">
                                         <Label htmlFor="Cidade">Cidade</Label>
-                                        <Input type="text" required id="txtBairro" placeholder="Digite a Cidade"
+                                        <Input type="text" required id="txtcidade" placeholder="Digite a Cidade"
                                         value={cidade}
                                         onChange={ e => setCidade(e.target.value)} />                                    
                                     </Col>
                                     <Col md="2">
                                         <Label htmlFor="UF">UF</Label>
-                                        <Input type="select" required name="select" id="ddlUF"
+                                        <Input type="select" required name="select" id="cboUF"
                                         value={uf}
                                         onChange={ e => setUf(e.target.value)}>
                                             <option value={undefined}>Selecione...</option>
@@ -162,7 +161,7 @@ export default function Contatos() {
                                     <Col md="2">
                                     <Label htmlFor="Telefone">Telefone</Label>                                        
                                         <InputGroup>
-                                            <Input type="text"  id="txtTelefoneFixo" placeholder="(11) 9999-9999"
+                                            <Input type="text"  id="txtTelefone" placeholder="(11) 9999-9999"
                                             value={telefone}
                                             onChange={ e => setTelefone(e.target.value)} />
                                             <InputGroupAddon addonType="append">
@@ -209,7 +208,7 @@ export default function Contatos() {
                                     </Col>                                         
                                     <Col md="2">
                                     <Label htmlFor="tipocontatoId">Tipo Contato</Label>
-                                        <Input type="select" required name="select" id="ddlTipocontatoId"
+                                        <Input type="select" required name="select" id="cboTipocontatoId"
                                         value={tipocontatoId}
                                         onChange={ e => setTipocontatoId(e.target.value)}>
                                             <option value={undefined}>Selecione...</option>
@@ -221,7 +220,7 @@ export default function Contatos() {
                                    
                                     <Col md="2">
                                     <Label htmlFor="cargoId">Cargo</Label>
-                                        <Input type="select" required name="select" id="ddlCargoId"
+                                        <Input type="select" required name="select" id="cboCargoId"
                                         value={cargoId}
                                         onChange={ e => setCargoId(e.target.value)}>
                                             <option value={undefined}>Selecione...</option>

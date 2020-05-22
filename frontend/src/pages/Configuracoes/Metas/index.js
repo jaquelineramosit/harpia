@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button, InputGroup, InputGroupAddon, CardFooter, Form, FormFeedback } from 'reactstrap';
+import { Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button, CardFooter, Form } from 'reactstrap';
 import { AppSwitch } from '@coreui/react'
 import '../../../global.css';
 import api from '../../../../src/services/api';
@@ -53,13 +52,13 @@ export default function Metas() {
                                 <FormGroup row>
                                     <Col md="4">
                                         <Label htmlFor="nomemeta">Nome da Meta</Label>
-                                        <Input type="text" required id="txtAtividade" placeholder="Digite o nome da meta"
+                                        <Input type="text" required id="txtNomemeta" placeholder="Digite o nome da meta"
                                             value={nomemeta}
                                             onChange={e => setNomemeta(e.target.value)} />
                                     </Col>
                                     <Col md="2">
                                         <Label htmlFor="valor">Valor</Label>
-                                        <Input type="value" required name="select" id="ddlresponsavelId"  placeholder="Digite o valor"
+                                        <Input type="value" required name="select" id="txtValor"  placeholder="Digite o valor"
                                             value={valor}
                                             onChange={e => setValor(e.target.value)}>
                                         </Input>
@@ -68,7 +67,7 @@ export default function Metas() {
                                 <FormGroup row>
                                 <Col md="4">
                                         <Label htmlFor="qtdeoportunidade">Quantidade de Oportunidade</Label>
-                                        <Input type="value" required name="select" id="ddlqtdeoportunidade" placeholder="Digite a quantidade de oportunidade"
+                                        <Input type="value" required name="select" id="txtQtdeoportunidade" placeholder="Digite a quantidade de oportunidade"
                                             value={qtdeoportunidade}
                                             onChange={e => setQtdeoportunidade(e.target.value)}>
                                         </Input>
