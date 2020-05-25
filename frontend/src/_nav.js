@@ -20,18 +20,18 @@ export default {
     },
     {
       name: 'Oportunidades',
-      url: '/oportunidades',
+      url: '/list-oportunidades',
       icon: 'fa fa-money',
     },
     {
       name: 'Atividades',
-      url: '/atividades',
+      url: '/list-atividades',
       icon: 'fa fa-tasks',
     },
     
     {
       name: 'Anotações',
-      url: '/anotacoes',
+      url: '/list-anotacoes',
       icon: 'icon-note',
     },
     {
@@ -163,27 +163,27 @@ export default {
       children: [
         {
           name: 'Usuários',
-          url: '/usuarios',
+          url: '/list-usuarios',
           icon: 'fa fa-user-circle',
         },
         {
           name: 'Perfil de Acesso',
-          url: '/perfil-acesso',
+          url: '/list-perfisacesso',
           icon: 'fa fa-id-card',
         },
         {
           name: 'Permissão de Acesso',
-          url: '/permissao-acesso',
+          url: '/list-permissaoacesso',
           icon: 'fa fa-user-secret',
         },
         {
           name: 'Módulos',
-          url: '/modulos',
+          url: '/list-modulos',
           icon: 'fa fa-puzzle-piece',
         },
         {
           name: 'Páginas',
-          url: '/paginas',
+          url: '/list-paginas',
           icon: 'fa fa-window-maximize',
         },
       ],

@@ -60,6 +60,18 @@ const Listsegmentosmercado = React.lazy(() => import('./pages/Listas/Configuraco
 const ListtiposAtividade = React.lazy(() => import('./pages/Listas/Configuracoes/ListtiposAtividade'));
 const Listexpectativasfechamento = React.lazy(() => import('./pages/Listas/Configuracoes/Listexpectativasfechamento'));
 const Listmotivosperda = React.lazy(() => import('./pages/Listas/Configuracoes/Listmotivosperda'));
+ 
+//Atividades
+const Listanotacoes = React.lazy(() => import('./pages/Listas/Atividades/Listanotacoes'));
+const Listoportunidades = React.lazy(() => import('./pages/Listas/Atividades/Listoportunidades'));
+const Listaatividades = React.lazy(() => import('./pages/Listas/Atividades/Listaatividades'));
+
+//Acessos
+const ListaModulos = React.lazy(() => import('./pages/Listas/Acessos/ListaModulos'));
+const Listapaginas = React.lazy(() => import('./pages/Listas/Acessos/Listapaginas'));
+const Listausuarios = React.lazy(() => import('./pages/Listas/Acessos/Listausuarios'));
+const Listaperfisacesso = React.lazy(() => import('./pages/Listas/Acessos/Listaperfisacesso'));
+const Listapermissaoacesso = React.lazy(() => import('./pages/Listas/Acessos/Listapermissaoacesso'));
 
 const routes = [
   
@@ -125,6 +137,19 @@ const routes = [
 { path: '/List-tiposatividade', name: 'Lista de Tipos de Atividade', component: ListtiposAtividade },
 { path: '/List-expectativasfechamento', name: 'Lista de Expectativas de fechamento', component: Listexpectativasfechamento },
 { path: '/List-motivosperda', name: 'Lista de Motivos de Perda', component: Listmotivosperda },
+
+//Atividades
+{ path: '/List-anotacoes', name: 'Lista de Anotações', component: Listanotacoes },
+{ path: '/List-oportunidades', name: 'Lista de Oportunidades', component: Listoportunidades },
+{ path: '/List-atividades', name: 'Lista de Atividades', component: Listaatividades },
+
+//Acessos
+{ path: '/List-modulos', name: 'Lista de Módulos', component: ListaModulos },
+{ path: '/List-paginas', name: 'Lista de Páginas', component: Listapaginas },
+{ path: '/List-usuarios', name: 'Lista de Usuários', component: Listausuarios },
+{ path: '/List-perfisacesso', name: 'Lista de Perfil de Acesso', component: Listaperfisacesso },
+{ path: '/List-permissaoacesso', name: 'Lista de Permissão de Acesso', component: Listapermissaoacesso },
+
 ];
 
 

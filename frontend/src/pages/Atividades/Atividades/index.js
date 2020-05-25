@@ -75,7 +75,7 @@ export default function Atividades() {
                                     </Col>
                                     <Col md="3">
                                         <Label htmlFor="responsavelId">Responsável</Label>
-                                        <Input type="select" required name="select" id="ddlresponsavelId"
+                                        <Input type="select" required name="select" id="cboresponsavelId"
                                             value={responsavelId}
                                             onChange={e => setResponsavelId(e.target.value)}>
                                             <option value={undefined}>Selecione...</option>
@@ -85,7 +85,7 @@ export default function Atividades() {
                                     </Col>
                                     <Col md="2">
                                         <Label htmlFor="clienteId">Cliente</Label>
-                                        <Input type="select" required name="select" id="ddlclienteId"
+                                        <Input type="select" required name="select" id="cboclienteId"
                                             value={clienteId}
                                             onChange={e => setClienteId(e.target.value)}>
                                             <option value={undefined}>Selecione...</option>
@@ -96,7 +96,7 @@ export default function Atividades() {
                                     </Col>
                                     <Col md="2">
                                         <Label htmlFor="contatoId">Contato</Label>
-                                        <Input type="select" required name="select" id="ddlcontatoId"
+                                        <Input type="select" required name="select" id="cbocontatoId"
                                             value={contatoId}
                                             onChange={e => setContatoId(e.target.value)}>
                                             <option value={undefined}>Selecione...</option>
@@ -109,7 +109,7 @@ export default function Atividades() {
                                 <FormGroup row>
                                     <Col md="3">
                                         <Label htmlFor="tipoatividadeId">Tipo de Atividade</Label>
-                                        <Input type="select" required name="select" id="ddltipoatividadeId"
+                                        <Input type="select" required name="select" id="cbotipoatividadeId"
                                             value={tipoatividadeId}
                                             onChange={e => setTipoatividadeId(e.target.value)}>
                                             <option value={undefined}>Selecione...</option>
@@ -126,13 +126,13 @@ export default function Atividades() {
                                     </Col>
                                     <Col md="2">
                                         <Label htmlFor="datainicio">Data início</Label>
-                                        <Input type="date" required id="txtdatanasc"
+                                        <Input type="date" required id="txtdatainicio"
                                             value={datainicio}
                                             onChange={e => setDatainicio(e.target.value)} />
                                     </Col>
                                     <Col md="2">
                                         <Label htmlFor="datafim">Data Final</Label>
-                                        <Input type="date" required id="txtdatanasc"
+                                        <Input type="date" required id="txtdatafim"
                                             value={datafim}
                                             onChange={e => setDatafim(e.target.value)} />
                                     </Col>
@@ -147,13 +147,13 @@ export default function Atividades() {
                                 <FormGroup row>
                                     <Col md="2">
                                         <Label htmlFor="datafim">Tempo Notificação</Label>
-                                        <Input type="time" required id="txtdatanasc"
+                                        <Input type="time" required id="txttemponotificacao"
                                             value={temponotificacao}
                                             onChange={e => setTemponotificacao(e.target.value)} />
                                     </Col>
                                     <Col md="2">
                                         <Label htmlFor="anexoId">Anexo</Label>
-                                        <Input type="select" required name="select" id="ddlanexoId"
+                                        <Input type="select" required name="select" id="cboanexoId"
                                             value={anexoId}
                                             onChange={e => setAnexoId(e.target.value)}>
                                             <option value={undefined}>Selecione...</option>

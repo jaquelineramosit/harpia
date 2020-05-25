@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button, InputGroup, InputGroupAddon, CardFooter, Form, FormFeedback } from 'reactstrap';
+import { Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button,  CardFooter, Form } from 'reactstrap';
 import { AppSwitch } from '@coreui/react'
 import '../../../global.css';
 import api from '../../../../src/services/api';
@@ -74,7 +73,7 @@ export default function Oportunidades() {
                                     </Col>
                                     <Col md="3">
                                         <Label htmlFor="proprietarioId">Proprietário</Label>
-                                        <Input type="select" required name="select" id="ddlproprietarioId"
+                                        <Input type="select" required name="select" id="cboproprietarioId"
                                             value={proprietarioId}
                                             onChange={e => setProprietarioId(e.target.value)}>
                                             <option value={undefined}>Selecione...</option>
@@ -85,7 +84,7 @@ export default function Oportunidades() {
                                     </Col>
                                     <Col md="3">
                                         <Label htmlFor="clienteId">Cliente</Label>
-                                        <Input type="select" required name="select" id="ddlclienteId"
+                                        <Input type="select" required name="select" id="cboclienteId"
                                             value={clienteId}
                                             onChange={e => setClienteId(e.target.value)}>
                                             <option value={undefined}>Selecione...</option>
@@ -99,7 +98,7 @@ export default function Oportunidades() {
                                 <FormGroup row>
                                     <Col md="3">
                                         <Label htmlFor="produtoId">Produto</Label>
-                                        <Input type="select" required name="select" id="ddltipoatividadeId"
+                                        <Input type="select" required name="select" id="cboProduto"
                                             value={produtoId}
                                             onChange={e => setProdutoId(e.target.value)}>
                                             <option value={undefined}>Selecione...</option>
@@ -110,7 +109,7 @@ export default function Oportunidades() {
                                     </Col>
                                     <Col md="2">
                                         <Label htmlFor="fasepipeId">Fase do Pipe</Label>
-                                        <Input type="select" required name="select" id="ddlfasepipeId"
+                                        <Input type="select" required name="select" id="cbofasepipeId"
                                             value={fasepipeId}
                                             onChange={e => setFasepipeId(e.target.value)}>
                                             <option value={undefined}>Selecione...</option>
@@ -120,7 +119,7 @@ export default function Oportunidades() {
                                     </Col>
                                     <Col md="2">
                                         <Label htmlFor="motivoperdaId">Motivo da Perda</Label>
-                                        <Input type="select" required name="select" id="ddlmotivoperdaId"
+                                        <Input type="select" required name="select" id="cbomotivoperdaId"
                                             value={motivoperdaId}
                                             onChange={e => setMotivoperdaId(e.target.value)}>
                                             <option value={undefined}>Selecione...</option>
@@ -139,7 +138,7 @@ export default function Oportunidades() {
                                 <FormGroup row>
                                     <Col md="2">
                                         <Label htmlFor="anexoId">Anexo</Label>
-                                        <Input type="select" required name="select" id="ddlanexoId"
+                                        <Input type="select" required name="select" id="cboanexoId"
                                             value={anexoId}
                                             onChange={e => setAnexoId(e.target.value)}>
                                             <option value={undefined}>Selecione...</option>
@@ -148,7 +147,7 @@ export default function Oportunidades() {
                                     </Col>
                                     <Col md="2">
                                         <Label htmlFor="contatoId">Contato</Label>
-                                        <Input type="select" required name="select" id="ddlcontatoId"
+                                        <Input type="select" required name="select" id="cbocontatoId"
                                             value={contatoId}
                                             onChange={e => setContatoId(e.target.value)}>
                                             <option value={undefined}>Selecione...</option>
@@ -159,7 +158,7 @@ export default function Oportunidades() {
                                     </Col>
                                     <Col md="2">
                                     <Label htmlFor="expectativafechamentoId">Expectativa de Fechamento</Label>
-                                        <Input type="select" required name="select" id="ddlmotivoperdaId"
+                                        <Input type="select" required name="select" id="cboexpectativafechamentoId"
                                             value={expectativafechamentoId}
                                             onChange={e => setExpectativafechamentoId(e.target.value)}>
                                             <option value={undefined}>Selecione...</option>

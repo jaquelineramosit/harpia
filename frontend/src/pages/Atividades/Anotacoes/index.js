@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button, InputGroup, InputGroupAddon, CardFooter, Form, FormFeedback } from 'reactstrap';
+import { Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button,CardFooter, Form } from 'reactstrap';
 import { AppSwitch } from '@coreui/react'
 import '../../../global.css';
 import api from '../../../../src/services/api';
@@ -53,7 +52,7 @@ export default function Anotacoes() {
                                 <FormGroup row>
                                 <Col md="4">
                                         <Label htmlFor="clienteId">Cliente</Label>
-                                        <Input required type="select" name="select" id="txtcliente"
+                                        <Input required type="select" name="select" id="cboCliente"
                                         value={clienteId}
                                         onChange={ e => setClienteId(e.target.value)}
                                         >
@@ -64,7 +63,7 @@ export default function Anotacoes() {
                                     </Col>
                                     <Col md="3">
                                         <Label htmlFor="oportunidadeId">Oportunidade</Label>
-                                        <Input required type="select" name="select" id="txtOportunidadeId"
+                                        <Input required type="select" name="select" id="cboOportunidadeId"
                                         value={oportunidadeId}
                                         onChange={ e => setOportunidadeId(e.target.value)}
                                         >
@@ -77,7 +76,7 @@ export default function Anotacoes() {
                                 <FormGroup row>
                                 <Col md="4">
                                         <Label htmlFor="contatoId">Contato</Label>
-                                        <Input required type="select" name="select" id="txtTipopessoa"
+                                        <Input required type="select" name="select" id="cboContatoid"
                                         value={contatoId}
                                         onChange={ e => setContatoId(e.target.value)}
                                         >
