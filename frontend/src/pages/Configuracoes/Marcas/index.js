@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button, InputGroup, InputGroupAddon, CardFooter, Form, FormFeedback } from 'reactstrap';
+import { Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button, CardFooter, Form } from 'reactstrap';
 import { AppSwitch } from '@coreui/react'
 import '../../../global.css';
 import api from '../../../../src/services/api';
 
 export default function Marcas() {
-    const [nomemarca, setNomemarca] = useState('');
+    const [nomemarca, setNomeMarca] = useState('');
     const [nacional, setNacional] = useState('');
     const [ativo, setAtivo] = useState('');
     const usuarioId = localStorage.getItem('userId');
@@ -48,25 +47,26 @@ export default function Marcas() {
                             <CardBody>
                                 <FormGroup row>
                                     <Col md="4">
-                                        <Label htmlFor="nomemarca">Nome da Marca</Label>
-                                        <Input type="text" required id="txtNomemarca" placeholder="Digite o nome do Pipe"
+                                        <Label htmlFor="nomeMarca">Nome da Marca</Label>
+                                        <Input type="text" required id="txtNomeMarca" placeholder="Digite o nome do Pipe"
                                             value={nomemarca}
-                                            onChange={e => setNomemarca     (e.target.value)} />
+                                            onChange={e => setNomeMarca(e.target.value)} />
                                     </Col>
-                                    <Col md="3">
+                                    <Col md="4">
                                         <Label htmlFor="nacional">Nacionalidade</Label>
                                         <Input type="text" required id="txtNacional" placeholder="Digite a nacionalidade"
                                             value={nacional}
                                             onChange={e => setNacional(e.target.value)} />
                                     </Col>
+                                </FormGroup>
+                                <FormGroup row>    
                                     <Col md="1">
                                         <Label check className="form-check-label" htmlFor="ativo1">Ativo</Label>
                                         <AppSwitch id="rdAtivo" className={'switch-ativo'}  label color={'success'} defaultChecked size={'sm'}
                                         value={ativo}
                                         onChange={ e => setAtivo(e.target.value)}
                                         />                                    
-                                    </Col>   
-                                   
+                                    </Col>                                     
                                 </FormGroup>                                
                             </CardBody>
                             <CardFooter className="text-center">

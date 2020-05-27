@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState } from 'react';
 import { Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button, CardFooter, Form } from 'reactstrap';
 import { AppSwitch } from '@coreui/react'
 import '../../../global.css';
@@ -7,12 +7,12 @@ import api from '../../../../src/services/api';
 
 export default function Produtos() {
     const [marcaId, setMarcaId] = useState('');
-    const [nomeproduto, setNomeproduto] = useState('');
-    const [numerofabricante, setNumerofabricante] = useState('');
+    const [nomeproduto, setNomeProduto] = useState('');
+    const [numerofabricante, setNumeroFabricante] = useState('');
     const [quantidade, setQuantidade] = useState('');
     const [valor, setValor] = useState('');
     const [distribuidorId, setDistribuidorId] = useState('');
-    const [tempoentrega, setTempoentrega] = useState('');
+    const [tempoentrega, setTempoEntrega] = useState('');
     const [ativo, setAtivo] = useState('');
     const usuarioId = localStorage.getItem('userId');
 
@@ -57,17 +57,17 @@ export default function Produtos() {
                             </CardHeader>
                             <CardBody>
                                 <FormGroup row>
-                                    <Col md="4">
-                                        <Label htmlFor="nomeproduto">Nome Oportunidade</Label>
-                                        <Input type="text" required id="txtNomeproduto" placeholder="Digite o nome do Produto"
+                                    <Col md="3">
+                                        <Label htmlFor="nomeProduto">Nome Oportunidade</Label>
+                                        <Input type="text" required id="txtNomeProduto" placeholder="Digite o nome do Produto"
                                             value={nomeproduto}
-                                            onChange={e => setNomeproduto(e.target.value)} />
+                                            onChange={e => setNomeProduto(e.target.value)} />
                                     </Col>
                                     <Col md="3">
-                                        <Label htmlFor="numerofabricante">Número  do Fabricante</Label>
-                                        <Input type="text" required name="select" id="txtNumerofabricante" placeholder="Digite o Número do fabricante"
+                                        <Label htmlFor="numeroFabricante">Número  do Fabricante</Label>
+                                        <Input type="text" required name="select" id="txtNumeroFabricante" placeholder="Digite o Número do fabricante"
                                             value={numerofabricante}
-                                            onChange={e => setNumerofabricante(e.target.value)}>
+                                            onChange={e => setNumeroFabricante(e.target.value)}>
                                         </Input>
                                     </Col>
                                     <Col md="2">
@@ -82,19 +82,18 @@ export default function Produtos() {
                                             
                                         </Input>
                                     </Col>
-                                   
                                 </FormGroup>
                                 <FormGroup row>
                                     <Col md="3">
                                         <Label htmlFor="quantidade">Quantidade</Label>
-                                        <Input type="text" required name="select" id="txtQuantidade" placeholder="Insira a quantidade"
+                                        <Input type="number" required name="select" id="txtQuantidade" placeholder="Insira a quantidade"
                                             value={quantidade}
                                             onChange={e => setQuantidade(e.target.value)}>
                                         </Input>
                                     </Col>                                    
                                     <Col md="3">
                                         <Label htmlFor="distribuidorId">Distribuidor</Label>
-                                        <Input type="select" required name="select" id="cbodistribuidorId"
+                                        <Input type="select" required name="select" id="cboDistribuidorId"
                                             value={distribuidorId}
                                             onChange={e => setDistribuidorId(e.target.value)}>
                                             <option value={undefined}>Selecione...</option>
@@ -105,26 +104,28 @@ export default function Produtos() {
                                     </Col> 
                                     <Col md="2">
                                         <Label htmlFor="valor">Valor</Label>
-                                        <Input type="value" required id="txtValor"
+                                        <Input type="number" required id="txtValor"
                                             value={valor}
                                             onChange={e => setValor(e.target.value)} />
                                     </Col>                                
                                 </FormGroup>
                                 <FormGroup row>
-                                <Col md="3">
-                                        <Label htmlFor="tempoentrega">Tempo de entrega</Label>
+                                     <Col md="3">
+                                        <Label htmlFor="tempoEntrega">Tempo de entrega</Label>
                                         <Input type="time" required name="select" id="txtTempoentrega"
                                             value={tempoentrega}
-                                            onChange={e => setTempoentrega(e.target.value)}>
+                                            onChange={e => setTempoEntrega(e.target.value)}>
                                         </Input>
-                                    </Col>
-                                <Col md="1">
+                                    </Col>    
+                                </FormGroup>
+                                <FormGroup row>
+                                    <Col md="1">
                                         <Label check className="form-check-label" htmlFor="ativo1">Ativo</Label>
                                         <AppSwitch id="rdAtivo" className={'switch-ativo'}  label color={'success'} defaultChecked size={'sm'}
                                         value={ativo}
                                         onChange={ e => setAtivo(e.target.value)}
                                         />                                    
-                                    </Col>    
+                                    </Col>
                                 </FormGroup>
                             </CardBody>
                             <CardFooter className="text-center">

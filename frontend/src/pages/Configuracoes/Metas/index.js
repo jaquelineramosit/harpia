@@ -5,10 +5,10 @@ import '../../../global.css';
 import api from '../../../../src/services/api';
 
 export default function Metas() {
-    const [nomemeta, setNomemeta] = useState('');
+    const [nomemeta, setNomeMeta] = useState('');
     const [valor, setValor] = useState('');
     const [descricao, setDescricao] = useState('');
-    const [qtdeoportunidade, setQtdeoportunidade] = useState('');
+    const [qtdeoportunidade, setQtdeOportunidade] = useState('');
     const [ativo, setAtivo] = useState('');
     const usuarioId = localStorage.getItem('userId');
 
@@ -51,14 +51,14 @@ export default function Metas() {
                             <CardBody>
                                 <FormGroup row>
                                     <Col md="4">
-                                        <Label htmlFor="nomemeta">Nome da Meta</Label>
-                                        <Input type="text" required id="txtNomemeta" placeholder="Digite o nome da meta"
+                                        <Label htmlFor="nomeMeta">Nome da Meta</Label>
+                                        <Input type="text" required id="txtNomeMeta" placeholder="Digite o nome da meta"
                                             value={nomemeta}
-                                            onChange={e => setNomemeta(e.target.value)} />
+                                            onChange={e => setNomeMeta(e.target.value)} />
                                     </Col>
-                                    <Col md="2">
+                                    <Col md="44">
                                         <Label htmlFor="valor">Valor</Label>
-                                        <Input type="value" required name="select" id="txtValor"  placeholder="Digite o valor"
+                                        <Input type="number" required name="select" id="txtValor"  placeholder="Digite o valor"
                                             value={valor}
                                             onChange={e => setValor(e.target.value)}>
                                         </Input>
@@ -66,28 +66,30 @@ export default function Metas() {
                                 </FormGroup>
                                 <FormGroup row>
                                 <Col md="4">
-                                        <Label htmlFor="qtdeoportunidade">Quantidade de Oportunidade</Label>
-                                        <Input type="value" required name="select" id="txtQtdeoportunidade" placeholder="Digite a quantidade de oportunidade"
+                                        <Label htmlFor="qtdeOportunidade">Quantidade de Oportunidade</Label>
+                                        <Input type="value" required name="select" id="txtQtdeOportunidade" placeholder="Digite a quantidade de oportunidade"
                                             value={qtdeoportunidade}
-                                            onChange={e => setQtdeoportunidade(e.target.value)}>
+                                            onChange={e => setQtdeOportunidade(e.target.value)}>
                                         </Input>
-                                    </Col>
-                                    <Col md="1">
-                                        <Label check className="form-check-label" htmlFor="ativo1">Ativo</Label>
-                                        <AppSwitch id="rdAtivo" className={'switch-ativo'}  label color={'success'} defaultChecked size={'sm'}
-                                        value={ativo}
-                                        onChange={ e => setAtivo(e.target.value)}
-                                        />                                    
-                                    </Col>                             
+                                    </Col>                           
                                 </FormGroup>                   
                                 <FormGroup row>
-                                    <Col md="5">
+                                    <Col md="8">
                                         <Label>Descrição</Label>
                                         <Input type="textarea" rows="5"
                                             value={descricao}
                                             onChange={e => setDescricao(e.target.value)} />
                                     </Col>
                                 </FormGroup>
+                                <FormGroup row>
+                                    <Col md="1">
+                                        <Label check className="form-check-label" htmlFor="ativo1">Ativo</Label>
+                                        <AppSwitch id="rdAtivo" className={'switch-ativo'}  label color={'success'} defaultChecked size={'sm'}
+                                        value={ativo}
+                                        onChange={ e => setAtivo(e.target.value)}
+                                        />                                    
+                                    </Col>  
+                                </FormGroup>    
                             </CardBody>
                             <CardFooter className="text-center">
                                 <Button type="submit" size="sm" color="success" className=" mr-3"><i className="fa fa-check"></i> Salvar</Button>

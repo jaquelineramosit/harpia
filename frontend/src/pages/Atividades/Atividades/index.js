@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button, InputGroup, InputGroupAddon, CardFooter, Form, FormFeedback } from 'reactstrap';
+import { Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button, CardFooter, Form} from 'reactstrap';
 import { AppSwitch } from '@coreui/react'
 import '../../../global.css';
 import api from '../../../../src/services/api';
@@ -11,12 +10,12 @@ export default function Atividades() {
     const [descricao, setDescricao] = useState('');
     const [clienteId, setClienteId] = useState('');
     const [contatoId, setContatoId] = useState('');
-    const [tipoatividadeId, setTipoatividadeId] = useState('');
-    const [dataatividade, setDataatividade] = useState('');
-    const [datainicio, setDatainicio] = useState('');
-    const [datafim, setDatafim] = useState('');
-    const [temponotificacao, setTemponotificacao] = useState('');
-    const [exibenotificacao, setExibenotificacao] = useState('');
+    const [tipoatividadeId, setTipoAtividadeId] = useState('');
+    const [dataatividade, setDataAtividade] = useState('');
+    const [datainicio, setDataInicio] = useState('');
+    const [datafim, setDataFim] = useState('');
+    const [temponotificacao, setTempoNotificacao] = useState('');
+    const [exibenotificacao, setExibeNotificacao] = useState('');
     const [anexoId, setAnexoId] = useState('');
     const [cancelada, setCancelada] = useState('true');
     const usuarioId = localStorage.getItem('userId');
@@ -73,9 +72,9 @@ export default function Atividades() {
                                             value={atividade}
                                             onChange={e => setAtividade(e.target.value)} />
                                     </Col>
-                                    <Col md="3">
+                                    <Col md="4">
                                         <Label htmlFor="responsavelId">Responsável</Label>
-                                        <Input type="select" required name="select" id="cboresponsavelId"
+                                        <Input type="select" required name="select" id="cboResponsavelId"
                                             value={responsavelId}
                                             onChange={e => setResponsavelId(e.target.value)}>
                                             <option value={undefined}>Selecione...</option>
@@ -83,9 +82,11 @@ export default function Atividades() {
                                             <option value={7}>Responsável2</option>            
                                         </Input>
                                     </Col>
-                                    <Col md="2">
+                                </FormGroup>
+                                <FormGroup row>
+                                <Col md="4">
                                         <Label htmlFor="clienteId">Cliente</Label>
-                                        <Input type="select" required name="select" id="cboclienteId"
+                                        <Input type="select" required name="select" id="cboClienteId"
                                             value={clienteId}
                                             onChange={e => setClienteId(e.target.value)}>
                                             <option value={undefined}>Selecione...</option>
@@ -94,9 +95,9 @@ export default function Atividades() {
 
                                         </Input>
                                     </Col>
-                                    <Col md="2">
+                                    <Col md="4">
                                         <Label htmlFor="contatoId">Contato</Label>
-                                        <Input type="select" required name="select" id="cbocontatoId"
+                                        <Input type="select" required name="select" id="cboContatoId"
                                             value={contatoId}
                                             onChange={e => setContatoId(e.target.value)}>
                                             <option value={undefined}>Selecione...</option>
@@ -107,75 +108,74 @@ export default function Atividades() {
                                     </Col>
                                 </FormGroup>
                                 <FormGroup row>
-                                    <Col md="3">
-                                        <Label htmlFor="tipoatividadeId">Tipo de Atividade</Label>
-                                        <Input type="select" required name="select" id="cbotipoatividadeId"
-                                            value={tipoatividadeId}
-                                            onChange={e => setTipoatividadeId(e.target.value)}>
+                                    <Col md="2">
+                                        <Label htmlFor="tipoAtividadeId">Tipo Atividade</Label>
+                                        <Input type="select" required name="select" id="cboTipoAtividadeId"
+                                            value={contatoId}
+                                            onChange={e => setTipoAtividadeId(e.target.value)}>
                                             <option value={undefined}>Selecione...</option>
-                                            <option value={1}>Atividade1</option>
-                                            <option value={2}>Atividade2</option>
-
+                                            <option value={1}>Contato1</option>
+                                            <option value={2}>Contato2</option>
                                         </Input>
-                                    </Col>
+                                    </Col>  
                                     <Col md="2">
-                                        <Label htmlFor="dataatividade">Data da Atividade</Label>
-                                        <Input type="date" required id="txtdataatividade"
+                                        <Label htmlFor="dataAtividade">Data da Atividade</Label>
+                                        <Input type="date" required id="txtDataAtividade"
                                             value={dataatividade}
-                                            onChange={e => setDataatividade(e.target.value)} />
+                                            onChange={e => setDataAtividade(e.target.value)} />
                                     </Col>
                                     <Col md="2">
-                                        <Label htmlFor="datainicio">Data início</Label>
-                                        <Input type="date" required id="txtdatainicio"
+                                        <Label htmlFor="dataInicio">Data início</Label>
+                                        <Input type="date" required id="txtDataInicio"
                                             value={datainicio}
-                                            onChange={e => setDatainicio(e.target.value)} />
+                                            onChange={e => setDataInicio(e.target.value)} />
                                     </Col>
                                     <Col md="2">
-                                        <Label htmlFor="datafim">Data Final</Label>
-                                        <Input type="date" required id="txtdatafim"
+                                        <Label htmlFor="dataFim">Data Final</Label>
+                                        <Input type="date" required id="txtDataFim"
                                             value={datafim}
-                                            onChange={e => setDatafim(e.target.value)} />
+                                            onChange={e => setDataFim(e.target.value)} />
                                     </Col>
-                                    <Col md="2">
+                                </FormGroup>
+                                <FormGroup row>
+                                   <Col md="2">
                                         <Label check className="form-check-label" htmlFor="ativo1">Exibir notificação</Label>
                                         <AppSwitch id="rdAtivo" className={'switch-ativo'} label color={'success'} defaultChecked size={'sm'}
                                             value={exibenotificacao}
-                                            onChange={e => setExibenotificacao(e.target.value)}
+                                            onChange={e => setExibeNotificacao(e.target.value)}
                                         />
                                     </Col>
-                                </FormGroup>
-                                <FormGroup row>
                                     <Col md="2">
-                                        <Label htmlFor="datafim">Tempo Notificação</Label>
-                                        <Input type="time" required id="txttemponotificacao"
+                                        <Label htmlFor="tempoNotificacao">Tempo Notificação</Label>
+                                        <Input type="time" required id="txtTempoNotificacao"
                                             value={temponotificacao}
-                                            onChange={e => setTemponotificacao(e.target.value)} />
-                                    </Col>
-                                    <Col md="2">
-                                        <Label htmlFor="anexoId">Anexo</Label>
-                                        <Input type="select" required name="select" id="cboanexoId"
-                                            value={anexoId}
-                                            onChange={e => setAnexoId(e.target.value)}>
-                                            <option value={undefined}>Selecione...</option>
-                                            <option value={1}>Anexo1</option>
-                                        </Input>
-                                    </Col>
-                                    <Col md="1">
-                                        <Label check className="form-check-label" htmlFor="ativo1">Cancelada</Label>
-                                        <AppSwitch id="rdAtivo" className={'switch-ativo'} label color={'success'} defaultChecked size={'sm'}
-                                            value={cancelada}
-                                            onChange={e => setCancelada(e.target.value)}
-                                        />
+                                            onChange={e => setTempoNotificacao(e.target.value)} />
                                     </Col>
                                 </FormGroup>
                                 <FormGroup row>
-                                    <Col md="5">
+                                    <Col md="8">
                                         <Label>Descrição</Label>
                                         <Input type="textarea" rows="5"
                                             value={descricao}
                                             onChange={e => setDescricao(e.target.value)} />
                                     </Col>
                                 </FormGroup>
+                                <FormGroup row>
+                                    <Col md="4">
+                                            <Label htmlFor="anexoId">Anexo</Label>
+                                            <Input type="file" required name="select" id="cboanexoId"
+                                                value={anexoId}
+                                                onChange={e => setAnexoId(e.target.value)}>
+                                            </Input>
+                                        </Col>
+                                        <Col md="1">
+                                            <Label check className="form-check-label" htmlFor="ativo1">Ativa</Label>
+                                            <AppSwitch id="rdAtivo" className={'switch-ativo'} label color={'success'} defaultChecked size={'sm'}
+                                                value={cancelada}
+                                                onChange={e => setCancelada(e.target.value)}
+                                            />
+                                        </Col>
+                                </FormGroup>    
                             </CardBody>
                             <CardFooter className="text-center">
                                 <Button type="submit" size="sm" color="success" className=" mr-3"><i className="fa fa-check"></i> Salvar</Button>

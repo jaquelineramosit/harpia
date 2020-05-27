@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
-import { Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button, CardFooter, Form,  } from 'reactstrap';
+import { Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button, CardFooter, Form  } from 'reactstrap';
 import { AppSwitch } from '@coreui/react'
 import '../../../global.css';
 import api from '../../../../src/services/api';
 
 export default function SegmentosMercado () {
-    const [nomesegmento, setNomesegmento] = useState('');
+    const [nomesegmento, setNomeSegmento] = useState('');
     const [ativo, setAtivo] = useState('');
     const usuarioId = localStorage.getItem('userId');
 
 
 
-    async function handleSegmentomercado(e) {
+    async function handleSegmentoMercado(e) {
         e.preventDefault();
 
         const data = {
@@ -34,7 +34,7 @@ export default function SegmentosMercado () {
 
     return (
         <div className="animated fadeIn">
-            <Form onSubmit={handleSegmentomercado}>
+            <Form onSubmit={handleSegmentoMercado}>
                 <Row>
                     <Col xs="12" md="12">
                         <Card>
@@ -45,11 +45,13 @@ export default function SegmentosMercado () {
                             <CardBody>
                                 <FormGroup row>
                                     <Col md="4">
-                                        <Label htmlFor="nomesegmento">Nome do Segmento de Mercado</Label>
-                                        <Input type="text" required id="txtNomesegmento" placeholder="Digite o nome do Segmento"
+                                        <Label htmlFor="nomeSegmento">Nome do Segmento de Mercado</Label>
+                                        <Input type="text" required id="txtNomeSegmento" placeholder="Digite o nome do Segmento"
                                             value={nomesegmento}
-                                            onChange={e => setNomesegmento(e.target.value)} />
+                                            onChange={e => setNomeSegmento(e.target.value)} />
                                     </Col>
+                                </FormGroup>
+                                <FormGroup row>    
                                     <Col md="1">
                                         <Label check className="form-check-label" htmlFor="ativo1">Ativo</Label>
                                         <AppSwitch id="rdAtivo" className={'switch-ativo'}  label color={'success'} defaultChecked size={'sm'}

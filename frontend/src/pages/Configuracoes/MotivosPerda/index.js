@@ -4,14 +4,14 @@ import { AppSwitch } from '@coreui/react'
 import '../../../global.css';
 import api from '../../../../src/services/api';
 
-export default function Motivosperda() {   
-    const [motivoperda, setMotivoperda] = useState('');
+export default function MotivosPerda() {   
+    const [motivoperda, setMotivoPerda] = useState('');
     const [ativo, setAtivo] = useState('True');
     const usuarioId = localStorage.getItem('userId');
 
 
 
-    async function handleMotivosperda(e) {
+    async function handleMotivosPerda(e) {
         e.preventDefault();
 
         const data = {
@@ -33,7 +33,7 @@ export default function Motivosperda() {
 
     return (
         <div className="animated fadeIn">
-            <Form onSubmit={handleMotivosperda}>
+            <Form onSubmit={handleMotivosPerda}>
                 <Row>
                     <Col xs="12" md="12">
                         <Card>
@@ -44,11 +44,13 @@ export default function Motivosperda() {
                             <CardBody>
                                 <FormGroup row>
                                     <Col md="4">
-                                        <Label htmlFor="motivoperda">Motivo da Perda</Label>
-                                        <Input type="text" required id="txtMotivoperda" placeholder="Digite um motivo"
+                                        <Label htmlFor="motivoPerda">Motivo da Perda</Label>
+                                        <Input type="text" required id="txtMotivoPerda" placeholder="Digite um motivo"
                                             value={motivoperda}
-                                            onChange={e => setMotivoperda(e.target.value)} />
+                                            onChange={e => setMotivoPerda(e.target.value)} />
                                     </Col>
+                                </FormGroup>
+                                <FormGroup row>    
                                     <Col md="1">
                                         <Label check className="form-check-label" htmlFor="ativo1">Ativo</Label>
                                         <AppSwitch id="rdAtivo" className={'switch-ativo'}  label color={'success'} defaultChecked size={'sm'}
@@ -56,8 +58,6 @@ export default function Motivosperda() {
                                         onChange={ e => setAtivo(e.target.value)}
                                         />                                    
                                     </Col>                                
-                                </FormGroup>
-                                <FormGroup row>                             
                                 </FormGroup>                   
                             </CardBody>
                             <CardFooter className="text-center">

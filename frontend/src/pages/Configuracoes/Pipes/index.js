@@ -5,7 +5,7 @@ import '../../../global.css';
 import api from '../../../../src/services/api';
 
 export default function Pipes() {
-    const [nomepipe, setNomepipe] = useState('');
+    const [nomepipe, setNomePipe] = useState('');
     const [ativo, setAtivo] = useState('');
     const usuarioId = localStorage.getItem('userId');
 
@@ -48,17 +48,18 @@ export default function Pipes() {
                                         <Label htmlFor="nomepipe">Nome do Pipe</Label>
                                         <Input type="text" required id="txtNomepipe" placeholder="Digite o nome do Pipe"
                                             value={nomepipe}
-                                            onChange={e => setNomepipe(e.target.value)} />
+                                            onChange={e => setNomePipe(e.target.value)} />
                                     </Col>
+                                </FormGroup>
+                                <FormGroup row>
                                     <Col md="1">
                                         <Label check className="form-check-label" htmlFor="ativo1">Ativo</Label>
                                         <AppSwitch id="rdAtivo" className={'switch-ativo'}  label color={'success'} defaultChecked size={'sm'}
                                         value={ativo}
                                         onChange={ e => setAtivo(e.target.value)}
                                         />                                    
-                                    </Col>   
-                                   
-                                </FormGroup>                                
+                                    </Col>
+                                </FormGroup>                                   
                             </CardBody>
                             <CardFooter className="text-center">
                                 <Button type="submit" size="sm" color="success" className=" mr-3"><i className="fa fa-check"></i> Salvar</Button>

@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import { Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button, InputGroup, InputGroupAddon, CardFooter, Form, FormFeedback } from 'reactstrap';
+import { Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button, CardFooter, Form } from 'reactstrap';
 import { AppSwitch } from '@coreui/react'
 import '../../../global.css';
 import api from '../../../../src/services/api';
 
 export default function Paises () {
-    const [nomepais, setNomepais] = useState('');
+    const [nomepais, setNomePais] = useState('');
     const [sigla, setSigla] = useState('');
     const [moeda, setMoeda] = useState('');
-    const [siglamoeda, setSiglamoeda] = useState('');
+    const [siglamoeda, setSiglaMoeda] = useState('');
     const [ativo, setAtivo] = useState('');
     const usuarioId = localStorage.getItem('userId');
 
@@ -50,41 +50,41 @@ export default function Paises () {
                             </CardHeader>
                             <CardBody>
                                 <FormGroup row>
-                                    <Col md="3">
-                                        <Label htmlFor="nomepais">Nome do País</Label>
-                                        <Input type="text" required id="txtNomepais" placeholder="Digite o nome do país"
+                                    <Col md="2">
+                                        <Label htmlFor="nomePais">Nome do País</Label>
+                                        <Input type="text" required id="txtNomePais" placeholder="Digite o país"
                                             value={nomepais}
-                                            onChange={e => setNomepais(e.target.value)} />
+                                            onChange={e => setNomePais(e.target.value)} />
                                     </Col>
                                     <Col md="2">
-                                        <Label htmlFor="sigla">Sigla</Label>
-                                        <Input type="text" required id="txtSigla" placeholder="Digite o nome da Sigla"
+                                        <Label htmlFor="sigla">Sigla do país</Label>
+                                        <Input type="text" required id="txtSigla" placeholder="Digite a sigla"
                                             value={sigla}
                                             onChange={e => setSigla(e.target.value)} />
                                     </Col>
+                                </FormGroup> 
+                                <FormGroup row>
                                     <Col md="2">
                                         <Label htmlFor="moeda">Moeda</Label>
                                         <Input type="text" required id="txtMoeda" placeholder="Digite moeda"
                                             value={moeda}
                                             onChange={e => setMoeda(e.target.value)} />
                                     </Col>
-                                   
-                                </FormGroup> 
-                                <FormGroup row>
-                                <Col md="3">
-                                        <Label htmlFor="siglamoeda">Sigla da Moeda</Label>
-                                        <Input type="text" required id="txtSiglamoeda" placeholder="Digite a sigla da moeda"
+                                    <Col md="2">
+                                        <Label htmlFor="siglaMoeda">Sigla da Moeda</Label>
+                                        <Input type="text" required id="txtSiglamoeda" placeholder="Digite a sigla"
                                             value={siglamoeda}
-                                            onChange={e => setSiglamoeda(e.target.value)} />
+                                            onChange={e => setSiglaMoeda(e.target.value)} />
                                     </Col>
+                                </FormGroup>
+                                <FormGroup row>    
                                     <Col md="1">
                                         <Label check className="form-check-label" htmlFor="ativo1">Ativo</Label>
                                         <AppSwitch id="rdAtivo" className={'switch-ativo'}  label color={'success'} defaultChecked size={'sm'}
                                         value={ativo}
                                         onChange={ e => setAtivo(e.target.value)}
                                         />                                    
-                                    </Col>   
-                                    
+                                    </Col>
                                 </FormGroup>                               
                             </CardBody>
                             <CardFooter className="text-center">

@@ -5,9 +5,9 @@ import '../../../global.css';
 import api from '../../../../src/services/api';
 
 export default function Clientes() {
-    const [nomecliente, setNomecliente] = useState('');
-    const [razaosocial, setRazaosocial] = useState('');
-    const [tipopessoa, setTipopessoa] = useState('');
+    const [nomecliente, setNomeCliente] = useState('');
+    const [razaosocial, setRazaoSocial] = useState('');
+    const [tipopessoa, setTipoPessoa] = useState('');
     const [cnpj, setCnpj] = useState('');
     const [logradouro, setLogradouro] = useState('');
     const [numero, setNumero] = useState('');
@@ -22,7 +22,7 @@ export default function Clientes() {
     const [site, setSite] = useState('');
     const [email, setEmail] = useState('');
     const [paisId, setPaisId] = useState('');
-    const [segmentomercadoId, setSegmentomercadoId] = useState('');
+    const [segmentomercadoId, setSegmentoMercadoId] = useState('');
     const [ativo, setAtivo] = useState("true");
     const usuarioId = localStorage.getItem('userId');    
     
@@ -79,17 +79,17 @@ export default function Clientes() {
                             </CardHeader>
                             <CardBody>
                                 <FormGroup row>
-                                <Col md="4">
-                                        <Label htmlFor="Nomecliente">Nome Cliente</Label>
-                                        <Input type="text" required id="txtNomecliente" placeholder="Digite o nome do Cliente"
+                                    <Col md="4">
+                                        <Label htmlFor="NomeCliente">Nome Cliente</Label>
+                                        <Input type="text" required id="txtNomeCliente" placeholder="Digite o nome do Cliente"
                                         value={nomecliente}
-                                        onChange={ e => setNomecliente(e.target.value)}/>                                        
+                                        onChange={ e => setNomeCliente(e.target.value)}/>                                        
                                     </Col>
                                     <Col md="4">
-                                        <Label htmlFor="Razaosocial">Razão Social</Label>
-                                        <Input type="text" required id="txtRazaosocial" placeholder="Digite o nome do Cliente"
+                                        <Label htmlFor="RazaoSocial">Razão Social</Label>
+                                        <Input type="text" required id="txtRazaoSocial" placeholder="Digite o nome do Cliente"
                                         value={razaosocial}
-                                        onChange={ e => setRazaosocial(e.target.value)}/>                                        
+                                        onChange={ e => setRazaoSocial(e.target.value)}/>                                        
                                     </Col>                                 
                                     <Col md="2">
                                         <Label htmlFor="Cnpj">CNPJ</Label>
@@ -102,16 +102,16 @@ export default function Clientes() {
                                     </Col>                              
                                 </FormGroup>
                                 <FormGroup row>
-                                <Col md="4">
+                                    <Col md="4">
                                         <Label htmlFor="Logradouro">Logradouro</Label>
                                         <InputGroup>
-                                            <Input type="text" required id="txtLogradouro"  
+                                        <Input type="text" required id="txtLogradouro"  
                                             placeholder="Digite o Logradouro"
                                             value={logradouro}
                                             onChange={ e => setLogradouro(e.target.value)} />                                          
                                         </InputGroup>       
                                     </Col>                                                    
-                                    <Col md="3">
+                                    <Col md="4">
                                         <Label htmlFor="Bairro">Bairro</Label>
                                         <Input type="text" required id="txtBairro" placeholder="Digite o Bairro"
                                         value={bairro}
@@ -119,6 +119,14 @@ export default function Clientes() {
                                          />
                                     </Col>
                                     <Col md="2">
+                                        <Label htmlFor="Numero">Número</Label>
+                                        <Input type="text" required id="txtNumero" placeholder="Digite apenas Números"
+                                        value={numero}
+                                        onChange={ e => setNumero(e.target.value)} />
+                                    </Col>
+                                </FormGroup>
+                                <FormGroup row>
+                                     <Col md="3">
                                         <Label htmlFor="CEP">CEP</Label>
                                         <InputGroup>
                                             <Input id="txtCEP" size="16" required type="text" placeholder="00000-000"
@@ -129,34 +137,25 @@ export default function Clientes() {
                                             </InputGroupAddon>
                                         </InputGroup>                                    
                                     </Col>
-                                </FormGroup>
-                                <FormGroup row>
-                                    
-                                <Col md="2">
-                                        <Label htmlFor="Numero">Número</Label>
-                                        <Input type="text" required id="txtNumero" placeholder="Digite apenas Números"
-                                        value={numero}
-                                        onChange={ e => setNumero(e.target.value)} />
-                                    </Col>
-                                    <Col md="2">
+                                    <Col md="3">
                                         <Label htmlFor="Complemento">Complemento</Label>
                                         <Input type="text" id="txtComplemento" placeholder="Digite o Complemento" 
                                         value={complemento}
                                         onChange={ e => setComplemento(e.target.value)}/>
                                     </Col>                               
                                     <Col md="2">
-                                        <Label htmlFor="Tipopessoa">Tipo Pessoa</Label>
+                                        <Label htmlFor="TipoPessoa">Tipo Pessoa</Label>
                                         <Input required type="select" name="select" id="cboTipopessoa"
                                         value={tipopessoa}
-                                        onChange={ e => setTipopessoa(e.target.value)}
+                                        onChange={ e => setTipoPessoa(e.target.value)}
                                         >
                                             <option value={undefined}>Selecione...</option>
                                             <option value="F">Física</option>
                                             <option value="M">Jurídica</option>                                        
                                         </Input>
                                     </Col>
-                                    <Col md="3">
-                                    <Label htmlFor="paisId">País</Label>
+                                    <Col md="2">
+                                        <Label htmlFor="paisId">País</Label>
                                         <Input type="select" required name="select" id="cboPais"
                                         value={paisId}
                                         onChange={ e => setPaisId(e.target.value)}>
@@ -166,10 +165,7 @@ export default function Clientes() {
                                             <option  value={3}>Holanda</option>
 
                                         </Input>      
-                                    </Col>              
-
-
-
+                                    </Col>
                                 </FormGroup>
                                 <FormGroup row>
                                     <Col md="4">
@@ -178,20 +174,20 @@ export default function Clientes() {
                                         value={cidade}
                                         onChange={ e => setCidade(e.target.value)} />                                    
                                     </Col>
-                                    <Col md="2">
+                                    <Col md="3">
                                         <Label htmlFor="UF">UF</Label>
                                         <Input type="select" required name="select" id="cboUf"
                                         value={uf}
                                         onChange={ e => setUf(e.target.value)}>
                                             <option value={undefined}>Selecione...</option>
-                                            <option value="1">São Paulo</option>
-                                            <option value="2">Rio de Janeiro</option>
-                                            <option value="3">Minas Gerais</option>
-                                            <option value="4">Paraná</option>
-                                            <option value="5">Santa Catarina</option>
+                                            <option value="SP">São Paulo</option>
+                                            <option value="RJ">Rio de Janeiro</option>
+                                            <option value="MG">Minas Gerais</option>
+                                            <option value="PR">Paraná</option>
+                                            <option value="SC">Santa Catarina</option>
                                         </Input>
                                     </Col>
-                                    <Col md="2">
+                                    <Col md="3">
                                     <Label htmlFor="Telefone">Telefone</Label>                                        
                                         <InputGroup>
                                             <Input type="text"  id="txtTelefone" placeholder="(11) 9999-9999"
@@ -201,8 +197,7 @@ export default function Clientes() {
                                                 <Button type="button" color="secondary icon-phone"></Button>
                                             </InputGroupAddon>
                                         </InputGroup>
-                                    </Col>                               
-                                                                           
+                                    </Col>                              
                                 </FormGroup>                        
                                 <FormGroup row>                     
                                     <Col md="3">
@@ -211,38 +206,37 @@ export default function Clientes() {
                                         value={cpf}
                                         onChange={ e => setCpf(e.target.value)} />                                    
                                     </Col>
-                                    <Col md="3">
-                                    <Label htmlFor="E-mail">E-mail</Label>
+                                    <Col md="4">
+                                        <Label htmlFor="E-mail">E-mail</Label>
                                         <InputGroup>
-                                        <Input type="email" required id="txtEmail" placeholder="Digite o e-mail"
-                                        value={email}
-                                        onChange={ e => setEmail(e.target.value)} />
+                                            <Input type="email" required id="txtEmail" placeholder="Digite o e-mail"
+                                            value={email}
+                                            onChange={ e => setEmail(e.target.value)} />
                                             <InputGroupAddon addonType="append">
-                                                <Button type="button" color="secondary icon-envelope"></Button>
+                                                    <Button type="button" color="secondary icon-envelope"></Button>
                                             </InputGroupAddon>
                                         </InputGroup>
                                     </Col>                               
-                                    <Col md="2">
-                                    <Label htmlFor="segmentomercadoId,">Segmento de Mercado</Label>
+                                    <Col md="3">
+                                        <Label htmlFor="segmentomercadoId,">Segmento de Mercado</Label>
                                         <Input type="select" required name="select" id="cboSegmentomercadoId"
                                         value={segmentomercadoId}
-                                        onChange={ e => setSegmentomercadoId(e.target.value)}>
+                                        onChange={ e => setSegmentoMercadoId(e.target.value)}>
                                             <option value={undefined}>Selecione...</option>
                                             <option value={1}>Segmento1</option>
                                             <option value={2}>Segmento2</option>
-                                           
                                         </Input>        
                                     </Col>                                                                                                                       
                                 </FormGroup>
                                 <FormGroup row>                     
-                                    <Col md="3">
+                                    <Col md="4">
                                         <Label htmlFor="Site">Site</Label>
                                         <Input type="text" required id="txtSite" placeholder="Digite site da Empresa"
                                         value={site}
                                         onChange={ e => setSite(e.target.value)} />                                    
                                     </Col>
-                                    <Col md="3">
-                                    <Label htmlFor="contatoId">Contato</Label>
+                                    <Col md="4">
+                                        <Label htmlFor="contatoId">Contato</Label>
                                         <Input type="select" required name="select" id="cboContatoId"
                                         value={contatoId}
                                         onChange={ e => setContatoId(e.target.value)}>
@@ -251,7 +245,9 @@ export default function Clientes() {
                                             <option value={2}>contato2</option>
                                            
                                         </Input>      
-                                    </Col>                               
+                                    </Col>
+                                </FormGroup>
+                                <FormGroup row>                                 
                                     <Col md="2">
                                         <Label check className="form-check-label" htmlFor="ativo1">Ativo</Label>
                                         <AppSwitch id="rdAtivo" className={'switch-ativo'}  label color={'success'} defaultChecked size={'sm'}
@@ -261,8 +257,6 @@ export default function Clientes() {
                                     </Col>                                                                                                                       
                                 </FormGroup>
                             </CardBody>
-                           
-                           
                             <CardFooter className="text-center">
                                 <Button type="submit" size="sm" color="success" className=" mr-3"><i className="fa fa-check"></i> Salvar</Button>
                                 <Button type="reset" size="sm" color="danger" className="ml-3"><i className="fa fa-ban "></i> Cancelar</Button>

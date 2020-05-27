@@ -11,7 +11,7 @@ export default function Metasvendedores() {
     const [ativo, setAtivo] = useState('true');
     const usuarioId = localStorage.getItem('userId');
 
-    async function handleMetasvendedores(e) {
+    async function handleMetasVendedores(e) {
         e.preventDefault();
 
         const data = {
@@ -36,7 +36,7 @@ export default function Metasvendedores() {
 
     return (
         <div className="animated fadeIn">
-            <Form onSubmit={handleMetasvendedores}>
+            <Form onSubmit={handleMetasVendedores}>
                 <Row>
                     <Col xs="12" md="12">
                         <Card>
@@ -46,44 +46,45 @@ export default function Metasvendedores() {
                             </CardHeader>
                             <CardBody>
                                 <FormGroup row>
-                                <Col md="3">
-                                        <Label htmlFor="vendedorId">Vendedor</Label>
-                                        <Input required type="select" name="select" id="txtVendedorId"
-                                        value={vendedorId}
-                                        onChange={ e => setVendedorId(e.target.value)}
-                                        >
-                                            <option value={undefined}>Selecione...</option> 
-                                            <option value={6}>Vendedor1</option>  
-                                            <option value={7}>Vendedor2</option>                                        
-                                        </Input>
-                                </Col>                               
-                                <Col md="2">
-                                        <Label htmlFor="metaId">Metas</Label>
-                                        <Input required type="select" name="select" id="cboMetaId"
-                                        value={metaId}
-                                        onChange={ e => setMetaId(e.target.value)}
-                                        >
-                                            <option value={undefined}>Selecione...</option>                                    
-                                            <option value={1}>Metas1</option>  
-                                            <option value={2}>Metas2</option>                                         
-                                        </Input>
-                                </Col>   
-                                <Col md="1">
-                                        <Label check className="form-check-label" htmlFor="ativo1">Ativo</Label>
-                                        <AppSwitch id="rdAtivo" className={'switch-ativo'}  label color={'success'} defaultChecked size={'sm'}
-                                        value={ativo}
-                                        onChange={ e => setAtivo(e.target.value)}
-                                        />                                    
+                                    <Col md="4">
+                                            <Label htmlFor="vendedorId">Vendedor</Label>
+                                            <Input required type="select" name="select" id="txtVendedorId"
+                                            value={vendedorId}
+                                            onChange={ e => setVendedorId(e.target.value)}
+                                            >
+                                                <option value={undefined}>Selecione...</option> 
+                                                <option value={6}>Vendedor1</option>  
+                                                <option value={7}>Vendedor2</option>                                        
+                                            </Input>
+                                    </Col>                               
+                                    <Col md="4">
+                                            <Label htmlFor="metaId">Metas</Label>
+                                            <Input required type="select" name="select" id="cboMetaId"
+                                            value={metaId}
+                                            onChange={ e => setMetaId(e.target.value)}>
+                                                <option value={undefined}>Selecione...</option>                                    
+                                                <option value={1}>Metas1</option>  
+                                                <option value={2}>Metas2</option>                                         
+                                            </Input>
                                     </Col>                                      
                                 </FormGroup>
                                 <FormGroup row>
-                                    <Col md="5">
+                                    <Col md="8">
                                         <Label>Observação</Label>
                                         <Input type="textarea" rows="5"
                                             value={observacao}
                                             onChange={e => setObservacao(e.target.value)} />
                                     </Col>
                                 </FormGroup>
+                                <FormGroup row>
+                                    <Col md="1">
+                                        <Label check className="form-check-label" htmlFor="ativo1">Ativo</Label>
+                                        <AppSwitch id="rdAtivo" className={'switch-ativo'}  label color={'success'} defaultChecked size={'sm'}
+                                        value={ativo}
+                                        onChange={ e => setAtivo(e.target.value)}
+                                        />                                    
+                                    </Col>
+                                </FormGroup>    
                             </CardBody>
                             <CardFooter className="text-center">
                                 <Button type="submit" size="sm" color="success" className=" mr-3"><i className="fa fa-check"></i> Salvar</Button>

@@ -4,14 +4,14 @@ import { AppSwitch } from '@coreui/react'
 import '../../../global.css';
 import api from '../../../../src/services/api';
 
-export default function Expectativasfechamento() {   
-    const [expectativafechamento, setExpectativafechamento] = useState('');
+export default function ExpectativasFechamento() {   
+    const [expectativafechamento, setExpectativaFechamento] = useState('');
     const [ativo, setAtivo] = useState('True');
     const usuarioId = localStorage.getItem('userId');
 
 
 
-    async function handleExpectativasfechamento(e) {
+    async function handleExpectativasFechamento(e) {
         e.preventDefault();
 
         const data = {
@@ -34,7 +34,7 @@ export default function Expectativasfechamento() {
 
     return (
         <div className="animated fadeIn">
-            <Form onSubmit={handleExpectativasfechamento}>
+            <Form onSubmit={handleExpectativasFechamento}>
                 <Row>
                     <Col xs="12" md="12">
                         <Card>
@@ -45,11 +45,13 @@ export default function Expectativasfechamento() {
                             <CardBody>
                                 <FormGroup row>
                                     <Col md="3">
-                                        <Label htmlFor="expectativafechamento">Expectativas de Fechamento</Label>
-                                        <Input type="date" required id="txtExpectativafechamento" placeholder="Digite o nome do Cargo"
+                                        <Label htmlFor="expectativaFechamento">Expectativas de Fechamento</Label>
+                                        <Input type="date" required id="txtExpectativaFechamento" placeholder="Digite o nome do Cargo"
                                             value={expectativafechamento}
-                                            onChange={e => setExpectativafechamento(e.target.value)} />
+                                            onChange={e => setExpectativaFechamento(e.target.value)} />
                                     </Col>
+                                </FormGroup>
+                                <FormGroup row>    
                                     <Col md="1">
                                         <Label check className="form-check-label" htmlFor="ativo1">Ativo</Label>
                                         <AppSwitch id="rdAtivo" className={'switch-ativo'}  label color={'success'} defaultChecked size={'sm'}
@@ -57,9 +59,7 @@ export default function Expectativasfechamento() {
                                         onChange={ e => setAtivo(e.target.value)}
                                         />                                    
                                     </Col>                                
-                                </FormGroup>
-                                <FormGroup row>                             
-                                </FormGroup>                   
+                                </FormGroup>                 
                             </CardBody>
                             <CardFooter className="text-center">
                                 <Button type="submit" size="sm" color="success" className=" mr-3"><i className="fa fa-check"></i> Salvar</Button>

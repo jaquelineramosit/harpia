@@ -74,32 +74,37 @@ export default function Contatos() {
                             </CardHeader>
                             <CardBody>
                                 <FormGroup row>
-                                <Col md="4">
-                                        <Label htmlFor="Nomecontato">Nome Contato</Label>
+                                     <Col md="3">
+                                        <Label htmlFor="NomeContato">Nome Contato</Label>
                                         <Input type="text" required id="txtNomecontato" placeholder="Digite o nome do Contato"
                                         value={nomecontato}
                                         onChange={ e => setNomecontato(e.target.value)}/>                                        
                                     </Col>
                                     <Col md="3">
-                                        <Label htmlFor="Bairro">Bairro</Label>
-                                        <Input type="text" required id="txtBairro" placeholder="Digite o Bairro"
-                                        value={bairro}
-                                        onChange={ e => setBairro(e.target.value)}
-                                         />
-                                    </Col>
-                                    <Col md="2">
-                                        <Label htmlFor="CEP">CEP</Label>
-                                        <InputGroup>
-                                            <Input id="txtCEP" size="16" required type="text" placeholder="00000-000"
-                                            value={cep}
-                                            onChange={ e => setCep(e.target.value)} />
-                                            <InputGroupAddon addonType="append">
-                                                <Button type="button" color="secondary fa fa-truck"></Button>
-                                            </InputGroupAddon>
-                                        </InputGroup>                                    
-                                    </Col>
-                                    <Col md="2">
-                                    <Label htmlFor="departamentoId">Departamento</Label>
+                                    <Label htmlFor="clienteId">Cliente</Label>
+                                        <Input type="select" required name="select" id="cboClienteId"
+                                        value={departamentoId}
+                                        onChange={ e => setDepartamentoId(e.target.value)}>
+                                            <option value={undefined}>Selecione...</option>
+                                            <option value={1}>departamentoId1</option>
+                                            <option value={2}>departamentoId2</option>
+                                        </Input>      
+                                    </Col>                                   
+                                    <Col md="3">
+                                    <Label htmlFor="prorpietarioId">Proprietario</Label>
+                                        <Input type="select" required name="select" id="cboProprietarioId"
+                                        value={proprietarioId}
+                                        onChange={ e => setProprietarioId(e.target.value)}>
+                                            <option value={undefined}>Selecione...</option>
+                                            <option value={1}>Contato1</option>
+                                            <option value={2}>Contato2</option>
+                                            
+                                        </Input>      
+                                    </Col>   
+                                </FormGroup>
+                                <FormGroup row>
+                                    <Col md="3">
+                                        <Label htmlFor="departamentoId">Departamento</Label>
                                         <Input type="select" required name="select" id="cboDepartamentoId"
                                         value={departamentoId}
                                         onChange={ e => setDepartamentoId(e.target.value)}>
@@ -108,10 +113,83 @@ export default function Contatos() {
                                             <option value={2}>departamentoId2</option>
                                             
                                         </Input>      
-                                    </Col>                                                                                
-                                </FormGroup>
+                                    </Col>   
+                                    <Col md="3">
+                                        <Label htmlFor="E-mail">E-mail</Label>
+                                        <InputGroup>
+                                        <Input type="email" required id="txtEmail" placeholder="Digite o e-mail"
+                                        value={email}
+                                        onChange={ e => setEmail(e.target.value)} />
+                                            <InputGroupAddon addonType="append">
+                                                <Button type="button" color="secondary icon-envelope"></Button>
+                                            </InputGroupAddon>
+                                        </InputGroup>
+                                    </Col> 
+                                    <Col md="1">
+                                        <Label check className="form-check-label" htmlFor="ativo1">Autorizador</Label>
+                                        <AppSwitch id="rdAtivo" className={'switch-ativo'}  label color={'success'} defaultChecked size={'sm'}
+                                        value={usuarioautorizador}
+                                        onChange={ e => setUsuarioautorizador(e.target.value)}
+                                        />                                    
+                                    </Col>
+                                 </FormGroup>
                                 <FormGroup row>
-                                <Col md="4">
+                                    <Col md="3">
+                                        <Label htmlFor="cargoId">Cargo</Label>
+                                        <Input type="select" required name="select" id="cboCargoId"
+                                        value={cargoId}
+                                        onChange={ e => setCargoId(e.target.value)}>
+                                            <option value={undefined}>Selecione...</option>
+                                            <option value={1}>cargoId1</option>
+                                            <option value={2}>cargoId2</option>
+                                          
+                                        </Input>      
+                                    </Col>    
+                                    <Col md="3">
+                                        <Label htmlFor="tipoContatoId">Tipo Contato</Label>
+                                        <Input type="select" required name="select" id="cboTipoContatoId"
+                                        value={tipocontatoId}
+                                        onChange={ e => setTipocontatoId(e.target.value)}>
+                                            <option value={undefined}>Selecione...</option>
+                                            <option value={6}>ProprietarioID1</option>
+                                            <option value={7}>ProprietarioID2</option>
+                                         
+                                        </Input>      
+                                    </Col>
+                                </FormGroup>
+                                 <FormGroup row>
+                                       
+                                     <Col md="3">
+                                        <Label htmlFor="datanasc">Data de nascimento</Label>
+                                        <Input type="date" required id="txtdatanasc"
+                                        value={datanasc}
+                                        onChange={ e => setDatanasc(e.target.value)} />
+                                    </Col>  
+                                    <Col md="3">
+                                    <Label htmlFor="Telefone">Telefone</Label>                                        
+                                        <InputGroup>
+                                            <Input type="text"  id="txtTelefone" placeholder="(11) 9999-9999"
+                                            value={telefone}
+                                            onChange={ e => setTelefone(e.target.value)} />
+                                            <InputGroupAddon addonType="append">
+                                                <Button type="button" color="secondary icon-phone"></Button>
+                                            </InputGroupAddon>
+                                        </InputGroup>
+                                    </Col> 
+                                    <Col md="3">
+                                        <Label htmlFor="Celular">Celular</Label>
+                                        <InputGroup>
+                                            <Input type="text" required id="txtCelular" placeholder="(11) 99999-9999"
+                                            value={celular}
+                                            onChange={ e => setCelular(e.target.value)} />  
+                                            <InputGroupAddon addonType="append">
+                                                <Button type="button" color="secondary icon-screen-smartphone"></Button>
+                                            </InputGroupAddon>
+                                        </InputGroup>                                                                     
+                                    </Col>                                  
+                                </FormGroup>
+                                 <FormGroup row>  
+                                   <Col md="3">
                                         <Label htmlFor="Logradouro">Logradouro</Label>
                                         <InputGroup>
                                             <Input type="text" required id="txtLogradouro"  
@@ -119,14 +197,33 @@ export default function Contatos() {
                                             value={logradouro}
                                             onChange={ e => setLogradouro(e.target.value)} />                                          
                                         </InputGroup>       
-                                    </Col>                                                     
-                                    <Col md="2">
+                                    </Col>       
+                                    <Col md="3">
+                                        <Label htmlFor="Bairro">Bairro</Label>
+                                        <Input type="text" required id="txtBairro" placeholder="Digite o Bairro"
+                                        value={bairro}
+                                        onChange={ e => setBairro(e.target.value)} />    
+                                    </Col>
+                                    <Col md="3">
+                                        <Label htmlFor="CEP">CEP</Label>
+                                        <InputGroup>
+                                            <Input id="txtCEP" size="16" required type="text" placeholder="00000-000"
+                                            value={cep}
+                                            onChange={ e => setCep(e.target.value)}/>
+                                            <InputGroupAddon addonType="append">
+                                                <Button type="button" color="secondary fa fa-truck"></Button>
+                                            </InputGroupAddon>
+                                        </InputGroup>                                    
+                                    </Col>                                                                             
+                                </FormGroup>
+                                <FormGroup row>                                               
+                                    <Col md="3">
                                         <Label htmlFor="Cidade">Cidade</Label>
                                         <Input type="text" required id="txtcidade" placeholder="Digite a Cidade"
                                         value={cidade}
                                         onChange={ e => setCidade(e.target.value)} />                                    
                                     </Col>
-                                    <Col md="2">
+                                    <Col md="3">
                                         <Label htmlFor="UF">UF</Label>
                                         <Input type="select" required name="select" id="cboUF"
                                         value={uf}
@@ -139,7 +236,7 @@ export default function Contatos() {
                                             <option value="5">Santa Catarina</option>
                                         </Input>
                                     </Col>  
-                                    <Col md="2">
+                                    <Col md="3">
                                         <Label htmlFor="Complemento">Complemento</Label>
                                         <Input type="text" id="txtComplemento" placeholder="Digite o Complemento" 
                                         value={complemento}
@@ -147,88 +244,6 @@ export default function Contatos() {
                                     </Col>          
                                 </FormGroup>
                                 <FormGroup row>
-                                <Col md="3">
-                                    <Label htmlFor="E-mail">E-mail</Label>
-                                        <InputGroup>
-                                        <Input type="email" required id="txtEmail" placeholder="Digite o e-mail"
-                                        value={email}
-                                        onChange={ e => setEmail(e.target.value)} />
-                                            <InputGroupAddon addonType="append">
-                                                <Button type="button" color="secondary icon-envelope"></Button>
-                                            </InputGroupAddon>
-                                        </InputGroup>
-                                    </Col>  
-                                    <Col md="2">
-                                    <Label htmlFor="Telefone">Telefone</Label>                                        
-                                        <InputGroup>
-                                            <Input type="text"  id="txtTelefone" placeholder="(11) 9999-9999"
-                                            value={telefone}
-                                            onChange={ e => setTelefone(e.target.value)} />
-                                            <InputGroupAddon addonType="append">
-                                                <Button type="button" color="secondary icon-phone"></Button>
-                                            </InputGroupAddon>
-                                        </InputGroup>
-                                    </Col> 
-                                    <Col md="2">
-                                        <Label htmlFor="Celular">Celular</Label>
-                                        <InputGroup>
-                                            <Input type="text" required id="txtCelular" placeholder="(11) 99999-9999"
-                                            value={celular}
-                                            onChange={ e => setCelular(e.target.value)} />  
-                                            <InputGroupAddon addonType="append">
-                                                <Button type="button" color="secondary icon-screen-smartphone"></Button>
-                                            </InputGroupAddon>
-                                        </InputGroup>                                                                     
-                                    </Col> 
-                                <Col md="2">
-                                        <Label htmlFor="datanasc">Data de nascimento</Label>
-                                        <Input type="date" required id="txtdatanasc"
-                                        value={datanasc}
-                                        onChange={ e => setDatanasc(e.target.value)} />
-                                    </Col>
-                                    <Col md="1">
-                                        <Label check className="form-check-label" htmlFor="ativo1">Autorizador</Label>
-                                        <AppSwitch id="rdAtivo" className={'switch-ativo'}  label color={'success'} defaultChecked size={'sm'}
-                                        value={usuarioautorizador}
-                                        onChange={ e => setUsuarioautorizador(e.target.value)}
-                                        />                                    
-                                    </Col>                                     
-                                </FormGroup>
-                                <FormGroup row> 
-                                <Col md="2">
-                                    <Label htmlFor="proprietarioId">Proprietario</Label>
-                                        <Input type="select" required name="select" id="ddlProprietarioId"
-                                        value={proprietarioId}
-                                        onChange={ e => setProprietarioId(e.target.value)}>
-                                            <option value={undefined}>Selecione...</option>
-                                            <option value={6}>ProprietarioID1</option>
-                                            <option value={7}>ProprietarioID2</option>
-                                         
-                                        </Input>      
-                                    </Col>                                         
-                                    <Col md="2">
-                                    <Label htmlFor="tipocontatoId">Tipo Contato</Label>
-                                        <Input type="select" required name="select" id="cboTipocontatoId"
-                                        value={tipocontatoId}
-                                        onChange={ e => setTipocontatoId(e.target.value)}>
-                                            <option value={undefined}>Selecione...</option>
-                                            <option value={1}>Contato1</option>
-                                            <option value={2}>Contato2</option>
-                                            
-                                        </Input>      
-                                    </Col>
-                                   
-                                    <Col md="2">
-                                    <Label htmlFor="cargoId">Cargo</Label>
-                                        <Input type="select" required name="select" id="cboCargoId"
-                                        value={cargoId}
-                                        onChange={ e => setCargoId(e.target.value)}>
-                                            <option value={undefined}>Selecione...</option>
-                                            <option value={1}>cargoId1</option>
-                                            <option value={2}>cargoId2</option>
-                                          
-                                        </Input>      
-                                    </Col>    
                                     <Col md="1">
                                         <Label check className="form-check-label" htmlFor="ativo1">Ativo</Label>
                                         <AppSwitch id="rdAtivo" className={'switch-ativo'}  label color={'success'} defaultChecked size={'sm'}

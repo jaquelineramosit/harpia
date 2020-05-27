@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button , CardFooter, Form } from 'reactstrap';
+import { Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button , CardFooter, Form} from 'reactstrap';
 import { AppSwitch } from '@coreui/react'
 import '../../../global.css';
 import api from '../../../../src/services/api';
 
 export default function Cargos() {   
-    const [nomecargo, setNomecargo] = useState('');
+    const [nomecargo, setNomeCargo] = useState('');
     const [ativo, setAtivo] = useState('True');
     const usuarioId = localStorage.getItem('userId');
 
@@ -19,7 +19,7 @@ export default function Cargos() {
             ativo
         }
         try {
-            const response = await api.post('cargos', data, {
+            const response = await api.post('/cargos', data, {
                 headers: {
                     Authorization: usuarioId,
                 }
@@ -45,11 +45,13 @@ export default function Cargos() {
                             <CardBody>
                                 <FormGroup row>
                                     <Col md="4">
-                                        <Label htmlFor="nomecargo">Nome do Cargo</Label>
+                                        <Label htmlFor="nomeCargo">Nome do Cargo</Label>
                                         <Input type="text" required id="txtCargo" placeholder="Digite o nome do Cargo"
                                             value={nomecargo}
-                                            onChange={e => setNomecargo(e.target.value)} />
+                                            onChange={e => setNomeCargo(e.target.value)} />
                                     </Col>
+                                </FormGroup>
+                                <FormGroup row>    
                                     <Col md="1">
                                         <Label check className="form-check-label" htmlFor="ativo1">Ativo</Label>
                                         <AppSwitch id="rdAtivo" className={'switch-ativo'}  label color={'success'} defaultChecked size={'sm'}

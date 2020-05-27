@@ -21,7 +21,7 @@ export default function Departamentos() {
         try {
             const response = await api.post('departamentos', data, {
                 headers: {
-                    Authorization: 18,
+                    Authorization: usuarioId,
                 }
             });
             alert(`Feito o cadastro com sucesso`);
@@ -50,14 +50,14 @@ export default function Departamentos() {
                                             value={departamento}
                                             onChange={e => setDepartamento(e.target.value)} />
                                     </Col>
+                                </FormGroup>
+                                <FormGroup row>    
                                     <Col md="1">
                                         <Label check className="form-check-label" htmlFor="ativo1">Ativo</Label>
                                         <AppSwitch id="rdAtivo" className={'switch-ativo'}  label color={'success'} defaultChecked size={'sm'}
                                         value={ativo}
-                                        onChange={ e => setAtivo(e.target.value)}
-                                        />                                    
-                                    </Col>   
-                                   
+                                        onChange={ e => setAtivo(e.target.value)}/>                                    
+                                    </Col>
                                 </FormGroup>                                
                             </CardBody>
                             <CardFooter className="text-center">

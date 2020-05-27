@@ -4,13 +4,13 @@ import { AppSwitch } from '@coreui/react'
 import '../../../global.css';
 import api from '../../../../src/services/api';
 
-export default function Fasespipe() {
-    const [nomefase, setNomefase] = useState('');
+export default function FasesPipe() {
+    const [nomefase, setNomeFase] = useState('');
     const [pipeId, setPipeId] = useState('');
     const [ativo, setAtivo] = useState('true');
     const usuarioId = localStorage.getItem('userId');
 
-    async function handleFasespipe(e) {
+    async function handleFasesPipe(e) {
         e.preventDefault();
 
         const data = {
@@ -34,7 +34,7 @@ export default function Fasespipe() {
 
     return (
         <div className="animated fadeIn">
-            <Form onSubmit={handleFasespipe}>
+            <Form onSubmit={handleFasesPipe}>
                 <Row>
                     <Col xs="12" md="12">
                         <Card>
@@ -44,27 +44,27 @@ export default function Fasespipe() {
                             </CardHeader>
                             <CardBody>
                                 <FormGroup row>
-                                <Col md="3">
-                                        <Label htmlFor="nomefase">Nome da Fase</Label>
-                                        <Input required type="text" name="select" id="txtNomefase" placeholder="Digite o Nome da Fase"
-                                        value={nomefase}
-                                        onChange={ e => setNomefase(e.target.value)} />
-                                                                               
-                                       
-                                </Col>                               
-                                <Col md="2">
-                                        <Label htmlFor="pipeId">Pipe</Label>
-                                        <Input required type="select" name="select" id="cboPipeId"
-                                        value={pipeId}
-                                        onChange={ e => setPipeId(e.target.value)}
-                                        >
-                                            <option value={undefined}>Selecione...</option>
-                                            <option value={1}>pipe1</option> 
-                                            <option value={2}>pipe2</option> 
-                                            <option value={3}>pipe3</option>                                       
-                                        </Input>
-                                </Col>   
-                                <Col md="1">
+                                    <Col md="4">
+                                            <Label htmlFor="nomeFase">Nome da Fase</Label>
+                                            <Input required type="text" name="select" id="txtNomeFase" placeholder="Digite o Nome da Fase"
+                                            value={nomefase}
+                                            onChange={ e => setNomeFase(e.target.value)} />
+                                    </Col>                               
+                                    <Col md="4">
+                                            <Label htmlFor="pipeId">Pipe</Label>
+                                            <Input required type="select" name="select" id="cboPipeId"
+                                            value={pipeId}
+                                            onChange={ e => setPipeId(e.target.value)}
+                                            >
+                                                <option value={undefined}>Selecione...</option>
+                                                <option value={1}>pipe1</option> 
+                                                <option value={2}>pipe2</option> 
+                                                <option value={3}>pipe3</option>                                       
+                                            </Input>
+                                    </Col>
+                                </FormGroup>
+                                <FormGroup row>      
+                                    <Col md="1">
                                         <Label check className="form-check-label" htmlFor="ativo1">Ativo</Label>
                                         <AppSwitch id="rdAtivo" className={'switch-ativo'}  label color={'success'} defaultChecked size={'sm'}
                                         value={ativo}
