@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button, InputGroup, InputGroupAddon, CardFooter, Form, FormFeedback } from 'reactstrap';
 import { AppSwitch } from '@coreui/react'
@@ -26,9 +26,16 @@ export default function Usuario() {
     const [senhaForm, setSenhaForm] = useState('');
     const [senhaConfirmaForm, setsenhaConfirmaForm] = useState('');
     const [ativo, setAtivo] = useState("true");
-    const [perfilAcessoId, setperfilAcessoId] = useState(true);
+    const [perfilAcessoId, setPerfilAcessoId] = useState('');
+    const [perfisAcessoId, setPerfisAcessoId] = useState([]);
+    const usuarioId = localStorage.getItem('userId');
     const history = useHistory();
-
+    
+    useEffect(() => {
+        api.get('perfis-acesso').then(response => {
+        setPerfisAcessoId(response.data);
+        })
+        }, [usuarioId]);
 
     async function handleRegister(e) {
         e.preventDefault();
@@ -81,18 +88,12 @@ export default function Usuario() {
                             <CardBody>
                                 <FormGroup row>
                                     <Col md="4">
-                                        <Label htmlFor="Nome">Nome</Label>
-                                        <Input type="text" required id="txtNome" placeholder="Digite o primeiro Nome"
-                                        value={nome}
-                                        onChange={ e => setNome(e.target.value)}/>                                        
-                                    </Col>
-                                    <Col md="4">
                                         <Label htmlFor="Sobrenome">Sobrenome</Label>
                                         <Input type="text" required id="txtSobrenome" placeholder="Digite o Sobrenome"
                                         value={sobrenome}
                                         onChange={ e => setSobrenome(e.target.value)} />
                                     </Col>
-                                    <Col md="2">
+                                    <Col md="4">
                                         <Label htmlFor="DataNasc">Data de Nasc.</Label>
                                         <InputGroup>
                                             <Input type="date" required id="txtDataNasc" className="date" 
@@ -163,17 +164,38 @@ export default function Usuario() {
                                         onChange={ e => setCidade(e.target.value)} />
                                     </Col>
                                     <Col md="2">
-                                        <Label htmlFor="Estado">Estado</Label>
-                                        <Input type="select" required name="select" id="ddlEstado"
+                                        <Label htmlFor="estado">Estado</Label>
+                                        <Input type="select" required name="select" id="cboUf"
                                         value={estado}
                                         onChange={ e => setEstado(e.target.value)}>
                                             <option value={undefined}>Selecione...</option>
-                                            <option value="1">São Paulo</option>
-                                            <option value="2">Rio de Janeiro</option>
-                                            <option value="3">Minas Gerais</option>
-                                            <option value="4">Paraná</option>
-                                            <option value="5">Santa Catarina</option>
-                                        </Input>
+                                            <option value="SP">São Paulo</option>
+                                            <option value="RJ">Rio de Janeiro</option>
+                                            <option value="MG">Minas Gerais</option>
+                                            <option value="PR">Paraná</option>
+                                            <option value="AC">Acre</option>
+                                            <option value="Al">Alagoas</option>
+                                            <option value="AP">Amapá</option>
+                                            <option value="AM">Amazonas</option>
+                                            <option value="BH">Bahia</option>
+                                            <option value="CE">Ceará</option>
+                                            <option value="DF">Distrito Federal</option>
+                                            <option value="GO">Goiás</option>
+                                            <option value="DF">Distrito Federal</option>
+                                            <option value="MA">Maranhão</option>
+                                            <option value="MG">Mato Grosso</option>
+                                            <option value="MT">Mato Grosso do Sul</option>
+                                            <option value="PA">Pará</option>
+                                            <option value="PB">Paraíba</option>
+                                            <option value="PE">Pernambuco</option>
+                                            <option value="PI">Piau</option>
+                                            <option value="RN">Rio Grande do Norte</option>
+                                            <option value="RS">Rio Grande do Sul</option>
+                                            <option value="RR">Rondônia</option>
+                                            <option value="SC">Santa Catarina</option>
+                                            <option value="SE">Sergipe</option>
+                                            <option value="TO">Tocantins</option>
+                                        </Input>    
                                     </Col>
                                     <Col md="2">
                                         <Label check className="form-check-label" htmlFor="ativo1">Ativo</Label>
@@ -243,11 +265,11 @@ export default function Usuario() {
                                         <Label htmlFor="PerfilAcesso">Perfil de Acesso</Label>
                                         <Input type="select" required name="select" id="ddlPerfilAcesso"
                                         value={perfilAcessoId}
-                                        onChange={ e => setperfilAcessoId(e.target.value)}>
-                                            <option value={undefined}>Selecione...</option>
-                                            <option value="1">Administrador</option>
-                                            <option value="2">Vendedor</option>
-                                            <option value="3">Gerente</option>                                        
+                                        onChange={ e => setPerfilAcessoId(e.target.value)}>
+                                            <option value={undefined} defaultValue>Selecione...</option>
+                                            {perfisAcessoId.map(perfil=> (
+                                            <option value={perfil.id}>{perfil.perfil}</option>
+                                            ))}                                    
                                         </Input>
                                     </Col>                                                                                                                                    
                                 </FormGroup>

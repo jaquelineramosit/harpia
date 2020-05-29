@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button, CardFooter, Form } from 'reactstrap';
 import { AppSwitch } from '@coreui/react'
 import '../../../global.css';
@@ -7,8 +7,16 @@ import api from '../../../../src/services/api';
 export default function FasesPipe() {
     const [nomefase, setNomeFase] = useState('');
     const [pipeId, setPipeId] = useState('');
+    const [pipesId, setPipesId] = useState('');
     const [ativo, setAtivo] = useState('true');
     const usuarioId = localStorage.getItem('userId');
+
+    useEffect(() => {
+        api.get('pipes').then(response => {
+        setPipesId(response.data);
+        })
+        }, [usuarioId]);
+     
 
     async function handleFasesPipe(e) {
         e.preventDefault();
@@ -54,13 +62,12 @@ export default function FasesPipe() {
                                             <Label htmlFor="pipeId">Pipe</Label>
                                             <Input required type="select" name="select" id="cboPipeId"
                                             value={pipeId}
-                                            onChange={ e => setPipeId(e.target.value)}
-                                            >
-                                                <option value={undefined}>Selecione...</option>
-                                                <option value={1}>pipe1</option> 
-                                                <option value={2}>pipe2</option> 
-                                                <option value={3}>pipe3</option>                                       
-                                            </Input>
+                                                onChange={ e => setPipeId(e.target.value)}>
+                                                    <option value={undefined} defaultValue>Selecione...</option>
+                                                    {pipesId.map(pipe=> (
+                                                    <option value={pipe.id}>{pipe.nomepipe}</option>
+                                                    ))}
+                                            </Input>    
                                     </Col>
                                 </FormGroup>
                                 <FormGroup row>      

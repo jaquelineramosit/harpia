@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button, CardFooter, Form} from 'reactstrap';
 import { AppSwitch } from '@coreui/react'
 import '../../../global.css';
@@ -17,10 +17,38 @@ export default function Atividades() {
     const [temponotificacao, setTempoNotificacao] = useState('');
     const [exibenotificacao, setExibeNotificacao] = useState('');
     const [anexoId, setAnexoId] = useState('');
+    const [clientesId, setClientesId] = useState([]);
+    const [oportunidadesId, setOportunidadesId] = useState([]);
+    const [contatosId, setContatosId] = useState([]);
+    const [tiposatividadesId, setTiposAtividadesId] = useState([]);
+
     const [cancelada, setCancelada] = useState('true');
+    
     const usuarioId = localStorage.getItem('userId');
 
+    useEffect(() => {
+        api.get('clientes').then(response => {
+        setClientesId(response.data);
+        })
+        }, [usuarioId]);
+    
+    useEffect(() => {
+        api.get('contatos').then(response => {
+        setContatosId(response.data);
+        })
+        }, [usuarioId]);
+    
+    useEffect(() => {
+        api.get('oportunidades').then(response => {
+        setOportunidadesId(response.data);
+        })
+        }, [usuarioId]);    
 
+    useEffect(() => {
+        api.get('tipos-atividade').then(response => {
+        setTiposAtividadesId(response.data);
+        })
+        }, [usuarioId]);
 
     async function handleAtividades(e) {
         e.preventDefault();
@@ -77,9 +105,10 @@ export default function Atividades() {
                                         <Input type="select" required name="select" id="cboResponsavelId"
                                             value={responsavelId}
                                             onChange={e => setResponsavelId(e.target.value)}>
-                                            <option value={undefined}>Selecione...</option>
-                                            <option value={6}>Responsável1</option>
-                                            <option value={7}>Responsável2</option>            
+                                                <option value={undefined} defaultValue>Selecione...</option>
+                                                {clientesId.map(cliente=> (
+                                                <option value={cliente.id}>{cliente.nomecliente}</option>
+                                                ))}             
                                         </Input>
                                     </Col>
                                 </FormGroup>
@@ -89,10 +118,10 @@ export default function Atividades() {
                                         <Input type="select" required name="select" id="cboClienteId"
                                             value={clienteId}
                                             onChange={e => setClienteId(e.target.value)}>
-                                            <option value={undefined}>Selecione...</option>
-                                            <option value={8}>Cliente1</option>
-                                            <option value={21}>Cliente2</option>
-
+                                                <option value={undefined} defaultValue>Selecione...</option>
+                                                {clientesId.map(cliente=> (
+                                                <option value={cliente.id}>{cliente.nomecliente}</option>
+                                                ))}   
                                         </Input>
                                     </Col>
                                     <Col md="4">
@@ -100,9 +129,10 @@ export default function Atividades() {
                                         <Input type="select" required name="select" id="cboContatoId"
                                             value={contatoId}
                                             onChange={e => setContatoId(e.target.value)}>
-                                            <option value={undefined}>Selecione...</option>
-                                            <option value={1}>Contato1</option>
-                                            <option value={2}>Contato2</option>
+                                                <option value={undefined} defaultValue>Selecione...</option>
+                                                {contatosId.map(contato=> (
+                                                <option value={contato.id}>{contato.nomecontato}</option>
+                                                ))}   
 
                                         </Input>
                                     </Col>
@@ -111,11 +141,12 @@ export default function Atividades() {
                                     <Col md="2">
                                         <Label htmlFor="tipoAtividadeId">Tipo Atividade</Label>
                                         <Input type="select" required name="select" id="cboTipoAtividadeId"
-                                            value={contatoId}
+                                            value={tipoatividadeId}
                                             onChange={e => setTipoAtividadeId(e.target.value)}>
-                                            <option value={undefined}>Selecione...</option>
-                                            <option value={1}>Contato1</option>
-                                            <option value={2}>Contato2</option>
+                                                <option value={undefined} defaultValue>Selecione...</option>
+                                                {tiposatividadesId.map(tipoAtividade=> (
+                                                <option value={tipoAtividade.id}>{tipoAtividade.tipoatividade}</option>
+                                                ))}   
                                         </Input>
                                     </Col>  
                                     <Col md="2">

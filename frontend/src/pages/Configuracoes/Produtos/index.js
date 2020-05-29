@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button, CardFooter, Form } from 'reactstrap';
 import { AppSwitch } from '@coreui/react'
 import '../../../global.css';
@@ -14,7 +14,21 @@ export default function Produtos() {
     const [distribuidorId, setDistribuidorId] = useState('');
     const [tempoentrega, setTempoEntrega] = useState('');
     const [ativo, setAtivo] = useState('');
+    const [marcasId, setMArcasId] = useState([]);
+    const [distribuidoresId, setDistribuidoresId] = useState([]);
     const usuarioId = localStorage.getItem('userId');
+
+    useEffect(() => {
+        api.get('marcas').then(response => {
+        setMArcasId(response.data);
+        })
+        }, [usuarioId]);
+
+    useEffect(() => {
+        api.get('distribuidores').then(response => {
+        setDistribuidoresId(response.data);
+        })
+        }, [usuarioId]);
 
     async function handleProdutos(e) {
         e.preventDefault();
@@ -75,11 +89,10 @@ export default function Produtos() {
                                         <Input type="select" required name="select" id="cboMarcaId"
                                          value={marcaId}
                                          onChange={e => setMarcaId(e.target.value)}>
-                                        >
-                                        <option value={undefined}>Selecione...</option>
-                                        <option value={1}>Marca1</option>
-                                        <option value={2}>Marca2</option>
-                                            
+                                            <option value={undefined} defaultValue>Selecione...</option>
+                                            {marcasId.map(marca=> (
+                                            <option value={marca.id}>{marca.nomemarca}</option>
+                                            ))}                              
                                         </Input>
                                     </Col>
                                 </FormGroup>
@@ -96,10 +109,10 @@ export default function Produtos() {
                                         <Input type="select" required name="select" id="cboDistribuidorId"
                                             value={distribuidorId}
                                             onChange={e => setDistribuidorId(e.target.value)}>
-                                            <option value={undefined}>Selecione...</option>
-                                            <option value={1}>Distribuidor1</option>
-                                            <option value={2}>Distribuidor2</option>
-
+                                                <option value={undefined} defaultValue>Selecione...</option>
+                                                {distribuidoresId.map(distribuidor=> (
+                                                <option value={distribuidor.id}>{distribuidor.nomedistribuidor}</option>
+                                                ))}                              
                                         </Input>
                                     </Col> 
                                     <Col md="2">

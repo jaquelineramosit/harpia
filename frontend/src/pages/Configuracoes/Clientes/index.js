@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button, InputGroup, InputGroupAddon, CardFooter, Form } from 'reactstrap';
 import { AppSwitch } from '@coreui/react'
 import '../../../global.css';
@@ -23,10 +23,22 @@ export default function Clientes() {
     const [email, setEmail] = useState('');
     const [paisId, setPaisId] = useState('');
     const [segmentomercadoId, setSegmentoMercadoId] = useState('');
+    const [contatosId, setContatosId] = useState([]);
+    const [segmentosmercadoId, setSegmentosMercadoId] = useState([]);
     const [ativo, setAtivo] = useState("true");
     const usuarioId = localStorage.getItem('userId');    
     
+    useEffect(() => {
+        api.get('contatos').then(response => {
+        setContatosId(response.data);
+        })
+        }, [usuarioId]);
 
+    useEffect(() => {
+        api.get('segmentos-mercado').then(response => {
+        setSegmentosMercadoId(response.data);
+        })
+        }, [usuarioId]);        
 
     async function handleClientes(e) {
         e.preventDefault();
@@ -159,11 +171,20 @@ export default function Clientes() {
                                         <Input type="select" required name="select" id="cboPais"
                                         value={paisId}
                                         onChange={ e => setPaisId(e.target.value)}>
-                                            <option value={undefined}>Selecione...</option>
-                                            <option  value={1}>Brasil</option>
-                                            <option value={2}>USA</option>
-                                            <option  value={3}>Holanda</option>
-
+                                            <option  value={undefined}>Selecione...</option>
+                                            <option  value="AR">Argentina</option>
+                                            <option  value="BO">Bolívia</option>
+                                            <option  value="BR">Brasil</option>
+                                            <option  value="CH">Chile</option>
+                                            <option  value="CO">Colômbia</option>
+                                            <option  value="EQ">Equador</option>
+                                            <option  value="GU">Guiana</option>
+                                            <option  value="GF">Guiana Francesa</option>
+                                            <option  value="PA">Paraguai</option>
+                                            <option  value="PE">Peru</option>
+                                            <option  value="SU">Suriname</option>
+                                            <option  value="UR">Uruguai</option>
+                                            <option  value="VE">Venezuela</option>
                                         </Input>      
                                     </Col>
                                 </FormGroup>
@@ -181,10 +202,31 @@ export default function Clientes() {
                                         onChange={ e => setUf(e.target.value)}>
                                             <option value={undefined}>Selecione...</option>
                                             <option value="SP">São Paulo</option>
-                                            <option value="RJ">Rio de Janeiro</option>
-                                            <option value="MG">Minas Gerais</option>
-                                            <option value="PR">Paraná</option>
-                                            <option value="SC">Santa Catarina</option>
+                                                    <option value="RJ">Rio de Janeiro</option>
+                                                    <option value="MG">Minas Gerais</option>
+                                                    <option value="PR">Paraná</option>
+                                                    <option value="AC">Acre</option>
+                                                    <option value="Al">Alagoas</option>
+                                                    <option value="AP">Amapá</option>
+                                                    <option value="AM">Amazonas</option>
+                                                    <option value="BH">Bahia</option>
+                                                    <option value="CE">Ceará</option>
+                                                    <option value="DF">Distrito Federal</option>
+                                                    <option value="GO">Goiás</option>
+                                                    <option value="DF">Distrito Federal</option>
+                                                    <option value="MA">Maranhão</option>
+                                                    <option value="MG">Mato Grosso</option>
+                                                    <option value="MT">Mato Grosso do Sul</option>
+                                                    <option value="PA">Pará</option>
+                                                    <option value="PB">Paraíba</option>
+                                                    <option value="PE">Pernambuco</option>
+                                                    <option value="PI">Piau</option>
+                                                    <option value="RN">Rio Grande do Norte</option>
+                                                    <option value="RS">Rio Grande do Sul</option>
+                                                    <option value="RR">Rondônia</option>
+                                                    <option value="SC">Santa Catarina</option>
+                                                    <option value="SE">Sergipe</option>
+                                                    <option value="TO">Tocantins</option>
                                         </Input>
                                     </Col>
                                     <Col md="3">
@@ -222,9 +264,10 @@ export default function Clientes() {
                                         <Input type="select" required name="select" id="cboSegmentomercadoId"
                                         value={segmentomercadoId}
                                         onChange={ e => setSegmentoMercadoId(e.target.value)}>
-                                            <option value={undefined}>Selecione...</option>
-                                            <option value={1}>Segmento1</option>
-                                            <option value={2}>Segmento2</option>
+                                            <option value={undefined} defaultValue>Selecione...</option>
+                                            {segmentosmercadoId.map(segmentomercado=> (
+                                            <option value={segmentomercado.id}>{segmentomercado.nomesegmento}</option>
+                                            ))} 
                                         </Input>        
                                     </Col>                                                                                                                       
                                 </FormGroup>
@@ -240,9 +283,10 @@ export default function Clientes() {
                                         <Input type="select" required name="select" id="cboContatoId"
                                         value={contatoId}
                                         onChange={ e => setContatoId(e.target.value)}>
-                                            <option value={undefined}>Selecione...</option>
-                                            <option value={1}>contato1</option>
-                                            <option value={2}>contato2</option>
+                                                <option value={undefined} defaultValue>Selecione...</option>
+                                                {contatosId.map(contato=> (
+                                                <option value={contato.id}>{contato.nomecontato}</option>
+                                                ))} 
                                            
                                         </Input>      
                                     </Col>

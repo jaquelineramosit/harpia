@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect} from 'react';
 import { Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button, CardFooter, Form } from 'reactstrap';
 import { AppSwitch } from '@coreui/react'
 import '../../../global.css';
@@ -9,8 +9,24 @@ export default function Metasvendedores() {
     const [metaId, setMetaId] = useState('');
     const [observacao, setObservacao] = useState('');
     const [ativo, setAtivo] = useState('true');
+    const [vendedoresId, setVendedoresId] = useState([]);
+    const [metasId, setMetasId] = useState([]);
     const usuarioId = localStorage.getItem('userId');
 
+
+    useEffect(() => {
+        api.get('metas').then(response => {
+        setMetasId(response.data);
+        })
+        }, [usuarioId]);
+    
+    
+    useEffect(() => {
+        api.get('clientes').then(response => {
+        setVendedoresId(response.data);
+        })
+        }, [usuarioId]);
+             
     async function handleMetasVendedores(e) {
         e.preventDefault();
 
@@ -50,11 +66,11 @@ export default function Metasvendedores() {
                                             <Label htmlFor="vendedorId">Vendedor</Label>
                                             <Input required type="select" name="select" id="txtVendedorId"
                                             value={vendedorId}
-                                            onChange={ e => setVendedorId(e.target.value)}
-                                            >
-                                                <option value={undefined}>Selecione...</option> 
-                                                <option value={6}>Vendedor1</option>  
-                                                <option value={7}>Vendedor2</option>                                        
+                                            onChange={ e => setVendedorId(e.target.value)}>
+                                            <option value={undefined} defaultValue>Selecione...</option>
+                                                {vendedoresId.map(vendedor=> (
+                                                <option value={vendedor.id}>{vendedor.nomecliente}</option>
+                                                ))}                                     
                                             </Input>
                                     </Col>                               
                                     <Col md="4">
@@ -62,9 +78,10 @@ export default function Metasvendedores() {
                                             <Input required type="select" name="select" id="cboMetaId"
                                             value={metaId}
                                             onChange={ e => setMetaId(e.target.value)}>
-                                                <option value={undefined}>Selecione...</option>                                    
-                                                <option value={1}>Metas1</option>  
-                                                <option value={2}>Metas2</option>                                         
+                                            <option value={undefined} defaultValue>Selecione...</option>
+                                                {metasId.map(meta=> (
+                                                <option value={meta.id}>{meta.nomemeta}</option>
+                                                ))}                                       
                                             </Input>
                                     </Col>                                      
                                 </FormGroup>

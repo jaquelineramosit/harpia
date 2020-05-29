@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button, InputGroup, InputGroupAddon, CardFooter, Form } from 'reactstrap';
 import { AppSwitch } from '@coreui/react'
 import '../../../global.css';
@@ -21,11 +21,44 @@ export default function Contatos() {
     const [celular, setCelular] = useState('');
     const [datanasc, setDatanasc] = useState('');
     const [email, setEmail] = useState('');
+    const [departamentosId, setdepartamentosId] = useState([]);
+    const [proprietrariosId, setProprietariosId] = useState([]);
+    const [tiposcontatoId, setTiposContatoId] = useState([]);
+    const [cargosId, setCargosId] = useState([]);
+    const [clientesId, setClientesId] = useState([]);
     const [ativo, setAtivo] = useState("true");
     const usuarioId = localStorage.getItem('userId');    
     
+    useEffect(() => {
+        api.get('clientes').then(response => {
+        setClientesId(response.data);
+        })
+        }, [usuarioId]);
 
+    useEffect(() => {
+        api.get('clientes').then(response => {
+        setProprietariosId(response.data);
+        })
+        }, [usuarioId]);        
 
+    useEffect(() => {
+        api.get('departamentos').then(response => {
+        setdepartamentosId(response.data);
+        })
+        }, [usuarioId]);        
+
+    useEffect(() => {
+        api.get('tipos-contato').then(response => {
+        setTiposContatoId(response.data);
+        })
+        }, [usuarioId]); 
+
+    useEffect(() => {
+        api.get('cargos').then(response => {
+        setCargosId(response.data);
+        })
+        }, [usuarioId]);     
+        
     async function handleContatos(e) {
         e.preventDefault();
         
@@ -85,9 +118,10 @@ export default function Contatos() {
                                         <Input type="select" required name="select" id="cboClienteId"
                                         value={departamentoId}
                                         onChange={ e => setDepartamentoId(e.target.value)}>
-                                            <option value={undefined}>Selecione...</option>
-                                            <option value={1}>departamentoId1</option>
-                                            <option value={2}>departamentoId2</option>
+                                        <option value={undefined} defaultValue>Selecione...</option>
+                                            {clientesId.map(cliente=> (
+                                            <option value={cliente.id}>{cliente.nomecliente}</option>
+                                            ))}
                                         </Input>      
                                     </Col>                                   
                                     <Col md="3">
@@ -95,9 +129,10 @@ export default function Contatos() {
                                         <Input type="select" required name="select" id="cboProprietarioId"
                                         value={proprietarioId}
                                         onChange={ e => setProprietarioId(e.target.value)}>
-                                            <option value={undefined}>Selecione...</option>
-                                            <option value={1}>Contato1</option>
-                                            <option value={2}>Contato2</option>
+                                        <option value={undefined} defaultValue>Selecione...</option>
+                                            {proprietrariosId.map(proprietario=> (
+                                            <option value={proprietario.id}>{proprietario.nomecliente}</option>
+                                            ))}
                                             
                                         </Input>      
                                     </Col>   
@@ -108,9 +143,10 @@ export default function Contatos() {
                                         <Input type="select" required name="select" id="cboDepartamentoId"
                                         value={departamentoId}
                                         onChange={ e => setDepartamentoId(e.target.value)}>
-                                            <option value={undefined}>Selecione...</option>
-                                            <option value={1}>departamentoId1</option>
-                                            <option value={2}>departamentoId2</option>
+                                        <option value={undefined} defaultValue>Selecione...</option>
+                                            {departamentosId.map(departamento=> (
+                                            <option value={departamento.id}>{departamento.departamento}</option>
+                                            ))}
                                             
                                         </Input>      
                                     </Col>   
@@ -139,10 +175,10 @@ export default function Contatos() {
                                         <Input type="select" required name="select" id="cboCargoId"
                                         value={cargoId}
                                         onChange={ e => setCargoId(e.target.value)}>
-                                            <option value={undefined}>Selecione...</option>
-                                            <option value={1}>cargoId1</option>
-                                            <option value={2}>cargoId2</option>
-                                          
+                                        <option value={undefined} defaultValue>Selecione...</option>
+                                            {cargosId.map(cargo=> (
+                                            <option value={cargo.id}>{cargo.nomecargo}</option>
+                                            ))}
                                         </Input>      
                                     </Col>    
                                     <Col md="3">
@@ -151,9 +187,10 @@ export default function Contatos() {
                                         value={tipocontatoId}
                                         onChange={ e => setTipocontatoId(e.target.value)}>
                                             <option value={undefined}>Selecione...</option>
-                                            <option value={6}>ProprietarioID1</option>
-                                            <option value={7}>ProprietarioID2</option>
-                                         
+                                            <option value={undefined} defaultValue>Selecione...</option>
+                                            {tiposcontatoId.map(tipoContato=> (
+                                            <option value={tipoContato.id}>{tipoContato.tipocontato}</option>
+                                            ))}
                                         </Input>      
                                     </Col>
                                 </FormGroup>
@@ -228,12 +265,33 @@ export default function Contatos() {
                                         <Input type="select" required name="select" id="cboUF"
                                         value={uf}
                                         onChange={ e => setUf(e.target.value)}>
-                                            <option value={undefined}>Selecione...</option>
-                                            <option value="1">São Paulo</option>
-                                            <option value="2">Rio de Janeiro</option>
-                                            <option value="3">Minas Gerais</option>
-                                            <option value="4">Paraná</option>
-                                            <option value="5">Santa Catarina</option>
+                                                    <option value={undefined}>Selecione...</option>
+                                                    <option value="SP">São Paulo</option>
+                                                    <option value="RJ">Rio de Janeiro</option>
+                                                    <option value="MG">Minas Gerais</option>
+                                                    <option value="PR">Paraná</option>
+                                                    <option value="AC">Acre</option>
+                                                    <option value="Al">Alagoas</option>
+                                                    <option value="AP">Amapá</option>
+                                                    <option value="AM">Amazonas</option>
+                                                    <option value="BH">Bahia</option>
+                                                    <option value="CE">Ceará</option>
+                                                    <option value="DF">Distrito Federal</option>
+                                                    <option value="GO">Goiás</option>
+                                                    <option value="DF">Distrito Federal</option>
+                                                    <option value="MA">Maranhão</option>
+                                                    <option value="MG">Mato Grosso</option>
+                                                    <option value="MT">Mato Grosso do Sul</option>
+                                                    <option value="PA">Pará</option>
+                                                    <option value="PB">Paraíba</option>
+                                                    <option value="PE">Pernambuco</option>
+                                                    <option value="PI">Piau</option>
+                                                    <option value="RN">Rio Grande do Norte</option>
+                                                    <option value="RS">Rio Grande do Sul</option>
+                                                    <option value="RR">Rondônia</option>
+                                                    <option value="SC">Santa Catarina</option>
+                                                    <option value="SE">Sergipe</option>
+                                                    <option value="TO">Tocantins</option>
                                         </Input>
                                     </Col>  
                                     <Col md="3">
