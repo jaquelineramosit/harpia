@@ -48,6 +48,7 @@ routes.get('/usuarios/:id', UsuarioController.getById);
 routes.post('/usuarios', UsuarioController.create);
 routes.put('/usuarios/:id', UsuarioController.update);
 
+routes.get('/modulosCount', ModuloController.getCount);
 routes.get('/modulos', ModuloController.getAll);
 routes.get('/modulos/:id', ModuloController.getById);
 routes.post('/modulos', ModuloController.create);
