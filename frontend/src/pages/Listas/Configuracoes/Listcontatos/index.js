@@ -44,9 +44,9 @@ export default function ListaContatos() {
                                     {contatos.map(contato => (
                                         <tr>
                                             <td>{contato.nomecontato}</td> 
-                                            <td>{contato.tipocontatoId}</td>
-                                            <td>{contato.cargoId}</td>
-                                            <td>{contato.departamentoId}</td>                                       
+                                            <td>{contato.tipocontato}</td>
+                                            <td>{contato.nomecargo}</td>
+                                            <td>{contato.departamento}</td>                                       
                                             <td style={{ textAlign : 'right'}}>
                                                 <Link to={`contatos/${contato.id}`} className="btn-sm btn-primary">
                                                     <i className="fa fa-pencil fa-lg mr-1"></i>

@@ -2,7 +2,16 @@ const connection = require('../../database/connection');
 const getDate = require('../../utils/getDate');
 module.exports = {
     async getAll (request, response) {
-        const anotacoes = await connection('anotacoes').select('*');
+        const anotacoes = await connection('anotacoes')
+        .join( 'clientes' , 'clientes.id' , '=' , 'anotacoes.clienteId')
+        .join( 'oportunidades' , 'oportunidades.id' , '=' , 'anotacoes.oportunidadeId')
+        .join( 'contatos' , 'contatos.id' , '=' , 'anotacoes.contatoId')
+        .select([
+            'anotacoes.*',
+            'clientes.nomecliente',
+            'oportunidades.nomeoportunidade',
+            'contatos.nomecontato'
+        ]);
     
         return response.json(anotacoes);
     },
@@ -11,8 +20,16 @@ module.exports = {
         const  { id }  = request.params;
 
         const anotacoes = await connection('anotacoes')
-            .where('id', id)
-            .select()
+            .where('anotacoes.id', id)
+            .join( 'clientes' , 'clientes.id' , '=' , 'anotacoes.clienteId')
+            .join( 'oportunidades' , 'oportunidades.id' , '=' , 'anotacoes.oportunidadeId')
+            .join( 'contatos' , 'contatos.id' , '=' , 'anotacoes.contatoId')
+            .select([
+                'anotacoes.*',
+                'clientes.nomecliente',
+                'oportunidades.nomeoportunidade',
+                'contatos.nomecontato'
+            ])
             .first();
     
         return response.json(anotacoes);

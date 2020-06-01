@@ -2,7 +2,16 @@ const connection = require('../../database/connection');
 const getDate = require('../../utils/getDate');
 module.exports = {
     async getAll (request, response) {
-        const contatos = await connection('contatos').select('*');
+        const contatos = await connection('contatos')
+        .join( 'tiposcontato' , 'tiposcontato.id' , '=' , 'contatos.tipocontatoId')
+        .join( 'cargos' , 'cargos.id' , '=' , 'contatos.cargoId')
+        .join( 'departamentos' , 'departamentos.id' , '=' , 'contatos.departamentoId')
+        .select([
+            'contatos.*',
+            'tiposcontato.tipocontato',
+            'cargos.nomecargo',
+            'departamentos.departamento'
+        ]);
     
         return response.json(contatos);
     },
@@ -11,8 +20,16 @@ module.exports = {
         const  { id }  = request.params;
 
         const contatos = await connection('contatos')
-            .where('id', id)
-            .select()
+            .where('contatos.id', id)
+            .join( 'tiposcontato' , 'tiposcontato.id' , '=' , 'contatos.tipocontatoId')
+            .join( 'cargos' , 'cargos.id' , '=' , 'contatos.cargoId')
+            .join( 'departamentos' , 'departamentos.id' , '=' , 'contatos.departamentoId')
+            .select([
+                'contatos.*',
+                'tiposcontato.tipocontato',
+                'cargos.nomecargo',
+                'departamentos.departamento'
+            ])
             .first();
     
         return response.json(contatos);

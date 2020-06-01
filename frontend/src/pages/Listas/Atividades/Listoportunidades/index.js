@@ -48,10 +48,10 @@ export default function ListaOportunidades() {
                                         <tr>
                                             <td>{oportunidade.nomeoportunidade}</td> 
                                             <td>{oportunidade.proprietarioId}</td> 
-                                            <td>{oportunidade.clienteId}</td> 
-                                            <td>{oportunidade.contatoId}</td> 
-                                            <td>{oportunidade.produtoId}</td>
-                                            <td>{oportunidade.fasepipeId}</td>
+                                            <td>{oportunidade.nomecliente}</td> 
+                                            <td>{oportunidade.nomecontato}</td> 
+                                            <td>{oportunidade.nomeproduto}</td>
+                                            <td>{oportunidade.nomefase}</td>
                                             <td>{oportunidade.valor}</td>
                                                                                    
                                             <td style={{ textAlign : 'right'}}>

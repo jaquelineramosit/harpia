@@ -49,7 +49,7 @@ export default function ListaProdutos() {
                                             <td>{produto.numerofabricante}</td> 
                                             <td>{produto.quantidade}</td> 
                                             <td>{produto.valor}</td> 
-                                            <td>{produto.distribuidorId}</td> 
+                                            <td>{produto.nomedistribuidor}</td> 
                                             <td>{produto.tempoentrega}</td>                                                                          
                                             <td style={{ textAlign : 'right'}}>
                                                 <Link to={`produtos/${produto.id}`} className="btn-sm btn-primary">

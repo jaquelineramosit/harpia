@@ -47,9 +47,9 @@ export default function ListaAtividades() {
                                     {atividades.map(atividade => (
                                         <tr>
                                             <td>{atividade.atividade}</td> 
-                                            <td>{atividade.clienteId}</td> 
-                                            <td>{atividade.contatoId}</td> 
-                                            <td>{atividade.tipoatividadeId}</td> 
+                                            <td>{atividade.nomecliente}</td> 
+                                            <td>{atividade.nomecontato}</td> 
+                                            <td>{atividade.tipoatividade}</td> 
                                             <td>{atividade.dataatividade}</td>
                                             <td>{atividade.datainicio}</td>
                                             <td>{atividade.datafim}</td>

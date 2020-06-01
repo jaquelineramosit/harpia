@@ -42,7 +42,7 @@ export default function Listapipes() {
                                     {fasespipes.map(fasespipe => (
                                         <tr>
                                             <td>{fasespipe.nomefase}</td> 
-                                            <td>{fasespipe.pipeId}</td>                                                                            
+                                            <td>{fasespipe.nomepipe}</td>                                                                            
                                             <td style={{ textAlign : 'right'}}>
                                                 <Link to={`fases-pipe/${fasespipe.id}`} className="btn-sm btn-primary">
                                                     <i className="fa fa-pencil fa-lg mr-1"></i>

@@ -2,7 +2,12 @@ const connection = require('../../database/connection');
 const getDate = require('../../utils/getDate');
 module.exports = {
     async getAll (request, response) {
-        const metasvendedores = await connection('metasvendedores').select('*');
+        const metasvendedores = await connection('metasvendedores')
+        .join( 'metas' , 'metas.id' , '=' , 'metasvendedores.metaId')
+        .select([
+            'metasvendedores.*',
+            'metas.nomemeta'
+        ]);
     
         return response.json(metasvendedores);
     },
@@ -11,8 +16,12 @@ module.exports = {
         const  { id }  = request.params;
 
         const metasvendedores = await connection('metasvendedores')
-            .where('id', id)
-            .select()
+            .where('metasvendedores.id', id)
+            .join( 'metas' , 'metas.id' , '=' , 'metasvendedores.metaId')
+            .select([
+                'metasvendedores.*',
+                'metas.nomemeta'
+            ])
             .first();
     
         return response.json(metasvendedores);

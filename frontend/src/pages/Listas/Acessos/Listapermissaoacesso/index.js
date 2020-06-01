@@ -43,10 +43,10 @@ export default function ListaPermissaoacesso() {
                                 <tbody>
                                     {permissoesacesso.map(permissaoacesso => (
                                         <tr>
-                                            <td>{permissaoacesso.perfilacessoId}</td>   
-                                            <td>{permissaoacesso.moduloId}</td> 
-                                            <td>{permissaoacesso.paginaId}</td> 
-                                            <td>{permissaoacesso.usuarioId}</td>                                        
+                                            <td>{permissaoacesso.perfil}</td>   
+                                            <td>{permissaoacesso.nomemodulo}</td> 
+                                            <td>{permissaoacesso.nomepagina}</td> 
+                                            <td>{permissaoacesso.nome}</td>                                        
                                             <td style={{ textAlign : 'right'}}>
                                                 <Link to={`permissao-acesso/${permissaoacesso.id}`} className="btn-sm btn-primary">
                                                     <i className="fa fa-pencil fa-lg mr-1"></i>

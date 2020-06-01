@@ -2,7 +2,8 @@ const connection = require('../../database/connection');
 const getDate = require('../../utils/getDate');
 module.exports = {
     async getAll (request, response) {
-        const modulos = await connection('modulo').select('*');
+        const modulos = await connection('modulo')
+        .select('*');
     
         return response.json(modulos);
     },

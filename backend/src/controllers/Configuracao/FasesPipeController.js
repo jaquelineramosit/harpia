@@ -2,7 +2,12 @@ const connection = require('../../database/connection');
 const getDate = require('../../utils/getDate');
 module.exports = {
     async getAll (request, response) {
-        const fasespipe = await connection('fasespipe').select('*');
+        const fasespipe = await connection('fasespipe')
+        .join( 'pipes', 'pipes.id' , '=' , 'fasespipe.pipeId' )
+        .select([
+            'fasespipe.*',
+            'pipes.nomepipe'
+        ]);
     
         return response.json(fasespipe);
     },
@@ -11,9 +16,10 @@ module.exports = {
         const  { id }  = request.params;
 
         const fasespipe = await connection('fasespipe')
-            .where('id', id)
-            .select()
-            .first();
+        .where('fasespipe.id', id)
+        .join( 'pipes', 'pipes.id' , '=' , 'fasespipe.pipeId' )
+        .select(['fasespipe.*','pipes.nomepipe'])
+        .first();
     
         return response.json(fasespipe);
     },

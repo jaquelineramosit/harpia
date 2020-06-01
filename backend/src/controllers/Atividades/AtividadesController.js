@@ -2,7 +2,16 @@ const connection = require('../../database/connection');
 const getDate = require('../../utils/getDate');
 module.exports = {
     async getAll (request, response) {
-        const atividades = await connection('atividades').select('*');
+        const atividades = await connection('atividades')
+        .join( 'clientes', 'clientes.id' , '=' , 'atividades.clienteId' )
+        .join( 'contatos', 'contatos.id' , '=' , 'atividades.contatoId' )
+        .join( 'tiposatividade', 'tiposatividade.id' , '=' , 'atividades.tipoatividadeId' )
+        .select([
+            'atividades.*',
+            'clientes.nomecliente',
+            'contatos.nomecontato',
+            'tiposatividade.tipoatividade'
+        ]);
     
         return response.json(atividades);
     },
@@ -11,8 +20,16 @@ module.exports = {
         const  { id }  = request.params;
 
         const atividades = await connection('atividades')
-            .where('id', id)
-            .select()
+            .where('atividades.id', id)
+            .join( 'clientes', 'clientes.id' , '=' , 'atividades.clienteId' )
+            .join( 'contatos', 'contatos.id' , '=' , 'atividades.contatoId' )
+            .join( 'tiposatividade', 'tiposatividade.id' , '=' , 'atividades.tipoatividadeId' )
+            .select([
+                'atividades.*',
+                'clientes.nomecliente',
+                'contatos.nomecontato',
+                'tiposatividade.tipoatividade'
+            ])
             .first();
     
         return response.json(atividades);

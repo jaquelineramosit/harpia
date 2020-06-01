@@ -2,7 +2,18 @@ const connection = require('../../database/connection');
 const getDate = require('../../utils/getDate');
 module.exports = {
     async getAll (request, response) {
-        const oportunidades = await connection('oportunidades').select('*');
+        const oportunidades = await connection('oportunidades')
+        .join( 'clientes', 'clientes.id' , '=' , 'oportunidades.clienteId' )
+        .join( 'produtos', 'produtos.id' , '=', 'oportunidades.produtoId' )
+        .join( 'contatos', 'contatos.id' , '=' , 'oportunidades.contatoId' )
+        .join( 'fasespipe' , 'fasespipe.id' , '=' , 'oportunidades.fasepipeId' )
+        .select([
+            'oportunidades.*',
+            'clientes.nomecliente',
+            'produtos.nomeproduto',
+            'contatos.nomecontato',
+            'fasespipe.nomefase',
+        ]);
     
         return response.json(oportunidades);
     },
@@ -11,8 +22,18 @@ module.exports = {
         const  { id }  = request.params;
 
         const oportunidades = await connection('oportunidades')
-            .where('id', id)
-            .select()
+            .where('oportunidades.id', id)
+            .join( 'clientes', 'clientes.id' , '=' , 'oportunidades.clienteId' )
+            .join( 'produtos', 'produtos.id' , '=', 'oportunidades.produtoId' )
+            .join( 'contatos', 'contatos.id' , '=' , 'oportunidades.contatoId' )
+            .join( 'fasespipe' , 'fasespipe.id' , '=' , 'oportunidades.fasepipeId' )
+            .select([
+                'oportunidades.*',
+                'clientes.nomecliente',
+                'produtos.nomeproduto',
+                'contatos.nomecontato',
+                'fasespipe.nomefase',
+            ])
             .first();
     
         return response.json(oportunidades);

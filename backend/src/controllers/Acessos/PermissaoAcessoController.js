@@ -2,7 +2,19 @@ const connection = require('../../database/connection');
 const getDate = require('../../utils/getDate');
 module.exports = {
     async getAll (request, response) {
-        const acessopagina = await connection('acessopagina').select('*');
+        const acessopagina = await connection('acessopagina')
+        .join( 'perfilacesso' , 'perfilacesso.id' , 'acessopagina.perfilacessoId')
+        .join( 'modulo' , 'modulo.id' , '=' , 'acessopagina.moduloId')
+        .join( 'pagina' , 'pagina.id' , '=' , 'acessopagina.paginaId')
+        .join ( 'usuario' , 'usuario.id' , '=' , 'acessopagina.usuarioId')
+        .select([
+            'acessopagina.*',
+            'perfilacesso.perfil',
+            'modulo.nomemodulo',
+            'pagina.nomepagina',
+            'usuario.nome'
+        ]);
+
     
         return response.json(acessopagina);
     },
@@ -11,8 +23,18 @@ module.exports = {
         const  { id }  = request.params;
 
         const acessopagina = await connection('acessopagina')
-            .where('id', id)
-            .select()
+            .where('acessopagina.id', id)
+            .join( 'perfilacesso' , 'perfilacesso.id' , 'acessopagina.perfilacessoId')
+            .join( 'modulo' , 'modulo.id' , '=' , 'acessopagina.moduloId')
+            .join( 'pagina' , 'pagina.id' , '=' , 'acessopagina.paginaId')
+            .join ( 'usuario' , 'usuario.id' , '=' , 'acessopagina.usuarioId')
+            .select([
+                'acessopagina.*',
+                'perfilacesso.perfil',
+                'modulo.nomemodulo',
+                'pagina.nomepagina',
+                'usuario.nome'
+            ])
             .first();
     
         return response.json(acessopagina);

@@ -42,7 +42,7 @@ export default function ListaPaginas() {
                                 <tbody>
                                     {paginas.map(pagina => (
                                         <tr>
-                                            <td>{pagina.moduloId}</td>   
+                                            <td>{pagina.nomemodulo}</td>   
                                             <td>{pagina.nomePagina}</td>
                                             <td>{pagina.descricao}</td>                                        
                                             <td style={{ textAlign : 'right'}}>

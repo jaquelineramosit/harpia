@@ -2,7 +2,14 @@ const connection = require('../../database/connection');
 const getDate = require('../../utils/getDate');
 module.exports = {
     async getAll (request, response) {
-        const produtos = await connection('produtos').select('*');
+        const produtos = await connection('produtos')
+        .join( 'marcas' , 'marcas.id' , '=' , 'produtos.marcaId')
+        .join( 'distribuidores', 'distribuidores.id' , '=' , 'produtos.distribuidorId')
+        .select([
+            'produtos.*',
+            'marcas.nomemarca',
+            'distribuidores.nomedistribuidor'
+        ]);
     
         return response.json(produtos);
     },
@@ -11,8 +18,14 @@ module.exports = {
         const  { id }  = request.params;
 
         const produtos = await connection('produtos')
-            .where('id', id)
-            .select()
+            .where('produtos.id', id)
+            .join( 'marcas' , 'marcas.id' , '=' , 'produtos.marcaId')
+            .join( 'distribuidores', 'distribuidores.id' , '=' , 'produtos.distribuidorId')
+            .select([
+                'produtos.*',
+                'marcas.nomemarca',
+                'distribuidores.nomedistribuidor'
+            ])
             .first();
     
         return response.json(produtos);

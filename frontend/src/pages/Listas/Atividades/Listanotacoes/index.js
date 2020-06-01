@@ -44,9 +44,9 @@ export default function ListaAnotacoes() {
                                     {anotacoes.map(anotacao => (
                                         <tr>
                                             <td>{anotacao.anotacao}</td> 
-                                            <td>{anotacao.clienteId}</td> 
-                                            <td>{anotacao.oportunidadeId}</td> 
-                                            <td>{anotacao.contatoId}</td> 
+                                            <td>{anotacao.nomecliente}</td> 
+                                            <td>{anotacao.nomeoportunidade}</td> 
+                                            <td>{anotacao.nomecontato}</td> 
                                                                                    
                                             <td style={{ textAlign : 'right'}}>
                                                 <Link to={`anotacoes/${anotacao.id}`} className="btn-sm btn-primary">

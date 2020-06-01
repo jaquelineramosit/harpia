@@ -43,7 +43,7 @@ export default function Listametasvendedores() {
                                     {metasvendedores.map(metavendedor => (
                                         <tr>
                                             <td>{metavendedor.vendedorId}</td>  
-                                            <td>{metavendedor.metaId}</td> 
+                                            <td>{metavendedor.nomemeta}</td> 
                                             <td>{metavendedor.observacao}</td>                                                                    
                                             <td style={{ textAlign : 'right'}}>
                                                 <Link to={`metas-vendedores/${metavendedor.id}`} className="btn-sm btn-primary">
