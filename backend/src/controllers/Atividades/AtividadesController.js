@@ -2,10 +2,13 @@ const connection = require('../../database/connection');
 const getDate = require('../../utils/getDate');
 module.exports = {
     async getAll (request, response) {
+        const { page = 1 } = request.query;
         const atividades = await connection('atividades')
         .join( 'clientes', 'clientes.id' , '=' , 'atividades.clienteId' )
         .join( 'contatos', 'contatos.id' , '=' , 'atividades.contatoId' )
         .join( 'tiposatividade', 'tiposatividade.id' , '=' , 'atividades.tipoatividadeId' )
+        .limit(20) //limita o retorno dos registros
+        .offset((page - 1) * 20) //paginacao
         .select([
             'atividades.*',
             'clientes.nomecliente',
@@ -92,4 +95,10 @@ module.exports = {
 
         return response.status(204).send();
     },
+    async getCount (request,response) {        
+
+        const [count] = await connection('atividades').count()
+        const { page = 1 } = request.query;
+        return response.json(count['count(*)']);        
+    }
 };

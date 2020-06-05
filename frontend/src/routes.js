@@ -73,6 +73,11 @@ const Listausuarios = React.lazy(() => import('./pages/Listas/Acessos/Listausuar
 const Listaperfisacesso = React.lazy(() => import('./pages/Listas/Acessos/Listaperfisacesso'));
 const Listapermissaoacesso = React.lazy(() => import('./pages/Listas/Acessos/Listapermissaoacesso'));
 
+//Relatórios
+const relcontatonumeroportunidades = React.lazy(() => import('./pages/Relatórios/Contato x Numero Oportunidades'));
+const relcontatovalorganhoperdido = React.lazy(() => import('./pages/Relatórios/Contato x Valor Ganho e Valor Perdido'));
+const relcontatotempoportunidade = React.lazy(() => import('./pages/Relatórios/Contato X Temperatura de Oportunidade'));
+
 const routes = [
   
   // Dashboards
@@ -149,6 +154,11 @@ const routes = [
 { path: '/List-usuarios', name: 'Lista de Usuários', component: Listausuarios },
 { path: '/List-perfisacesso', name: 'Lista de Perfil de Acesso', component: Listaperfisacesso },
 { path: '/List-permissaoacesso', name: 'Lista de Permissão de Acesso', component: Listapermissaoacesso },
+
+//Tabelas
+{ path: '/rel-contatoxnumeroportunidades', name: ' Relatório de Contato X Número de oportunidades', component: relcontatonumeroportunidades },
+{ path: '/rel-contatoxvalorganhoperdido', name: ' Relatório de Contato X Valor Ganho e Valor Perdido', component: relcontatovalorganhoperdido},
+{ path: '/rel-contatoxtempoportunidade', name: ' Relatório de Contato X Temperatura de Oportunidade', component: relcontatotempoportunidade},
 
 ];
 
