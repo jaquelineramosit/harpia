@@ -20,7 +20,7 @@ module.exports = {
 
         const pagina = await connection('pagina')
             .where('pagina.id', id)
-            .join( 'modulo' , 'modulo.id' , '=' , 'pagina.moduloId' )        
+            .join( 'modulo' , 'modulo.id' , '=' , 'pagina.moduloId' )    
             .select([
                 'pagina.*',
                 'modulo.nomemodulo'
@@ -72,5 +72,4 @@ module.exports = {
             const { page = 1 } = request.query;
             return response.json(count['count(*)']);        
         }
-
     };

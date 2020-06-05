@@ -11,8 +11,8 @@ export default function ListaPaginas() {
     const [paginas, setPaginas] = useState([]);
     const [total, setTotal] = useState(0);
     const usuarioId = localStorage.getItem('userId');
-    //logica para pegar o total
-    useEffect(() => {
+     //logica para pegar o total
+     useEffect(() => {
         api.get('paginasCount', {
             headers: {
                 Authorization: 1,
@@ -30,8 +30,6 @@ export default function ListaPaginas() {
     if (total % 20 > 0) {
         pageNumbers.push(pageNumbers.length + 1);
     }
-
-
 
     useEffect(() => {
         api.get('paginas', {
