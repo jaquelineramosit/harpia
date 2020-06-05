@@ -54,6 +54,7 @@ routes.get('/modulos/:id', ModuloController.getById);
 routes.post('/modulos', ModuloController.create);
 routes.put('/modulos/:id', ModuloController.update);
 
+routes.get('/paginasCount', PaginaController.getCount);
 routes.get('/paginas', PaginaController.getAll);
 routes.get('/paginas/:id', PaginaController.getById);
 routes.post('/paginas', PaginaController.create);
@@ -64,6 +65,7 @@ routes.get('/perfis-acesso/:id', PerfilAcessoController.getById);
 routes.post('/perfis-acesso', PerfilAcessoController.create);
 routes.put('/perfis-acesso/:id', PerfilAcessoController.update);
 
+routes.get('/permissao-acessoCount', PermissaoAcessoController.getCount);
 routes.get('/permissao-acesso', PermissaoAcessoController.getAll);
 routes.get('/permissao-acesso/:id', PermissaoAcessoController.getById);
 routes.post('/permissao-acesso', PermissaoAcessoController.create);
