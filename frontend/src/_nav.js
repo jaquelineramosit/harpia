@@ -188,5 +188,26 @@ export default {
         },
       ],
     },
+    {
+      name: 'Relatórios',
+      icon: 'fa fa-bar-chart',
+      children: [
+        {
+          name: 'Contato X Oportunidades',
+          url: '/rel-contatoxnumeroportunidades',
+          icon: 'fa fa-bar-chart',
+        },
+        {
+          name: 'Contato X Valor Ganho/Perdido',
+          url: '/rel-contatoxvalorganhoperdido',
+          icon: 'fa fa-bar-chart',
+        },
+        {
+          name: 'Contato X Temperatura das oportunidades',
+          url: '/rel-contatoxtempoportunidade',
+          icon: 'fa fa-bar-chart',
+        },          
+      ],
+    },
   ],
 };

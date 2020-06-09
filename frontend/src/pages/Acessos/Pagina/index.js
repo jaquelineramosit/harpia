@@ -45,7 +45,7 @@ export default function Anotacoes() {
                     <Col xs="12" md="12">
                         <Card>
                             <CardHeader>
-                                <strong>Módulo</strong>
+                                <strong>Página</strong>
                                 <small> novo</small>
                             </CardHeader>
                             <CardBody>

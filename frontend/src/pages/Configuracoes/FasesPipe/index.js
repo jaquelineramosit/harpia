@@ -7,7 +7,7 @@ import api from '../../../../src/services/api';
 export default function FasesPipe() {
     const [nomefase, setNomeFase] = useState('');
     const [pipeId, setPipeId] = useState('');
-    const [pipesId, setPipesId] = useState('');
+    const [pipesId, setPipesId] = useState([]);
     const [ativo, setAtivo] = useState('true');
     const usuarioId = localStorage.getItem('userId');
 

@@ -2,7 +2,11 @@ const connection = require('../../database/connection');
 const getDate = require('../../utils/getDate');
 module.exports = {
     async getAll (request, response) {
-        const perfilacesso = await connection('perfilacesso').select('*');
+        const { page = 1 } = request.query;
+        const perfilacesso = await connection('perfilacesso')
+        .limit(20) //limita o retorno dos registros
+        .offset((page - 1) * 20) //paginacao
+        .select('*');
     
         return response.json(perfilacesso);
     },
@@ -52,4 +56,10 @@ module.exports = {
 
             return response.status(204).send();
         },
+        async getCount (request,response) {        
+
+            const [count] = await connection('perfilacesso').count()
+            const { page = 1 } = request.query;
+            return response.json(count['count(*)']);        
+        }
     };

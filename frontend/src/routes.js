@@ -76,6 +76,10 @@ const Listapermissaoacesso = React.lazy(() => import('./pages/Listas/Acessos/Lis
 //Icons
 const ListaIconsSimpleLine = React.lazy(() => import('./pages/Icons/IconsSimpleLine'));
 const ListaIconsFontAwesome = React.lazy(() => import('./pages/Icons/IconsFontAwesome'));
+//Relatórios
+const relcontatonumeroportunidades = React.lazy(() => import('./pages/Relatórios/Contato x Numero Oportunidades'));
+const relcontatovalorganhoperdido = React.lazy(() => import('./pages/Relatórios/Contato x Valor Ganho e Valor Perdido'));
+const relcontatotempoportunidade = React.lazy(() => import('./pages/Relatórios/Contato X Temperatura de Oportunidade'));
 
 const routes = [
   
@@ -157,6 +161,10 @@ const routes = [
 //Icons
 { path: '/list-icons-fontAwesome', name: 'Lista Font Awesome Icons', component: ListaIconsFontAwesome },
 { path: '/list-icons-simpleLine', name: 'Lista Simple Line', component: ListaIconsSimpleLine },
+//Tabelas
+{ path: '/rel-contatoxnumeroportunidades', name: ' Relatório de Contato X Número de oportunidades', component: relcontatonumeroportunidades },
+{ path: '/rel-contatoxvalorganhoperdido', name: ' Relatório de Contato X Valor Ganho e Valor Perdido', component: relcontatovalorganhoperdido},
+{ path: '/rel-contatoxtempoportunidade', name: ' Relatório de Contato X Temperatura de Oportunidade', component: relcontatotempoportunidade},
 
 ];
 

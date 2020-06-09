@@ -2,7 +2,11 @@ const connection = require('../../database/connection');
 const getDate = require('../../utils/getDate');
 module.exports = {
     async getAll (request, response) {
-        const motivosperda = await connection('motivosperda').select('*');
+        const { page = 1 } = request.query;
+        const motivosperda = await connection('motivosperda')
+        .limit(20) //limita o retorno dos registros
+        .offset((page - 1) * 20) //paginacao
+        .select('*');
     
         return response.json(motivosperda);
     },
@@ -50,4 +54,11 @@ module.exports = {
 
         return response.status(204).send();
     },
+    async getCount (request,response) {        
+
+        const [count] = await connection('motivosperda').count()
+        const { page = 1 } = request.query;
+        return response.json(count['count(*)']);        
+    }
+
 };
