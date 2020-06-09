@@ -73,6 +73,10 @@ const Listausuarios = React.lazy(() => import('./pages/Listas/Acessos/Listausuar
 const Listaperfisacesso = React.lazy(() => import('./pages/Listas/Acessos/Listaperfisacesso'));
 const Listapermissaoacesso = React.lazy(() => import('./pages/Listas/Acessos/Listapermissaoacesso'));
 
+//Icons
+const ListaIconsSimpleLine = React.lazy(() => import('./pages/Icons/IconsSimpleLine'));
+const ListaIconsFontAwesome = React.lazy(() => import('./pages/Icons/IconsFontAwesome'));
+
 const routes = [
   
   // Dashboards
@@ -149,6 +153,10 @@ const routes = [
 { path: '/List-usuarios', name: 'Lista de Usuários', component: Listausuarios },
 { path: '/List-perfisacesso', name: 'Lista de Perfil de Acesso', component: Listaperfisacesso },
 { path: '/List-permissaoacesso', name: 'Lista de Permissão de Acesso', component: Listapermissaoacesso },
+
+//Icons
+{ path: '/list-icons-fontAwesome', name: 'Lista Font Awesome Icons', component: ListaIconsFontAwesome },
+{ path: '/list-icons-simpleLine', name: 'Lista Simple Line', component: ListaIconsSimpleLine },
 
 ];
 
