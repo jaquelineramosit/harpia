@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button, InputGroup, InputGroupAddon, CardFooter, Form } from 'reactstrap';
 import { AppSwitch } from '@coreui/react'
 import '../../../global.css';
+import {telMask, cepMask,cnpjMask, cpfMask} from '../../../mask'
 import api from '../../../../src/services/api';
 
 export default function Clientes() {
@@ -26,8 +27,8 @@ export default function Clientes() {
     const [contatosId, setContatosId] = useState([]);
     const [segmentosmercadoId, setSegmentosMercadoId] = useState([]);
     const [ativo, setAtivo] = useState("true");
-    const usuarioId = localStorage.getItem('userId');    
-    
+    const usuarioId = localStorage.getItem('userId');
+
     useEffect(() => {
         api.get('contatos').then(response => {
         setContatosId(response.data);
@@ -38,11 +39,11 @@ export default function Clientes() {
         api.get('segmentos-mercado').then(response => {
         setSegmentosMercadoId(response.data);
         })
-        }, [usuarioId]);        
+        }, [usuarioId]);
 
     async function handleClientes(e) {
         e.preventDefault();
-        
+
         const data = {
             nomecliente,
             razaosocial,
@@ -64,25 +65,25 @@ export default function Clientes() {
             segmentomercadoId,
             ativo
         };
-    
+
         try {
             const response = await api.post('clientes', data, {
                 headers: {
                     Authorization : usuarioId,
                 }
             });
-            alert(`Feito o cadastro com sucesso`);      
-           
+            alert(`Feito o cadastro com sucesso`);
+
         } catch (err) {
-    
-            alert('Erro no cadastro, tente novamente.');    
+
+            alert('Erro no cadastro, tente novamente.');
         }
     }
 
-    return (        
+    return (
         <div className="animated fadeIn">
             <Form onSubmit={handleClientes}>
-                <Row>                              
+                <Row>
                     <Col xs="12" md="12">
                         <Card>
                             <CardHeader>
@@ -95,34 +96,34 @@ export default function Clientes() {
                                         <Label htmlFor="NomeCliente">Nome Cliente</Label>
                                         <Input type="text" required id="txtNomeCliente" placeholder="Digite o nome do Cliente"
                                         value={nomecliente}
-                                        onChange={ e => setNomeCliente(e.target.value)}/>                                        
+                                        onChange={ e => setNomeCliente(e.target.value)}/>
                                     </Col>
                                     <Col md="4">
                                         <Label htmlFor="RazaoSocial">Razão Social</Label>
                                         <Input type="text" required id="txtRazaoSocial" placeholder="Digite o nome do Cliente"
                                         value={razaosocial}
-                                        onChange={ e => setRazaoSocial(e.target.value)}/>                                        
-                                    </Col>                                 
+                                        onChange={ e => setRazaoSocial(e.target.value)}/>
+                                    </Col>
                                     <Col md="2">
                                         <Label htmlFor="Cnpj">CNPJ</Label>
                                         <InputGroup>
-                                            <Input type="text" required id="txtCnpj" 
+                                            <Input type="text" required id="txtCnpj"
                                             placeholder="Digite a CNPJ"
                                             value={cnpj}
-                                            onChange={ e => setCnpj(e.target.value)} />                                          
-                                        </InputGroup>                                       
-                                    </Col>                              
+                                            onChange={ e => setCnpj(cnpjMask(e.target.value))} />
+                                        </InputGroup>
+                                    </Col>
                                 </FormGroup>
                                 <FormGroup row>
                                     <Col md="4">
                                         <Label htmlFor="Logradouro">Logradouro</Label>
                                         <InputGroup>
-                                        <Input type="text" required id="txtLogradouro"  
+                                        <Input type="text" required id="txtLogradouro"
                                             placeholder="Digite o Logradouro"
                                             value={logradouro}
-                                            onChange={ e => setLogradouro(e.target.value)} />                                          
-                                        </InputGroup>       
-                                    </Col>                                                    
+                                            onChange={ e => setLogradouro(e.target.value)} />
+                                        </InputGroup>
+                                    </Col>
                                     <Col md="4">
                                         <Label htmlFor="Bairro">Bairro</Label>
                                         <Input type="text" required id="txtBairro" placeholder="Digite o Bairro"
@@ -143,18 +144,18 @@ export default function Clientes() {
                                         <InputGroup>
                                             <Input id="txtCEP" size="16" required type="text" placeholder="00000-000"
                                             value={cep}
-                                            onChange={ e => setCep(e.target.value)} />
+                                            onChange={ e => setCep(cepMask(e.target.value))} />
                                             <InputGroupAddon addonType="append">
                                                 <Button type="button" color="secondary fa fa-truck"></Button>
                                             </InputGroupAddon>
-                                        </InputGroup>                                    
+                                        </InputGroup>
                                     </Col>
                                     <Col md="3">
                                         <Label htmlFor="Complemento">Complemento</Label>
-                                        <Input type="text" id="txtComplemento" placeholder="Digite o Complemento" 
+                                        <Input type="text" id="txtComplemento" placeholder="Digite o Complemento"
                                         value={complemento}
                                         onChange={ e => setComplemento(e.target.value)}/>
-                                    </Col>                               
+                                    </Col>
                                     <Col md="2">
                                         <Label htmlFor="TipoPessoa">Tipo Pessoa</Label>
                                         <Input required type="select" name="select" id="cboTipopessoa"
@@ -163,7 +164,7 @@ export default function Clientes() {
                                         >
                                             <option value={undefined}>Selecione...</option>
                                             <option value="F">Física</option>
-                                            <option value="M">Jurídica</option>                                        
+                                            <option value="M">Jurídica</option>
                                         </Input>
                                     </Col>
                                     <Col md="2">
@@ -185,7 +186,7 @@ export default function Clientes() {
                                             <option  value="SU">Suriname</option>
                                             <option  value="UR">Uruguai</option>
                                             <option  value="VE">Venezuela</option>
-                                        </Input>      
+                                        </Input>
                                     </Col>
                                 </FormGroup>
                                 <FormGroup row>
@@ -193,7 +194,7 @@ export default function Clientes() {
                                         <Label htmlFor="Cidade">Cidade</Label>
                                         <Input type="text" required id="txtCidade" placeholder="Digite a Cidade"
                                         value={cidade}
-                                        onChange={ e => setCidade(e.target.value)} />                                    
+                                        onChange={ e => setCidade(e.target.value)} />
                                     </Col>
                                     <Col md="3">
                                         <Label htmlFor="UF">UF</Label>
@@ -230,23 +231,23 @@ export default function Clientes() {
                                         </Input>
                                     </Col>
                                     <Col md="3">
-                                    <Label htmlFor="Telefone">Telefone</Label>                                        
+                                    <Label htmlFor="Telefone">Telefone</Label>
                                         <InputGroup>
                                             <Input type="text"  id="txtTelefone" placeholder="(11) 9999-9999"
                                             value={telefone}
-                                            onChange={ e => setTelefone(e.target.value)} />
+                                            onChange={ e => setTelefone(telMask(e.target.value))} />
                                             <InputGroupAddon addonType="append">
                                                 <Button type="button" color="secondary icon-phone"></Button>
                                             </InputGroupAddon>
                                         </InputGroup>
-                                    </Col>                              
-                                </FormGroup>                        
-                                <FormGroup row>                     
+                                    </Col>
+                                </FormGroup>
+                                <FormGroup row>
                                     <Col md="3">
                                         <Label htmlFor="CPF">CPF</Label>
                                         <Input type="text" required id="txtCPF" placeholder="Digite o número do CPF"
                                         value={cpf}
-                                        onChange={ e => setCpf(e.target.value)} />                                    
+                                        onChange={ e => setCpf(cpfMask(e.target.value))} />
                                     </Col>
                                     <Col md="4">
                                         <Label htmlFor="E-mail">E-mail</Label>
@@ -258,7 +259,7 @@ export default function Clientes() {
                                                     <Button type="button" color="secondary icon-envelope"></Button>
                                             </InputGroupAddon>
                                         </InputGroup>
-                                    </Col>                               
+                                    </Col>
                                     <Col md="3">
                                         <Label htmlFor="segmentomercadoId,">Segmento de Mercado</Label>
                                         <Input type="select" required name="select" id="cboSegmentomercadoId"
@@ -267,16 +268,16 @@ export default function Clientes() {
                                             <option value={undefined} defaultValue>Selecione...</option>
                                             {segmentosmercadoId.map(segmentomercado=> (
                                             <option value={segmentomercado.id}>{segmentomercado.nomesegmento}</option>
-                                            ))} 
-                                        </Input>        
-                                    </Col>                                                                                                                       
+                                            ))}
+                                        </Input>
+                                    </Col>
                                 </FormGroup>
-                                <FormGroup row>                     
+                                <FormGroup row>
                                     <Col md="4">
                                         <Label htmlFor="Site">Site</Label>
                                         <Input type="text" required id="txtSite" placeholder="Digite site da Empresa"
                                         value={site}
-                                        onChange={ e => setSite(e.target.value)} />                                    
+                                        onChange={ e => setSite(e.target.value)} />
                                     </Col>
                                     <Col md="4">
                                         <Label htmlFor="contatoId">Contato</Label>
@@ -286,19 +287,19 @@ export default function Clientes() {
                                                 <option value={undefined} defaultValue>Selecione...</option>
                                                 {contatosId.map(contato=> (
                                                 <option value={contato.id}>{contato.nomecontato}</option>
-                                                ))} 
-                                           
-                                        </Input>      
+                                                ))}
+
+                                        </Input>
                                     </Col>
                                 </FormGroup>
-                                <FormGroup row>                                 
+                                <FormGroup row>
                                     <Col md="2">
                                         <Label check className="form-check-label" htmlFor="ativo1">Ativo</Label>
                                         <AppSwitch id="rdAtivo" className={'switch-ativo'}  label color={'success'} defaultChecked size={'sm'}
                                         value={ativo}
                                         onChange={ e => setAtivo(e.target.value)}
-                                        />                                    
-                                    </Col>                                                                                                                       
+                                        />
+                                    </Col>
                                 </FormGroup>
                             </CardBody>
                             <CardFooter className="text-center">
@@ -310,5 +311,5 @@ export default function Clientes() {
                 </Row>
             </Form>
         </div>
-    );    
+    );
 }
