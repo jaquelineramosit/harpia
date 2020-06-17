@@ -4,10 +4,10 @@ module.exports = {
     async getAll (request, response) {
         const { page = 1 } = request.query;
         const oportunidades = await connection('oportunidades')
-        .join( 'clientes', 'clientes.id' , '=' , 'oportunidades.clienteId' )
-        .join( 'produtos', 'produtos.id' , '=', 'oportunidades.produtoId' )
-        .join( 'contatos', 'contatos.id' , '=' , 'oportunidades.contatoId' )
-        .join( 'fasespipe' , 'fasespipe.id' , '=' , 'oportunidades.fasepipeId' )
+        .leftJoin( 'clientes', 'clientes.id' , '=' , 'oportunidades.clienteId' )
+        .leftJoin( 'produtos', 'produtos.id' , '=', 'oportunidades.produtoId' )
+        .leftJoin( 'contatos', 'contatos.id' , '=' , 'oportunidades.contatoId' )
+        .leftJoin( 'fasespipe' , 'fasespipe.id' , '=' , 'oportunidades.fasepipeId' )
         .limit(20) //limita o retorno dos registros
         .offset((page - 1) * 20) //paginacao
         .select([
@@ -18,7 +18,53 @@ module.exports = {
             'fasespipe.nomefase',
         ]);
     
+        console.log(oportunidades.count);
         return response.json(oportunidades);
+    },
+
+    async getAllByFasePipeId (request, response) {
+        const  { fasepipeId }  = request.params;
+        const oportunidades = await connection('oportunidades')
+        .where('fasespipe.id', fasepipeId)
+        .leftJoin( 'clientes', 'clientes.id' , '=' , 'oportunidades.clienteId' )
+        .leftJoin( 'produtos', 'produtos.id' , '=', 'oportunidades.produtoId' )
+        .leftJoin( 'contatos', 'contatos.id' , '=' , 'oportunidades.contatoId' )
+        .leftJoin( 'fasespipe' , 'fasespipe.id' , '=' , 'oportunidades.fasepipeId' )        
+        .select([
+            'oportunidades.*',
+            'clientes.nomecliente',
+            'produtos.nomeproduto',
+            'contatos.nomecontato',
+            'fasespipe.nomefase',
+        ]);
+            
+        return response.json(oportunidades);
+    },
+
+    async getCountByFasePipeId (request, response) {
+        const  { fasepipeId }  = request.params;        
+        const [count] = await connection('oportunidades')
+        //const oportunidades = await connection('oportunidades')
+        .where('oportunidades.fasepipeId', fasepipeId)
+        .leftJoin( 'clientes', 'clientes.id' , '=' , 'oportunidades.clienteId' )
+        .leftJoin( 'produtos', 'produtos.id' , '=', 'oportunidades.produtoId' )
+        .leftJoin( 'contatos', 'contatos.id' , '=' , 'oportunidades.contatoId' )
+        .leftJoin( 'fasespipe' , 'fasespipe.id' , '=' , 'oportunidades.fasepipeId' )
+        .count()                
+        return response.json(count['count(*)']);        
+    },
+
+    async getTotalByFasePipeId (request, response) {
+        const  { fasepipeId }  = request.params;
+        const [total] = await connection('oportunidades')
+        //const oportunidades = await connection('oportunidades')
+        .where('oportunidades.fasepipeId', fasepipeId)
+        .leftJoin( 'clientes', 'clientes.id' , '=' , 'oportunidades.clienteId' )
+        .leftJoin( 'produtos', 'produtos.id' , '=', 'oportunidades.produtoId' )
+        .leftJoin( 'contatos', 'contatos.id' , '=' , 'oportunidades.contatoId' )
+        .leftJoin( 'fasespipe' , 'fasespipe.id' , '=' , 'oportunidades.fasepipeId' )               
+        .sum('oportunidades.valor as total');
+        return response.json(total);
     },
 
     async getById (request, response) {
@@ -26,10 +72,10 @@ module.exports = {
 
         const oportunidades = await connection('oportunidades')
             .where('oportunidades.id', id)
-            .join( 'clientes', 'clientes.id' , '=' , 'oportunidades.clienteId' )
-            .join( 'produtos', 'produtos.id' , '=', 'oportunidades.produtoId' )
-            .join( 'contatos', 'contatos.id' , '=' , 'oportunidades.contatoId' )
-            .join( 'fasespipe' , 'fasespipe.id' , '=' , 'oportunidades.fasepipeId' )
+            .leftJoin( 'clientes', 'clientes.id' , '=' , 'oportunidades.clienteId' )
+            .leftJoin( 'produtos', 'produtos.id' , '=', 'oportunidades.produtoId' )
+            .leftJoin( 'contatos', 'contatos.id' , '=' , 'oportunidades.contatoId' )
+            .leftJoin( 'fasespipe' , 'fasespipe.id' , '=' , 'oportunidades.fasepipeId' )
             .select([
                 'oportunidades.*',
                 'clientes.nomecliente',

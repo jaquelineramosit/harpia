@@ -92,6 +92,9 @@ routes.post('/atividades', AtividadesController.create);
 routes.put('/atividades/:id', AtividadesController.update);
 
 routes.get('/oportunidadesCount', OportunidadesController.getCount);
+routes.get('/oportunidades-fasePipe/:fasepipeId', OportunidadesController.getAllByFasePipeId);
+routes.get('/oportunidades-count-fasePipe/:fasepipeId', OportunidadesController.getCountByFasePipeId);
+routes.get('/oportunidades-total-fasePipe/:fasepipeId', OportunidadesController.getTotalByFasePipeId);
 routes.get('/oportunidades', OportunidadesController.getAll);
 routes.get('/oportunidades/:id', OportunidadesController.getById);
 routes.post('/oportunidades', OportunidadesController.create);
@@ -137,6 +140,7 @@ routes.put('/expectativas-fechamento/:id', ExpecFechaController.update);
 routes.get('/fases-pipeCount', FasesPipeController.getCount);
 routes.get('/fases-pipe', FasesPipeController.getAll);
 routes.get('/fases-pipe/:id', FasesPipeController.getById);
+routes.get('/fases-pipe-pipeId/:pipeId', FasesPipeController.getAllByPipeId);
 routes.post('/fases-pipe', FasesPipeController.create);
 routes.put('/fases-pipe/:id', FasesPipeController.update);
 

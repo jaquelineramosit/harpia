@@ -4,6 +4,8 @@ import React from 'react';
 const Dashboard = React.lazy(() => import('./pages/Dashboards/Dashboardv1/Dashboard'));
 const Dashboardv2 = React.lazy(() => import('./pages/Dashboards/Dashboardv2/index'));
 const Dashboardv3 = React.lazy(() => import('./pages/Dashboards/Dashboardv3/index'));
+const Home = React.lazy(() => import('./pages/Dashboards/Home'));
+
 
 // Acessos
 const Logon = React.lazy(() => import('./pages/Acessos/Logon'));
@@ -33,7 +35,7 @@ const Metas = React.lazy(() => import('./pages/Configuracoes/Metas'));
 const MetasVendedores = React.lazy(() => import('./pages/Configuracoes/MetasVendedores'));
 const MotivosPerda = React.lazy(() => import('./pages/Configuracoes/MotivosPerda'));
 const Paises = React.lazy(() => import('./pages/Configuracoes/Paises'));
-const Pipes = React.lazy(() => import('./pages/Configuracoes/Pipes'));
+const Pipes = React.lazy(() => import('./pages/Configuracoes/Pipes'))
 const Produtos = React.lazy(() => import('./pages/Configuracoes/Produtos'));
 const SegmentosMercado = React.lazy(() => import('./pages/Configuracoes/SegmentosMercado'));
 const TiposAtividade = React.lazy(() => import('./pages/Configuracoes/TiposAtividade'));
@@ -49,7 +51,7 @@ const Listtipocontatos = React.lazy(() => import('./pages/Listas/Configuracoes/L
 const Listdepartamentos = React.lazy(() => import('./pages/Listas/Configuracoes/Listdepartamentos'));
 const Listmetas = React.lazy(() => import('./pages/Listas/Configuracoes/Listmetas'));
 const Listmetasvendedores = React.lazy(() => import('./pages/Listas/Configuracoes/Listmetasvendedores'));
-const Listpipes = React.lazy(() => import('./pages/Listas/Configuracoes/Listpipes'));
+//const Listpipes = React.lazy(() => import('./pages/Listas/Configuracoes/Listpipes'));
 const Listfasespipes = React.lazy(() => import('./pages/Listas/Configuracoes/Listfasespipes'));
 const Listprodutos = React.lazy(() => import('./pages/Listas/Configuracoes/Listprodutos'));
 const Listdistribuidores = React.lazy(() => import('./pages/Listas/Configuracoes/Listdistribuidores'));
@@ -81,10 +83,13 @@ const relcontatonumeroportunidades = React.lazy(() => import('./pages/Relatório
 const relcontatovalorganhoperdido = React.lazy(() => import('./pages/Relatórios/Contato x Valor Ganho e Valor Perdido'));
 const relcontatotempoportunidade = React.lazy(() => import('./pages/Relatórios/Contato X Temperatura de Oportunidade'));
 
+const Sortable = React.lazy(() => import('./pages/Configuracoes/Sortable'));
+
+
 const routes = [
   
   // Dashboards
-  { path: '/', exact: true, name: 'Home' },
+  { path: '/', exact: true, name: 'Home', component: Home },
   { path: '/dashboardv1', name: 'Dashboard', component: Dashboard },
   { path: '/dashboardv2', name: 'Dashboardv2', component: Dashboardv2 },
   { path: '/dashboardv3', name: 'Dashboardv3', component: Dashboardv3 },
@@ -133,14 +138,13 @@ const routes = [
 { path: '/List-metas', name: 'Lista de Metas', component: Listmetas },
 { path: '/List-metasvendedores', name: 'Lista de Metas de Vendedores', component: Listmetasvendedores },
 { path: '/List-metasvendedores', name: 'Lista de Metas de Vendedores', component: Listmetasvendedores },
-{ path: '/List-pipes', name: 'Lista de Pipes', component: Listpipes},
+{ path: '/pipes', name: 'Pipes', component: Pipes},
 { path: '/List-fasespipes', name: 'Lista de Fases do Pipes', component: Listfasespipes},
 { path: '/List-produtos', name: 'Lista de Fases de Produtos', component: Listprodutos},
 { path: '/List-distribuidores', name: 'Lista de Distribuidores', component: Listdistribuidores},
 { path: '/List-marcas', name: 'Lista de Marcas', component: Listmarcas},
 { path: '/List-clientes', name: 'Lista de Clientes', component: Listclientes},
 { path: '/List-paises', name: 'Lista de Países', component: Listpaises},
-{ path: '/List-segmentosmercado', name: 'Lista de Segmentos de Mercado', component: Listsegmentosmercado},
 { path: '/List-segmentosmercado', name: 'Lista de Segmentos de Mercado', component: Listsegmentosmercado},
 { path: '/List-tiposatividade', name: 'Lista de Tipos de Atividade', component: ListtiposAtividade },
 { path: '/List-expectativasfechamento', name: 'Lista de Expectativas de fechamento', component: Listexpectativasfechamento },
@@ -165,6 +169,8 @@ const routes = [
 { path: '/rel-contatoxnumeroportunidades', name: ' Relatório de Contato X Número de oportunidades', component: relcontatonumeroportunidades },
 { path: '/rel-contatoxvalorganhoperdido', name: ' Relatório de Contato X Valor Ganho e Valor Perdido', component: relcontatovalorganhoperdido},
 { path: '/rel-contatoxtempoportunidade', name: ' Relatório de Contato X Temperatura de Oportunidade', component: relcontatotempoportunidade},
+
+{ path: '/sortable', name: 'Sortable', component: Sortable},
 
 ];
 

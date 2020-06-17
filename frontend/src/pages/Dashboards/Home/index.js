@@ -184,20 +184,16 @@ const FasePipe = () => {
     )    
 }
 
-class Pipes extends Component {
-    render() {        
-        return (            
-            <div className="animated fadeIn">
-                {/* <Form onSubmit={handlePipes}> */}
-                <Form>
-                    <Row>
-                        {/* /* 20% */}
-                        <FasePipe />                        
-                    </Row>
-                </Form>
-            </div>
-        );
-    }
-
+export default function Home() {      
+    return (            
+        <div className="animated fadeIn">
+            {/* <Form onSubmit={handlePipes}> */}
+            <Form>
+                <Row>
+                    {/* /* 20% */}
+                    <FasePipe />                        
+                </Row>
+            </Form>
+        </div>
+    );
 }
-export default Pipes;

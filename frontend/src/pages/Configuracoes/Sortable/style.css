@@ -1,0 +1,21 @@
+.title-fase {
+    font-size: x-small;
+    font-weight: bold;
+    text-align: center;
+}
+
+.title-values {
+    font-size: smaller;
+    font-weight: bold;
+    text-align: center;
+}
+
+.details-pipes {
+
+    color: #20a8d8;
+
+}
+
+.card-body {
+    min-height: 700px;
+}

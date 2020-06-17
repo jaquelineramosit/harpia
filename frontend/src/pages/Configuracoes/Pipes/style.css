@@ -1,0 +1,36 @@
+.title-fase {
+    font-size: x-small;
+    font-weight: bold;
+    text-align: center;
+}
+
+.title-values {
+    font-size: smaller;
+    font-weight: bold;
+    text-align: center;
+}
+
+.details-pipes {
+    color: #20a8d8;
+}
+
+.card-body {    
+   
+    padding-left: 25px;
+}
+.card-oportunidade {
+    font-size: .65rem;
+    background-color: #63c2de;
+    text-align: center;        
+    min-width: 175px;
+    height: 85px;
+    padding: 5px 7px;
+    border: solid 1px #63c2de;
+    margin-bottom: 8px;
+    color: white;
+}
+.link-card {
+    font-size: .75rem;
+    color: white;
+    margin-left: 2px;
+}
