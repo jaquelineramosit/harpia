@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button,  CardFooter, Form } from 'reactstrap';
 import { AppSwitch } from '@coreui/react'
 import '../../../global.css';
+import{reaisMask} from '../../../mask'
 import api from '../../../../src/services/api';
 
 export default function Oportunidades() {
@@ -32,20 +33,20 @@ export default function Oportunidades() {
         api.get('produtos').then(response => {
         setProdutosId(response.data);
         })
-        }, [usuarioId]);  
-        
+        }, [usuarioId]);
+
     useEffect(() => {
         api.get('contatos').then(response => {
         setContatosId(response.data);
         })
-        }, [usuarioId]);  
+        }, [usuarioId]);
 
     useEffect(() => {
         api.get('fases-pipe').then(response => {
         setFasesPipeId(response.data);
         })
-        }, [usuarioId]);  
-    
+        }, [usuarioId]);
+
 
     async function handleOportunidades(e) {
         e.preventDefault();
@@ -128,7 +129,7 @@ export default function Oportunidades() {
                                              <option value={contato.id}>{contato.nomecontato}</option>
                                              ))}
                                             </Input>
-                                        </Col>    
+                                        </Col>
                                 </FormGroup>
                                 <FormGroup row>
                                     <Col md="4">
@@ -144,13 +145,13 @@ export default function Oportunidades() {
                                     </Col>
                                     <Col md="4">
                                         <Label htmlFor="valor">Valor</Label>
-                                        <Input type="number" required id="txtValor"
+                                        <Input type="text" required id="txtValor"
                                             value={valor}
-                                            onChange={e => setValor(e.target.value)} />
+                                            onChange={e => setValor(reaisMask(e.target.value))} />
                                     </Col>
                                 </FormGroup>
                                 <FormGroup row>
-                                
+
                                     <Col md="4">
                                     <Label htmlFor="expectativaFechamento">Expectativa de Fechamento</Label>
                                         <Input type="date" required name="select" id="txtExpectativaFechamento"
@@ -188,7 +189,7 @@ export default function Oportunidades() {
                                         </Input>
                                     </Col>
                                 </FormGroup>
-                                <FormGroup row>    
+                                <FormGroup row>
                                     <Col md="2">
                                         <Label check className="form-check-label" htmlFor="ativo">Ativa</Label>
                                         <AppSwitch id="rdAtivo" className={'switch-ativo'} label color={'success'} defaultChecked size={'sm'}
@@ -196,7 +197,7 @@ export default function Oportunidades() {
                                             onChange={e => setAtivo(e.target.value)}
                                         />
                                     </Col>
-                                </FormGroup>    
+                                </FormGroup>
                             </CardBody>
                             <CardFooter className="text-center">
                                 <Button type="submit" size="sm" color="success" className=" mr-3"><i className="fa fa-check"></i> Salvar</Button>

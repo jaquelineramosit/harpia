@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button, InputGroup, InputGroupAddon, CardFooter, Form, FormFeedback } from 'reactstrap';
 import { AppSwitch } from '@coreui/react'
 import '../../../global.css';
+import {cepMask, telMask, celMask, cpfMask, rgMask} from '../../../mask';
 import api from '../../../../src/services/api';
 
 export default function Usuario() {
@@ -30,7 +31,7 @@ export default function Usuario() {
     const [perfisAcessoId, setPerfisAcessoId] = useState([]);
     const usuarioId = localStorage.getItem('userId');
     const history = useHistory();
-    
+
     useEffect(() => {
         api.get('perfis-acesso').then(response => {
         setPerfisAcessoId(response.data);
@@ -39,7 +40,7 @@ export default function Usuario() {
 
     async function handleRegister(e) {
         e.preventDefault();
-        
+
         const data = {
           nome,
           sobrenome,
@@ -61,24 +62,24 @@ export default function Usuario() {
           senhaForm,
           ativo
         };
-    
+
         try {
             console.log(data);
             const response = await api.post('/usuarios', data);
             console.log(response);
-            alert(`Seu login de acesso: ${response.data.login}`);      
+            alert(`Seu login de acesso: ${response.data.login}`);
             history.push('/');
-            
+
         } catch (err) {
-    
-            alert('Erro no cadastro, tente novamente.');    
+
+            alert('Erro no cadastro, tente novamente.');
         }
     }
 
-    return (        
+    return (
         <div className="animated fadeIn">
             <Form onSubmit={handleRegister}>
-                <Row>                              
+                <Row>
                     <Col xs="12" md="12">
                         <Card>
                             <CardHeader>
@@ -96,7 +97,7 @@ export default function Usuario() {
                                     <Col md="4">
                                         <Label htmlFor="DataNasc">Data de Nasc.</Label>
                                         <InputGroup>
-                                            <Input type="date" required id="txtDataNasc" className="date" 
+                                            <Input type="date" required id="txtDataNasc" className="date"
                                             placeholder="Digite a Data de Nascimento"
                                             value={dataNasc}
                                             onChange={ e => setDataNasc(e.target.value)} />
@@ -104,7 +105,7 @@ export default function Usuario() {
                                                 <Button type="button" color="secondary icon-calendar"></Button>
                                             </InputGroupAddon>
                                         </InputGroup>
-                                        
+
                                     </Col>
                                     <Col md="2">
                                         <Label htmlFor="Genero">Genero</Label>
@@ -114,9 +115,9 @@ export default function Usuario() {
                                         >
                                             <option value={undefined}>Selecione...</option>
                                             <option value="F">Feminino</option>
-                                            <option value="M">Masculino</option>                                        
+                                            <option value="M">Masculino</option>
                                         </Input>
-                                    </Col>                               
+                                    </Col>
                                 </FormGroup>
                                 <FormGroup row>
                                     <Col md="2">
@@ -124,11 +125,11 @@ export default function Usuario() {
                                         <InputGroup>
                                             <Input id="txtCEP" size="16" required type="text" placeholder="00000-000"
                                             value={cep}
-                                            onChange={ e => setCep(e.target.value)} />
+                                            onChange={ e => setCep(cepMask(e.target.value))} />
                                             <InputGroupAddon addonType="append">
                                                 <Button type="button" color="secondary fa fa-truck"></Button>
                                             </InputGroupAddon>
-                                        </InputGroup>                                    
+                                        </InputGroup>
                                     </Col>
                                     <Col md="6">
                                         <Label htmlFor="Logradouro">Logradouro</Label>
@@ -145,17 +146,17 @@ export default function Usuario() {
                                     </Col>
                                     <Col md="2">
                                         <Label htmlFor="Complemento">Complemento</Label>
-                                        <Input type="text" id="txtComplemento" placeholder="Digite o Complemento" 
+                                        <Input type="text" id="txtComplemento" placeholder="Digite o Complemento"
                                         value={complemento}
                                         onChange={ e => setComplemento(e.target.value)}/>
-                                    </Col>                               
+                                    </Col>
                                 </FormGroup>
                                 <FormGroup row>
                                     <Col md="4">
                                         <Label htmlFor="Bairro">Bairro</Label>
                                         <Input type="text" required id="txtBairro" placeholder="Digite o Bairro"
                                         value={bairro}
-                                        onChange={ e => setBairro(e.target.value)} />                                    
+                                        onChange={ e => setBairro(e.target.value)} />
                                     </Col>
                                     <Col md="4">
                                         <Label htmlFor="Cidade">Cidade</Label>
@@ -195,60 +196,60 @@ export default function Usuario() {
                                             <option value="SC">Santa Catarina</option>
                                             <option value="SE">Sergipe</option>
                                             <option value="TO">Tocantins</option>
-                                        </Input>    
+                                        </Input>
                                     </Col>
                                     <Col md="2">
                                         <Label check className="form-check-label" htmlFor="ativo1">Ativo</Label>
                                         <AppSwitch id="rdAtivo" className={'switch-ativo'}  label color={'success'} defaultChecked size={'sm'}
                                         value={ativo}
                                         onChange={ e => setAtivo(e.target.value)}
-                                        />                                    
-                                    </Col>                                                      
-                                </FormGroup>                        
+                                        />
+                                    </Col>
+                                </FormGroup>
                                 <FormGroup row>
                                     <Col md="4">
                                         <Label htmlFor="RG">Documento RG</Label>
                                         <Input type="text" id="txtRG" placeholder="Digite o número do RG"
                                         value={rg}
-                                        onChange={ e => setRg(e.target.value)} />
-                                    </Col>                               
+                                        onChange={ e => setRg(rgMask(e.target.value))} />
+                                    </Col>
                                     <Col md="4">
                                         <Label htmlFor="CPF">CPF</Label>
                                         <Input type="text" required id="txtCPF" placeholder="Digite o número do CPF"
                                         value={cpf}
-                                        onChange={ e => setCpf(e.target.value)} />                                    
+                                        onChange={ e => setCpf(cpfMask(e.target.value))} />
                                     </Col>
                                     <Col md="2">
-                                        <Label htmlFor="TelefoneFixo">Telefone Fixo</Label>                                        
+                                        <Label htmlFor="TelefoneFixo">Telefone Fixo</Label>
                                         <InputGroup>
                                             <Input type="text"  id="txtTelefoneFixo" placeholder="(11) 9999-9999"
                                             value={telefone}
-                                            onChange={ e => setTelefone(e.target.value)} />
+                                            onChange={ e => setTelefone(telMask(e.target.value))} />
                                             <InputGroupAddon addonType="append">
                                                 <Button type="button" color="secondary icon-phone"></Button>
                                             </InputGroupAddon>
                                         </InputGroup>
-                                        
-                                    </Col>                               
+
+                                    </Col>
                                     <Col md="2">
                                         <Label htmlFor="Celular">Celular</Label>
                                         <InputGroup>
                                             <Input type="text" required id="txtCelular" placeholder="(11) 99999-9999"
                                             value={celular}
-                                            onChange={ e => setCelular(e.target.value)} />  
+                                            onChange={ e => setCelular(celMask(e.target.value))} />
                                             <InputGroupAddon addonType="append">
                                                 <Button type="button" color="secondary icon-screen-smartphone"></Button>
                                             </InputGroupAddon>
                                         </InputGroup>
-                                                                        
-                                    </Col>                                                                                                                       
+
+                                    </Col>
                                 </FormGroup>
                             </CardBody>
                             <CardHeader className="border-top">
-                                <strong>Dados de Acesso</strong>                            
+                                <strong>Dados de Acesso</strong>
                             </CardHeader>
                             <CardBody className="">
-                                <FormGroup row>                                
+                                <FormGroup row>
                                     <Col md="8">
                                         <Label htmlFor="E-mail">E-mail</Label>
                                         <InputGroup>
@@ -259,7 +260,7 @@ export default function Usuario() {
                                                 <Button type="button" color="secondary icon-envelope"></Button>
                                             </InputGroupAddon>
                                         </InputGroup>
-                                        
+
                                     </Col>
                                     <Col md="4">
                                         <Label htmlFor="PerfilAcesso">Perfil de Acesso</Label>
@@ -269,11 +270,11 @@ export default function Usuario() {
                                             <option value={undefined} defaultValue>Selecione...</option>
                                             {perfisAcessoId.map(perfil=> (
                                             <option value={perfil.id}>{perfil.perfil}</option>
-                                            ))}                                    
+                                            ))}
                                         </Input>
-                                    </Col>                                                                                                                                    
+                                    </Col>
                                 </FormGroup>
-                                <FormGroup row>                                
+                                <FormGroup row>
                                     <Col md="4">
                                         <Label htmlFor="NomeUsuario">Nome de Usuário</Label>
                                         <InputGroup>
@@ -283,8 +284,8 @@ export default function Usuario() {
                                             <InputGroupAddon addonType="append">
                                                 <Button type="button" color="secondary icon-user"></Button>
                                             </InputGroupAddon>
-                                        </InputGroup>                                                                        
-                                    </Col>                               
+                                        </InputGroup>
+                                    </Col>
                                     <Col md="4">
                                         <Label htmlFor="SenhaForm">Senha</Label>
                                         <InputGroup>
@@ -295,20 +296,20 @@ export default function Usuario() {
                                                 <Button type="button" color="secondary icon-lock"></Button>
                                             </InputGroupAddon>
                                         </InputGroup>
-                                        
+
                                     </Col>
                                     <Col md="4">
                                         <Label htmlFor="ConfirmarSenha">Confirme a senha</Label>
                                         <InputGroup>
                                             <Input type="password" id="txtConfirmarSenha" placeholder="Confirme a senha"
                                             value={senhaConfirmaForm}
-                                            onChange={ e => setsenhaConfirmaForm(e.target.value)} />  
+                                            onChange={ e => setsenhaConfirmaForm(e.target.value)} />
                                             <InputGroupAddon addonType="append">
                                                 <Button type="button" color="secondary icon-lock"></Button>
                                             </InputGroupAddon>
-                                        </InputGroup>                                                                      
-                                    </Col>        
-                                </FormGroup>                                                         
+                                        </InputGroup>
+                                    </Col>
+                                </FormGroup>
                             </CardBody>
                             <CardFooter className="text-center">
                                 <Button type="submit" size="sm" color="success" className=" mr-3"><i className="fa fa-check"></i> Salvar</Button>
@@ -319,5 +320,5 @@ export default function Usuario() {
                 </Row>
             </Form>
         </div>
-    );    
+    );
 }
