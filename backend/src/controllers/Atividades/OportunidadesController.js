@@ -2,14 +2,11 @@ const connection = require('../../database/connection');
 const getDate = require('../../utils/getDate');
 module.exports = {
     async getAll (request, response) {
-        const { page = 1 } = request.query;
         const oportunidades = await connection('oportunidades')
         .join( 'clientes', 'clientes.id' , '=' , 'oportunidades.clienteId' )
         .join( 'produtos', 'produtos.id' , '=', 'oportunidades.produtoId' )
         .join( 'contatos', 'contatos.id' , '=' , 'oportunidades.contatoId' )
         .join( 'fasespipe' , 'fasespipe.id' , '=' , 'oportunidades.fasepipeId' )
-        .limit(20) //limita o retorno dos registros
-        .offset((page - 1) * 20) //paginacao
         .select([
             'oportunidades.*',
             'clientes.nomecliente',

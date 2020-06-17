@@ -1,12 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Card, CardBody, CardHeader, Col, Pagination, PaginationItem, PaginationLink, Row, Table } from 'reactstrap';
-
+import { Card, CardBody, CardHeader, Col, Row, Badge } from 'reactstrap';
 import api from '../../../../services/api';
-var currentPage;
-var previousPage;
-var nextPage;
-var idPag = '';
+import DataTable from 'react-data-table-component';
 
 export default function ListaAnotacoes() {
     const [anotacoes, setAnotacoes] = useState([]);
@@ -22,69 +18,61 @@ export default function ListaAnotacoes() {
             setTotal(response.data);
         })
     }, [1]);
-    //Logica para mostrar os numeros de pagina
-    const pageNumbers = [];
-    for (let i = 1; i <= (total / 20); i++) {
-        pageNumbers.push(i);
-    }
-
-    if (total % 20 > 0) {
-        pageNumbers.push(pageNumbers.length + 1);
-    }
-
-
 
     useEffect(() => {
         api.get('anotacoes', {
             headers: {
                 Authorization: 1,
-            },
-            params: {
-                page: currentPage
             }
         }).then(response => {
             setAnotacoes(response.data);
         })
     }, [usuarioId]);
-    //Paginação
-    async function handlePage(e) {
-        e.preventDefault();
+    const data = anotacoes;
 
-        idPag = e.currentTarget.name;
+    const columns = [
+        {
+            name: 'Anotações',
+            selector: 'anotacao',
+            sortable: true,
 
-        if (idPag == 'btnPrevious') {
-            currentPage = previousPage;
-            previousPage = currentPage - 1;
-            nextPage = currentPage + 1;
-        } else if (idPag == 'btnNext') {
-            // se existe, quer dizer que foi apertado após qualquer numero
-            if (currentPage) {
-                currentPage = nextPage;
-                previousPage = currentPage - 1;
-                nextPage = currentPage + 1;
-            } else { // next apertado antes de qlqr numero (1º load + next em vez d pag 2)
-                currentPage = 2;
-                nextPage = 3;
-                previousPage = 1;
-            };
-        } else {
-            currentPage = parseInt(e.currentTarget.id);
-            previousPage = currentPage - 1;
-            nextPage = currentPage + 1;
-        };
 
-        api.get('anotacoes', {
-            headers: {
-                Authorization: 1,
-            },
-            params: {
-                page: currentPage
-            }
-        }).then(response => {
-            setAnotacoes(response.data);
-        });
-    }
+        },
+        {
+            name: 'Cliente',
+            selector: 'nomecliente',
+            sortable: true,
+            left: true,
 
+        },
+        {
+            name: 'Oportunidade',
+            selector: 'nomeoportunidade',
+            sortable: true,
+            left: true,
+
+        },
+        {
+            name: 'Contato',
+            selector: 'nomecontato',
+            sortable: true,
+            left: true,
+
+        },
+        {
+            name: 'Status',
+            sortable: true,
+            left: true,
+            cell: row => <Badge color="success">Ativo</Badge>,
+        },
+        {
+            name: 'Ações',
+            sortable: true,
+            right: true,
+            cell: row => <Link to={`anotacoes/${row.id}`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg mr-1"></i>
+            Editar</Link>
+        },
+    ];
 
     return (
         <div className="animated-fadeIn">
@@ -102,52 +90,15 @@ export default function ListaAnotacoes() {
 
                         </CardHeader>
                         <CardBody>
-                            <Table responsive striped>
-                                <thead>
-                                    <tr>
-                                        <th>Anotações</th>
-                                        <th>Cliente</th>
-                                        <th>Oportunidade</th>
-                                        <th>Contato</th>
-                                        <th style={{ textAlign: 'right' }}>Ações</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {anotacoes.map(anotacao => (
-                                        <tr>
-                                            <td>{anotacao.anotacao}</td>
-                                            <td>{anotacao.nomecliente}</td>
-                                            <td>{anotacao.nomeoportunidade}</td>
-                                            <td>{anotacao.nomecontato}</td>
-
-                                            <td style={{ textAlign: 'right' }}>
-                                                <Link to={`anotacoes/${anotacao.id}`} className="btn-sm btn-primary">
-                                                    <i className="fa fa-pencil fa-lg mr-1"></i>
-                                                    Editar
-                                                </Link>
-
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </Table>
-                            <Pagination>
-                                <PaginationItem>
-                                    <PaginationLink previous id="btnPrevious" name="btnPrevious" onClick={e => handlePage(e)} tag="button">
-                                        <i className="fa fa-angle-double-left"></i>
-                                    </PaginationLink>
-                                </PaginationItem>
-                                {pageNumbers.map(number => (
-                                    <PaginationItem key={'pgItem' + number} >
-                                        <PaginationLink id={number} name={number} onClick={e => handlePage(e)} tag="button">{number}</PaginationLink>
-                                    </PaginationItem>
-                                ))}
-                                <PaginationItem>
-                                    <PaginationLink next id="btnNext" name="btnNext" onClick={e => handlePage(e)} next tag="button">
-                                        <i className="fa fa-angle-double-right"></i>
-                                    </PaginationLink>
-                                </PaginationItem>
-                            </Pagination>
+                            <DataTable className="mt-n3"
+                                title="Anotações"
+                                columns={columns}
+                                data={data}
+                                striped={true}
+                                highlightOnHover={true}
+                                responsive={true}
+                                pagination={true}
+                            />
                         </CardBody>
                     </Card>
                 </Col>

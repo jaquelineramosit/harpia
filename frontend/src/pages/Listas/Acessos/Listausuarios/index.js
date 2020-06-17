@@ -1,12 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Card, CardBody, CardHeader, Col, Pagination, PaginationItem, PaginationLink, Row, Table } from 'reactstrap';
-
+import { Card, CardBody, CardHeader, Col, Row, Badge } from 'reactstrap';
 import api from '../../../../services/api';
-var currentPage;
-var previousPage;
-var nextPage;
-var idPag = '';
+import DataTable from 'react-data-table-component';
 
 export default function ListaUsuarios() {
     const [usuarios, setUsuarios] = useState([]);
@@ -23,68 +19,89 @@ export default function ListaUsuarios() {
             setTotal(response.data);
         })
     }, [1]);
-    //Logica para mostrar os numeros de pagina
-    const pageNumbers = [];
-    for (let i = 1; i <= (total / 20); i++) {
-        pageNumbers.push(i);
-    }
-
-    if (total % 20 > 0) {
-        pageNumbers.push(pageNumbers.length + 1);
-    }
-
-
 
     useEffect(() => {
         api.get('usuarios', {
             headers: {
                 Authorization: 1,
-            },
-            params: {
-                page: currentPage
             }
         }).then(response => {
             setUsuarios(response.data);
         })
     }, [usuarioId]);
-    //Paginação
-    async function handlePage(e) {
-        e.preventDefault();
+    const data = usuarios;
 
-        idPag = e.currentTarget.name;
+    const columns = [
+        {
+            name: 'Nome',
+            selector: 'nome',
+            sortable: true,
 
-        if (idPag == 'btnPrevious') {
-            currentPage = previousPage;
-            previousPage = currentPage - 1;
-            nextPage = currentPage + 1;
-        } else if (idPag == 'btnNext') {
-            // se existe, quer dizer que foi apertado após qualquer numero
-            if (currentPage) {
-                currentPage = nextPage;
-                previousPage = currentPage - 1;
-                nextPage = currentPage + 1;
-            } else { // next apertado antes de qlqr numero (1º load + next em vez d pag 2)
-                currentPage = 2;
-                nextPage = 3;
-                previousPage = 1;
-            };
-        } else {
-            currentPage = parseInt(e.currentTarget.id);
-            previousPage = currentPage - 1;
-            nextPage = currentPage + 1;
-        };
 
-        api.get('usuarios', {
-            headers: {
-                Authorization: 1,
-            },
-            params: {
-                page: currentPage
-            }
-        }).then(response => {
-            setUsuarios(response.data);
-        });
-    }
+        },
+        {
+            name: 'Sobrenome',
+            selector: 'sobrenome',
+            sortable: true,
+            left: true,
+
+        },
+        {
+            name: 'Data de Nascimento',
+            selector: 'datanasc',
+            sortable: true,
+            left: true,
+
+        },
+        {
+            name: 'Cidade',
+            selector: 'cidade',
+            sortable: true,
+            left: true,
+
+        },
+        {
+            name: 'Estado',
+            selector: 'estado',
+            sortable: true,
+            left: true,
+
+        },
+        {
+            name: 'Telefone',
+            selector: 'telefone',
+            sortable: true,
+            left: true,
+
+        },
+        {
+            name: 'Celular',
+            selector: 'celular',
+            sortable: true,
+            left: true,
+
+        },
+        {
+            name: 'Email',
+            selector: 'email',
+            sortable: true,
+            left: true,
+
+        },
+        {
+            name: 'Status',
+            sortable: true,
+            center: true,
+            cell: row => <Badge color="success">Ativo</Badge>,
+        },
+        {
+            name: 'Ações',
+            sortable: true,
+            right: true,
+            cell: row => <Link to={`usuarios/${row.id}`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg mr-1"></i>
+            Editar</Link>
+        },
+    ];
 
     return (
         <div className="animated-fadeIn">
@@ -102,59 +119,15 @@ export default function ListaUsuarios() {
 
                         </CardHeader>
                         <CardBody>
-                            <Table responsive striped>
-                                <thead>
-                                    <tr>
-                                        <th>Nome</th>
-                                        <th>Sobrenome</th>
-                                        <th>Data de Nascimento</th>
-                                        <th>Cidade</th>
-                                        <th>Estado</th>
-                                        <th>Telefone</th>
-                                        <th>Celular</th>
-                                        <th>Email</th>
-                                        <th style={{ textAlign: 'right' }}>Ações</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {usuarios.map(usuario => (
-                                        <tr>
-                                            <td>{usuario.nome}</td>
-                                            <td>{usuario.sobrenome}</td>
-                                            <td>{usuario.datanasc}</td>
-                                            <td>{usuario.cidade}</td>
-                                            <td>{usuario.estado}</td>
-                                            <td>{usuario.telefone}</td>
-                                            <td>{usuario.celular}</td>
-                                            <td>{usuario.email}</td>
-                                            <td style={{ textAlign: 'right' }}>
-                                                <Link to={`usuarios/${usuario.id}`} className="btn-sm btn-primary">
-                                                    <i className="fa fa-pencil fa-lg mr-1"></i>
-                                                    Editar
-                                                </Link>
-
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </Table>
-                            <Pagination>
-                                <PaginationItem>
-                                    <PaginationLink previous id="btnPrevious" name="btnPrevious" onClick={e => handlePage(e)} tag="button">
-                                        <i className="fa fa-angle-double-left"></i>
-                                    </PaginationLink>
-                                </PaginationItem>
-                                {pageNumbers.map(number => (
-                                    <PaginationItem key={'pgItem' + number} >
-                                        <PaginationLink id={number} name={number} onClick={e => handlePage(e)} tag="button">{number}</PaginationLink>
-                                    </PaginationItem>
-                                ))}
-                                <PaginationItem>
-                                    <PaginationLink next id="btnNext" name="btnNext" onClick={e => handlePage(e)} next tag="button">
-                                        <i className="fa fa-angle-double-right"></i>
-                                    </PaginationLink>
-                                </PaginationItem>
-                            </Pagination>
+                            <DataTable className="mt-n3"
+                                title="Usuários"
+                                columns={columns}
+                                data={data}
+                                striped={true}
+                                highlightOnHover={true}
+                                responsive={true}
+                                pagination={true}
+                            />
                         </CardBody>
                     </Card>
                 </Col>
