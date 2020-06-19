@@ -8,8 +8,6 @@ module.exports = {
         .leftJoin( 'contatos', 'contatos.id' , '=' , 'oportunidades.contatoId' )
         .leftJoin( 'fasespipe' , 'fasespipe.id' , '=' , 'oportunidades.fasepipeId' )
         .leftJoin( 'usuario' , 'usuario.id' , '=' , 'oportunidades.proprietarioId' )
-        .limit(20) //limita o retorno dos registros
-        .offset((page - 1) * 20) //paginacao
         .select([
             'oportunidades.*',
             'clientes.nomecliente',
@@ -158,7 +156,6 @@ module.exports = {
     async getCount (request,response) {        
 
         const [count] = await connection('oportunidades').count()
-        const { page = 1 } = request.query;
         return response.json(count['count(*)']);        
     }
 };

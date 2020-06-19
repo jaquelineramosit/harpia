@@ -47,8 +47,8 @@
     "recharts": "^1.8.5",
     "semantic-ui-react": "^0.88.2",
     "simple-line-icons": "^2.4.1",
-    "styled-components": "^5.1.1",
-    "sortablejs": "^1.10.2"
+    "sortablejs": "^1.10.2",
+    "styled-components": "^5.1.1"
   },
   "devDependencies": {
     "react-scripts": "^3.4.1"

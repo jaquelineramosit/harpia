@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import {Link } from 'react-router-dom';
-import {Card, CardBody, CardHeader, Col, Pagination, PaginationItem, PaginationLink, Row, Table, Input, FormGroup, Label} from 'reactstrap';
+import { Link } from 'react-router-dom';
+import { Card, CardBody, CardHeader, Col, Pagination, PaginationItem, PaginationLink, Row, Table, Input, FormGroup, Label } from 'reactstrap';
+import { BarChart, Area, ComposedChart, Line, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, LineChart } from 'recharts';
 import api from '../../../services/api';
 import './style.css';
 const dateformat = require('dateformat');
@@ -14,6 +15,72 @@ export default function Dashboard() {
     const [oportunidades, setOportunidades] = useState([]);
     const [total, setTotal] = useState(0);
     const usuarioId = localStorage.getItem('userId');
+    const data = [
+        {
+            name: 'Page A', uv: 4000, pv: 2400, amt: 2400,
+        },
+        {
+            name: 'Page B', uv: 3000, pv: 1398, amt: 2210,
+        },
+        {
+            name: 'Page C', uv: 2000, pv: 9800, amt: 2290,
+        },
+        {
+            name: 'Page D', uv: 2780, pv: 3908, amt: 2000,
+        },
+        {
+            name: 'Page E', uv: 1890, pv: 4800, amt: 2181,
+        },
+        {
+            name: 'Page F', uv: 2390, pv: 3800, amt: 2500,
+        },
+        {
+            name: 'Page G', uv: 3490, pv: 4300, amt: 2100,
+        },
+    ];
+    const line = [
+        {
+            name: 'Page A', uv: 4000, pv: 2400, amt: 2400,
+        },
+        {
+            name: 'Page B', uv: 3000, pv: 1398, amt: 2210,
+        },
+        {
+            name: 'Page C', uv: 2000, pv: 9800, amt: 2290,
+        },
+        {
+            name: 'Page D', uv: 2780, pv: 3908, amt: 2000,
+        },
+        {
+            name: 'Page E', uv: 1890, pv: 4800, amt: 2181,
+        },
+        {
+            name: 'Page F', uv: 2390, pv: 3800, amt: 2500,
+        },
+        {
+            name: 'Page G', uv: 3490, pv: 4300, amt: 2100,
+        },
+    ];
+    const compo = [
+        {
+            name: 'Page A', uv: 590, pv: 800, amt: 1400, cnt: 490,
+        },
+        {
+            name: 'Page B', uv: 868, pv: 967, amt: 1506, cnt: 590,
+        },
+        {
+            name: 'Page C', uv: 1397, pv: 1098, amt: 989, cnt: 350,
+        },
+        {
+            name: 'Page D', uv: 1480, pv: 1200, amt: 1228, cnt: 480,
+        },
+        {
+            name: 'Page E', uv: 1520, pv: 1108, amt: 1100, cnt: 460,
+        },
+        {
+            name: 'Page F', uv: 1400, pv: 680, amt: 1700, cnt: 380,
+        },
+    ];
     //logica para pegar o total
     useEffect(() => {
         api.get('oportunidadesCount', {
@@ -75,6 +142,7 @@ export default function Dashboard() {
             nextPage = currentPage + 1;
         };
 
+
         api.get('oportunidades', {
             headers: {
                 Authorization: 1,
@@ -94,7 +162,7 @@ export default function Dashboard() {
                 <Col md="8">
                     <Card>
                         <CardHeader className="links">
-                            <i className="fa fa-align-justify"></i>Oportunidades                            
+                            <i className="fa fa-align-justify"></i>Oportunidades
                         </CardHeader>
                         <CardBody>
                             <FormGroup row>
@@ -118,36 +186,36 @@ export default function Dashboard() {
                                 <Col xs="5" lg="5" md="5" className="search">
                                     <Input type="text" id="txtSearch" />
                                     <Link to={`oportunidades`} className="">
-                                        <i className="fa fa-search fa-2x ml-3 mt-1" style={{ color: '#20a8d8'}}></i>
+                                        <i className="fa fa-search fa-2x ml-3 mt-1" style={{ color: '#20a8d8' }}></i>
                                     </Link>
                                 </Col>
                             </FormGroup>
                             <Table responsive striped>
                                 <thead>
                                     <tr>
-                                        <th style={{ width : '6%'}}>Nº</th>
-                                        <th style={{ width : '20%'}}>Oportunidade</th>
-                                        <th style={{ width : '12%'}}>Cliente</th>
-                                        <th style={{ width : '12%'}}>Contato</th>
-                                        <th style={{ width : '8%'}}>Valor</th>
-                                        <th style={{ width : '12%'}}>Fase Pipe</th>
-                                        <th style={{ width : '10%'}}>Vendedor</th>
-                                        <th style={{ width : '10%'}}>Expectativa</th>                                        
-                                        <th style={{ width : '10%'}, {textAlign : 'center'}}>Ações</th>
+                                        <th style={{ width: '6%' }}>Nº</th>
+                                        <th style={{ width: '20%' }}>Oportunidade</th>
+                                        <th style={{ width: '12%' }}>Cliente</th>
+                                        <th style={{ width: '12%' }}>Contato</th>
+                                        <th style={{ width: '8%' }}>Valor</th>
+                                        <th style={{ width: '12%' }}>Fase Pipe</th>
+                                        <th style={{ width: '10%' }}>Vendedor</th>
+                                        <th style={{ width: '10%' }}>Expectativa</th>
+                                        <th style={{ width: '10%' }, { textAlign: 'center' }}>Ações</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {oportunidades.map(oportunidade => (
                                         <tr key={`linha${oportunidade.id}`}>
                                             <td><span className="font-weight-bold mr-2">{oportunidade.id}</span></td>
-                                            <td>{oportunidade.nomeoportunidade.substring(0,30)}</td> 
-                                            <td>{oportunidade.nomecliente}</td> 
-                                            <td>{oportunidade.nomecontato}</td> 
+                                            <td>{oportunidade.nomeoportunidade.substring(0, 30)}</td>
+                                            <td>{oportunidade.nomecliente}</td>
+                                            <td>{oportunidade.nomecontato}</td>
                                             <td>{oportunidade.valor}</td>
                                             <td>{oportunidade.nomefase}</td>
                                             <td>{`${oportunidade.nomevendedor}`}</td>
-                                            <td>{oportunidade.expectativafechamentoId}</td>                                                                                        
-                                            <td style={{ textAlign : 'center'}}>
+                                            <td>{oportunidade.expectativafechamentoId}</td>
+                                            <td style={{ textAlign: 'center' }}>
                                                 <Link to={`oportunidades/${oportunidade.id}`} className="btn-sm btn-primary">
                                                     <i className="fa fa-pencil fa-lg mr-1"></i>
                                                     Editar
@@ -179,66 +247,81 @@ export default function Dashboard() {
                 </Col>
                 <Col md="4">
                     <Card>
-                        <CardHeader className="links">
-                            <i className="fa fa-line-chart"></i>Painel Oportunidades
+                        <CardHeader className="links ">
+                            <i className="fa fa-line-chart"></i>Oportunidades Ganhas x Perdidas
                         </CardHeader>
-                        <CardBody>
-                            <FormGroup row>
-                                <Col xs="12" lg="12" md="12">
-                                    <Link to={`oportunidades`} className="btn btn-primary icons-oportunidades float-right">
-                                        <i className="fa fa-calendar fa-2x"></i>
-                                    </Link>                                    
-                                </Col>
-                            </FormGroup>
-                            <FormGroup row className="group-painel-oportunidades">
-                                <Col xs="12" lg="12" md="12" className="border-top">
-                                    <Row className="border-bottom">
-                                        <Col xs="6" lg="6" md="6" className="border-right">
-                                            <Label id="lblTitQtdeoportunidade" className="font-weight-bold mt-2">Oportunidades</Label>
-                                            <Input type="text" id="txtQtdeoportunidade" value="55" readOnly className="mb-3"></Input>
-                                        </Col>
-                                        <Col xs="6" lg="6" md="6">
-                                            <Label id="lblTitQtdeConcluida" className="font-weight-bold mt-2">Concluídas</Label>
-                                            <Input type="text" id="txtQtdeConcluida" value="223" readOnly className="mb-3"></Input>                                            
-                                        </Col>
-                                    </Row>
-                                    <Row className="border-bottom">
-                                        <Col xs="6" lg="6" md="6" className="border-right">
-                                            <Label type="text" id="lblTitReuniao" className="font-weight-bold mt-2">Reunião</Label>
-                                        </Col>
-                                        <Col xs="6" lg="6" md="6">
-                                            <Label type="text" id="lblReuniao" className="mt-2">20</Label>
-                                        </Col>
-                                    </Row>
-                                    <Row className="border-bottom">
-                                        <Col xs="6" lg="6" md="6" className="border-right">
-                                            <Label type="text" id="lblTitEmail" className="font-weight-bold mt-2">E-mail</Label>
-                                        </Col>
-                                        <Col xs="6" lg="6" md="6">
-                                            <Label type="text" id="lblEmail" className="mt-2">50</Label>
-                                        </Col>
-                                    </Row>
-                                    <Row className="border-bottom">
-                                        <Col xs="6" lg="6" md="6" className="border-right">
-                                            <Label type="text" id="lblTitCampanha" className="font-weight-bold mt-2">Campanha</Label>
-                                        </Col>
-                                        <Col xs="6" lg="6" md="6">
-                                            <Label type="text" id="lblCampanha" className="mt-2">20</Label>
-                                        </Col>
-                                    </Row>
-                                    <Row className="border-bottom">
-                                        <Col xs="6" lg="6" md="6" className="border-right">
-                                            <Label type="text" id="lblTitLigacao" className="font-weight-bold mt-2">Ligação</Label>
-                                        </Col>
-                                        <Col xs="6" lg="6" md="6">
-                                            <Label type="text" id="lblLigacao" className="mt-2">12</Label>
-                                        </Col>
-                                    </Row>
-                                </Col>
-                            </FormGroup>                            
+                        <CardBody >
+                            <BarChart
+                                width={450}
+                                height={170}
+                                data={data}
+                                margin={{
+                                    top: 20, left: -20, bottom: 5,
+                                }}
+                            >
+                                <CartesianGrid strokeDasharray="3 3" />
+                                <XAxis dataKey="name" />
+                                <YAxis yAxisId="left" orientation="left" stroke="#8884d8" />
+                                <YAxis yAxisId="right" orientation="right" stroke="#82ca9d" />
+                                <Tooltip />
+                                <Legend />
+                                <Bar yAxisId="left" dataKey="pv" fill="#8884d8" />
+                                <Bar yAxisId="right" dataKey="uv" fill="#82ca9d" />
+                            </BarChart>
+                        </CardBody>
+                        </Card>
+                        <Card>
+                        <CardHeader className="links ">
+                            <i className="fa fa-line-chart"></i>Valor Fechado X Valor Aberto
+                        </CardHeader>
+                        <CardBody >
+                            <LineChart
+                                width={400}
+                                height={170}
+                                data={line}
+                                margin={{
+                                    top: 20, left: -20, bottom: 5,
+                                }}
+                            >
+                                <CartesianGrid strokeDasharray="3 3" />
+                                <XAxis dataKey="name" />
+                                <YAxis />
+                                <Tooltip />
+                                <Legend />
+                                <Line type="monotone" dataKey="pv" stroke="#8884d8" activeDot={{ r: 8 }} />
+                                <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
+                            </LineChart>
+                        </CardBody>
+                        </Card>
+                        <Card>
+                        <CardHeader className="links ">
+                            <i className="fa fa-line-chart"></i>Meta X OP Ganha x OP Perdida
+                        </CardHeader>
+                        <CardBody >
+                            <ComposedChart
+                                width={400}
+                                height={170}
+                                data={data}
+                                margin={{
+                                    top: 20, left: -20, bottom: 5,
+                                }}
+                            >
+                                <CartesianGrid stroke="#f5f5f5" />
+                                <XAxis dataKey="name" />
+                                <YAxis />
+                                <Tooltip />
+                                <Legend />
+                                <Area type="monotone" dataKey="amt" fill="#8884d8" stroke="#8884d8" />
+                                <Bar dataKey="pv" barSize={20} fill="#413ea0" />
+                                <Line type="monotone" dataKey="uv" stroke="#ff7300" />
+                                {/* <Scatter dataKey="cnt" fill="red" /> */}
+                            </ComposedChart>
                         </CardBody>
                     </Card>
+
+
                 </Col>
+
             </Row>
         </div>
     );
