@@ -1,11 +1,9 @@
 import React from 'react';
 
 // Dashboards
-const Dashboard = React.lazy(() => import('./pages/Dashboards/Dashboardv1/Dashboard'));
+const Dashboard = React.lazy(() => import('./pages/Dashboards/Dashboard/Dashboard'));
 const Dashboardv2 = React.lazy(() => import('./pages/Dashboards/Dashboardv2/index'));
 const Dashboardv3 = React.lazy(() => import('./pages/Dashboards/Dashboardv3/index'));
-const Home = React.lazy(() => import('./pages/Dashboards/Home'));
-
 
 // Acessos
 const Logon = React.lazy(() => import('./pages/Acessos/Logon'));
@@ -85,12 +83,12 @@ const relcontatotempoportunidade = React.lazy(() => import('./pages/Relatórios/
 
 const Sortable = React.lazy(() => import('./pages/Configuracoes/Sortable'));
 
-
 const routes = [
   
   // Dashboards
-  { path: '/', exact: true, name: 'Home', component: Home },
-  { path: '/dashboardv1', name: 'Dashboard', component: Dashboard },
+  // { path: '/', exact: true, name: 'Home', component: Home },
+  { path: '/', exact: true, name: 'Home'},
+  { path: '/dashboard', name: 'Dashboard', component: Dashboard },
   { path: '/dashboardv2', name: 'Dashboardv2', component: Dashboardv2 },
   { path: '/dashboardv3', name: 'Dashboardv3', component: Dashboardv3 },
   
@@ -173,6 +171,5 @@ const routes = [
 { path: '/sortable', name: 'Sortable', component: Sortable},
 
 ];
-
 
 export default routes;

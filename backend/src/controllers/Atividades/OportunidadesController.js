@@ -8,6 +8,7 @@ module.exports = {
         .leftJoin( 'produtos', 'produtos.id' , '=', 'oportunidades.produtoId' )
         .leftJoin( 'contatos', 'contatos.id' , '=' , 'oportunidades.contatoId' )
         .leftJoin( 'fasespipe' , 'fasespipe.id' , '=' , 'oportunidades.fasepipeId' )
+        .leftJoin( 'usuario' , 'usuario.id' , '=' , 'oportunidades.proprietarioId' )
         .limit(20) //limita o retorno dos registros
         .offset((page - 1) * 20) //paginacao
         .select([
@@ -16,6 +17,8 @@ module.exports = {
             'produtos.nomeproduto',
             'contatos.nomecontato',
             'fasespipe.nomefase',
+            'usuario.nome as nomevendedor',
+            'usuario.sobrenome as sobrenomevendedor',
         ]);
     
         console.log(oportunidades.count);
@@ -36,6 +39,8 @@ module.exports = {
             'produtos.nomeproduto',
             'contatos.nomecontato',
             'fasespipe.nomefase',
+            'usuario.nome as nomevendedor',
+            'usuario.sobrenome as sobrenomevendedor',
         ]);
             
         return response.json(oportunidades);
@@ -82,6 +87,8 @@ module.exports = {
                 'produtos.nomeproduto',
                 'contatos.nomecontato',
                 'fasespipe.nomefase',
+                'usuario.nome as nomevendedor',
+                'usuario.sobrenome as sobrenomevendedor',
             ])
             .first();
     
@@ -148,6 +155,7 @@ module.exports = {
 
         return response.status(204).send();
     },
+    
     async getCount (request,response) {        
 
         const [count] = await connection('oportunidades').count()

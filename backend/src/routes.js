@@ -37,11 +37,14 @@ const TiposContatoController = require('./controllers/Configuracao/TiposContatoC
 const Dashboardv1Controller = require('./controllers/Dashboards/Dashboardv1Controller');
 const Dashboardv2Controller = require('./controllers/Dashboards/Dashboardv2Controller');
 const Dashboardv3Controller = require('./controllers/Dashboards/Dashboardv3Controller');
+//const HomeController = require('./controllers/Dashboards/HomeController');
 
 const routes = express.Router();
 
 // Acessos
 routes.post('/logon', LogonController.create);
+
+//routes.post('/home', HomeController.create);
 
 routes.get('/usuariosCount', UsuarioController.getCount);
 routes.get('/usuarios', UsuarioController.getAll);

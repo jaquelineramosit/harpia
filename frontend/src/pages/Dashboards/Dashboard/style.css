@@ -1,0 +1,10 @@
+.icons-oportunidades {    
+    margin: 5px 15px 15px 5px;
+}
+.search {
+    display: flex; 
+}
+.group-painel-oportunidades {
+    border: solid 1px #c8ced3;
+    border-radius: .3rem;
+}
