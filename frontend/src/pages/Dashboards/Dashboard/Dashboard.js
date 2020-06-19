@@ -101,8 +101,6 @@ export default function Dashboard() {
         pageNumbers.push(pageNumbers.length + 1);
     }
 
-
-
     useEffect(() => {
         api.get('oportunidades', {
             headers: {
@@ -218,7 +216,7 @@ export default function Dashboard() {
                                             <td style={{ textAlign: 'center' }}>
                                                 <Link to={`oportunidades/${oportunidade.id}`} className="btn-sm btn-primary">
                                                     <i className="fa fa-pencil fa-lg mr-1"></i>
-                                                    Editar
+                                                
                                                 </Link>
                                             </td>
                                         </tr>
