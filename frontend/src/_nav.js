@@ -90,7 +90,7 @@ export default {
       children: [
         {
           name: 'Pipes',
-          url: '/list-pipes',
+          url: '/pipes',
           icon: 'icon-chart',
         },
         {

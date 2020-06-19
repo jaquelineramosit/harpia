@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button, CardFooter, Form } from 'reactstrap';
 import { AppSwitch } from '@coreui/react'
 import '../../../global.css';
+import {reaisMask} from '../../../mask'
 import api from '../../../../src/services/api';
 
 export default function Metas() {
@@ -58,11 +59,11 @@ export default function Metas() {
                                     </Col>
                                     <Col md="44">
                                         <Label htmlFor="valor">Valor</Label>
-                                        <Input type="number" required name="select" id="txtValor"  placeholder="Digite o valor"
+                                        <Input type="text" required name="select" id="txtValor"  placeholder="Digite o valor"
                                             value={valor}
-                                            onChange={e => setValor(e.target.value)}>
+                                            onChange={e => setValor(reaisMask(e.target.value))}>
                                         </Input>
-                                    </Col>                                  
+                                    </Col>
                                 </FormGroup>
                                 <FormGroup row>
                                 <Col md="4">
@@ -71,8 +72,8 @@ export default function Metas() {
                                             value={qtdeoportunidade}
                                             onChange={e => setQtdeOportunidade(e.target.value)}>
                                         </Input>
-                                    </Col>                           
-                                </FormGroup>                   
+                                    </Col>
+                                </FormGroup>
                                 <FormGroup row>
                                     <Col md="8">
                                         <Label>Descrição</Label>
@@ -87,9 +88,9 @@ export default function Metas() {
                                         <AppSwitch id="rdAtivo" className={'switch-ativo'}  label color={'success'} defaultChecked size={'sm'}
                                         value={ativo}
                                         onChange={ e => setAtivo(e.target.value)}
-                                        />                                    
-                                    </Col>  
-                                </FormGroup>    
+                                        />
+                                    </Col>
+                                </FormGroup>
                             </CardBody>
                             <CardFooter className="text-center">
                                 <Button type="submit" size="sm" color="success" className=" mr-3"><i className="fa fa-check"></i> Salvar</Button>

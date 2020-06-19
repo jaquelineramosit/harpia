@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button, CardFooter, Form } from 'reactstrap';
 import { AppSwitch } from '@coreui/react'
 import '../../../global.css';
+import {reaisMask} from '../../../mask'
 import api from '../../../../src/services/api';
 
 
@@ -34,17 +35,17 @@ export default function Produtos() {
         e.preventDefault();
 
         const data = {
-            marcaId, 
-            nomeproduto, 
-            numerofabricante, 
-            quantidade, 
-            valor, 
+            marcaId,
+            nomeproduto,
+            numerofabricante,
+            quantidade,
+            valor,
             distribuidorId,
-            tempoentrega, 
+            tempoentrega,
             ativo,
         }
 
-      
+
         try {
             const response = await api.post('produtos', data, {
                 headers: {
@@ -92,7 +93,7 @@ export default function Produtos() {
                                             <option value={undefined} defaultValue>Selecione...</option>
                                             {marcasId.map(marca=> (
                                             <option value={marca.id}>{marca.nomemarca}</option>
-                                            ))}                              
+                                            ))}
                                         </Input>
                                     </Col>
                                 </FormGroup>
@@ -103,7 +104,7 @@ export default function Produtos() {
                                             value={quantidade}
                                             onChange={e => setQuantidade(e.target.value)}>
                                         </Input>
-                                    </Col>                                    
+                                    </Col>
                                     <Col md="3">
                                         <Label htmlFor="distribuidorId">Distribuidor</Label>
                                         <Input type="select" required name="select" id="cboDistribuidorId"
@@ -112,15 +113,15 @@ export default function Produtos() {
                                                 <option value={undefined} defaultValue>Selecione...</option>
                                                 {distribuidoresId.map(distribuidor=> (
                                                 <option value={distribuidor.id}>{distribuidor.nomedistribuidor}</option>
-                                                ))}                              
+                                                ))}
                                         </Input>
-                                    </Col> 
+                                    </Col>
                                     <Col md="2">
                                         <Label htmlFor="valor">Valor</Label>
-                                        <Input type="number" required id="txtValor"
+                                        <Input type="text" required id="txtValor"
                                             value={valor}
-                                            onChange={e => setValor(e.target.value)} />
-                                    </Col>                                
+                                            onChange={e => setValor(reaisMask(e.target.value))} />
+                                    </Col>
                                 </FormGroup>
                                 <FormGroup row>
                                      <Col md="3">
@@ -129,7 +130,7 @@ export default function Produtos() {
                                             value={tempoentrega}
                                             onChange={e => setTempoEntrega(e.target.value)}>
                                         </Input>
-                                    </Col>    
+                                    </Col>
                                 </FormGroup>
                                 <FormGroup row>
                                     <Col md="1">
@@ -137,7 +138,7 @@ export default function Produtos() {
                                         <AppSwitch id="rdAtivo" className={'switch-ativo'}  label color={'success'} defaultChecked size={'sm'}
                                         value={ativo}
                                         onChange={ e => setAtivo(e.target.value)}
-                                        />                                    
+                                        />
                                     </Col>
                                 </FormGroup>
                             </CardBody>

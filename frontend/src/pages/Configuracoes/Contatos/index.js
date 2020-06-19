@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button, InputGroup, InputGroupAddon, CardFooter, Form } from 'reactstrap';
 import { AppSwitch } from '@coreui/react'
 import '../../../global.css';
+import {telMask, celMask, cepMask} from '../../../mask'
 import api from '../../../../src/services/api';
 
 export default function Contatos() {
@@ -27,8 +28,8 @@ export default function Contatos() {
     const [cargosId, setCargosId] = useState([]);
     const [clientesId, setClientesId] = useState([]);
     const [ativo, setAtivo] = useState("true");
-    const usuarioId = localStorage.getItem('userId');    
-    
+    const usuarioId = localStorage.getItem('userId');
+
     useEffect(() => {
         api.get('clientes').then(response => {
         setClientesId(response.data);
@@ -39,46 +40,46 @@ export default function Contatos() {
         api.get('clientes').then(response => {
         setProprietariosId(response.data);
         })
-        }, [usuarioId]);        
+        }, [usuarioId]);
 
     useEffect(() => {
         api.get('departamentos').then(response => {
         setdepartamentosId(response.data);
         })
-        }, [usuarioId]);        
+        }, [usuarioId]);
 
     useEffect(() => {
         api.get('tipos-contato').then(response => {
         setTiposContatoId(response.data);
         })
-        }, [usuarioId]); 
+        }, [usuarioId]);
 
     useEffect(() => {
         api.get('cargos').then(response => {
         setCargosId(response.data);
         })
-        }, [usuarioId]);     
-        
+        }, [usuarioId]);
+
     async function handleContatos(e) {
         e.preventDefault();
-        
+
         const data = {
-            proprietarioId, 
+            proprietarioId,
             nomecontato,
-            tipocontatoId, 
-            departamentoId, 
-            logradouro, 
-            cargoId, 
-            complemento, 
+            tipocontatoId,
+            departamentoId,
+            logradouro,
+            cargoId,
+            complemento,
             bairro,
-            cidade, 
+            cidade,
             uf,
             telefone,
-            usuarioautorizador, 
-            celular, 
-            datanasc, 
-            email, 
-            cep,          
+            usuarioautorizador,
+            celular,
+            datanasc,
+            email,
+            cep,
             ativo
                     }
         try {
@@ -87,18 +88,18 @@ export default function Contatos() {
                     Authorization : 18,
                 }
             });
-            alert(`Feito o cadastro com sucesso ${response.id}`);      
-           
+            alert(`Feito o cadastro com sucesso ${response.id}`);
+
         } catch (err) {
-    
-            alert('Erro no cadastro, tente novamente.');    
+
+            alert('Erro no cadastro, tente novamente.');
         }
     }
 
-    return (        
+    return (
         <div className="animated fadeIn">
             <Form onSubmit={handleContatos}>
-                <Row>                              
+                <Row>
                     <Col xs="12" md="12">
                         <Card>
                             <CardHeader>
@@ -111,7 +112,7 @@ export default function Contatos() {
                                         <Label htmlFor="NomeContato">Nome Contato</Label>
                                         <Input type="text" required id="txtNomecontato" placeholder="Digite o nome do Contato"
                                         value={nomecontato}
-                                        onChange={ e => setNomecontato(e.target.value)}/>                                        
+                                        onChange={ e => setNomecontato(e.target.value)}/>
                                     </Col>
                                     <Col md="3">
                                     <Label htmlFor="clienteId">Cliente</Label>
@@ -122,8 +123,8 @@ export default function Contatos() {
                                             {clientesId.map(cliente=> (
                                             <option value={cliente.id}>{cliente.nomecliente}</option>
                                             ))}
-                                        </Input>      
-                                    </Col>                                   
+                                        </Input>
+                                    </Col>
                                     <Col md="3">
                                     <Label htmlFor="prorpietarioId">Proprietario</Label>
                                         <Input type="select" required name="select" id="cboProprietarioId"
@@ -133,9 +134,9 @@ export default function Contatos() {
                                             {proprietrariosId.map(proprietario=> (
                                             <option value={proprietario.id}>{proprietario.nomecliente}</option>
                                             ))}
-                                            
-                                        </Input>      
-                                    </Col>   
+
+                                        </Input>
+                                    </Col>
                                 </FormGroup>
                                 <FormGroup row>
                                     <Col md="3">
@@ -147,9 +148,9 @@ export default function Contatos() {
                                             {departamentosId.map(departamento=> (
                                             <option value={departamento.id}>{departamento.departamento}</option>
                                             ))}
-                                            
-                                        </Input>      
-                                    </Col>   
+
+                                        </Input>
+                                    </Col>
                                     <Col md="3">
                                         <Label htmlFor="E-mail">E-mail</Label>
                                         <InputGroup>
@@ -160,13 +161,13 @@ export default function Contatos() {
                                                 <Button type="button" color="secondary icon-envelope"></Button>
                                             </InputGroupAddon>
                                         </InputGroup>
-                                    </Col> 
+                                    </Col>
                                     <Col md="1">
                                         <Label check className="form-check-label" htmlFor="ativo1">Autorizador</Label>
                                         <AppSwitch id="rdAtivo" className={'switch-ativo'}  label color={'success'} defaultChecked size={'sm'}
                                         value={usuarioautorizador}
                                         onChange={ e => setUsuarioautorizador(e.target.value)}
-                                        />                                    
+                                        />
                                     </Col>
                                  </FormGroup>
                                 <FormGroup row>
@@ -179,8 +180,8 @@ export default function Contatos() {
                                             {cargosId.map(cargo=> (
                                             <option value={cargo.id}>{cargo.nomecargo}</option>
                                             ))}
-                                        </Input>      
-                                    </Col>    
+                                        </Input>
+                                    </Col>
                                     <Col md="3">
                                         <Label htmlFor="tipoContatoId">Tipo Contato</Label>
                                         <Input type="select" required name="select" id="cboTipoContatoId"
@@ -191,74 +192,74 @@ export default function Contatos() {
                                             {tiposcontatoId.map(tipoContato=> (
                                             <option value={tipoContato.id}>{tipoContato.tipocontato}</option>
                                             ))}
-                                        </Input>      
+                                        </Input>
                                     </Col>
                                 </FormGroup>
                                  <FormGroup row>
-                                       
+
                                      <Col md="3">
                                         <Label htmlFor="datanasc">Data de nascimento</Label>
                                         <Input type="date" required id="txtdatanasc"
                                         value={datanasc}
                                         onChange={ e => setDatanasc(e.target.value)} />
-                                    </Col>  
+                                    </Col>
                                     <Col md="3">
-                                    <Label htmlFor="Telefone">Telefone</Label>                                        
+                                    <Label htmlFor="Telefone">Telefone</Label>
                                         <InputGroup>
                                             <Input type="text"  id="txtTelefone" placeholder="(11) 9999-9999"
                                             value={telefone}
-                                            onChange={ e => setTelefone(e.target.value)} />
+                                            onChange={ e => setTelefone(telMask(e.target.value))} />
                                             <InputGroupAddon addonType="append">
                                                 <Button type="button" color="secondary icon-phone"></Button>
                                             </InputGroupAddon>
                                         </InputGroup>
-                                    </Col> 
+                                    </Col>
                                     <Col md="3">
                                         <Label htmlFor="Celular">Celular</Label>
                                         <InputGroup>
                                             <Input type="text" required id="txtCelular" placeholder="(11) 99999-9999"
                                             value={celular}
-                                            onChange={ e => setCelular(e.target.value)} />  
+                                            onChange={ e => setCelular(celMask(e.target.value))} />
                                             <InputGroupAddon addonType="append">
                                                 <Button type="button" color="secondary icon-screen-smartphone"></Button>
                                             </InputGroupAddon>
-                                        </InputGroup>                                                                     
-                                    </Col>                                  
+                                        </InputGroup>
+                                    </Col>
                                 </FormGroup>
-                                 <FormGroup row>  
+                                 <FormGroup row>
                                    <Col md="3">
                                         <Label htmlFor="Logradouro">Logradouro</Label>
                                         <InputGroup>
-                                            <Input type="text" required id="txtLogradouro"  
+                                            <Input type="text" required id="txtLogradouro"
                                             placeholder="Digite o Logradouro"
                                             value={logradouro}
-                                            onChange={ e => setLogradouro(e.target.value)} />                                          
-                                        </InputGroup>       
-                                    </Col>       
+                                            onChange={ e => setLogradouro(e.target.value)} />
+                                        </InputGroup>
+                                    </Col>
                                     <Col md="3">
                                         <Label htmlFor="Bairro">Bairro</Label>
                                         <Input type="text" required id="txtBairro" placeholder="Digite o Bairro"
                                         value={bairro}
-                                        onChange={ e => setBairro(e.target.value)} />    
+                                        onChange={ e => setBairro(e.target.value)} />
                                     </Col>
                                     <Col md="3">
                                         <Label htmlFor="CEP">CEP</Label>
                                         <InputGroup>
                                             <Input id="txtCEP" size="16" required type="text" placeholder="00000-000"
                                             value={cep}
-                                            onChange={ e => setCep(e.target.value)}/>
+                                            onChange={ e => setCep(cepMask(e.target.value))}/>
                                             <InputGroupAddon addonType="append">
                                                 <Button type="button" color="secondary fa fa-truck"></Button>
                                             </InputGroupAddon>
-                                        </InputGroup>                                    
-                                    </Col>                                                                             
+                                        </InputGroup>
+                                    </Col>
                                 </FormGroup>
-                                <FormGroup row>                                               
+                                <FormGroup row>
                                     <Col md="3">
                                         <Label htmlFor="Cidade">Cidade</Label>
                                         <Input type="text" required id="txtcidade" placeholder="Digite a Cidade"
                                         value={cidade}
-                                        onChange={ e => setCidade(e.target.value)} />                                    
+                                        onChange={ e => setCidade(e.target.value)} />
                                     </Col>
                                     <Col md="3">
                                         <Label htmlFor="UF">UF</Label>
@@ -293,13 +294,13 @@ export default function Contatos() {
                                                     <option value="SE">Sergipe</option>
                                                     <option value="TO">Tocantins</option>
                                         </Input>
-                                    </Col>  
+                                    </Col>
                                     <Col md="3">
                                         <Label htmlFor="Complemento">Complemento</Label>
-                                        <Input type="text" id="txtComplemento" placeholder="Digite o Complemento" 
+                                        <Input type="text" id="txtComplemento" placeholder="Digite o Complemento"
                                         value={complemento}
                                         onChange={ e => setComplemento(e.target.value)}/>
-                                    </Col>          
+                                    </Col>
                                 </FormGroup>
                                 <FormGroup row>
                                     <Col md="1">
@@ -307,13 +308,13 @@ export default function Contatos() {
                                         <AppSwitch id="rdAtivo" className={'switch-ativo'}  label color={'success'} defaultChecked size={'sm'}
                                         value={ativo}
                                         onChange={ e => setAtivo(e.target.value)}
-                                        />                                    
-                                    </Col>   
-                                                                                                                                                                 
-                                </FormGroup>                        
-                               
-                            
-                            </CardBody>                           
+                                        />
+                                    </Col>
+
+                                </FormGroup>
+
+
+                            </CardBody>
                             <CardFooter className="text-center">
                                 <Button type="submit" size="sm" color="success" className=" mr-3"><i className="fa fa-check"></i> Salvar</Button>
                                 <Button type="reset" size="sm" color="danger" className="ml-3"><i className="fa fa-ban "></i> Cancelar</Button>
@@ -323,5 +324,5 @@ export default function Contatos() {
                 </Row>
             </Form>
         </div>
-    );    
+    );
 }
