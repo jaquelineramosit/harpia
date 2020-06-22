@@ -14,8 +14,6 @@ module.exports = {
             'produtos.nomeproduto',
             'contatos.nomecontato',
             'fasespipe.nomefase',
-            'usuario.nome as nomevendedor',
-            'usuario.sobrenome as sobrenomevendedor',
         ]);
     
         console.log(oportunidades.count);
@@ -36,8 +34,7 @@ module.exports = {
             'produtos.nomeproduto',
             'contatos.nomecontato',
             'fasespipe.nomefase',
-            'usuario.nome as nomevendedor',
-            'usuario.sobrenome as sobrenomevendedor',
+        
         ]);
             
         return response.json(oportunidades);
@@ -84,8 +81,6 @@ module.exports = {
                 'produtos.nomeproduto',
                 'contatos.nomecontato',
                 'fasespipe.nomefase',
-                'usuario.nome as nomevendedor',
-                'usuario.sobrenome as sobrenomevendedor',
             ])
             .first();
     
