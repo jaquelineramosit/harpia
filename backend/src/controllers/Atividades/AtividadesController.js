@@ -3,8 +3,8 @@ const getDate = require('../../utils/getDate');
 module.exports = {
     async getAll (request, response) {
         const atividades = await connection('atividades')
-        .join( 'clientes', 'clientes.id' , '=' , 'atividades.clienteId' )
-        .join( 'contatos', 'contatos.id' , '=' , 'atividades.contatoId' )
+        .leftJoin( 'clientes', 'clientes.id' , '=' , 'atividades.clienteId' )
+        .leftJoin( 'contatos', 'contatos.id' , '=' , 'atividades.contatoId' )
         .join( 'tiposatividade', 'tiposatividade.id' , '=' , 'atividades.tipoatividadeId' )
         .select([
             'atividades.*',
@@ -21,8 +21,8 @@ module.exports = {
 
         const atividades = await connection('atividades')
             .where('atividades.id', id)
-            .join( 'clientes', 'clientes.id' , '=' , 'atividades.clienteId' )
-            .join( 'contatos', 'contatos.id' , '=' , 'atividades.contatoId' )
+            .leftJoin( 'clientes', 'clientes.id' , '=' , 'atividades.clienteId' )
+            .leftJoin( 'contatos', 'contatos.id' , '=' , 'atividades.contatoId' )
             .join( 'tiposatividade', 'tiposatividade.id' , '=' , 'atividades.tipoatividadeId' )
             .select([
                 'atividades.*',

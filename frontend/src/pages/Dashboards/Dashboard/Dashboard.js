@@ -1,15 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Card, CardBody, CardHeader, Col, Pagination, PaginationItem, PaginationLink, Row, Table, Input, FormGroup, Label } from 'reactstrap';
+import { Card, CardBody, CardHeader, Col, Pagination, PaginationItem, PaginationLink, Row, Table, Input, FormGroup, Badge  } from 'reactstrap';
 import { BarChart, Area, ComposedChart, Line, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, LineChart } from 'recharts';
 import api from '../../../services/api';
 import './style.css';
-const dateformat = require('dateformat');
-
-var currentPage;
-var previousPage;
-var nextPage;
-var idPag = '';
+import DataTable from 'react-data-table-component';
 
 export default function Dashboard() {
     const [oportunidades, setOportunidades] = useState([]);
@@ -91,68 +86,81 @@ export default function Dashboard() {
             setTotal(response.data);
         })
     }, [1]);
-    //Logica para mostrar os numeros de pagina
-    const pageNumbers = [];
-    for (let i = 1; i <= (total / 20); i++) {
-        pageNumbers.push(i);
-    }
-
-    if (total % 20 > 0) {
-        pageNumbers.push(pageNumbers.length + 1);
-    }
-
     useEffect(() => {
         api.get('oportunidades', {
             headers: {
                 Authorization: 1,
-            },
-            params: {
-                page: currentPage
             }
         }).then(response => {
             setOportunidades(response.data);
         })
     }, [usuarioId]);
-    //Paginação
-    async function handlePage(e) {
-        e.preventDefault();
+    const datatable = oportunidades;
 
-        idPag = e.currentTarget.name;
-
-        if (idPag == 'btnPrevious') {
-            currentPage = previousPage;
-            previousPage = currentPage - 1;
-            nextPage = currentPage + 1;
-        } else if (idPag == 'btnNext') {
-            // se existe, quer dizer que foi apertado após qualquer numero
-            if (currentPage) {
-                currentPage = nextPage;
-                previousPage = currentPage - 1;
-                nextPage = currentPage + 1;
-            } else { // next apertado antes de qlqr numero (1º load + next em vez d pag 2)
-                currentPage = 2;
-                nextPage = 3;
-                previousPage = 1;
-            };
-        } else {
-            currentPage = parseInt(e.currentTarget.id);
-            previousPage = currentPage - 1;
-            nextPage = currentPage + 1;
-        };
+    const columns = [
+        {
+            name: 'Oportunidades',
+            selector: 'nomeoportunidade',
+            sortable: true,
 
 
-        api.get('oportunidades', {
-            headers: {
-                Authorization: 1,
-            },
-            params: {
-                page: currentPage
-            }
-        }).then(response => {
-            setOportunidades(response.data);
-        });
-    }
+        },
+        {
+            name: 'Proprietário',
+            selector: 'proprietarioId',
+            sortable: true,
+            left: true,
 
+        },
+        {
+            name: 'Cliente',
+            selector: 'nomecliente',
+            sortable: true,
+            left: true,
+
+        },
+        {
+            name: 'Contato',
+            selector: 'nomecontato',
+            sortable: true,
+            left: true,
+
+        },
+        {
+            name: 'Produto',
+            selector: 'nomeproduto',
+            sortable: true,
+            left: true,
+
+        },
+        {
+            name: 'Fase do Pipe',
+            selector: 'nomefase',
+            sortable: true,
+            left: true,
+
+        },
+        {
+            name: 'Valor',
+            selector: 'valor',
+            sortable: true,
+            left: true,
+
+        },
+        {
+            name: 'Status',
+            sortable: true,
+            left: true,
+            cell: row => <Badge color="success">Ativo</Badge>,
+        },
+        {
+            name: 'Ações',
+            sortable: true,
+            right: true,
+            cell: row => <Link to={`oportunidades/${row.id}`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg mr-1"></i>
+            Editar</Link>
+        },
+    ];
 
     return (
         <div className="animated-fadeIn">
@@ -188,58 +196,15 @@ export default function Dashboard() {
                                     </Link>
                                 </Col>
                             </FormGroup>
-                            <Table responsive striped>
-                                <thead>
-                                    <tr>
-                                        <th style={{ width: '6%' }}>Nº</th>
-                                        <th style={{ width: '20%' }}>Oportunidade</th>
-                                        <th style={{ width: '12%' }}>Cliente</th>
-                                        <th style={{ width: '12%' }}>Contato</th>
-                                        <th style={{ width: '8%' }}>Valor</th>
-                                        <th style={{ width: '12%' }}>Fase Pipe</th>
-                                        <th style={{ width: '10%' }}>Vendedor</th>
-                                        <th style={{ width: '10%' }}>Expectativa</th>
-                                        <th style={{ width: '10%' }, { textAlign: 'center' }}>Ações</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {oportunidades.map(oportunidade => (
-                                        <tr key={`linha${oportunidade.id}`}>
-                                            <td><span className="font-weight-bold mr-2">{oportunidade.id}</span></td>
-                                            <td>{oportunidade.nomeoportunidade.substring(0, 30)}</td>
-                                            <td>{oportunidade.nomecliente}</td>
-                                            <td>{oportunidade.nomecontato}</td>
-                                            <td>{oportunidade.valor}</td>
-                                            <td>{oportunidade.nomefase}</td>
-                                            <td>{`${oportunidade.nomevendedor}`}</td>
-                                            <td>{oportunidade.expectativafechamentoId}</td>
-                                            <td style={{ textAlign: 'center' }}>
-                                                <Link to={`oportunidades/${oportunidade.id}`} className="btn-sm btn-primary">
-                                                    <i className="fa fa-pencil fa-lg mr-1"></i>
-                                                
-                                                </Link>
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </Table>
-                            <Pagination>
-                                <PaginationItem>
-                                    <PaginationLink previous id="btnPrevious" name="btnPrevious" onClick={e => handlePage(e)} tag="button">
-                                        <i className="fa fa-angle-double-left"></i>
-                                    </PaginationLink>
-                                </PaginationItem>
-                                {pageNumbers.map(number => (
-                                    <PaginationItem key={'pgItem' + number} >
-                                        <PaginationLink id={number} name={number} onClick={e => handlePage(e)} tag="button">{number}</PaginationLink>
-                                    </PaginationItem>
-                                ))}
-                                <PaginationItem>
-                                    <PaginationLink next id="btnNext" name="btnNext" onClick={e => handlePage(e)} next tag="button">
-                                        <i className="fa fa-angle-double-right"></i>
-                                    </PaginationLink>
-                                </PaginationItem>
-                            </Pagination>
+                            <DataTable className="mt-n3"
+                                title="Oportunidades"
+                                columns={columns}
+                                data={datatable}
+                                striped={true}
+                                highlightOnHover={true}
+                                responsive={true}
+                                pagination={true}
+                            />
                         </CardBody>
                     </Card>
                 </Col>
@@ -267,8 +232,8 @@ export default function Dashboard() {
                                 <Bar yAxisId="right" dataKey="uv" fill="#82ca9d" />
                             </BarChart>
                         </CardBody>
-                        </Card>
-                        <Card>
+                    </Card>
+                    <Card>
                         <CardHeader className="links ">
                             <i className="fa fa-line-chart"></i>Valor Fechado X Valor Aberto
                         </CardHeader>
@@ -290,8 +255,8 @@ export default function Dashboard() {
                                 <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
                             </LineChart>
                         </CardBody>
-                        </Card>
-                        <Card>
+                    </Card>
+                    <Card>
                         <CardHeader className="links ">
                             <i className="fa fa-line-chart"></i>Meta X OP Ganha x OP Perdida
                         </CardHeader>

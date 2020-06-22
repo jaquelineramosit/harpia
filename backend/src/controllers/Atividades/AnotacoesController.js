@@ -3,9 +3,9 @@ const getDate = require('../../utils/getDate');
 module.exports = {
     async getAll (request, response) {
         const anotacoes = await connection('anotacoes')
-        .join( 'clientes' , 'clientes.id' , '=' , 'anotacoes.clienteId')
-        .join( 'oportunidades' , 'oportunidades.id' , '=' , 'anotacoes.oportunidadeId')
-        .join( 'contatos' , 'contatos.id' , '=' , 'anotacoes.contatoId')
+        .leftJoin( 'clientes' , 'clientes.id' , '=' , 'anotacoes.clienteId')
+        .leftJoin( 'oportunidades' , 'oportunidades.id' , '=' , 'anotacoes.oportunidadeId')
+        .leftJoin( 'contatos' , 'contatos.id' , '=' , 'anotacoes.contatoId')
         .select([
             'anotacoes.*',
             'clientes.nomecliente',
@@ -21,9 +21,9 @@ module.exports = {
 
         const anotacoes = await connection('anotacoes')
             .where('anotacoes.id', id)
-            .join( 'clientes' , 'clientes.id' , '=' , 'anotacoes.clienteId')
-            .join( 'oportunidades' , 'oportunidades.id' , '=' , 'anotacoes.oportunidadeId')
-            .join( 'contatos' , 'contatos.id' , '=' , 'anotacoes.contatoId')
+            .leftJoin( 'clientes' , 'clientes.id' , '=' , 'anotacoes.clienteId')
+            .leftJoin( 'oportunidades' , 'oportunidades.id' , '=' , 'anotacoes.oportunidadeId')
+            .leftJoin( 'contatos' , 'contatos.id' , '=' , 'anotacoes.contatoId')
             .select([
                 'anotacoes.*',
                 'clientes.nomecliente',
