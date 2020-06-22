@@ -4,7 +4,7 @@ module.exports = {
     async getAll (request, response) {
         const produtos = await connection('produtos')
         .join( 'marcas' , 'marcas.id' , '=' , 'produtos.marcaId')
-        .join( 'distribuidores', 'distribuidores.id' , '=' , 'produtos.distribuidorId')
+        .leftJoin( 'distribuidores', 'distribuidores.id' , '=' , 'produtos.distribuidorId')
         .select([
             'produtos.*',
             'marcas.nomemarca',
@@ -20,7 +20,7 @@ module.exports = {
         const produtos = await connection('produtos')
             .where('produtos.id', id)
             .join( 'marcas' , 'marcas.id' , '=' , 'produtos.marcaId')
-            .join( 'distribuidores', 'distribuidores.id' , '=' , 'produtos.distribuidorId')
+            .leftJoin( 'distribuidores', 'distribuidores.id' , '=' , 'produtos.distribuidorId')
             .select([
                 'produtos.*',
                 'marcas.nomemarca',
