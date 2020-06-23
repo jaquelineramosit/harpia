@@ -14,7 +14,7 @@ module.exports = {
     async getById (request, response) {
         const  { id }  = request.params;
 
-        const modulo = await connection('modulos')
+        const modulo = await connection('modulo')
             .where('id', id)
             .select()
             .first();
@@ -28,7 +28,7 @@ module.exports = {
 
         const { nomeModulo, descricao, ativo } = request.body;
         
-        const [id] = await connection('modulos').insert({
+        const [id] = await connection('modulo').insert({
                 nomeModulo,
                 descricao, 
                 ativo,

@@ -81,7 +81,7 @@ const relcontatonumeroportunidades = React.lazy(() => import('./pages/Relatório
 const relcontatovalorganhoperdido = React.lazy(() => import('./pages/Relatórios/Contato x Valor Ganho e Valor Perdido'));
 const relcontatotempoportunidade = React.lazy(() => import('./pages/Relatórios/Contato X Temperatura de Oportunidade'));
 
-const Sortable = React.lazy(() => import('./pages/Configuracoes/Sortable'));
+const TesteValidaForm = React.lazy(() => import('./pages/TesteValidaForm'));
 
 const routes = [
   
@@ -168,7 +168,7 @@ const routes = [
 { path: '/rel-contatoxvalorganhoperdido', name: ' Relatório de Contato X Valor Ganho e Valor Perdido', component: relcontatovalorganhoperdido},
 { path: '/rel-contatoxtempoportunidade', name: ' Relatório de Contato X Temperatura de Oportunidade', component: relcontatotempoportunidade},
 
-{ path: '/sortable', name: 'Sortable', component: Sortable},
+{ path: '/teste-validaForm', name: 'TesteValidaForm', component: TesteValidaForm},
 
 ];
 

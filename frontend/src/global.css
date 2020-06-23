@@ -12,6 +12,15 @@ code {
     monospace;
 }
 
+
+.Toastify__close-button .Toastify__close-button--error {
+  background-color: #f86c6b;
+}
+
+.Toastify__close-button .Toastify__close-button--success {
+  background-color: #4dbd74;
+}
+
 .content-form {  
   display: flex;
   align-items: center;
