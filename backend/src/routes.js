@@ -6,6 +6,7 @@ const UsuarioController = require('./controllers/Acessos/UsuarioController');
 const ModuloController = require('./controllers/Acessos/ModuloController');
 const PaginaController = require('./controllers/Acessos/PaginaController');
 const PerfilAcessoController = require('./controllers/Acessos/PerfilAcessoController');
+const PerfilAcessoUsuarioController = require('./controllers/Acessos/PerfilAcessoUsuarioController');
 const PermissaoAcessoController = require('./controllers/Acessos/PermissaoAcessoController');
 const RegisterController = require('./controllers/Acessos/RegisterController');
 
@@ -69,6 +70,18 @@ routes.get('/perfis-acesso', PerfilAcessoController.getAll);
 routes.get('/perfis-acesso/:id', PerfilAcessoController.getById);
 routes.post('/perfis-acesso', PerfilAcessoController.create);
 routes.put('/perfis-acesso/:id', PerfilAcessoController.update);
+
+routes.get('/permissao-acessoCount', PermissaoAcessoController.getCount);
+routes.get('/permissao-acesso', PermissaoAcessoController.getAll);
+routes.get('/permissao-acesso/:id', PermissaoAcessoController.getById);
+routes.post('/permissao-acesso', PermissaoAcessoController.create);
+routes.put('/permissao-acesso/:id', PermissaoAcessoController.update);
+
+routes.get('/usuario-por-perfilAcesso/:perfil', PerfilAcessoUsuarioController.getUsuariosPerfil);
+routes.get('/perfil-acesso-usuario', PerfilAcessoUsuarioController.getAll);
+routes.get('/perfil-acesso-usuario/:id', PerfilAcessoUsuarioController.getById);
+routes.post('/perfil-acesso-usuario', PerfilAcessoUsuarioController.create);
+routes.put('/perfil-acesso-usuario/:id', PerfilAcessoUsuarioController.update);
 
 routes.get('/permissao-acessoCount', PermissaoAcessoController.getCount);
 routes.get('/permissao-acesso', PermissaoAcessoController.getAll);

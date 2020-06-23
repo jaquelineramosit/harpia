@@ -36,61 +36,62 @@ export default function ListaOportunidades() {
             name: 'Oportunidades',
             selector: 'nomeoportunidade',
             sortable: true,
-
-
+            width: '18%',
         },
         {
             name: 'Proprietário',
-            selector: 'proprietarioId',
+            selector: 'nomeproprietario',
             sortable: true,
             left: true,
-
+            width: '12%',
         },
         {
             name: 'Cliente',
             selector: 'nomecliente',
             sortable: true,
             left: true,
-
+            width: '12%',
         },
         {
             name: 'Contato',
             selector: 'nomecontato',
             sortable: true,
             left: true,
-
+            width: '12%',
         },
         {
             name: 'Produto',
             selector: 'nomeproduto',
             sortable: true,
             left: true,
-
+            width: '12%',
         },
         {
             name: 'Fase do Pipe',
             selector: 'nomefase',
             sortable: true,
             left: true,
-
+            width: '10%',
         },
         {
             name: 'Valor',
             selector: 'valor',
             sortable: true,
             left: true,
-
+            width: '7%',
         },
         {
             name: 'Status',
             sortable: true,
             left: true,
             cell: row => <Badge color="success">Ativo</Badge>,
+            width: '7%',
         },
         {
             name: 'Ações',
             sortable: true,
             right: true,
+            width: '10%',
             cell: row => <Link to={`oportunidades/${row.id}`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg mr-1"></i>
             Editar</Link>
         },
@@ -101,14 +102,11 @@ export default function ListaOportunidades() {
                 <Col xs="12" lg="12">
                     <Card>
                         <CardHeader className="links">
-
                             <i className="fa fa-align-justify"></i>Oportunidades
-
                             <Link to={`oportunidades`} className="btn btn-secondary float-right">
                                 <i className="cui-file icons mr-1"></i>
-                                                    Novo
-                                                </Link>
-
+                                Novo
+                            </Link>
                         </CardHeader>
                         <CardBody>
                             <DataTable className="mt-n3"

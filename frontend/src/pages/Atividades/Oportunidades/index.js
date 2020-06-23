@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button,  CardFooter, Form } from 'reactstrap';
+import { Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button, CardFooter, Form } from 'reactstrap';
 import { AppSwitch } from '@coreui/react'
 import '../../../global.css';
-import{reaisMask} from '../../../mask'
+import { reaisMask } from '../../../mask'
 import api from '../../../../src/services/api';
 
 export default function Oportunidades() {
@@ -20,32 +20,39 @@ export default function Oportunidades() {
     const [clientesId, setClientesId] = useState([]);
     const [produtosId, setProdutosId] = useState([]);
     const [contatosId, setContatosId] = useState([]);
+    const [proprietariosId, setProprietariosId] = useState([]);
     const [fasesPipeId, setFasesPipeId] = useState([]);
     const usuarioId = localStorage.getItem('userId');
 
     useEffect(() => {
         api.get('clientes').then(response => {
-        setClientesId(response.data);
+            setClientesId(response.data);
         })
-        }, [usuarioId]);
+    }, [usuarioId]);
 
     useEffect(() => {
         api.get('produtos').then(response => {
-        setProdutosId(response.data);
+            setProdutosId(response.data);
         })
-        }, [usuarioId]);
+    }, [usuarioId]);
 
     useEffect(() => {
         api.get('contatos').then(response => {
-        setContatosId(response.data);
+            setContatosId(response.data);
         })
-        }, [usuarioId]);
+    }, [usuarioId]);
 
     useEffect(() => {
         api.get('fases-pipe').then(response => {
-        setFasesPipeId(response.data);
+            setFasesPipeId(response.data);
         })
-        }, [usuarioId]);
+    }, [usuarioId]);
+
+    useEffect(() => {
+        api.get('usuario-por-perfilAcesso/Vendedor').then(response => {
+            setProprietariosId(response.data);
+        })
+    }, [usuarioId]);
 
 
     async function handleOportunidades(e) {
@@ -99,47 +106,53 @@ export default function Oportunidades() {
                                     <Col md="4">
                                         <Label htmlFor="proprietarioId">Proprietário</Label>
                                         <Input type="select" required name="select" id="cboProprietario"
-                                            value={proprietarioId}
+                                            value={proprietariosId}
+                                            onChange={ e => setProprietariosId(e.target.value)}>
+                                            <option value={undefined} defaultValue>Selecione...</option>
+                                            {proprietariosId.map(proprietarios=> (
+                                                <option value={proprietarios.usuarioId}>{proprietarios.nomeusuario}</option>
+                                            ))}
+                                            {/* value={proprietarioId}
                                             onChange={e => setProprietarioId(e.target.value)}>
                                             <option value={10}>Proprietário1</option>
                                             <option value={undefined}>Selecione...</option>
-                                            <option value={11}>Proprietário2</option>
+                                            <option value={11}>Proprietário2</option> */}
                                         </Input>
                                     </Col>
-                                    </FormGroup>
-                                    <FormGroup row>
-                                        <Col md="4">
-                                            <Label htmlFor="clienteId">Cliente</Label>
-                                            <Input type="select" required name="select" id="cboCliente"
-                                                value={clientesId}
-                                                onChange={ e => setClienteId(e.target.value)}>
-                                                <option value={undefined} defaultValue>Selecione...</option>
-                                                {clientesId.map(cliente=> (
+                                </FormGroup>
+                                <FormGroup row>
+                                    <Col md="4">
+                                        <Label htmlFor="clienteId">Cliente</Label>
+                                        <Input type="select" required name="select" id="cboCliente"
+                                            value={clientesId}
+                                            onChange={e => setClienteId(e.target.value)}>
+                                            <option value={undefined} defaultValue>Selecione...</option>
+                                            {clientesId.map(cliente => (
                                                 <option value={cliente.id}>{cliente.nomecliente}</option>
-                                                ))}
-                                            </Input>
-                                        </Col>
-                                        <Col md="4">
-                                            <Label htmlFor="contatoId">Contato</Label>
-                                            <Input type="select" required name="select" id="cboContato"
-                                             value={contatoId}
-                                             onChange={ e => setContatoId(e.target.value)}>
-                                             <option value={undefined} defaultValue>Selecione...</option>
-                                             {contatosId.map(contato=> (
-                                             <option value={contato.id}>{contato.nomecontato}</option>
-                                             ))}
-                                            </Input>
-                                        </Col>
+                                            ))}
+                                        </Input>
+                                    </Col>
+                                    <Col md="4">
+                                        <Label htmlFor="contatoId">Contato</Label>
+                                        <Input type="select" required name="select" id="cboContato"
+                                            value={contatoId}
+                                            onChange={e => setContatoId(e.target.value)}>
+                                            <option value={undefined} defaultValue>Selecione...</option>
+                                            {contatosId.map(contato => (
+                                                <option value={contato.id}>{contato.nomecontato}</option>
+                                            ))}
+                                        </Input>
+                                    </Col>
                                 </FormGroup>
                                 <FormGroup row>
                                     <Col md="4">
                                         <Label htmlFor="produtoId">Produto</Label>
                                         <Input type="select" required name="select" id="cboProduto"
                                             value={produtoId}
-                                            onChange={ e => setProdutoId(e.target.value)}>
+                                            onChange={e => setProdutoId(e.target.value)}>
                                             <option value={undefined} defaultValue>Selecione...</option>
-                                            {produtosId.map(produto=> (
-                                            <option value={produto.id}>{produto.nomeproduto}</option>
+                                            {produtosId.map(produto => (
+                                                <option value={produto.id}>{produto.nomeproduto}</option>
                                             ))}
                                         </Input>
                                     </Col>
@@ -153,19 +166,19 @@ export default function Oportunidades() {
                                 <FormGroup row>
 
                                     <Col md="4">
-                                    <Label htmlFor="expectativaFechamento">Expectativa de Fechamento</Label>
+                                        <Label htmlFor="expectativaFechamento">Expectativa de Fechamento</Label>
                                         <Input type="date" required name="select" id="txtExpectativaFechamento"
-                                        value={descricao}
+                                            value={descricao}
                                             onChange={e => setExpectativaFechamento(e.target.value)} />
                                     </Col>
                                     <Col md="4">
                                         <Label htmlFor="fasePipeId">Fase do Pipe</Label>
                                         <Input type="select" required name="select" id="cboFasePipe"
                                             value={fasepipeId}
-                                            onChange={ e => setFasePipeId(e.target.value)}>
+                                            onChange={e => setFasePipeId(e.target.value)}>
                                             <option value={undefined} defaultValue>Selecione...</option>
-                                            {fasesPipeId.map(fasespipe=> (
-                                            <option value={fasespipe.id}>{fasespipe.nomefase}</option>
+                                            {fasesPipeId.map(fasespipe => (
+                                                <option value={fasespipe.id}>{fasespipe.nomefase}</option>
                                             ))}
                                         </Input>
                                     </Col>
