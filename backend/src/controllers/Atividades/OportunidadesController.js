@@ -2,23 +2,18 @@ const connection = require('../../database/connection');
 const getDate = require('../../utils/getDate');
 module.exports = {
     async getAll (request, response) {
-        const { page = 1 } = request.query;
         const oportunidades = await connection('oportunidades')
         .leftJoin( 'clientes', 'clientes.id' , '=' , 'oportunidades.clienteId' )
         .leftJoin( 'produtos', 'produtos.id' , '=', 'oportunidades.produtoId' )
         .leftJoin( 'contatos', 'contatos.id' , '=' , 'oportunidades.contatoId' )
         .leftJoin( 'fasespipe' , 'fasespipe.id' , '=' , 'oportunidades.fasepipeId' )
         .leftJoin( 'usuario' , 'usuario.id' , '=' , 'oportunidades.proprietarioId' )
-        .limit(20) //limita o retorno dos registros
-        .offset((page - 1) * 20) //paginacao
         .select([
             'oportunidades.*',
             'clientes.nomecliente',
             'produtos.nomeproduto',
             'contatos.nomecontato',
             'fasespipe.nomefase',
-            'usuario.nome as nomevendedor',
-            'usuario.sobrenome as sobrenomevendedor',
         ]);
     
         console.log(oportunidades.count);
@@ -39,8 +34,7 @@ module.exports = {
             'produtos.nomeproduto',
             'contatos.nomecontato',
             'fasespipe.nomefase',
-            'usuario.nome as nomevendedor',
-            'usuario.sobrenome as sobrenomevendedor',
+        
         ]);
             
         return response.json(oportunidades);
@@ -87,8 +81,6 @@ module.exports = {
                 'produtos.nomeproduto',
                 'contatos.nomecontato',
                 'fasespipe.nomefase',
-                'usuario.nome as nomevendedor',
-                'usuario.sobrenome as sobrenomevendedor',
             ])
             .first();
     
@@ -159,7 +151,6 @@ module.exports = {
     async getCount (request,response) {        
 
         const [count] = await connection('oportunidades').count()
-        const { page = 1 } = request.query;
         return response.json(count['count(*)']);        
     }
 };

@@ -2,13 +2,10 @@ const connection = require('../../database/connection');
 const getDate = require('../../utils/getDate');
 module.exports = {
     async getAll (request, response) {
-        const { page = 1 } = request.query;
         const anotacoes = await connection('anotacoes')
-        .join( 'clientes' , 'clientes.id' , '=' , 'anotacoes.clienteId')
-        .join( 'oportunidades' , 'oportunidades.id' , '=' , 'anotacoes.oportunidadeId')
-        .join( 'contatos' , 'contatos.id' , '=' , 'anotacoes.contatoId')
-        .limit(20) //limita o retorno dos registros
-        .offset((page - 1) * 20) //paginacao
+        .leftJoin( 'clientes' , 'clientes.id' , '=' , 'anotacoes.clienteId')
+        .leftJoin( 'oportunidades' , 'oportunidades.id' , '=' , 'anotacoes.oportunidadeId')
+        .leftJoin( 'contatos' , 'contatos.id' , '=' , 'anotacoes.contatoId')
         .select([
             'anotacoes.*',
             'clientes.nomecliente',
@@ -24,9 +21,9 @@ module.exports = {
 
         const anotacoes = await connection('anotacoes')
             .where('anotacoes.id', id)
-            .join( 'clientes' , 'clientes.id' , '=' , 'anotacoes.clienteId')
-            .join( 'oportunidades' , 'oportunidades.id' , '=' , 'anotacoes.oportunidadeId')
-            .join( 'contatos' , 'contatos.id' , '=' , 'anotacoes.contatoId')
+            .leftJoin( 'clientes' , 'clientes.id' , '=' , 'anotacoes.clienteId')
+            .leftJoin( 'oportunidades' , 'oportunidades.id' , '=' , 'anotacoes.oportunidadeId')
+            .leftJoin( 'contatos' , 'contatos.id' , '=' , 'anotacoes.contatoId')
             .select([
                 'anotacoes.*',
                 'clientes.nomecliente',

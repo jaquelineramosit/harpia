@@ -2,12 +2,9 @@ const connection = require('../../database/connection');
 const getDate = require('../../utils/getDate');
 module.exports = {
     async getAll (request, response) {
-        const { page = 1 } = request.query;
         const produtos = await connection('produtos')
         .join( 'marcas' , 'marcas.id' , '=' , 'produtos.marcaId')
-        .join( 'distribuidores', 'distribuidores.id' , '=' , 'produtos.distribuidorId')
-        .limit(20) //limita o retorno dos registros
-        .offset((page - 1) * 20) //paginacao
+        .leftJoin( 'distribuidores', 'distribuidores.id' , '=' , 'produtos.distribuidorId')
         .select([
             'produtos.*',
             'marcas.nomemarca',
@@ -23,7 +20,7 @@ module.exports = {
         const produtos = await connection('produtos')
             .where('produtos.id', id)
             .join( 'marcas' , 'marcas.id' , '=' , 'produtos.marcaId')
-            .join( 'distribuidores', 'distribuidores.id' , '=' , 'produtos.distribuidorId')
+            .leftJoin( 'distribuidores', 'distribuidores.id' , '=' , 'produtos.distribuidorId')
             .select([
                 'produtos.*',
                 'marcas.nomemarca',

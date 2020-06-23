@@ -49,7 +49,7 @@ export default function Anotacoes() {
         try {
             const response = await api.post('anotacoes', data, {
                 headers: {
-                    Authorization: usuarioId,
+                    Authorization: 6,
                 }
             });
             alert(`Feito o cadastro com sucesso`);
