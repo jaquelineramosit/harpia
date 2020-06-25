@@ -4,7 +4,7 @@ import DataTable from 'react-data-table-component';
 import {Link } from 'react-router-dom';
 import {Card, CardBody, CardHeader, Col, Pagination, PaginationItem, PaginationLink, Row, Table, Input, FormGroup, Label} from 'reactstrap';
 import api from '../../../../services/api';
-import './style.css';
+import '../../../../global.css';
 const dateformat = require('dateformat');
 
 export default function ListaAtividades() {
@@ -31,74 +31,55 @@ export default function ListaAtividades() {
             setAtividades(response.data);
         })
     }, [usuarioId]);
-    const data = atividades;
+    
+    const datatable = atividades;
 
     const columns = [
         {
             name: 'Atividades',
-            selector: 'atividade',
+            cell: row => <div> {(row.atividade.substring(0, 30))} </div>,
             sortable: true,
-
-
-        },
-        {
-            name: 'Clientes',
-            selector: 'clienteId',
-            sortable: true,
-            left: true,
-
+            width: '22%',
         },
         {
             name: 'Contato',
-            selector: 'contatoId',
+            //selector: 'nomecontato',
             sortable: true,
             left: true,
-
+            width: '16%',
+            cell: row => <div> {(row.nomecontato.substring(0, 20))} </div>
         },
         {
-            name: 'Tipo de Atividade',
-            selector: 'tipoatividadeId',
+            name: 'Tipo Atividade',
+            selector: 'tipoatividade',
             sortable: true,
             left: true,
-
+            width: '18%',
         },
         {
             name: 'Data Atividade',
-            selector: 'dataatividade',
+            //selector: 'dataatividade',
             sortable: true,
             left: true,
-
-        },
-        {
-            name: 'Data Início',
-            selector: 'datainicio',
-            sortable: true,
-            left: true,
-
-        },
+            width: '18%',
+            cell: row => <div> {dateformat(row.dataatividade, "dd/mm/yyyy")} </div>
+        },        
         {
             name: 'Data Final',
-            selector: 'datafim',
+            //selector: 'datafim',
             sortable: true,
             left: true,
-
-        },
-        {
-            name: 'Status',
-            sortable: true,
-            center: true,
-            cell: row => <Badge color="success">Ativo</Badge>,
-        },
+            width: '18%',
+            cell: row => <div> {dateformat(row.datafim, "dd/mm/yyyy")} </div>
+        },        
         {
             name: 'Ações',
             sortable: true,
             right: true,
-            cell: row => <Link to={`atividades/${row.id}`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg mr-1"></i>
-            Editar</Link>
+            width: '8%',
+            cell: row => <Link to={`atividades/${row.id}`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg"></i></Link>
         },
     ];
-
-
 
     return (
         <div className="animated-fadeIn">
@@ -109,10 +90,38 @@ export default function ListaAtividades() {
                             <i className="fa fa-align-justify"></i>Atividades                            
                         </CardHeader>
                         <CardBody>
+                            <FormGroup row className="border-bottom">
+                                <Col xs="7" lg="7" md="7" className="text-left">
+                                    <Link to={`atividades`} className="btn btn-primary icons-oportunidades">
+                                        <i className="fa fa-phone fa-2x"></i>
+                                    </Link>
+                                    <Link to={`atividades`} className="btn btn-primary icons-oportunidades">
+                                        <i className="fa fa-users fa-2x"></i>
+                                    </Link>
+                                    <Link to={`atividades`} className="btn btn-primary icons-oportunidades">
+                                        <i className="fa fa-envelope-open fa-2x"></i>
+                                    </Link>
+                                    <Link to={`atividades`} className="btn btn-primary icons-oportunidades">
+                                        <i className="fa fa-bullseye fa-2x"></i>
+                                    </Link>
+                                    <Link to={`atividades`} className="btn btn-primary icons-oportunidades">
+                                        <i className="fa fa-plus-circle fa-2x"></i>
+                                    </Link>
+                                </Col>
+                                <Col xs="4" lg="4" md="4" className="search">
+                                    <Input type="text" id="txtSearch"  />
+                                </Col>
+                                <Col xs="1" lg="1" md="1" className="search pl-0">
+                                    <Link to={`atividades`} >
+                                        <i className="fa fa-search fa-2x" style={{ color: '#20a8d8'}}></i>
+                                    </Link>                                   
+                                </Col>
+                            </FormGroup>
                             <DataTable className="mt-n3"
-                                title="Atividades"
+                                noHeader={true}
+                                title="atividades"
                                 columns={columns}
-                                data={data}
+                                data={datatable}
                                 striped={true}
                                 highlightOnHover={true}
                                 responsive={true}
@@ -139,27 +148,27 @@ export default function ListaAtividades() {
                                     <Row className="border-bottom">
                                         <Col xs="6" lg="6" md="6" className="border-right">
                                             <Label id="lblTitQtdeAtividade" className="font-weight-bold mt-2">Atividades</Label>
-                                            <Input type="text" id="txtQtdeAtividade" value="55" className="mb-3"></Input>
+                                            <Input type="text" readOnly id="txtQtdeAtividade" value="55" className="mb-3"></Input>
                                         </Col>
                                         <Col xs="6" lg="6" md="6">
                                             <Label id="lblTitQtdeConcluida" className="font-weight-bold mt-2">Concluídas</Label>
-                                            <Input type="text" id="txtQtdeConcluida" value="223" className="mb-3"></Input>                                            
+                                            <Input type="text" readOnly id="txtQtdeConcluida" value="223" className="mb-3"></Input>                                            
                                         </Col>
                                     </Row>
                                     <Row className="border-bottom">
                                         <Col xs="6" lg="6" md="6" className="border-right">
-                                            <Label type="text" id="lblTitReuniao" className="font-weight-bold mt-2">Reunião</Label>
+                                            <Label type="text" readOnly id="lblTitReuniao" className="font-weight-bold mt-2">Reunião</Label>
                                         </Col>
                                         <Col xs="6" lg="6" md="6">
-                                            <Label type="text" id="lblReuniao" className="mt-2">20</Label>
+                                            <Label type="text" readOnly id="lblReuniao" className="mt-2">20</Label>
                                         </Col>
                                     </Row>
                                     <Row className="border-bottom">
                                         <Col xs="6" lg="6" md="6" className="border-right">
-                                            <Label type="text" id="lblTitEmail" className="font-weight-bold mt-2">E-mail</Label>
+                                            <Label type="text" readOnly id="lblTitEmail" className="font-weight-bold mt-2">E-mail</Label>
                                         </Col>
                                         <Col xs="6" lg="6" md="6">
-                                            <Label type="text" id="lblEmail" className="mt-2">50</Label>
+                                            <Label type="text" readOnly id="lblEmail" className="mt-2">50</Label>
                                         </Col>
                                     </Row>
                                     <Row className="border-bottom">

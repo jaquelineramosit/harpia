@@ -1,56 +1,68 @@
 import React, { useState, useEffect } from 'react';
-import { Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button, CardFooter, Form } from 'reactstrap';
+import { Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button, CardFooter, Form, 
+        TabContent, TabPane, ListGroup, ListGroupItem } from 'reactstrap';
 import { AppSwitch } from '@coreui/react'
 import '../../../global.css';
+import './style.css';
 import { reaisMask } from '../../../mask'
 import api from '../../../../src/services/api';
 
 export default function Oportunidades() {
     const [nomeoportunidade, setNomeOportunidade] = useState('');
-    const [proprietarioId, setProprietarioId] = useState('');
     const [descricao, setDescricao] = useState('');
     const [clienteId, setClienteId] = useState('');
     const [contatoId, setContatoId] = useState('');
+    const [proprietarioId, setProprietarioId] = useState('');
     const [produtoId, setProdutoId] = useState('');
     const [fasepipeId, setFasePipeId] = useState('');
+    const [temperaturaFechamentoId, setTemperaturaFechamentoId] = useState('');
     const [valor, setValor] = useState('');
-    const [expectativafechamentoId, setExpectativaFechamento] = useState('');
+    const [expectativafechamento, setExpectativaFechamento] = useState('');
     const [anexoId, setAnexoId] = useState('');
     const [ativo, setAtivo] = useState('');
-    const [clientesId, setClientesId] = useState([]);
-    const [produtosId, setProdutosId] = useState([]);
-    const [contatosId, setContatosId] = useState([]);
-    const [proprietariosId, setProprietariosId] = useState([]);
-    const [fasesPipeId, setFasesPipeId] = useState([]);
+
+    //listas
+    const [lstClientes, setlstClientes] = useState([]);
+    const [lstProdutos, setlstProdutos] = useState([]);
+    const [lstContatos, setlstContatos] = useState([]);
+    const [lstProprietarios, setlstProprietarios] = useState([]);
+    const [lstFasesPipe, setlstFasesPipe] = useState([]);
+    const [lstTemperaturasFechamento, setlstTemperaturasFechamento] = useState([]);
     const usuarioId = localStorage.getItem('userId');
 
     useEffect(() => {
         api.get('clientes').then(response => {
-            setClientesId(response.data);
+            setlstClientes(response.data);
         })
     }, [usuarioId]);
 
     useEffect(() => {
         api.get('produtos').then(response => {
-            setProdutosId(response.data);
+            setlstProdutos(response.data);
         })
     }, [usuarioId]);
 
     useEffect(() => {
         api.get('contatos').then(response => {
-            setContatosId(response.data);
+            setlstContatos(response.data);
         })
     }, [usuarioId]);
 
     useEffect(() => {
-        api.get('fases-pipe').then(response => {
-            setFasesPipeId(response.data);
+        api.get('temperatura-fechamento').then(response => {
+            setlstTemperaturasFechamento(response.data);
+        })
+    }, [usuarioId]);
+
+    useEffect(() => {
+        api.get('fases-pipe-nomePipe/Harpia').then(response => {
+            setlstFasesPipe(response.data);
         })
     }, [usuarioId]);
 
     useEffect(() => {
         api.get('usuario-por-perfilAcesso/Vendedor').then(response => {
-            setProprietariosId(response.data);
+            setlstProprietarios(response.data);
         })
     }, [usuarioId]);
 
@@ -67,7 +79,8 @@ export default function Oportunidades() {
             produtoId,
             fasepipeId,
             valor,
-            expectativafechamentoId,
+            expectativafechamento,
+            temperaturaFechamentoId,
             anexoId,
             ativo
         }
@@ -89,7 +102,7 @@ export default function Oportunidades() {
         <div className="animated fadeIn">
             <Form onSubmit={handleOportunidades}>
                 <Row>
-                    <Col xs="12" md="12">
+                    <Col xs="9" md="9">
                         <Card>
                             <CardHeader>
                                 <strong>Oportunidades</strong>
@@ -97,66 +110,61 @@ export default function Oportunidades() {
                             </CardHeader>
                             <CardBody>
                                 <FormGroup row>
-                                    <Col md="4">
+                                    <Col md="6">
                                         <Label htmlFor="nomeOportunidade">Nome Oportunidade</Label>
-                                        <Input type="text" required id="txtNomeoportunidade" placeholder="Digite o nome da Oportunidade"
+                                        <Input type="text" required id="txtNomeOportunidade" placeholder="Digite o nome da Oportunidade"
                                             value={nomeoportunidade}
                                             onChange={e => setNomeOportunidade(e.target.value)} />
                                     </Col>
-                                    <Col md="4">
+                                    <Col md="6">
                                         <Label htmlFor="proprietarioId">Proprietário</Label>
-                                        <Input type="select" required name="select" id="cboProprietario"
-                                            value={proprietariosId}
-                                            onChange={ e => setProprietariosId(e.target.value)}>
+                                        <Input type="select" required name="select" id="cboProprietario" multiple={false}
+                                            value={proprietarioId}
+                                            onChange={ e => setProprietarioId(e.target.value)}>
                                             <option value={undefined} defaultValue>Selecione...</option>
-                                            {proprietariosId.map(proprietarios=> (
-                                                <option value={proprietarios.usuarioId}>{proprietarios.nomeusuario}</option>
-                                            ))}
-                                            {/* value={proprietarioId}
-                                            onChange={e => setProprietarioId(e.target.value)}>
-                                            <option value={10}>Proprietário1</option>
-                                            <option value={undefined}>Selecione...</option>
-                                            <option value={11}>Proprietário2</option> */}
+                                            {lstProprietarios.map(proprietario=> (
+                                                <option key={proprietario.id} value={proprietario.usuarioId}>{proprietario.nomeusuario}</option>
+                                            ))}                                            
                                         </Input>
                                     </Col>
                                 </FormGroup>
                                 <FormGroup row>
-                                    <Col md="4">
+                                    <Col md="6">
                                         <Label htmlFor="clienteId">Cliente</Label>
                                         <Input type="select" required name="select" id="cboCliente"
-                                            value={clientesId}
+                                            value={clienteId}
                                             onChange={e => setClienteId(e.target.value)}>
                                             <option value={undefined} defaultValue>Selecione...</option>
-                                            {clientesId.map(cliente => (
-                                                <option value={cliente.id}>{cliente.nomecliente}</option>
+                                            {lstClientes.map(cliente => (
+                                                <option key={cliente.id} value={cliente.id}>{cliente.nomecliente}</option>
                                             ))}
                                         </Input>
                                     </Col>
-                                    <Col md="4">
+                                    <Col md="6">
                                         <Label htmlFor="contatoId">Contato</Label>
                                         <Input type="select" required name="select" id="cboContato"
                                             value={contatoId}
                                             onChange={e => setContatoId(e.target.value)}>
                                             <option value={undefined} defaultValue>Selecione...</option>
-                                            {contatosId.map(contato => (
-                                                <option value={contato.id}>{contato.nomecontato}</option>
+                                            {lstContatos.map(contato => (
+                                                <option key={contato.id} value={contato.id}>{contato.nomecontato}</option>
                                             ))}
                                         </Input>
                                     </Col>
                                 </FormGroup>
                                 <FormGroup row>
-                                    <Col md="4">
+                                    <Col md="6">
                                         <Label htmlFor="produtoId">Produto</Label>
                                         <Input type="select" required name="select" id="cboProduto"
                                             value={produtoId}
                                             onChange={e => setProdutoId(e.target.value)}>
                                             <option value={undefined} defaultValue>Selecione...</option>
-                                            {produtosId.map(produto => (
-                                                <option value={produto.id}>{produto.nomeproduto}</option>
+                                            {lstProdutos.map(produto => (
+                                                <option key={produto.id} value={produto.id}>{produto.nomeproduto}</option>
                                             ))}
                                         </Input>
                                     </Col>
-                                    <Col md="4">
+                                    <Col md="6">
                                         <Label htmlFor="valor">Valor</Label>
                                         <Input type="text" required id="txtValor"
                                             value={valor}
@@ -164,12 +172,22 @@ export default function Oportunidades() {
                                     </Col>
                                 </FormGroup>
                                 <FormGroup row>
-
                                     <Col md="4">
-                                        <Label htmlFor="expectativaFechamento">Expectativa de Fechamento</Label>
+                                        <Label htmlFor="dataExpecFecha">Expectativa de Fechamento</Label>
                                         <Input type="date" required name="select" id="txtExpectativaFechamento"
                                             value={descricao}
                                             onChange={e => setExpectativaFechamento(e.target.value)} />
+                                    </Col>
+                                    <Col md="4">
+                                        <Label htmlFor="temperaturaFechamento">Temperatura Fechamento</Label>
+                                        <Input type="select" required name="select" id="cboTemperaturaFechamento"
+                                            value={temperaturaFechamentoId}
+                                            onChange={e => setTemperaturaFechamentoId(e.target.value)}>
+                                            <option value={undefined} defaultValue>Selecione...</option>
+                                            {lstTemperaturasFechamento.map(tempFechamento => (
+                                                <option key={tempFechamento.id} value={tempFechamento.id}>{tempFechamento.temperaturafechamento}</option>
+                                            ))}
+                                        </Input>
                                     </Col>
                                     <Col md="4">
                                         <Label htmlFor="fasePipeId">Fase do Pipe</Label>
@@ -177,16 +195,16 @@ export default function Oportunidades() {
                                             value={fasepipeId}
                                             onChange={e => setFasePipeId(e.target.value)}>
                                             <option value={undefined} defaultValue>Selecione...</option>
-                                            {fasesPipeId.map(fasespipe => (
-                                                <option value={fasespipe.id}>{fasespipe.nomefase}</option>
+                                            {lstFasesPipe.map(fasespipe => (
+                                                <option key={fasespipe.id} value={fasespipe.id}>{fasespipe.nomefase}</option>
                                             ))}
                                         </Input>
                                     </Col>
                                 </FormGroup>
                                 <FormGroup row>
-                                    <Col md="8">
+                                    <Col md="12">
                                         <Label>Descrição</Label>
-                                        <Input type="textarea" rows="5"
+                                        <Input type="textarea" rows="3"
                                             value={descricao}
                                             onChange={e => setDescricao(e.target.value)} />
                                     </Col>
@@ -194,11 +212,9 @@ export default function Oportunidades() {
                                 <FormGroup row>
                                     <Col md="4">
                                         <Label htmlFor="anexo">Anexo</Label>
-                                        <Input type="file" required name="select" id="cboAnexo"
+                                        <Input type="file" required name="select" id="cboAnexo" multiple={true}
                                             value={anexoId}
-                                            onChange={e => setAnexoId(e.target.value)}>
-                                            <option value={undefined}>Selecione...</option>
-                                            <option value={1}>Anexo1</option>
+                                            onChange={e => setAnexoId(e.target.value)}>                                            
                                         </Input>
                                     </Col>
                                 </FormGroup>
@@ -218,8 +234,100 @@ export default function Oportunidades() {
                             </CardFooter>
                         </Card>
                     </Col>
-                </Row>
-            </Form>
-        </div>
+                    <Col xs="3" md="3">
+                    <Card>
+                        <CardHeader>
+                            Anotações
+                        </CardHeader>
+                        <CardBody className="card-body-anotacoes">                            
+                            <ListGroup className="list-group-accent" tag={'div'}>
+                                <ListGroupItem className="list-group-item-accent-secondary bg-light text-center font-weight-bold text-muted text-uppercase small">Hoje</ListGroupItem>
+                                <ListGroupItem action tag="a" href="#" className="list-group-item-accent-warning list-group-item-divider">
+                                    {/* <div className="avatar float-right">
+                                        <img className="img-avatar" src="assets/img/avatars/7.jpg" alt="admin@bootstrapmaster.com"></img>
+                                    </div> */}
+                                    <div>Meeting with <strong>Lucas</strong> </div> {/* anotação */}
+                                    <small className="text-muted mr-3">
+                                        <i className="fa fa-users"></i>&nbsp; 1 - 3pm {/* cliente */}
+                                    </small>
+                                    <small className="text-muted">
+                                        <i className="fa fa-address-book-o"></i> Palo Alto, CA {/* contato */}
+                                    </small>
+                                </ListGroupItem>
+                                <ListGroupItem action tag="a" href="#" className="list-group-item-accent-info list-group-item-divider">
+                                    <div className="avatar float-right">
+                                    <img className="img-avatar" src="assets/img/avatars/4.jpg" alt="admin@bootstrapmaster.com"></img>
+                                    </div>
+                                    <div>Skype with <strong>Megan</strong></div>
+                                    <small className="text-muted mr-3">
+                                    <i className="icon-calendar"></i>&nbsp; 4 - 5pm
+                                    </small>
+                                    <small className="text-muted">
+                                    <i className="icon-social-skype"></i> On-line
+                                    </small>
+                                </ListGroupItem>
+                                <ListGroupItem className="list-group-item-accent-secondary bg-light text-center font-weight-bold text-muted text-uppercase small">Ontem</ListGroupItem>
+                                <ListGroupItem action tag="a" href="#" className="list-group-item-accent-danger list-group-item-divider">
+                                    <div>New UI Project - <strong>deadline</strong></div>
+                                    <small className="text-muted mr-3"><i className="icon-calendar"></i>&nbsp; 10 - 11pm</small>
+                                    <small className="text-muted"><i className="icon-home"></i>&nbsp; creativeLabs HQ</small>
+                                    <div className="avatars-stack mt-2">
+                                    <div className="avatar avatar-xs">
+                                        <img src={'assets/img/avatars/2.jpg'} className="img-avatar" alt="admin@bootstrapmaster.com" />
+                                    </div>
+                                    <div className="avatar avatar-xs">
+                                        <img src={'assets/img/avatars/3.jpg'} className="img-avatar" alt="admin@bootstrapmaster.com" />
+                                    </div>
+                                    <div className="avatar avatar-xs">
+                                        <img src={'assets/img/avatars/4.jpg'} className="img-avatar" alt="admin@bootstrapmaster.com" />
+                                    </div>
+                                    <div className="avatar avatar-xs">
+                                        <img src={'assets/img/avatars/5.jpg'} className="img-avatar" alt="admin@bootstrapmaster.com" />
+                                    </div>
+                                    <div className="avatar avatar-xs">
+                                        <img src={'assets/img/avatars/6.jpg'} className="img-avatar" alt="admin@bootstrapmaster.com" />
+                                    </div>
+                                    </div>
+                                </ListGroupItem>
+                                <ListGroupItem action tag="a" href="#" className="list-group-item-accent-success list-group-item-divider">
+                                    <div><strong>#10 Startups.Garden</strong> Meetup</div>
+                                    <small className="text-muted mr-3"><i className="icon-calendar"></i>&nbsp; 1 - 3pm</small>
+                                    <small className="text-muted"><i className="icon-location-pin"></i>&nbsp; Palo Alto, CA</small>
+                                </ListGroupItem>
+                                <ListGroupItem action tag="a" href="#" className="list-group-item-accent-primary list-group-item-divider">
+                                    <div><strong>Team meeting</strong></div>
+                                    <small className="text-muted mr-3"><i className="icon-calendar"></i>&nbsp; 4 - 6pm</small>
+                                    <small className="text-muted"><i className="icon-home"></i>&nbsp; creativeLabs HQ</small>
+                                    <div className="avatars-stack mt-2">
+                                    <div className="avatar avatar-xs">
+                                        <img src={'assets/img/avatars/2.jpg'} className="img-avatar" alt="admin@bootstrapmaster.com" />
+                                    </div>
+                                    <div className="avatar avatar-xs">
+                                        <img src={'assets/img/avatars/3.jpg'} className="img-avatar" alt="admin@bootstrapmaster.com" />
+                                    </div>
+                                    <div className="avatar avatar-xs">
+                                        <img src={'assets/img/avatars/4.jpg'} className="img-avatar" alt="admin@bootstrapmaster.com" />
+                                    </div>
+                                    <div className="avatar avatar-xs">
+                                        <img src={'assets/img/avatars/5.jpg'} className="img-avatar" alt="admin@bootstrapmaster.com" />
+                                    </div>
+                                    <div className="avatar avatar-xs">
+                                        <img src={'assets/img/avatars/6.jpg'} className="img-avatar" alt="admin@bootstrapmaster.com" />
+                                    </div>
+                                    <div className="avatar avatar-xs">
+                                        <img src={'assets/img/avatars/7.jpg'} className="img-avatar" alt="admin@bootstrapmaster.com" />
+                                    </div>
+                                    <div className="avatar avatar-xs">
+                                        <img src={'assets/img/avatars/8.jpg'} className="img-avatar" alt="admin@bootstrapmaster.com" />
+                                    </div>
+                                    </div>
+                                </ListGroupItem>
+                            </ListGroup>                                
+                        </CardBody>
+                    </Card>                        
+                </Col>
+            </Row>
+        </Form>
+    </div>
     );
 }

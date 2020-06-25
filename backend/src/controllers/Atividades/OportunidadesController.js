@@ -26,10 +26,11 @@ module.exports = {
         const  { fasepipeId }  = request.params;
         const oportunidades = await connection('oportunidades')
         .where('fasespipe.id', fasepipeId)
-        .leftJoin( 'clientes', 'clientes.id' , '=' , 'oportunidades.clienteId' )
-        .leftJoin( 'produtos', 'produtos.id' , '=', 'oportunidades.produtoId' )
-        .leftJoin( 'contatos', 'contatos.id' , '=' , 'oportunidades.contatoId' )
-        .leftJoin( 'fasespipe' , 'fasespipe.id' , '=' , 'oportunidades.fasepipeId' )        
+        .join('usuario' , 'usuario.id' , '=' , 'oportunidades.usuarioId')
+        .leftJoin( 'clientes', 'clientes.id' , '=' , 'oportunidades.clienteId')
+        .leftJoin( 'produtos', 'produtos.id' , '=', 'oportunidades.produtoId')
+        .leftJoin( 'contatos', 'contatos.id' , '=' , 'oportunidades.contatoId')
+        .leftJoin( 'fasespipe' , 'fasespipe.id' , '=' , 'oportunidades.fasepipeId')                
         .select([
             'oportunidades.*',
             'clientes.nomecliente',
@@ -74,10 +75,11 @@ module.exports = {
 
         const oportunidades = await connection('oportunidades')
             .where('oportunidades.id', id)
+            .join('usuario' , 'usuario.id' , '=' , 'oportunidades.usuarioId')
             .leftJoin( 'clientes', 'clientes.id' , '=' , 'oportunidades.clienteId' )
             .leftJoin( 'produtos', 'produtos.id' , '=', 'oportunidades.produtoId' )
             .leftJoin( 'contatos', 'contatos.id' , '=' , 'oportunidades.contatoId' )
-            .leftJoin( 'fasespipe' , 'fasespipe.id' , '=' , 'oportunidades.fasepipeId' )
+            .leftJoin( 'fasespipe' , 'fasespipe.id' , '=' , 'oportunidades.fasepipeId' )            
             .select([
                 'oportunidades.*',
                 'clientes.nomecliente',

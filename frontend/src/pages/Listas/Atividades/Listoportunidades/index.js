@@ -36,14 +36,14 @@ export default function ListaOportunidades() {
             name: 'Oportunidades',
             selector: 'nomeoportunidade',
             sortable: true,
-            width: '18%',
+            width: '17%',
         },
         {
             name: 'Proprietário',
             selector: 'nomeproprietario',
             sortable: true,
             left: true,
-            width: '12%',
+            width: '10%',
         },
         {
             name: 'Cliente',
@@ -67,33 +67,32 @@ export default function ListaOportunidades() {
             width: '12%',
         },
         {
-            name: 'Fase do Pipe',
+            name: 'Fase Pipe',
             selector: 'nomefase',
             sortable: true,
             left: true,
-            width: '10%',
+            width: '9%',
         },
         {
             name: 'Valor',
-            selector: 'valor',
+            cell: row => <div>{row.valor.toLocaleString("pt-BR", { style: "currency" , currency:"BRL"})}</div>,
             sortable: true,
             left: true,
-            width: '7%',
+            width: '14%',
         },
         {
             name: 'Status',
             sortable: true,
             left: true,
             cell: row => <Badge color="success">Ativo</Badge>,
-            width: '7%',
+            width: '6%',
         },
         {
             name: 'Ações',
             sortable: true,
             right: true,
-            width: '10%',
-            cell: row => <Link to={`oportunidades/${row.id}`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg mr-1"></i>
-            Editar</Link>
+            width: '8%',
+            cell: row => <Link to={`oportunidades/${row.id}`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg"></i></Link>
         },
     ];
     return (
@@ -110,6 +109,7 @@ export default function ListaOportunidades() {
                         </CardHeader>
                         <CardBody>
                             <DataTable className="mt-n3"
+                                noHeader={true}
                                 title="Oportunidades"
                                 columns={columns}
                                 data={data}

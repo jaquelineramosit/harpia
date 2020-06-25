@@ -128,47 +128,46 @@ const routes = [
 
   //Tabelas
 
-//Configuração
-{ path: '/List-cargos', name: 'Lista de Cargos', component: Listcargos },
-{ path: '/List-contatos', name: 'Lista de Contatos', component: Listcontatos },
-{ path: '/List-tipocontato', name: 'Lista de Tipo de Contatos', component: Listtipocontatos },
-{ path: '/List-departamentos', name: 'Lista de Departamentos', component: Listdepartamentos },
-{ path: '/List-metas', name: 'Lista de Metas', component: Listmetas },
-{ path: '/List-metasvendedores', name: 'Lista de Metas de Vendedores', component: Listmetasvendedores },
-{ path: '/List-metasvendedores', name: 'Lista de Metas de Vendedores', component: Listmetasvendedores },
-{ path: '/pipes', name: 'Pipes', component: Pipes},
-{ path: '/List-fasespipes', name: 'Lista de Fases do Pipes', component: Listfasespipes},
-{ path: '/List-produtos', name: 'Lista de Fases de Produtos', component: Listprodutos},
-{ path: '/List-distribuidores', name: 'Lista de Distribuidores', component: Listdistribuidores},
-{ path: '/List-marcas', name: 'Lista de Marcas', component: Listmarcas},
-{ path: '/List-clientes', name: 'Lista de Clientes', component: Listclientes},
-{ path: '/List-paises', name: 'Lista de Países', component: Listpaises},
-{ path: '/List-segmentosmercado', name: 'Lista de Segmentos de Mercado', component: Listsegmentosmercado},
-{ path: '/List-tiposatividade', name: 'Lista de Tipos de Atividade', component: ListtiposAtividade },
-{ path: '/List-expectativasfechamento', name: 'Lista de Expectativas de fechamento', component: Listexpectativasfechamento },
-{ path: '/List-motivosperda', name: 'Lista de Motivos de Perda', component: Listmotivosperda },
+  //Configuração
+  { path: '/List-cargos', name: 'Lista de Cargos', component: Listcargos },
+  { path: '/List-contatos', name: 'Lista de Contatos', component: Listcontatos },
+  { path: '/List-tipocontato', name: 'Lista de Tipo de Contatos', component: Listtipocontatos },
+  { path: '/List-departamentos', name: 'Lista de Departamentos', component: Listdepartamentos },
+  { path: '/List-metas', name: 'Lista de Metas', component: Listmetas },
+  { path: '/List-metasvendedores', name: 'Lista de Metas de Vendedores', component: Listmetasvendedores },
+  { path: '/List-metasvendedores', name: 'Lista de Metas de Vendedores', component: Listmetasvendedores },
+  { path: '/List-fasespipes', name: 'Lista de Fases do Pipes', component: Listfasespipes},
+  { path: '/List-produtos', name: 'Lista de Fases de Produtos', component: Listprodutos},
+  { path: '/List-distribuidores', name: 'Lista de Distribuidores', component: Listdistribuidores},
+  { path: '/List-marcas', name: 'Lista de Marcas', component: Listmarcas},
+  { path: '/List-clientes', name: 'Lista de Clientes', component: Listclientes},
+  { path: '/List-paises', name: 'Lista de Países', component: Listpaises},
+  { path: '/List-segmentosmercado', name: 'Lista de Segmentos de Mercado', component: Listsegmentosmercado},
+  { path: '/List-tiposatividade', name: 'Lista de Tipos de Atividade', component: ListtiposAtividade },
+  { path: '/List-expectativasfechamento', name: 'Lista de Expectativas de fechamento', component: Listexpectativasfechamento },
+  { path: '/List-motivosperda', name: 'Lista de Motivos de Perda', component: Listmotivosperda },
 
-//Atividades
-{ path: '/List-anotacoes', name: 'Lista de Anotações', component: Listanotacoes },
-{ path: '/List-oportunidades', name: 'Lista de Oportunidades', component: Listoportunidades },
-{ path: '/List-atividades', name: 'Lista de Atividades', component: Listaatividades },
+  //Atividades
+  { path: '/List-anotacoes', name: 'Lista de Anotações', component: Listanotacoes },
+  { path: '/List-oportunidades', name: 'Lista de Oportunidades', component: Listoportunidades },
+  { path: '/List-atividades', name: 'Lista de Atividades', component: Listaatividades },
 
-//Acessos
-{ path: '/List-modulos', name: 'Lista de Módulos', component: ListaModulos },
-{ path: '/List-paginas', name: 'Lista de Páginas', component: Listapaginas },
-{ path: '/List-usuarios', name: 'Lista de Usuários', component: Listausuarios },
-{ path: '/List-perfisacesso', name: 'Lista de Perfil de Acesso', component: Listaperfisacesso },
-{ path: '/List-permissaoacesso', name: 'Lista de Permissão de Acesso', component: Listapermissaoacesso },
+  //Acessos
+  { path: '/List-modulos', name: 'Lista de Módulos', component: ListaModulos },
+  { path: '/List-paginas', name: 'Lista de Páginas', component: Listapaginas },
+  { path: '/List-usuarios', name: 'Lista de Usuários', component: Listausuarios },
+  { path: '/List-perfisacesso', name: 'Lista de Perfil de Acesso', component: Listaperfisacesso },
+  { path: '/List-permissaoacesso', name: 'Lista de Permissão de Acesso', component: Listapermissaoacesso },
 
-//Icons
-{ path: '/list-icons-fontAwesome', name: 'Lista Font Awesome Icons', component: ListaIconsFontAwesome },
-{ path: '/list-icons-simpleLine', name: 'Lista Simple Line', component: ListaIconsSimpleLine },
-//Tabelas
-{ path: '/rel-contatoxnumeroportunidades', name: ' Relatório de Contato X Número de oportunidades', component: relcontatonumeroportunidades },
-{ path: '/rel-contatoxvalorganhoperdido', name: ' Relatório de Contato X Valor Ganho e Valor Perdido', component: relcontatovalorganhoperdido},
-{ path: '/rel-contatoxtempoportunidade', name: ' Relatório de Contato X Temperatura de Oportunidade', component: relcontatotempoportunidade},
+  //Icons
+  { path: '/list-icons-fontAwesome', name: 'Lista Font Awesome Icons', component: ListaIconsFontAwesome },
+  { path: '/list-icons-simpleLine', name: 'Lista Simple Line', component: ListaIconsSimpleLine },
+  //Tabelas
+  { path: '/rel-contatoxnumeroportunidades', name: ' Relatório de Contato X Número de oportunidades', component: relcontatonumeroportunidades },
+  { path: '/rel-contatoxvalorganhoperdido', name: ' Relatório de Contato X Valor Ganho e Valor Perdido', component: relcontatovalorganhoperdido},
+  { path: '/rel-contatoxtempoportunidade', name: ' Relatório de Contato X Temperatura de Oportunidade', component: relcontatotempoportunidade},
 
-{ path: '/teste-validaForm', name: 'TesteValidaForm', component: TesteValidaForm},
+  { path: '/teste-validaForm', name: 'TesteValidaForm', component: TesteValidaForm},
 
 ];
 

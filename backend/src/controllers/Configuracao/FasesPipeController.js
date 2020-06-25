@@ -24,12 +24,26 @@ module.exports = {
         return response.json(fasespipe);
     },
 
+    async getAllByNomePipe (request, response) {
+        const  { nomePipe }  = request.params;
+        
+        const fasespipe = await connection('fasespipe')
+        .where('pipes.nomePipe', nomePipe)
+        .join( 'pipes', 'pipes.id' , '=' , 'fasespipe.pipeId')
+        .select([
+            'fasespipe.*',
+            'pipes.nomepipe'
+        ]);
+
+        return response.json(fasespipe);
+    },
+
     async getAllByPipeId (request, response) {
         const  { pipeId }  = request.params;
         
         const fasespipe = await connection('fasespipe')
         .where('fasespipe.pipeId', pipeId)
-        .join( 'pipes', 'pipes.id' , '=' , 'fasespipe.pipeId' )
+        .join( 'pipes', 'pipes.id' , '=' , 'fasespipe.pipeId')
         .select([
             'fasespipe.*',
             'pipes.nomepipe'

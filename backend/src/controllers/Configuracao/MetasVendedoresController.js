@@ -4,9 +4,12 @@ module.exports = {
     async getAll (request, response) {  
         const metasvendedores = await connection('metasvendedores')
         .join( 'metas' , 'metas.id' , '=' , 'metasvendedores.metaId')
+        .join( 'usuario' , 'usuario.id' , '=' , 'metasvendedores.vendedorId')
         .select([
             'metasvendedores.*',
-            'metas.nomemeta'
+            'metas.nomemeta',
+            'usuario.nome as nomevendedor',
+            'usuario.sobrenome as sobrenomevendedor',
         ]);
     
         return response.json(metasvendedores);
@@ -16,11 +19,13 @@ module.exports = {
         const  { id }  = request.params;
 
         const metasvendedores = await connection('metasvendedores')
-            .where('metasvendedores.id', id)
             .join( 'metas' , 'metas.id' , '=' , 'metasvendedores.metaId')
+            .join( 'usuario' , 'usuario.id' , '=' , 'metasvendedores.vendedorId')
             .select([
                 'metasvendedores.*',
-                'metas.nomemeta'
+                'metas.nomemeta',
+                'usuario.nome as nomevendedor',
+                'usuario.sobrenome as sobrenomevendedor',
             ])
             .first();
     

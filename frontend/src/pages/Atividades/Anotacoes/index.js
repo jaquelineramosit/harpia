@@ -90,7 +90,7 @@ export default function Anotacoes() {
                                         onChange={ e => setContatoId(e.target.value)}>
                                             <option value={undefined} defaultValue>Selecione...</option>
                                                 {contatosId.map(contato=> (
-                                                <option value={contato.id}>{contato.nomecontato}</option>
+                                                <option key={contato.id} value={contato.id}>{contato.nomecontato}</option>
                                                 ))}                                                                                 
                                         </Input>
                                     </Col>                                  
@@ -103,7 +103,7 @@ export default function Anotacoes() {
                                         onChange={ e => setOportunidadeId(e.target.value)}>
                                              <option value={undefined} defaultValue>Selecione...</option>
                                                 {oportunidadesId.map(oportunidade=> (
-                                                <option value={oportunidade.id}>{oportunidade.nomeoportunidade}</option>
+                                                <option key={oportunidade.id} value={oportunidade.id}>{oportunidade.nomeoportunidade}</option>
                                                 ))}                                                                             
                                         </Input> 
                                     </Col>

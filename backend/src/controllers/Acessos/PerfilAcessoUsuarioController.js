@@ -38,8 +38,6 @@ module.exports = {
     async getUsuariosPerfil (request, response) {
         const  { perfil }  = request.params;
 
-        console.log(perfil);
-
         const perfilacessousuario = await connection('perfilacessousuario')
             .where('perfilacesso.perfil', perfil)
             .join( 'usuario as user' , 'user.id' , '=' , 'perfilacessousuario.usuarioId')
@@ -61,8 +59,6 @@ module.exports = {
         const  dataUltModif = getDate();
 
         const {perfilacessoId, usuarioId, ativo } = request.body;
-        
-        console.log()
 
         const [id] = await connection('perfilacessousuario').insert({                
                 perfilacessoId,

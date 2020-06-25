@@ -21,7 +21,7 @@ const ClientesController = require('./controllers/Configuracao/ClientesControlle
 const ContatosController = require('./controllers/Configuracao/ContatosController');
 const DepartamentosController = require('./controllers/Configuracao/DepartamentosController');
 const DistribuidoresController = require('./controllers/Configuracao/DistribuidoresController');
-const ExpecFechaController = require('./controllers/Configuracao/ExpecFechaController');
+const TemperaturaFechaController = require('./controllers/Configuracao/TemperaturaFechaController');
 const FasesPipeController = require('./controllers/Configuracao/FasesPipeController');
 const MarcasController = require('./controllers/Configuracao/MarcasController');
 const MetasController = require('./controllers/Configuracao/MetasController');
@@ -147,15 +147,16 @@ routes.get('/distribuidores/:id', DistribuidoresController.getById);
 routes.post('/distribuidores', DistribuidoresController.create);
 routes.put('/distribuidores/:id', DistribuidoresController.update);
 
-routes.get('/expectativas-fechamentoCount', ExpecFechaController.getCount);
-routes.get('/expectativas-fechamento', ExpecFechaController.getAll);
-routes.get('/expectativas-fechamento/:id', ExpecFechaController.getById);
-routes.post('/expectativas-fechamento', ExpecFechaController.create);
-routes.put('/expectativas-fechamento/:id', ExpecFechaController.update);
+routes.get('/temperatura-fechamentoCount', TemperaturaFechaController.getCount);
+routes.get('/temperatura-fechamento', TemperaturaFechaController.getAll);
+routes.get('/temperatura-fechamento/:id', TemperaturaFechaController.getById);
+routes.post('/temperatura-fechamento', TemperaturaFechaController.create);
+routes.put('/temperatura-fechamento/:id', TemperaturaFechaController.update);
 
 routes.get('/fases-pipeCount', FasesPipeController.getCount);
 routes.get('/fases-pipe', FasesPipeController.getAll);
 routes.get('/fases-pipe/:id', FasesPipeController.getById);
+routes.get('/fases-pipe-nomePipe/:nomePipe', FasesPipeController.getAllByNomePipe);
 routes.get('/fases-pipe-pipeId/:pipeId', FasesPipeController.getAllByPipeId);
 routes.post('/fases-pipe', FasesPipeController.create);
 routes.put('/fases-pipe/:id', FasesPipeController.update);

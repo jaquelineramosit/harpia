@@ -36,42 +36,36 @@ export default function Listametas() {
             name: 'Metas',
             selector: 'nomemeta',
             sortable: true,
-
-
+            width: '30%',
         },
         {
             name: 'Valor',
-            selector: 'valor',
+            //selector: 'valor',
             sortable: true,
             left: true,
-
+            width: '20%',
+            cell: row => <div>{row.valor.toLocaleString("pt-BR", { style: "currency" , currency:"BRL"})}</div>,
         },
         {
-            name: 'Quantidade de Oportunidade',
+            name: 'Qtde Oportunidades',
             selector: 'qtdeoportunidade',
             sortable: true,
             left: true,
-
-        },
-        {
-            name: 'Descrição',
-            selector: 'descricao',
-            sortable: true,
-            left: true,
-
-        },
+            width: '26%',
+        },        
         {
             name: 'Status',
             sortable: true,
             left: true,
+            width: '12%',
             cell: row => <Badge color="success">Ativo</Badge>,
         },
         {
             name: 'Ações',
             sortable: true,
             right: true,
-            cell: row => <Link to={`metas/${row.id}`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg mr-1"></i>
-            Editar</Link>
+            width: '12%',
+            cell: row => <Link to={`metas/${row.id}`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg"></i></Link>
         },
     ];
     return (

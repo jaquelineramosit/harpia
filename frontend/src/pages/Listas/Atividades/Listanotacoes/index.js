@@ -35,42 +35,42 @@ export default function ListaAnotacoes() {
             name: 'Anotações',
             selector: 'anotacao',
             sortable: true,
-
-
+            width: '26%',
         },
         {
             name: 'Cliente',
             selector: 'nomecliente',
             sortable: true,
             left: true,
-
+            width: '16%',
         },
         {
             name: 'Oportunidade',
             selector: 'nomeoportunidade',
             sortable: true,
             left: true,
-
+            width: '20%',
         },
         {
             name: 'Contato',
             selector: 'nomecontato',
             sortable: true,
             left: true,
-
+            width: '16%',
         },
         {
             name: 'Status',
             sortable: true,
             left: true,
             cell: row => <Badge color="success">Ativo</Badge>,
+            width: '12%',
         },
         {
             name: 'Ações',
             sortable: true,
             right: true,
-            cell: row => <Link to={`anotacoes/${row.id}`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg mr-1"></i>
-            Editar</Link>
+            width: '10%',
+            cell: row => <Link to={`anotacoes/${row.id}`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg"></i></Link>
         },
     ];
 
@@ -91,6 +91,7 @@ export default function ListaAnotacoes() {
                         </CardHeader>
                         <CardBody>
                             <DataTable className="mt-n3"
+                                noHeader={true}
                                 title="Anotações"
                                 columns={columns}
                                 data={data}

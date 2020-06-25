@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Card, CardBody, CardHeader, Col, Pagination, PaginationItem, PaginationLink, Row, Table, Input, FormGroup, Badge  } from 'reactstrap';
 import { BarChart, Area, ComposedChart, Line, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, LineChart } from 'recharts';
 import api from '../../../services/api';
-import './style.css';
+import '../../../global.css';
 import DataTable from 'react-data-table-component';
 
 export default function Dashboard() {
@@ -102,63 +102,49 @@ export default function Dashboard() {
             name: 'Oportunidades',
             selector: 'nomeoportunidade',
             sortable: true,
-
-
+            width: '20%',
         },
         {
             name: 'Proprietário',
-            selector: 'proprietarioId',
+            selector: 'nomeproprietario',
             sortable: true,
             left: true,
-
+            width: '14%',
         },
         {
             name: 'Cliente',
             selector: 'nomecliente',
             sortable: true,
             left: true,
-
-        },
-        {
-            name: 'Contato',
-            selector: 'nomecontato',
-            sortable: true,
-            left: true,
-
+            width: '14%',
         },
         {
             name: 'Produto',
             selector: 'nomeproduto',
             sortable: true,
             left: true,
-
+            width: '14%',
         },
         {
-            name: 'Fase do Pipe',
+            name: 'Fase Pipe',
             selector: 'nomefase',
             sortable: true,
             left: true,
-
+            width: '14%',
         },
         {
             name: 'Valor',
-            selector: 'valor',
+            cell: row => <div>{row.valor.toLocaleString("pt-BR", { style: "currency" , currency:"BRL"})}</div>,
             sortable: true,
             left: true,
-
-        },
-        {
-            name: 'Status',
-            sortable: true,
-            left: true,
-            cell: row => <Badge color="success">Ativo</Badge>,
-        },
+            width: '16%',
+        },        
         {
             name: 'Ações',
             sortable: true,
             right: true,
-            cell: row => <Link to={`oportunidades/${row.id}`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg mr-1"></i>
-            Editar</Link>
+            width: '8%',
+            cell: row => <Link to={`oportunidades/${row.id}`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg"></i></Link>
         },
     ];
 
@@ -171,9 +157,9 @@ export default function Dashboard() {
                             <i className="fa fa-align-justify"></i>Oportunidades
                         </CardHeader>
                         <CardBody>
-                            <FormGroup row>
-                                <Col md="7">
-                                    <Link to={`oportunidades`} className="btn btn-primary icons-oportunidades">
+                            <FormGroup row className="border-bottom">
+                                <Col xs="4" lg="4" md="4" className="text-right">
+                                    {/* <Link to={`oportunidades`} className="btn btn-primary icons-oportunidades">
                                         <i className="fa fa-phone fa-2x"></i>
                                     </Link>
                                     <Link to={`oportunidades`} className="btn btn-primary icons-oportunidades">
@@ -184,19 +170,22 @@ export default function Dashboard() {
                                     </Link>
                                     <Link to={`oportunidades`} className="btn btn-primary icons-oportunidades">
                                         <i className="fa fa-bullseye fa-2x"></i>
-                                    </Link>
+                                    </Link> */}
                                     <Link to={`oportunidades`} className="btn btn-primary icons-oportunidades">
                                         <i className="fa fa-plus-circle fa-2x"></i>
                                     </Link>
                                 </Col>
-                                <Col xs="5" lg="5" md="5" className="search">
-                                    <Input type="text" id="txtSearch" />
-                                    <Link to={`oportunidades`} className="">
-                                        <i className="fa fa-search fa-2x ml-3 mt-1" style={{ color: '#20a8d8' }}></i>
-                                    </Link>
+                                <Col xs="7" lg="7" md="7" className="search">
+                                    <Input type="text" id="txtSearch"  />
+                                </Col>
+                                <Col xs="1" lg="1" md="1" className="search pl-0">
+                                    <Link to={`oportunidades`} >
+                                        <i className="fa fa-search fa-2x" style={{ color: '#20a8d8'}}></i>
+                                    </Link>                                   
                                 </Col>
                             </FormGroup>
                             <DataTable className="mt-n3"
+                                noHeader={true}
                                 title="Oportunidades"
                                 columns={columns}
                                 data={datatable}

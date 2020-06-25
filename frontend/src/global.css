@@ -12,13 +12,24 @@ code {
     monospace;
 }
 
-
-.Toastify__close-button .Toastify__close-button--error {
-  background-color: #f86c6b;
+/* usado nas listas de home, oportunidades e atividades */
+.icons-oportunidades {    
+  margin: 5px 10px 10px 5px;
+  width: 55px;
+}
+.search {
+  display: flex; 
+  margin-top: 10px
 }
 
-.Toastify__close-button .Toastify__close-button--success {
-  background-color: #4dbd74;
+.search a {     
+  margin-top: 5px;
+  text-align: right;
+}
+
+.group-painel-oportunidades {
+  border: solid 1px #c8ced3;
+  border-radius: .3rem;
 }
 
 .content-form {  
