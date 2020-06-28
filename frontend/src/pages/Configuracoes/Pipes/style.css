@@ -15,11 +15,16 @@
 }
 
 .card-body {    
-   
-    padding-left: 25px;
+    padding: 0.5rem;
 }
 .card-oportunidade {
     font-size: .65rem;
+    text-align: center;
+    padding: 5px 5px;
+    margin: 0;
+    margin-bottom: 8px;
+    color: white;
+    /* font-size: .65rem;
     background-color: #63c2de;
     text-align: center;        
     min-width: 175px;
@@ -27,7 +32,7 @@
     padding: 5px 7px;
     border: solid 1px #63c2de;
     margin-bottom: 8px;
-    color: white;
+    color: white; */
 }
 .link-card {
     font-size: .75rem;

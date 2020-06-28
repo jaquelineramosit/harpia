@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button, CardFooter, Form, 
         TabContent, TabPane, ListGroup, ListGroupItem } from 'reactstrap';
+import { Link } from "react-router-dom";
 import { AppSwitch } from '@coreui/react'
 import '../../../global.css';
 import './style.css';
@@ -8,6 +9,9 @@ import { reaisMask } from '../../../mask'
 import api from '../../../../src/services/api';
 
 export default function Oportunidades() {
+
+    const colorCard = "success";
+    const oportunidadeId = 2;
     const [nomeoportunidade, setNomeOportunidade] = useState('');
     const [descricao, setDescricao] = useState('');
     const [clienteId, setClienteId] = useState('');
@@ -27,6 +31,7 @@ export default function Oportunidades() {
     const [lstContatos, setlstContatos] = useState([]);
     const [lstProprietarios, setlstProprietarios] = useState([]);
     const [lstFasesPipe, setlstFasesPipe] = useState([]);
+    const [lstAnotacoes, setlstAnotacoes] = useState([]);
     const [lstTemperaturasFechamento, setlstTemperaturasFechamento] = useState([]);
     const usuarioId = localStorage.getItem('userId');
 
@@ -66,6 +71,12 @@ export default function Oportunidades() {
         })
     }, [usuarioId]);
 
+    useEffect(() => {
+        api.get(`anotacoes-oportunidade/${oportunidadeId}`).then(response => {
+            setlstAnotacoes(response.data);
+        })
+    }, [usuarioId]);
+    
 
     async function handleOportunidades(e) {
         e.preventDefault();
@@ -240,21 +251,44 @@ export default function Oportunidades() {
                             Anotações
                         </CardHeader>
                         <CardBody className="card-body-anotacoes">                            
-                            <ListGroup className="list-group-accent" tag={'div'}>
-                                <ListGroupItem className="list-group-item-accent-secondary bg-light text-center font-weight-bold text-muted text-uppercase small">Hoje</ListGroupItem>
-                                <ListGroupItem action tag="a" href="#" className="list-group-item-accent-warning list-group-item-divider">
-                                    {/* <div className="avatar float-right">
-                                        <img className="img-avatar" src="assets/img/avatars/7.jpg" alt="admin@bootstrapmaster.com"></img>
-                                    </div> */}
-                                    <div>Meeting with <strong>Lucas</strong> </div> {/* anotação */}
-                                    <small className="text-muted mr-3">
-                                        <i className="fa fa-users"></i>&nbsp; 1 - 3pm {/* cliente */}
-                                    </small>
-                                    <small className="text-muted">
-                                        <i className="fa fa-address-book-o"></i> Palo Alto, CA {/* contato */}
-                                    </small>
-                                </ListGroupItem>
-                                <ListGroupItem action tag="a" href="#" className="list-group-item-accent-info list-group-item-divider">
+                            <ListGroup className="list-group-accent" tag={'div'}>                                
+                                {lstAnotacoes.map((anotacao, index) => (
+                                    (index % 2) === 0 ? (
+                                        <ListGroupItem key={`lstGroup${index}`} action tag="a" href={`/#/anotacoes/${anotacao.id}`} className="list-group-item-accent-success list-group-item-divider p-3">
+                                            {/* <Link key={`lstGroup${index}`} to={`/anotacoes/${anotacao.id}`} className="bg-gray-100"> */}
+                                            
+                                                <div>{anotacao.anotacao}</div> {/* anotação */}
+                                                <div>
+                                                    <small className="text-muted mr-3">
+                                                        <i className="fa fa-users"></i>&nbsp; {anotacao.nomecliente} {/* cliente */}
+                                                    </small>
+                                                </div>
+                                                <div>
+                                                    <small className="text-muted">
+                                                        <i className="fa fa-address-book-o"></i> {anotacao.nomecontato} {/* contato */}
+                                                    </small>    
+                                                </div>
+                                            {/* </Link> */}
+                                        </ListGroupItem>                                        
+                                    ) :
+                                    (
+                                        <ListGroupItem key={`lstGroup${index}`} action tag="a" href={`/#/anotacoes/${anotacao.id}`} className="list-group-item-accent-info list-group-item-divider p-3">
+                                            <div>{anotacao.anotacao}</div> {/* anotação */}
+                                            <div>
+                                                <small className="text-muted mr-3">
+                                                    <i className="fa fa-users"></i>&nbsp; {anotacao.nomecliente} {/* cliente */}
+                                                </small>
+                                            </div>
+                                            <div>
+                                                <small className="text-muted">
+                                                    <i className="fa fa-address-book-o"></i> {anotacao.nomecontato} {/* contato */}
+                                                </small>    
+                                            </div>
+                                        </ListGroupItem>
+                                    )                                   
+                                ))} 
+                                
+                                {/* <ListGroupItem action tag="a" href="#" className="list-group-item-accent-info list-group-item-divider">
                                     <div className="avatar float-right">
                                     <img className="img-avatar" src="assets/img/avatars/4.jpg" alt="admin@bootstrapmaster.com"></img>
                                     </div>
@@ -321,7 +355,7 @@ export default function Oportunidades() {
                                         <img src={'assets/img/avatars/8.jpg'} className="img-avatar" alt="admin@bootstrapmaster.com" />
                                     </div>
                                     </div>
-                                </ListGroupItem>
+                                </ListGroupItem> */}
                             </ListGroup>                                
                         </CardBody>
                     </Card>                        

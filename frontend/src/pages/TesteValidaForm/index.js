@@ -4,13 +4,13 @@ import { Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button, 
 import { AppSwitch } from '@coreui/react'
 import '../../global.css';
 import api from '../../../src/services/api';
-import FormValidator from '../../validator/FormValidator';
+import FormValidator from '../../validator/formValidator';
 import Toaster from '../../toaster';
 
 export default function Modulo() {
     const [nomeModulo, setNomeModulo] = useState('');
     const [descricao, setDescricao] = useState('');    
-    const [ativo, setAtivo] = useState('true');
+    const [ativo, setAtivo] = useState('');
     const usuarioId = localStorage.getItem('userId');    
     const history = useHistory();
 
@@ -104,7 +104,7 @@ export default function Modulo() {
                                         <Label htmlFor="Ativo">Ativo</Label>
                                         <AppSwitch id="rdAtivo" className={'switch-ativo'}  label color={'success'} 
                                             defaultChecked                                             
-                                            value={`${ativo}`}
+                                            value={`${ativo}`}                                            
                                             onChange={ e => setAtivo(e.target.checked)}
                                             size={'sm'}
                                          />

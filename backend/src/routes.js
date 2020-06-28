@@ -98,6 +98,7 @@ routes.put('/register/:id', RegisterController.update);
 routes.get('/anotacoesCount', AnotacoesController.getCount);
 routes.get('/anotacoes', AnotacoesController.getAll);
 routes.get('/anotacoes/:id', AnotacoesController.getById);
+routes.get('/anotacoes-oportunidade/:oportunidadeId', AnotacoesController.getByOportunidadeId);
 routes.post('/anotacoes', AnotacoesController.create);
 routes.put('/anotacoes/:id', AnotacoesController.update);
 

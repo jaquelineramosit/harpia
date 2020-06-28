@@ -35,6 +35,24 @@ module.exports = {
         return response.json(anotacoes);
     },
 
+    async getByOportunidadeId (request, response) {
+        const  { oportunidadeId }  = request.params;
+
+        const anotacoes = await connection('anotacoes')
+            .where('oportunidades.id', oportunidadeId)
+            .leftJoin( 'clientes' , 'clientes.id' , '=' , 'anotacoes.clienteId')
+            .leftJoin( 'oportunidades' , 'oportunidades.id' , '=' , 'anotacoes.oportunidadeId')
+            .leftJoin( 'contatos' , 'contatos.id' , '=' , 'anotacoes.contatoId')
+            .select([
+                'anotacoes.*',
+                'clientes.nomecliente',
+                'oportunidades.nomeoportunidade',
+                'contatos.nomecontato'
+            ]);
+    
+        return response.json(anotacoes);
+    },
+
     async create(request, response) {
         const  usuarioId  = request.headers.authorization;
         const  dataUltModif = getDate();

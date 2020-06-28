@@ -1,6 +1,6 @@
 import React, { Component, Fragment, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Row, Col, Card, CardHeader, CardBody, FormGroup, CardFooter, Form } from 'reactstrap';
+import { Row, Col, Card, CardHeader, CardBody, FormGroup, CardFooter, Form, ListGroupItem } from 'reactstrap';
 import './style.css';
 import api from '../../../services/api';
 
@@ -106,29 +106,65 @@ function CardOportunidade (props) {
     console.log(fasePipeId);
     return (
         <Fragment>                     
-            {oportunidades.map((oportunidade) => (
-                <div key={`card-body${oportunidade.id}`} className="card-oportunidade">
-                    <div keys={`header${oportunidade.id}`}>
-                        <div className="float-left">
-                            Nº {oportunidade.id}
+            {oportunidades.map((oportunidade, index) => (                
+                <ListGroupItem key={`lstGroup${index}`} className="list-group-item-accent-success text-muted list-group-item-divider card-oportunidade">
+                    <small>
+                        <div keys={`header${oportunidade.id}`}>
+                            <div className="float-left">
+                                Nº {oportunidade.id}
+                            </div>
+                            <div className="text-right">
+                                <Link to='/'><i className="fa fa-phone link-card"></i></Link>
+                                <Link to='/'><i className="fa fa-envelope-open link-card"></i></Link>
+                                <Link to='/'><i className="fa fa-pencil link-card"></i></Link>
+                                <Link to='/'><i className="fa fa-calendar link-card"></i></Link>
+                            </div>
                         </div>
-                        <div className="text-right">
-                            <Link to='/'><i className="fa fa-phone link-card"></i></Link>
-                            <Link to='/'><i className="fa fa-envelope-open link-card"></i></Link>
-                            <Link to='/'><i className="fa fa-pencil link-card"></i></Link>
-                            <Link to='/'><i className="fa fa-calendar link-card"></i></Link>
+                        <div keys={`body-card${oportunidade.id}`}> 
+                            <div className="text-left">{oportunidade.nomeoportunidade}</div>                                        
+                            <div className="float-left">{oportunidade.nomecliente}</div>
+                            <div className="float-right">R$ {oportunidade.valor}</div>
                         </div>
+                        <div> 
+                            <br />
+                            <div className="text-right">Qui 11 Jun, 2020</div>
+                        </div>
+                    </small>
+                    {/* <div>{anotacao.anotacao}</div> 
+                    <div>
+                        <small className="text-muted mr-3">
+                            <i className="fa fa-users"></i>&nbsp; {oportunidade.nomecliente}
+                        </small>
                     </div>
-                    <div keys={`body-card${oportunidade.id}`}> 
-                        <div className="text-left">{oportunidade.nomeoportunidade}</div>                                        
-                        <div className="float-left">{oportunidade.nomecliente}</div>
-                        <div className="float-right">R$ {oportunidade.valor}</div>
-                    </div>
-                    <div> 
-                        <br />
-                        <div className="text-right">Qui 11 Jun, 2020</div>
-                    </div>
-                </div>
+                    <div>
+                        <small className="text-muted">
+                            <i className="fa fa-address-book-o"></i> {anotacao.nomecontato}
+                        </small>    
+                    </div> */}
+                </ListGroupItem>
+                
+                // <div key={`card-body${oportunidade.id}`} className="card-oportunidade">
+                //     <div keys={`header${oportunidade.id}`}>
+                //         <div className="float-left">
+                //             Nº {oportunidade.id}
+                //         </div>
+                //         <div className="text-right">
+                //             <Link to='/'><i className="fa fa-phone link-card"></i></Link>
+                //             <Link to='/'><i className="fa fa-envelope-open link-card"></i></Link>
+                //             <Link to='/'><i className="fa fa-pencil link-card"></i></Link>
+                //             <Link to='/'><i className="fa fa-calendar link-card"></i></Link>
+                //         </div>
+                //     </div>
+                //     <div keys={`body-card${oportunidade.id}`}> 
+                //         <div className="text-left">{oportunidade.nomeoportunidade}</div>                                        
+                //         <div className="float-left">{oportunidade.nomecliente}</div>
+                //         <div className="float-right">R$ {oportunidade.valor}</div>
+                //     </div>
+                //     <div> 
+                //         <br />
+                //         <div className="text-right">Qui 11 Jun, 2020</div>
+                //     </div>
+                // </div>
             ))}           
                             
         </Fragment>
