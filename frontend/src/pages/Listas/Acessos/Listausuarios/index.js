@@ -98,7 +98,7 @@ export default function ListaUsuarios() {
             name: 'Ações',
             sortable: true,
             right: true,
-            cell: row => <Link to={`usuarios/${row.id}`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg mr-1"></i>
+            cell: row => <Link to={`usuarios/${row.id}?action=edit`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg mr-1"></i>
             Editar</Link>
         },
     ];

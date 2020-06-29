@@ -3,44 +3,93 @@ import { Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button,C
 import '../../../global.css';
 import api from '../../../../src/services/api';
 
-export default function Anotacoes() {
-    const [pagina, setPagina] = useState('');
-    const [moduloId, setModuloId] = useState('');
-    const [descricao, setDescricao] = useState('');
-    const [modulosId, setModulosId] = useState([]);
-    const usuarioId = localStorage.getItem('userId');
+const Pagina = (props) => {
 
-    useEffect(() => {
-        api.get('modulos').then(response => {
-        setModulosId(response.data);
-        })
-        }, [usuarioId]);    
+  var search = props.location.search;
+  var params = new URLSearchParams(search);
+  var action = params.get('action');
+  var paginaIdParams = props.match.params.id;
 
-    async function handleAnotacoes(e) {
-        e.preventDefault();
+  const [modulos, setModulos] = useState([]);
+  const usuarioId = localStorage.getItem('userId');
 
-        const data = {
-            pagina,
-            moduloId,
-            descricao
-        }
-        try {
-            const response = await api.post('anotacoes', data, {
-                headers: {
-                    Authorization: usuarioId,
-                }
-            });
-            alert(`Feito o cadastro com sucesso`);
+  const [formData, setFormData] = useState({
+      nmoduloId: '',
+      nomePagina: '',
+      descricao: '',
+  });
 
-        } catch (err) {
+  useEffect(() => {
+    api.get('modulos').then(response => {
+        setModulos(response.data);
+    })
+}, [usuarioId]);
 
-            alert('Erro no cadastro, tente novamente.');
-        }
-    }
+  useEffect(() => {
+      if (action === 'edit' && paginaIdParams !== '') {
+          api.get(`paginas/${paginaIdParams}`).then(response => {
+              document.getElementById('cboModuloId').value = response.data.moduloId;
+              document.getElementById('txtPagina').value = response.data.nomePagina;
+              document.getElementById('txtDescricao').value = response.data.descricao;
 
+              setFormData({
+                  ...formData,
+                  nomemodulo: response.data.moduloId,
+                  nomemodulo: response.data.nomePagina,
+                  descricao: response.data.descricao,
+
+              })
+          });
+      } else {
+          return;
+      }
+  }, [paginaIdParams])
+
+  function handleInputChange(event) {
+      const { name, value } = event.target;
+
+      setFormData({ ...formData, [name]: value });
+  };
+
+  async function handlePagina(e) {
+      e.preventDefault();
+
+      const data = formData;
+
+      if (action === 'edit') {
+
+          try {
+              const response = await api.put(`/paginas/${paginaIdParams}`, data, {
+                  headers: {
+                      Authorization: 6,
+                  }
+              });
+              alert(`Cadastro atualizado com sucesso.`);
+          } catch (err) {
+
+              alert('Erro na atualização, tente novamente.');
+          }
+
+      } else {
+
+          if (action === 'novo') {
+              try {
+                  const response = await api.post('paginas', data, {
+                      headers: {
+                          Authorization: 6,
+                      }
+                  });
+                  alert(`Cadastro realizado com sucesso.`);
+              } catch (err) {
+
+                  alert('Erro no cadastro, tente novamente.');
+              }
+          }
+      }
+  }
     return (
         <div className="animated fadeIn">
-            <Form onSubmit={handleAnotacoes}>
+            <Form onSubmit={handlePagina}>
                 <Row>
                     <Col xs="12" md="12">
                         <Card>
@@ -53,29 +102,29 @@ export default function Anotacoes() {
                                     <Col md="4">
                                         <Label htmlFor="pagina">Página</Label>
                                         <Input type="text" required id="txtPagina" placeholder="Digite a Pagina"
-                                        value={pagina}
-                                        onChange={ e => setPagina(e.target.value)} />
+                                        name="nomepagina"
+                                        onChange={handleInputChange} />
                                     </Col>
                                     <Col md="4">
                                         <Label htmlFor="moduloId">Módulo</Label>
-                                        <Input required type="select" name="select" id="cboOportunidadeId"
-                                        value={moduloId}
-                                        onChange={ e => setModuloId(e.target.value)}>
+                                        <Input required type="select" name="select" id="cboModuloId"
+                                        name="moduloId"
+                                        onChange={handleInputChange}>
                                              <option value={undefined} defaultValue>Selecione...</option>
-                                                {modulosId.map(modulo=> (
+                                                {modulos.map(modulo=> (
                                                 <option value={modulo.id}>{modulo.nomemodulo}</option>
-                                                ))}                                                                             
-                                        </Input> 
+                                                ))}
+                                        </Input>
                                     </Col>
-                                </FormGroup>                   
+                                </FormGroup>
                                 <FormGroup row>
                                     <Col md="8">
                                         <Label>Descrição</Label>
-                                        <Input type="textarea" rows="5"
-                                            value={descricao}
-                                            onChange={e => setDescricao(e.target.value)} />
+                                        <Input type="textarea" rows="5"id="txtDescricao"
+                                            name="descricao"
+                                            onChange={handleInputChange}  />
                                     </Col>
-                                </FormGroup> 
+                                </FormGroup>
                             </CardBody>
                             <CardFooter className="text-center">
                                 <Button type="submit" size="sm" color="success" className=" mr-3"><i className="fa fa-check"></i> Salvar</Button>
@@ -88,3 +137,5 @@ export default function Anotacoes() {
         </div>
     );
 }
+
+export default Pagina;

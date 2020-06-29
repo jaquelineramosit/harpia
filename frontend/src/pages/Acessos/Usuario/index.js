@@ -6,76 +6,127 @@ import '../../../global.css';
 import {cepMask, telMask, celMask, cpfMask, rgMask} from '../../../mask';
 import api from '../../../../src/services/api';
 
-export default function Usuario() {
-    const [nome, setNome] = useState('');
-    const [sobrenome, setSobrenome] = useState('');
-    const [dataNasc, setDataNasc] = useState('0000-00-00');
-    const [logradouro, setLogradouro] = useState('');
-    const [numero, setNumero] = useState('');
-    const [complemento, setComplemento] = useState('');
-    const [bairro, setBairro] = useState('');
-    const [cep, setCep] = useState('');
-    const [cidade, setCidade] = useState('');
-    const [estado, setEstado] = useState('');
-    const [telefone, setTelefone] = useState('');
-    const [celular, setCelular] = useState('');
-    const [cpf, setCpf] = useState('');
-    const [rg, setRg] = useState('');
-    const [genero, setGenero] = useState('');
-    const [email, setEmail] = useState('');
-    const [login, setLogin] = useState('');
-    const [senhaForm, setSenhaForm] = useState('');
-    const [senhaConfirmaForm, setsenhaConfirmaForm] = useState('');
-    const [ativo, setAtivo] = useState("true");
-    const [perfilAcessoId, setPerfilAcessoId] = useState('');
-    const [perfisAcessoId, setPerfisAcessoId] = useState([]);
-    const usuarioId = localStorage.getItem('userId');
-    const history = useHistory();
+const Register = (props) => {
 
-    useEffect(() => {
-        api.get('perfis-acesso').then(response => {
-        setPerfisAcessoId(response.data);
-        })
-        }, [usuarioId]);
+  var search = props.location.search;
+  var params = new URLSearchParams(search);
+  var action = params.get('action');
+  var usuariosIdParams = props.match.params.id;
 
-    async function handleRegister(e) {
-        e.preventDefault();
+  const[perfisAcessoId,setPerfilAcessoId] = useState([]);
+  const[senhaForm,setSenhaForm] = useState([]);
+  const[senhaConfirmaForm,setSenhaConfirmaForm] = useState([]);
+  const usuarioId = localStorage.getItem('userId');
 
-        const data = {
-          nome,
-          sobrenome,
-          dataNasc,
-          logradouro,
-          numero,
-          complemento,
-          bairro,
-          cep,
-          cidade,
-          estado,
-          telefone,
-          celular,
-          cpf,
-          rg,
-          genero,
-          email,
-          login,
-          senhaForm,
-          ativo
-        };
+  const [formData, setFormData] = useState({
+      nome: '',
+      sonbrenome: '',
+      dataNasc: '',
+      logradouro: '',
+      numero: '',
+      complemento: '',
+      bairro: '',
+      cep: '',
+      cidade: '',
+      estado: '',
+      telefone: '',
+      celular: '',
+      cpf: '',
+      rg: '',
+      genero: '',
+      email: '',
+      login: '',
 
-        try {
-            console.log(data);
-            const response = await api.post('/usuarios', data);
-            console.log(response);
-            alert(`Seu login de acesso: ${response.data.login}`);
-            history.push('/');
+  });
 
-        } catch (err) {
+  useEffect(() => {
+      if (action === 'edit' && usuariosIdParams !== '') {
+          api.get(`usuarios/${usuariosIdParams}`).then(response => {
+              document.getElementById('txtNome').value = response.data.nome;
+              document.getElementById('txtSobrenome').value = response.data.sobrenome;
+              document.getElementById('txtDataNasc').value = response.data.dataNasc;
+              document.getElementById('txtLogradouro').value = response.data.logradouro;
+              document.getElementById('txtNumero').value = response.data.numero;
+              document.getElementById('txtComplemento').value = response.data.complemento;
+              document.getElementById('txtBairro').value = response.data.bairro;
+              document.getElementById('txtCep').value = response.data.cep;
+              document.getElementById('txtCidade').value = response.data.cidade;
+              document.getElementById('cboUf').value = response.data.estado;
+              document.getElementById('txtTelefoneFixo').value = response.data.telefone;
+              document.getElementById('txtCelular').value = response.data.celular;
+              document.getElementById('txtCPF').value = response.data.cpf;
+              document.getElementById('txtRG').value = response.data.rg;
+              document.getElementById('cboGenero').value = response.data.genero;
+              document.getElementById('txtEmail').value = response.data.email;
+              document.getElementById('txtNomeUsuario').value = response.data.login;
 
-            alert('Erro no cadastro, tente novamente.');
-        }
-    }
+              setFormData({
+                  ...formData,
+                  nome: response.data.nome,
+                  sobrenome: response.data.sobrenome,
+                  dataNasc: response.data.dataNasc,
+                  logradouro: response.data.logradouro,
+                  numero: response.data.numero,
+                  complemento: response.data.complemento,
+                  bairro: response.data.bairro,
+                  cep: response.data.cep,
+                  cidade: response.data.cidade,
+                  estado: response.data.estado,
+                  cpf: response.data.cpf,
+                  rg: response.data.rg,
+                  genero: response.data.genero,
+                  email: response.data.email,
+                  login: response.data.login,
 
+              })
+          });
+      } else {
+          return;
+      }
+  }, [usuariosIdParams])
+
+  function handleInputChange(event) {
+      const { name, value } = event.target;
+
+      setFormData({ ...formData, [name]: value });
+  };
+
+  async function handleRegister(e) {
+      e.preventDefault();
+
+      const data = formData;
+
+      if (action === 'edit') {
+
+          try {
+              const response = await api.put(`/usuarios/${usuariosIdParams}`, data, {
+                  headers: {
+                      Authorization: 6,
+                  }
+              });
+              alert(`Cadastro atualizado com sucesso.`);
+          } catch (err) {
+
+              alert('Erro na atualização, tente novamente.');
+          }
+
+      } else {
+
+          if (action === 'novo') {
+              try {
+                  const response = await api.post('usuarios', data, {
+                      headers: {
+                          Authorization: 6,
+                      }
+                  });
+                  alert(`Cadastro realizado com sucesso.`);
+              } catch (err) {
+
+                  alert('Erro no cadastro, tente novamente.');
+              }
+          }
+      }
+  }
     return (
         <div className="animated fadeIn">
             <Form onSubmit={handleRegister}>
@@ -88,19 +139,25 @@ export default function Usuario() {
                             </CardHeader>
                             <CardBody>
                                 <FormGroup row>
+                                <Col md="4">
+                                        <Label htmlFor="nome">Nome</Label>
+                                        <Input type="text" required id="txtNome" placeholder="Digite o Nome"
+                                        name="nome"
+                                        onChange={handleInputChange}/>
+                                    </Col>
                                     <Col md="4">
                                         <Label htmlFor="Sobrenome">Sobrenome</Label>
                                         <Input type="text" required id="txtSobrenome" placeholder="Digite o Sobrenome"
-                                        value={sobrenome}
-                                        onChange={ e => setSobrenome(e.target.value)} />
+                                        name="sobrenome"
+                                        onChange={handleInputChange}/>
                                     </Col>
                                     <Col md="4">
                                         <Label htmlFor="DataNasc">Data de Nasc.</Label>
                                         <InputGroup>
                                             <Input type="date" required id="txtDataNasc" className="date"
                                             placeholder="Digite a Data de Nascimento"
-                                            value={dataNasc}
-                                            onChange={ e => setDataNasc(e.target.value)} />
+                                            name="datanasc"
+                                            onChange={handleInputChange} />
                                             <InputGroupAddon addonType="append">
                                                 <Button type="button" color="secondary icon-calendar"></Button>
                                             </InputGroupAddon>
@@ -109,9 +166,9 @@ export default function Usuario() {
                                     </Col>
                                     <Col md="2">
                                         <Label htmlFor="Genero">Genero</Label>
-                                        <Input required type="select" name="select" id="ddlGenero"
-                                        value={genero}
-                                        onChange={ e => setGenero(e.target.value)}
+                                        <Input required type="select" name="select" id="cboGenero"
+                                        name="genero"
+                                        onChange={handleInputChange}
                                         >
                                             <option value={undefined}>Selecione...</option>
                                             <option value="F">Feminino</option>
@@ -123,9 +180,9 @@ export default function Usuario() {
                                     <Col md="2">
                                         <Label htmlFor="CEP">CEP</Label>
                                         <InputGroup>
-                                            <Input id="txtCEP" size="16" required type="text" placeholder="00000-000"
-                                            value={cep}
-                                            onChange={ e => setCep(cepMask(e.target.value))} />
+                                            <Input id="txtCep" size="16" required type="text" placeholder="00000-000"
+                                            name="cep"
+                                            onChange={handleInputChange} />
                                             <InputGroupAddon addonType="append">
                                                 <Button type="button" color="secondary fa fa-truck"></Button>
                                             </InputGroupAddon>
@@ -134,41 +191,41 @@ export default function Usuario() {
                                     <Col md="6">
                                         <Label htmlFor="Logradouro">Logradouro</Label>
                                         <Input type="text" required id="txtLogradouro" placeholder="Digite o Logradouro"
-                                        value={logradouro}
-                                        onChange={ e => setLogradouro(e.target.value)}
+                                        name="logradouro"
+                                        onChange={handleInputChange}
                                          />
                                     </Col>
                                     <Col md="2">
                                         <Label htmlFor="Numero">Número</Label>
                                         <Input type="text" required id="txtNumero" placeholder="Digite apenas Números"
-                                        value={numero}
-                                        onChange={ e => setNumero(e.target.value)} />
+                                        name="numero"
+                                        onChange={handleInputChange} />
                                     </Col>
                                     <Col md="2">
                                         <Label htmlFor="Complemento">Complemento</Label>
                                         <Input type="text" id="txtComplemento" placeholder="Digite o Complemento"
-                                        value={complemento}
-                                        onChange={ e => setComplemento(e.target.value)}/>
+                                        name="complemento"
+                                        onChange={handleInputChange}/>
                                     </Col>
                                 </FormGroup>
                                 <FormGroup row>
                                     <Col md="4">
                                         <Label htmlFor="Bairro">Bairro</Label>
                                         <Input type="text" required id="txtBairro" placeholder="Digite o Bairro"
-                                        value={bairro}
-                                        onChange={ e => setBairro(e.target.value)} />
+                                        name="bairro"
+                                        onChange={handleInputChange} />
                                     </Col>
                                     <Col md="4">
                                         <Label htmlFor="Cidade">Cidade</Label>
                                         <Input type="text" required id="txtCidade" placeholder="Digite o Cidade"
-                                        value={cidade}
-                                        onChange={ e => setCidade(e.target.value)} />
+                                        name="cidade"
+                                        onChange={handleInputChange}/>
                                     </Col>
                                     <Col md="2">
                                         <Label htmlFor="estado">Estado</Label>
                                         <Input type="select" required name="select" id="cboUf"
-                                        value={estado}
-                                        onChange={ e => setEstado(e.target.value)}>
+                                        name="estado"
+                                        onChange={handleInputChange}>
                                             <option value={undefined}>Selecione...</option>
                                             <option value="SP">São Paulo</option>
                                             <option value="RJ">Rio de Janeiro</option>
@@ -201,8 +258,8 @@ export default function Usuario() {
                                     <Col md="2">
                                         <Label check className="form-check-label" htmlFor="ativo1">Ativo</Label>
                                         <AppSwitch id="rdAtivo" className={'switch-ativo'}  label color={'success'} defaultChecked size={'sm'}
-                                        value={ativo}
-                                        onChange={ e => setAtivo(e.target.value)}
+                                        name="ativo"
+                                        onChange={handleInputChange}
                                         />
                                     </Col>
                                 </FormGroup>
@@ -210,21 +267,21 @@ export default function Usuario() {
                                     <Col md="4">
                                         <Label htmlFor="RG">Documento RG</Label>
                                         <Input type="text" id="txtRG" placeholder="Digite o número do RG"
-                                        value={rg}
-                                        onChange={ e => setRg(rgMask(e.target.value))} />
+                                        name="rg"
+                                        onChange={handleInputChange} />
                                     </Col>
                                     <Col md="4">
                                         <Label htmlFor="CPF">CPF</Label>
                                         <Input type="text" required id="txtCPF" placeholder="Digite o número do CPF"
-                                        value={cpf}
-                                        onChange={ e => setCpf(cpfMask(e.target.value))} />
+                                        name="cpf"
+                                        onChange={handleInputChange}/>
                                     </Col>
                                     <Col md="2">
                                         <Label htmlFor="TelefoneFixo">Telefone Fixo</Label>
                                         <InputGroup>
                                             <Input type="text"  id="txtTelefoneFixo" placeholder="(11) 9999-9999"
-                                            value={telefone}
-                                            onChange={ e => setTelefone(telMask(e.target.value))} />
+                                            vname="telefone"
+                                            onChange={handleInputChange}/>
                                             <InputGroupAddon addonType="append">
                                                 <Button type="button" color="secondary icon-phone"></Button>
                                             </InputGroupAddon>
@@ -235,8 +292,8 @@ export default function Usuario() {
                                         <Label htmlFor="Celular">Celular</Label>
                                         <InputGroup>
                                             <Input type="text" required id="txtCelular" placeholder="(11) 99999-9999"
-                                            value={celular}
-                                            onChange={ e => setCelular(celMask(e.target.value))} />
+                                            name="celular"
+                                            onChange={handleInputChange} />
                                             <InputGroupAddon addonType="append">
                                                 <Button type="button" color="secondary icon-screen-smartphone"></Button>
                                             </InputGroupAddon>
@@ -254,8 +311,8 @@ export default function Usuario() {
                                         <Label htmlFor="E-mail">E-mail</Label>
                                         <InputGroup>
                                         <Input type="email" required id="txtEmail" placeholder="Digite o e-mail"
-                                        value={email}
-                                        onChange={ e => setEmail(e.target.value)} />
+                                        name="email"
+                                        onChange={handleInputChange} />
                                             <InputGroupAddon addonType="append">
                                                 <Button type="button" color="secondary icon-envelope"></Button>
                                             </InputGroupAddon>
@@ -265,8 +322,8 @@ export default function Usuario() {
                                     <Col md="4">
                                         <Label htmlFor="PerfilAcesso">Perfil de Acesso</Label>
                                         <Input type="select" required name="select" id="ddlPerfilAcesso"
-                                        value={perfilAcessoId}
-                                        onChange={ e => setPerfilAcessoId(e.target.value)}>
+                                        name="perfilAcessoId"
+                                        onChange={handleInputChange}>
                                             <option value={undefined} defaultValue>Selecione...</option>
                                             {perfisAcessoId.map(perfil=> (
                                             <option value={perfil.id}>{perfil.perfil}</option>
@@ -279,8 +336,8 @@ export default function Usuario() {
                                         <Label htmlFor="NomeUsuario">Nome de Usuário</Label>
                                         <InputGroup>
                                             <Input type="text" required id="txtNomeUsuario" placeholder="Digite o nome de usuário"
-                                            value={login}
-                                            onChange={ e => setLogin(e.target.value)} />
+                                            name="login"
+                                            onChange={handleInputChange} />
                                             <InputGroupAddon addonType="append">
                                                 <Button type="button" color="secondary icon-user"></Button>
                                             </InputGroupAddon>
@@ -303,7 +360,7 @@ export default function Usuario() {
                                         <InputGroup>
                                             <Input type="password" id="txtConfirmarSenha" placeholder="Confirme a senha"
                                             value={senhaConfirmaForm}
-                                            onChange={ e => setsenhaConfirmaForm(e.target.value)} />
+                                            onChange={ e => setSenhaConfirmaForm(e.target.value)} />
                                             <InputGroupAddon addonType="append">
                                                 <Button type="button" color="secondary icon-lock"></Button>
                                             </InputGroupAddon>
@@ -322,3 +379,5 @@ export default function Usuario() {
         </div>
     );
 }
+
+export default Register;

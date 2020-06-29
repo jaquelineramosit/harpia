@@ -15,7 +15,7 @@ const PermissaoAcesso = React.lazy(() => import('./pages/Acessos/PermissaoAcesso
 const Register = React.lazy(() => import('./pages/Acessos/Register'));
 const Usuario = React.lazy(() => import('./pages/Acessos/Usuario'));
 
-// Atividades 
+// Atividades
 const Anotacoes = React.lazy(() => import('./pages/Atividades/Anotacoes'));
 const Atividades = React.lazy(() => import('./pages/Atividades/Atividades'));
 const Oportunidades = React.lazy(() => import('./pages/Atividades/Oportunidades'));
@@ -60,7 +60,7 @@ const Listsegmentosmercado = React.lazy(() => import('./pages/Listas/Configuraco
 const ListtiposAtividade = React.lazy(() => import('./pages/Listas/Configuracoes/ListtiposAtividade'));
 const Listexpectativasfechamento = React.lazy(() => import('./pages/Listas/Configuracoes/Listexpectativasfechamento'));
 const Listmotivosperda = React.lazy(() => import('./pages/Listas/Configuracoes/Listmotivosperda'));
- 
+
 //Atividades
 const Listanotacoes = React.lazy(() => import('./pages/Listas/Atividades/Listanotacoes'));
 const Listoportunidades = React.lazy(() => import('./pages/Listas/Atividades/Listoportunidades'));
@@ -84,22 +84,25 @@ const relcontatotempoportunidade = React.lazy(() => import('./pages/Relatórios/
 const TesteValidaForm = React.lazy(() => import('./pages/TesteValidaForm'));
 
 const routes = [
-  
+
   // Dashboards
   // { path: '/', exact: true, name: 'Home', component: Home },
   { path: '/', exact: true, name: 'Home'},
   { path: '/dashboard', name: 'Dashboard', component: Dashboard },
   { path: '/dashboardv2', name: 'Dashboardv2', component: Dashboardv2 },
   { path: '/dashboardv3', name: 'Dashboardv3', component: Dashboardv3 },
-  
+
   // Acessos
   { path: '/logon', name: 'Logon', component: Logon },
-  { path: '/modulos', name: 'Módulos', component: Modulo },
-  { path: '/paginas', name: 'Páginas', component: Pagina },  
+  { path: '/modulos', exact:true, name: 'Módulos', component: Modulo },
+  { path: '/modulos/:id', name: 'Módulos', component: Modulo },
+  { path: '/paginas', exact:true, name: 'Páginas', component: Pagina },
+  { path: '/paginas/:id', name: 'Páginas', component: Pagina },
   { path: '/perfis-acesso', name: 'Perfis de Acesso', component: PerfilAcesso },
   { path: '/permissao-acesso', name: 'Permissão deAcesso', component: PermissaoAcesso },
   { path: '/register', name: 'Register', component: Register },
-  { path: '/usuarios', name: 'Usuários', component: Usuario },
+  { path: '/usuarios', exact:true, name: 'Usuários', component: Usuario },
+  { path: '/usuarios/:id', name: 'Usuários', component: Usuario },
 
   //Atividades
   { path: '/anotacoes', name: 'Anotações', component: Anotacoes },
@@ -108,7 +111,8 @@ const routes = [
 
 
   //Configuração
-  { path: '/cargos', name: 'Cargos', component: Cargos },
+  { path: '/cargos', exact:true, name: 'Cargos', component: Cargos },
+  { path: '/cargos/:id', name: 'Cargos', component: Cargos },
   { path: '/clientes', name: 'Clientes', component: Clientes },
   { path: '/contatos', name: 'Contatos', component: Contatos },
   { path: '/departamentos', name: 'Departamentos', component: Departamentos },

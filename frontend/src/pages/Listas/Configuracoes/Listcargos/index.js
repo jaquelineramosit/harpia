@@ -48,7 +48,7 @@ export default function ListaCargos() {
             name: 'Ações',
             sortable: true,
             right: true,
-            cell: row => <Link to={`cargos/${row.id}`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg mr-1"></i>
+            cell: row => <Link to={`cargos/${row.id}?action=edit`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg mr-1"></i>
             Editar</Link>
         },
     ];
@@ -61,7 +61,7 @@ export default function ListaCargos() {
 
                             <i className="fa fa-align-justify"></i>Cargos
 
-                            <Link to={`cargos`} className="btn btn-secondary float-right">
+                            <Link to={`cargos/?action=novo`} className="btn btn-secondary float-right">
                                 <i className="cui-file icons mr-1"></i>
                                                     Novo
                                                 </Link>
