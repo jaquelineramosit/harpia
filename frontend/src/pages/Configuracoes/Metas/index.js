@@ -1,43 +1,92 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button, CardFooter, Form } from 'reactstrap';
 import { AppSwitch } from '@coreui/react'
 import '../../../global.css';
 import {reaisMask} from '../../../mask'
 import api from '../../../../src/services/api';
+import MetasVendedores from '../MetasVendedores';
 
-export default function Metas() {
-    const [nomemeta, setNomeMeta] = useState('');
-    const [valor, setValor] = useState('');
-    const [descricao, setDescricao] = useState('');
-    const [qtdeoportunidade, setQtdeOportunidade] = useState('');
-    const [ativo, setAtivo] = useState('');
-    const usuarioId = localStorage.getItem('userId');
+const Metas = (props) => {
+
+  var search = props.location.search;
+  var params = new URLSearchParams(search);
+  var action = params.get('action');
+  var metasIdParams = props.match.params.id;
 
 
+  const usuarioId = localStorage.getItem('userId');
 
-    async function handleMetas(e) {
-        e.preventDefault();
+  const [formData, setFormData] = useState({
+      nomemeta: '',
+      valor: '',
+      qtdeoportunidade: '',
+      descricao: '',
+  });
 
-        const data = {
-        nomemeta,
-        valor,
-        qtdeoportunidade,
-        descricao,
-        ativo
-        }
-        try {
-            const response = await api.post('metas', data, {
-                headers: {
-                    Authorization: usuarioId,
-                }
-            });
-            alert(`Feito o cadastro com sucesso`);
+  useEffect(() => {
+      if (action === 'edit' && metasIdParams !== '') {
+          api.get(`metas/${metasIdParams}`).then(response => {
+              document.getElementById('txtNomeMeta').value = response.data.nomemeta;
+              document.getElementById('txtValor').value = response.data.valor;
+              document.getElementById('txtQtdeOportunidade').value = response.data.qtdeoportunidade;
+              document.getElementById('txtDescricao').value = response.data.descricao;
 
-        } catch (err) {
+              setFormData({
+                  ...formData,
+                  nomemeta: response.data.nomemeta,
+                  valor: response.data.valor,
+                  qtdeoportunidade: response.data.qtdeoportunidade,
+                  descricao: response.data.descricao,
 
-            alert('Erro no cadastro, tente novamente.');
-        }
-    }
+              })
+          });
+      } else {
+          return;
+      }
+  }, [metasIdParams])
+
+  function handleInputChange(event) {
+      const { name, value } = event.target;
+
+      setFormData({ ...formData, [name]: value });
+  };
+
+  async function handleMetas(e) {
+      e.preventDefault();
+
+      const data = formData;
+
+      if (action === 'edit') {
+
+          try {
+              const response = await api.put(`/metas/${metasIdParams}`, data, {
+                  headers: {
+                      Authorization: 6,
+                  }
+              });
+              alert(`Cadastro atualizado com sucesso.`);
+          } catch (err) {
+
+              alert('Erro na atualização, tente novamente.');
+          }
+
+      } else {
+
+          if (action === 'novo') {
+              try {
+                  const response = await api.post('metas', data, {
+                      headers: {
+                          Authorization: 6,
+                      }
+                  });
+                  alert(`Cadastro realizado com sucesso.`);
+              } catch (err) {
+
+                  alert('Erro no cadastro, tente novamente.');
+              }
+          }
+      }
+  }
 
     return (
         <div className="animated fadeIn">
@@ -54,14 +103,14 @@ export default function Metas() {
                                     <Col md="4">
                                         <Label htmlFor="nomeMeta">Nome da Meta</Label>
                                         <Input type="text" required id="txtNomeMeta" placeholder="Digite o nome da meta"
-                                            value={nomemeta}
-                                            onChange={e => setNomeMeta(e.target.value)} />
+                                            name="nomemeta"
+                                            onChange={handleInputChange} />
                                     </Col>
                                     <Col md="44">
                                         <Label htmlFor="valor">Valor</Label>
                                         <Input type="text" required name="select" id="txtValor"  placeholder="Digite o valor"
-                                            value={valor}
-                                            onChange={e => setValor(reaisMask(e.target.value))}>
+                                            name="valor"
+                                            onChange={handleInputChange}>
                                         </Input>
                                     </Col>
                                 </FormGroup>
@@ -69,20 +118,20 @@ export default function Metas() {
                                 <Col md="4">
                                         <Label htmlFor="qtdeOportunidade">Quantidade de Oportunidade</Label>
                                         <Input type="value" required name="select" id="txtQtdeOportunidade" placeholder="Digite a quantidade de oportunidade"
-                                            value={qtdeoportunidade}
-                                            onChange={e => setQtdeOportunidade(e.target.value)}>
+                                            name="qtdeoportunidade"
+                                            onChange={handleInputChange}>
                                         </Input>
                                     </Col>
                                 </FormGroup>
                                 <FormGroup row>
                                     <Col md="8">
                                         <Label>Descrição</Label>
-                                        <Input type="textarea" rows="5"
-                                            value={descricao}
-                                            onChange={e => setDescricao(e.target.value)} />
+                                        <Input type="textarea" rows="5" id="txtDescricao"
+                                            name="descricao"
+                                            onChange={handleInputChange} />
                                     </Col>
                                 </FormGroup>
-                                <FormGroup row>
+                                {/*<FormGroup row>
                                     <Col md="1">
                                         <Label check className="form-check-label" htmlFor="ativo1">Ativo</Label>
                                         <AppSwitch id="rdAtivo" className={'switch-ativo'}  label color={'success'} defaultChecked size={'sm'}
@@ -90,7 +139,7 @@ export default function Metas() {
                                         onChange={ e => setAtivo(e.target.value)}
                                         />
                                     </Col>
-                                </FormGroup>
+                                </FormGroup>*/}
                             </CardBody>
                             <CardFooter className="text-center">
                                 <Button type="submit" size="sm" color="success" className=" mr-3"><i className="fa fa-check"></i> Salvar</Button>
@@ -103,3 +152,5 @@ export default function Metas() {
         </div>
     );
 }
+
+export default Metas;

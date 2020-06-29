@@ -49,7 +49,7 @@ export default function ListaSegmentomercado() {
             name: 'Ações',
             sortable: true,
             right: true,
-            cell: row => <Link to={`segmentos-mercado/${row.id}`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg mr-1"></i>
+            cell: row => <Link to={`segmentos-mercado/${row.id}?action=edit`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg mr-1"></i>
             Editar</Link>
         },
     ];
@@ -62,7 +62,7 @@ export default function ListaSegmentomercado() {
 
                             <i className="fa fa-align-justify"></i>Segmento de Mercado
 
-                            <Link to={`segmentos-mercado`} className="btn btn-secondary float-right">
+                            <Link to={`segmentos-mercado/?action=novo`} className="btn btn-secondary float-right">
                                 <i className="cui-file icons mr-1"></i>
                                                     Novo
                                                 </Link>

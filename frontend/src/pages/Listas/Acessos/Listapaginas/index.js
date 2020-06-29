@@ -76,7 +76,7 @@ export default function ListaPaginas() {
 
                             <i className="fa fa-align-justify"></i>Páginas
 
-                            <Link to={`paginas`} className="btn btn-secondary float-right">
+                            <Link to={`paginas/?action=novo`} className="btn btn-secondary float-right">
                                 <i className="cui-file icons mr-1"></i>
                                                     Novo
                                                 </Link>

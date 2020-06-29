@@ -48,7 +48,7 @@ export default function ListaTipocontatos() {
             name: 'Ações',
             sortable: true,
             right: true,
-            cell: row => <Link to={`tipos-contato/${row.id}`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg"></i></Link>
+            cell: row => <Link to={`tipos-contato/${row.id}?action=edit`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg"></i></Link>
         },
     ];
 
@@ -62,7 +62,7 @@ export default function ListaTipocontatos() {
 
                             <i className="fa fa-align-justify"></i>Tipos de Contatos
 
-                            <Link to={`tipos-contato`} className="btn btn-secondary float-right">
+                            <Link to={`tipos-contato/?action=novo`} className="btn btn-secondary float-right">
                                 <i className="cui-file icons mr-1"></i>
                                                     Novo
                                                 </Link>

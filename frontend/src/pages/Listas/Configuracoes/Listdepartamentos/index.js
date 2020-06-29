@@ -48,7 +48,7 @@ export default function ListaDepartamentos() {
             name: 'Ações',
             sortable: true,
             right: true,
-            cell: row => <Link to={`departamentos/${row.id}`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg mr-1"></i>
+            cell: row => <Link to={`departamentos/${row.id}?action=edit`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg mr-1"></i>
             Editar</Link>
         },
     ];
@@ -62,7 +62,7 @@ export default function ListaDepartamentos() {
 
                             <i className="fa fa-align-justify"></i>Departamentos
 
-                            <Link to={`departamentos`} className="btn btn-secondary float-right">
+                            <Link to={`departamentos/?action=novo`} className="btn btn-secondary float-right">
                                 <i className="cui-file icons mr-1"></i>
                                                     Novo
                                                 </Link>

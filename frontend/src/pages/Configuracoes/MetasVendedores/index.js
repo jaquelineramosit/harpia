@@ -4,52 +4,98 @@ import { AppSwitch } from '@coreui/react'
 import '../../../global.css';
 import api from '../../../../src/services/api';
 
-export default function Metasvendedores() {
-    const [vendedorId, setVendedorId] = useState('');
-    const [metaId, setMetaId] = useState('');
-    const [observacao, setObservacao] = useState('');
-    const [ativo, setAtivo] = useState('true');
-    const [vendedoresId, setVendedoresId] = useState([]);
-    const [metasId, setMetasId] = useState([]);
-    const usuarioId = localStorage.getItem('userId');
+const MetasVendedores = (props) => {
+
+  var search = props.location.search;
+  var params = new URLSearchParams(search);
+  var action = params.get('action');
+  var metasVendedoresIdParams = props.match.params.id;
 
 
-    useEffect(() => {
-        api.get('metas').then(response => {
-        setMetasId(response.data);
-        })
-        }, [usuarioId]);
-    
-    
-    useEffect(() => {
-        api.get('clientes').then(response => {
+  const usuarioId = localStorage.getItem('userId');
+  const [vendedoresId, setVendedoresId] = useState([]);
+  const [metasId, setMetasId] = useState([]);
+  const [formData, setFormData] = useState({
+      vendedorId: '',
+      metaId: '',
+      observacao: '',
+  });
+
+  useEffect(() => {
+    api.get('vendedores').then(response => {
         setVendedoresId(response.data);
-        })
-        }, [usuarioId]);
-             
-    async function handleMetasVendedores(e) {
-        e.preventDefault();
+    })
+}, [usuarioId]);
 
-        const data = {
-            vendedorId,
-            metaId,
-            observacao,
-            ativo
-        }
-        try {
-            const response = await api.post('metas-vendedores', data, {
-                headers: {
-                    Authorization: usuarioId,
-                }
-            });
-            alert(`Feito o cadastro com sucesso ${response.id}`);
+useEffect(() => {
+  api.get('metas').then(response => {
+      setMetasId(response.data);
+  })
+}, [usuarioId]);
 
-        } catch (err) {
 
-            alert('Erro no cadastro, tente novamente.');
-        }
-    }
+  useEffect(() => {
+      if (action === 'edit' && metasVendedoresIdParams !== '') {
+          api.get(`metas-vendedores/${metasVendedoresIdParams}`).then(response => {
+              document.getElementById('cboVendedorId').value = response.data.vendedorId;
+              document.getElementById('cboMetaId').value = response.data.metaId;
+              document.getElementById('txtObservacao').value = response.data.observacao;
 
+              setFormData({
+                  ...formData,
+                  vendedorId: response.data.vendedorId,
+                  metaId: response.data.metaId,
+                  observacao: response.data.observacao,
+
+              })
+          });
+      } else {
+          return;
+      }
+  }, [metasVendedoresIdParams])
+
+  function handleInputChange(event) {
+      const { name, value } = event.target;
+
+      setFormData({ ...formData, [name]: value });
+  };
+
+  async function handleMetasVendedores(e) {
+      e.preventDefault();
+
+      const data = formData;
+
+      if (action === 'edit') {
+
+          try {
+              const response = await api.put(`/metas-vendedores/${metasVendedoresIdParams}`, data, {
+                  headers: {
+                      Authorization: 6,
+                  }
+              });
+              alert(`Cadastro atualizado com sucesso.`);
+          } catch (err) {
+
+              alert('Erro na atualização, tente novamente.');
+          }
+
+      } else {
+
+          if (action === 'novo') {
+              try {
+                  const response = await api.post('metas-vendedores', data, {
+                      headers: {
+                          Authorization: 6,
+                      }
+                  });
+                  alert(`Cadastro realizado com sucesso.`);
+              } catch (err) {
+
+                  alert('Erro no cadastro, tente novamente.');
+              }
+          }
+      }
+  }
     return (
         <div className="animated fadeIn">
             <Form onSubmit={handleMetasVendedores}>
@@ -64,44 +110,44 @@ export default function Metasvendedores() {
                                 <FormGroup row>
                                     <Col md="4">
                                             <Label htmlFor="vendedorId">Vendedor</Label>
-                                            <Input required type="select" name="select" id="txtVendedorId"
-                                            value={vendedorId}
-                                            onChange={ e => setVendedorId(e.target.value)}>
+                                            <Input required type="select" name="select" id="cboVendedorId"
+                                            name="vendedorId"
+                                            onChange={handleInputChange}>
                                             <option value={undefined} defaultValue>Selecione...</option>
                                                 {vendedoresId.map(vendedor=> (
-                                                <option value={vendedor.id}>{vendedor.nomecliente}</option>
-                                                ))}                                     
+                                                <option value={vendedor.id}>{vendedor.nomeVendedor}</option>
+                                                ))}
                                             </Input>
-                                    </Col>                               
+                                    </Col>
                                     <Col md="4">
-                                            <Label htmlFor="metaId">Metas</Label>
+                                            <Label htmlFor="metaId">Meta</Label>
                                             <Input required type="select" name="select" id="cboMetaId"
-                                            value={metaId}
-                                            onChange={ e => setMetaId(e.target.value)}>
+                                            name="metaId"
+                                            onChange={handleInputChange}>
                                             <option value={undefined} defaultValue>Selecione...</option>
                                                 {metasId.map(meta=> (
                                                 <option value={meta.id}>{meta.nomemeta}</option>
-                                                ))}                                       
+                                                ))}
                                             </Input>
-                                    </Col>                                      
+                                    </Col>
                                 </FormGroup>
                                 <FormGroup row>
                                     <Col md="8">
                                         <Label>Observação</Label>
-                                        <Input type="textarea" rows="5"
-                                            value={observacao}
-                                            onChange={e => setObservacao(e.target.value)} />
+                                        <Input type="textarea" rows="5"id="txtObservacao"
+                                            name="observacao"
+                                            onChange={handleInputChange} />
                                     </Col>
                                 </FormGroup>
-                                <FormGroup row>
+                                {/*<FormGroup row>
                                     <Col md="1">
                                         <Label check className="form-check-label" htmlFor="ativo1">Ativo</Label>
                                         <AppSwitch id="rdAtivo" className={'switch-ativo'}  label color={'success'} defaultChecked size={'sm'}
                                         value={ativo}
                                         onChange={ e => setAtivo(e.target.value)}
-                                        />                                    
+                                        />
                                     </Col>
-                                </FormGroup>    
+                                </FormGroup>*/}
                             </CardBody>
                             <CardFooter className="text-center">
                                 <Button type="submit" size="sm" color="success" className=" mr-3"><i className="fa fa-check"></i> Salvar</Button>
@@ -114,3 +160,5 @@ export default function Metasvendedores() {
         </div>
     );
 }
+
+export default MetasVendedores;

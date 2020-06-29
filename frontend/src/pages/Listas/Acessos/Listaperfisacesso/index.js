@@ -70,7 +70,7 @@ export default function ListaPerfisacesso() {
 
                             <i className="fa fa-align-justify"></i>Perfil de Acesso
 
-                            <Link to={`perfis-acesso`} className="btn btn-secondary float-right">
+                            <Link to={`perfis-acesso/?action=novo`} className="btn btn-secondary float-right">
                                 <i className="cui-file icons mr-1"></i>
                                                     Novo
                                                 </Link>

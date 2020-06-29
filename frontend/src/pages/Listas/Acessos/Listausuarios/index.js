@@ -112,7 +112,7 @@ export default function ListaUsuarios() {
 
                             <i className="fa fa-align-justify"></i>Usuários
 
-                            <Link to={`usuarios`} className="btn btn-secondary float-right">
+                            <Link to={`usuarios/?action=novo`} className="btn btn-secondary float-right">
                                 <i className="cui-file icons mr-1"></i>
                                                     Novo
                                                 </Link>

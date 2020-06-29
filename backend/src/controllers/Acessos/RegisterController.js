@@ -27,7 +27,6 @@ module.exports = {
         const { nome, sobrenome, dataNasc, logradouro, numero, complemento, bairro, cep, cidade, estado,
             telefone, celular, cpf, rg, genero, email, login, senhaForm, ativo } = request.body;
 
-        console.log(request.body);
         
         const senha = getPassword(senhaForm);
 
