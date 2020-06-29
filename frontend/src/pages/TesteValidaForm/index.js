@@ -9,24 +9,24 @@ import Toaster from '../../toaster';
 
 export default function Modulo() {
     const [nomeModulo, setNomeModulo] = useState('');
-    const [descricao, setDescricao] = useState('');
-    const [ativo, setAtivo] = useState('true');
-    const usuarioId = localStorage.getItem('userId');
+    const [descricao, setDescricao] = useState('');    
+    const [ativo, setAtivo] = useState('');
+    const usuarioId = localStorage.getItem('userId');    
     const history = useHistory();
 
     async function handleModulo(e) {
         e.preventDefault();
-
+        
         const data = {
           nomeModulo,
-          descricao,
-          ativo,
+          descricao,          
+          ativo,           
         };
 
         try {
 
             //chamar o método Valida
-            const validador = new FormValidator([
+            const validador = new FormValidator([    
                 {
                     campo: 'nomeModulo',
                     metodo: 'isEmpty',
@@ -40,7 +40,7 @@ export default function Modulo() {
                     mensagem: 'Informe um nome para a descrição do módulo'
                 }
             ]);
-
+                        
             const validacao = validador.valida(data);
             console.log(validacao);
 
@@ -50,9 +50,9 @@ export default function Modulo() {
                     headers: {
                         Authorization : usuarioId,
                     }
-
+    
                 });
-                Toaster.exibeMensagem('success', "Módulo adicionado com sucesso!");
+                Toaster.exibeMensagem('success', "Módulo adicionado com sucesso!");    
                 history.push('/consulta-modulos');
             } else {
                 const { nomeModulo, descricao} = validacao;
@@ -61,19 +61,19 @@ export default function Modulo() {
                     return elem.isInvalid
                  });
                 camposInvalidos.forEach(campo => {
-                    Toaster.exibeMensagem('error', campo.message);
+                    Toaster.exibeMensagem('error', campo.message);                    
                 });
-
+                
             }
         } catch (err) {
-
-            Toaster.exibeMensagem('error', "Erro no cadastro, tente novamente.");
+            
+            Toaster.exibeMensagem('error', "Erro no cadastro, tente novamente.");               
         }
     }
-    return (
+    return (        
         <div className="animated fadeIn">
             <Form onSubmit={handleModulo}>
-                <Row>
+                <Row>                              
                     <Col xs="12" md="12">
                         <Card>
                             <CardHeader>
@@ -87,29 +87,29 @@ export default function Modulo() {
                                         <Input type="text" id="txtNomeModulo" placeholder="Digite Nome do Módulo"
                                         value={nomeModulo}
                                         onChange={ e => setNomeModulo(e.target.value)}
-                                        />
+                                        />                                        
                                     </Col>
-                                </FormGroup>
-                                <FormGroup row>
+                                </FormGroup> 
+                                <FormGroup row> 
                                     <Col md="8">
                                         <Label htmlFor="Descricao">Descrição</Label>
                                         <Input type="textarea" rows="5" id="txtDescricao" multiple placeholder="Digite a Descrição do Módulo"
                                         value={descricao}
                                         onChange={ e => setDescricao(e.target.value)}
                                          />
-                                    </Col>
+                                    </Col>                                                                                               
                                 </FormGroup>
-                                <FormGroup row>
+                                <FormGroup row>                                     
                                     <Col md="2">
                                         <Label htmlFor="Ativo">Ativo</Label>
-                                        <AppSwitch id="rdAtivo" className={'switch-ativo'}  label color={'success'}
-                                            defaultChecked
-                                            value={`${ativo}`}
+                                        <AppSwitch id="rdAtivo" className={'switch-ativo'}  label color={'success'} 
+                                            defaultChecked                                             
+                                            value={`${ativo}`}                                            
                                             onChange={ e => setAtivo(e.target.checked)}
                                             size={'sm'}
                                          />
-                                    </Col>
-                                </FormGroup>
+                                    </Col>                                                           
+                                </FormGroup>                                                                                         
                             </CardBody>
                             <CardFooter className="text-center">
                                 <Button type="submit" size="sm" color="success" className=" mr-3"><i className="fa fa-check"></i> Salvar</Button>
@@ -119,6 +119,6 @@ export default function Modulo() {
                     </Col>
                 </Row>
             </Form>
-        </div>
-    );
+        </div>    
+    );    
 }

@@ -49,6 +49,7 @@
     "semantic-ui-react": "^0.88.2",
     "simple-line-icons": "^2.4.1",
     "sortablejs": "^1.10.2",
+    "start": "^5.1.0",
     "styled-components": "^5.1.1",
     "validator": "^13.1.1"
   },

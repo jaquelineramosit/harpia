@@ -43,3 +43,7 @@ code {
   justify-content: center;   
   margin-top: 8px; 
 }
+.align-items
+{
+  align-items: center;
+}
