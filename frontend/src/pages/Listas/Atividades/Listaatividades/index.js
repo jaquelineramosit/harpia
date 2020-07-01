@@ -77,7 +77,7 @@ export default function ListaAtividades() {
             sortable: true,
             right: true,
             width: '8%',
-            cell: row => <Link to={`atividades/${row.id}`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg"></i></Link>
+            cell: row => <Link to={`atividades/${row.id}?action=edit`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg"></i></Link>
         },
     ];
 
@@ -92,19 +92,19 @@ export default function ListaAtividades() {
                         <CardBody>
                             <FormGroup row className="border-bottom">
                                 <Col xs="7" lg="7" md="7" className="text-left">
-                                    <Link to={`atividades`} className="btn btn-primary icons-oportunidades">
+                                    <Link to={`atividades/?action=novo&tipo=Ligação`} className="btn btn-primary icons-oportunidades">
                                         <i className="fa fa-phone fa-2x"></i>
                                     </Link>
-                                    <Link to={`atividades`} className="btn btn-primary icons-oportunidades">
+                                    <Link to={`atividades/?action=novo&tipo=Reunião`} className="btn btn-primary icons-oportunidades">
                                         <i className="fa fa-users fa-2x"></i>
                                     </Link>
-                                    <Link to={`atividades`} className="btn btn-primary icons-oportunidades">
+                                    <Link to={`atividades/?action=novo&tipo=E-mail`} className="btn btn-primary icons-oportunidades">
                                         <i className="fa fa-envelope-open fa-2x"></i>
                                     </Link>
-                                    <Link to={`atividades`} className="btn btn-primary icons-oportunidades">
+                                    <Link to={`atividades/?action=novo&tipo=Campanha`} className="btn btn-primary icons-oportunidades">
                                         <i className="fa fa-bullseye fa-2x"></i>
                                     </Link>
-                                    <Link to={`atividades`} className="btn btn-primary icons-oportunidades">
+                                    <Link to={`atividades?action=novo`} className="btn btn-primary icons-oportunidades">
                                         <i className="fa fa-plus-circle fa-2x"></i>
                                     </Link>
                                 </Col>

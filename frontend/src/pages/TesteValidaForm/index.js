@@ -4,7 +4,7 @@ import { Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button, 
 import { AppSwitch } from '@coreui/react'
 import '../../global.css';
 import api from '../../../src/services/api';
-import FormValidator from '../../validator/formValidator';
+import FormValidator from '../../validator/FormValidator';
 import Toaster from '../../toaster';
 
 export default function Modulo() {

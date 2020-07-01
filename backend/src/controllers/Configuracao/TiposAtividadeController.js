@@ -19,6 +19,22 @@ module.exports = {
         return response.json(tiposatividade);
     },
 
+    async getByTipo (request, response) {
+        const  { tipo }  = request.params;
+
+        console.log(`tipo${tipo}`);
+
+        const tiposatividade = await connection('tiposatividade')
+            .where('tipoatividade', tipo)
+            .select()
+            .first();
+    
+        return response.json(tiposatividade);
+    },
+    
+
+
+
     async create(request, response) {
         const  usuarioId  = request.headers.authorization;
         const  dataUltModif = getDate();

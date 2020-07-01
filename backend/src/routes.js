@@ -40,6 +40,9 @@ const Dashboardv2Controller = require('./controllers/Dashboards/Dashboardv2Contr
 const Dashboardv3Controller = require('./controllers/Dashboards/Dashboardv3Controller');
 //const HomeController = require('./controllers/Dashboards/HomeController');
 
+//Responsáveis
+const ResponsaveisController = require('./controllers/Responsaveis/ResponsaveisController');
+
 const routes = express.Router();
 
 // Acessos
@@ -213,6 +216,7 @@ routes.put('/segmentos-mercado/:id', SegMercadoController.update);
 routes.get('/tipos-atividadeCount', TiposAtividadeController.getCount);
 routes.get('/tipos-atividade', TiposAtividadeController.getAll);
 routes.get('/tipos-atividade/:id', TiposAtividadeController.getById);
+routes.get('/tipos-atividade-porNome/:tipo', TiposAtividadeController.getByTipo);
 routes.post('/tipos-atividade', TiposAtividadeController.create);
 routes.put('/tipos-atividade/:id', TiposAtividadeController.update);
 
@@ -221,6 +225,9 @@ routes.get('/tipos-contato', TiposContatoController.getAll);
 routes.get('/tipos-contato/:id', TiposContatoController.getById);
 routes.post('/tipos-contato', TiposContatoController.create);
 routes.put('/tipos-contato/:id', TiposContatoController.update);
+
+routes.get('/responsaveis', ResponsaveisController.getAll);
+routes.get('/responsaveis/:perfil', ResponsaveisController.getAllPorPerfil);
 
 //Dashboards
 // routes.get('/dashboardv1', Dashboardv1Controller.getAll);

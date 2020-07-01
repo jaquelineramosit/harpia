@@ -5,11 +5,13 @@ module.exports = {
         const atividades = await connection('atividades')
         .leftJoin( 'clientes', 'clientes.id' , '=' , 'atividades.clienteId' )
         .leftJoin( 'contatos', 'contatos.id' , '=' , 'atividades.contatoId' )
+        .join( 'usuario', 'usuario.id' , '=' , 'atividades.responsavelId' )
         .join( 'tiposatividade', 'tiposatividade.id' , '=' , 'atividades.tipoatividadeId' )
         .select([
             'atividades.*',
             'clientes.nomecliente',
             'contatos.nomecontato',
+            'usuario.nome as nomeresponsavel',
             'tiposatividade.tipoatividade'
         ]);
     
@@ -23,11 +25,13 @@ module.exports = {
             .where('atividades.id', id)
             .leftJoin( 'clientes', 'clientes.id' , '=' , 'atividades.clienteId' )
             .leftJoin( 'contatos', 'contatos.id' , '=' , 'atividades.contatoId' )
+            .join( 'usuario', 'usuario.id' , '=' , 'atividades.responsavelId' )
             .join( 'tiposatividade', 'tiposatividade.id' , '=' , 'atividades.tipoatividadeId' )
             .select([
                 'atividades.*',
                 'clientes.nomecliente',
                 'contatos.nomecontato',
+                'usuario.nome as nomeresponsavel',
                 'tiposatividade.tipoatividade'
             ])
             .first();
@@ -43,6 +47,8 @@ module.exports = {
                 responsavelId, atividade, descricao, clienteId, contatoId, tipoatividadeId, dataatividade,
                 datainicio, datafim, temponotificacao, exibenotificacao, anexoId,  cancelado } = request.body;
         
+        
+
         const [id] = await connection('atividades').insert({
                 responsavelId,
                 atividade,
@@ -71,6 +77,9 @@ module.exports = {
         const { 
             responsavelId, atividade, descricao, clienteId, contatoId, tipoatividadeId, dataatividade,
             datainicio, datafim, temponotificacao, exibenotificacao, anexoId,  cancelado } = request.body;
+
+
+        console.log(`usuarioId${usuarioId}`);
 
         await connection('atividades').where('id', id).update({
             responsavelId,

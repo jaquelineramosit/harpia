@@ -183,24 +183,7 @@ export default function Oportunidades() {
                                     </Col>
                                 </FormGroup>
                                 <FormGroup row>
-                                    <Col md="4">
-                                        <Label htmlFor="dataExpecFecha">Expectativa de Fechamento</Label>
-                                        <Input type="date" required name="select" id="txtExpectativaFechamento"
-                                            value={descricao}
-                                            onChange={e => setExpectativaFechamento(e.target.value)} />
-                                    </Col>
-                                    <Col md="4">
-                                        <Label htmlFor="temperaturaFechamento">Temperatura Fechamento</Label>
-                                        <Input type="select" required name="select" id="cboTemperaturaFechamento"
-                                            value={temperaturaFechamentoId}
-                                            onChange={e => setTemperaturaFechamentoId(e.target.value)}>
-                                            <option value={undefined} defaultValue>Selecione...</option>
-                                            {lstTemperaturasFechamento.map(tempFechamento => (
-                                                <option key={tempFechamento.id} value={tempFechamento.id}>{tempFechamento.temperaturafechamento}</option>
-                                            ))}
-                                        </Input>
-                                    </Col>
-                                    <Col md="4">
+                                <Col md="6">
                                         <Label htmlFor="fasePipeId">Fase do Pipe</Label>
                                         <Input type="select" required name="select" id="cboFasePipe"
                                             value={fasepipeId}
@@ -211,6 +194,24 @@ export default function Oportunidades() {
                                             ))}
                                         </Input>
                                     </Col>
+                                    <Col md="3">
+                                        <Label htmlFor="dataExpecFecha">Expectativa de Fechamento</Label>
+                                        <Input type="date" required name="select" id="txtExpectativaFechamento"
+                                            value={descricao}
+                                            onChange={e => setExpectativaFechamento(e.target.value)} />
+                                    </Col>
+                                    <Col md="3">
+                                        <Label htmlFor="temperaturaFechamento">Temperatura Fechamento</Label>
+                                        <Input type="select" required name="select" id="cboTemperaturaFechamento"
+                                            value={temperaturaFechamentoId}
+                                            onChange={e => setTemperaturaFechamentoId(e.target.value)}>
+                                            <option value={undefined} defaultValue>Selecione...</option>
+                                            {lstTemperaturasFechamento.map(tempFechamento => (
+                                                <option key={tempFechamento.id} value={tempFechamento.id}>{tempFechamento.temperaturafechamento}</option>
+                                            ))}
+                                        </Input>
+                                    </Col>
+                                   
                                 </FormGroup>
                                 <FormGroup row>
                                     <Col md="12">

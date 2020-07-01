@@ -106,7 +106,9 @@ const routes = [
 
   //Atividades
   { path: '/anotacoes', name: 'Anotações', component: Anotacoes },
-  { path: '/atividades', name: 'Atividades', component: Atividades },
+  { path: '/atividades', exact: true, name: 'Atividades', component: Atividades },
+  { path: '/atividades/:id', name: 'Atividades', component: Atividades },
+  { path: '/atividades/:tipo', name: 'Atividades', component: Atividades },
   { path: '/oportunidades', name: 'Oportunidades', component: Oportunidades },
 
 
