@@ -1,38 +1,82 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button, CardFooter, Form } from 'reactstrap';
 import { AppSwitch } from '@coreui/react'
 import '../../../global.css';
 import api from '../../../../src/services/api';
 
-export default function Departamentos() {
-    const [departamento, setDepartamento] = useState('');
-    const [ativo, setAtivo] = useState('');
-    const usuarioId = localStorage.getItem('userId');
+const Departamentos = (props) => {
+
+  var search = props.location.search;
+  var params = new URLSearchParams(search);
+  var action = params.get('action');
+  var departamentosIdParams = props.match.params.id;
 
 
+  const usuarioId = localStorage.getItem('userId');
 
-    async function handleDepartamentos(e) {
-        e.preventDefault();
+  const [formData, setFormData] = useState({
+      departamento: '',
+      ativo: 1,
+  });
 
-        const data = {
-            departamento,
-            ativo
-        }
-        try {
-            const response = await api.post('departamentos', data, {
-                headers: {
-                    Authorization: usuarioId,
-                }
-            });
-            alert(`Feito o cadastro com sucesso`);
+  useEffect(() => {
+      if (action === 'edit' && departamentosIdParams !== '') {
+          api.get(`departamentos/${departamentosIdParams}`).then(response => {
+              document.getElementById('txtDepartamento').value = response.data.departamento;
+              setFormData({
+                  ...formData,
+                  departamento: response.data.departamento,
 
-        } catch (err) {
+              })
+          });
+      } else {
+          return;
+      }
+  }, [departamentosIdParams])
 
-            alert('Erro no cadastro, tente novamente.');
-        }
-    }
+  function handleInputChange(event) {
+      const { name, value } = event.target;
 
-    return (
+      setFormData({ ...formData, [name]: value });
+  };
+
+  async function handleDepartamentos(e) {
+      e.preventDefault();
+
+      const data = formData;
+
+      if (action === 'edit') {
+
+          try {
+              const response = await api.put(`/departamentos/${departamentosIdParams}`, data, {
+                  headers: {
+                      Authorization: 6,
+                  }
+              });
+              alert(`Cadastro atualizado com sucesso.`);
+          } catch (err) {
+
+              alert('Erro na atualização, tente novamente.');
+          }
+
+      } else {
+
+          if (action === 'novo') {
+              try {
+                  const response = await api.post('departamentos', data, {
+                      headers: {
+                          Authorization: 6,
+                      }
+                  });
+                  alert(`Cadastro realizado com sucesso.`);
+              } catch (err) {
+
+                  alert('Erro no cadastro, tente novamente.');
+              }
+          }
+      }
+  }
+      return (
         <div className="animated fadeIn">
             <Form onSubmit={handleDepartamentos}>
                 <Row>
@@ -47,18 +91,18 @@ export default function Departamentos() {
                                     <Col md="4">
                                         <Label htmlFor="departamento">Nome do Departamento</Label>
                                         <Input type="text" required id="txtDepartamento" placeholder="Digite o nome do Departamento"
-                                            value={departamento}
-                                            onChange={e => setDepartamento(e.target.value)} />
+                                            name="departamento"
+                                            onChange={handleInputChange} />
                                     </Col>
                                 </FormGroup>
-                                <FormGroup row>    
+                                {/*<FormGroup row>
                                     <Col md="1">
                                         <Label check className="form-check-label" htmlFor="ativo1">Ativo</Label>
                                         <AppSwitch id="rdAtivo" className={'switch-ativo'}  label color={'success'} defaultChecked size={'sm'}
                                         value={ativo}
-                                        onChange={ e => setAtivo(e.target.value)}/>                                    
+                                        onChange={ e => setAtivo(e.target.value)}/>
                                     </Col>
-                                </FormGroup>                                
+                                </FormGroup>*/}
                             </CardBody>
                             <CardFooter className="text-center">
                                 <Button type="submit" size="sm" color="success" className=" mr-3"><i className="fa fa-check"></i> Salvar</Button>
@@ -71,3 +115,5 @@ export default function Departamentos() {
         </div>
     );
 }
+
+export default Departamentos;

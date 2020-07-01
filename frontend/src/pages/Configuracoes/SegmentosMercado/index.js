@@ -1,36 +1,79 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button, CardFooter, Form  } from 'reactstrap';
 import { AppSwitch } from '@coreui/react'
 import '../../../global.css';
 import api from '../../../../src/services/api';
 
-export default function SegmentosMercado () {
-    const [nomesegmento, setNomeSegmento] = useState('');
-    const [ativo, setAtivo] = useState('');
-    const usuarioId = localStorage.getItem('userId');
+const SeguimentoMercado = (props) => {
+
+  var search = props.location.search;
+  var params = new URLSearchParams(search);
+  var action = params.get('action');
+  var segMercadoIdParams = props.match.params.id;
 
 
+  const usuarioId = localStorage.getItem('userId');
 
-    async function handleSegmentoMercado(e) {
-        e.preventDefault();
+  const [formData, setFormData] = useState({
+      nomesegmento: '',
+  });
 
-        const data = {
-            nomesegmento,
-            ativo
-        }
-        try {
-            const response = await api.post('segmentos-mercado', data, {
-                headers: {
-                    Authorization: usuarioId,
-                }
-            });
-            alert(`Feito o cadastro com sucesso`);
+  useEffect(() => {
+      if (action === 'edit' && segMercadoIdParams !== '') {
+          api.get(`segmentos-mercado/${segMercadoIdParams}`).then(response => {
+              document.getElementById('txtNomeSegmento').value = response.data.nomesegmento;
+              setFormData({
+                  ...formData,
+                  nomesegmento: response.data.nomesegmento,
+              })
+          });
+      } else {
+          return;
+      }
+  }, [segMercadoIdParams])
 
-        } catch (err) {
+  function handleInputChange(event) {
+      const { name, value } = event.target;
 
-            alert('Erro no cadastro, tente novamente.');
-        }
-    }
+      setFormData({ ...formData, [name]: value });
+  };
+
+  async function handleSegmentoMercado(e) {
+      e.preventDefault();
+
+      const data = formData;
+
+      if (action === 'edit') {
+
+          try {
+              const response = await api.put(`/segmentos-mercado/${segMercadoIdParams}`, data, {
+                  headers: {
+                      Authorization: 6,
+                  }
+              });
+              alert(`Cadastro atualizado com sucesso.`);
+          } catch (err) {
+
+              alert('Erro na atualização, tente novamente.');
+          }
+
+      } else {
+
+          if (action === 'novo') {
+              try {
+                  const response = await api.post('segmentos-mercado', data, {
+                      headers: {
+                          Authorization: 6,
+                      }
+                  });
+                  alert(`Cadastro realizado com sucesso.`);
+              } catch (err) {
+
+                  alert('Erro no cadastro, tente novamente.');
+              }
+          }
+      }
+  }
 
     return (
         <div className="animated fadeIn">
@@ -47,20 +90,20 @@ export default function SegmentosMercado () {
                                     <Col md="4">
                                         <Label htmlFor="nomeSegmento">Nome do Segmento de Mercado</Label>
                                         <Input type="text" required id="txtNomeSegmento" placeholder="Digite o nome do Segmento"
-                                            value={nomesegmento}
-                                            onChange={e => setNomeSegmento(e.target.value)} />
+                                            name="nomesegmento"
+                                            onChange={handleInputChange} />
                                     </Col>
                                 </FormGroup>
-                                <FormGroup row>    
+                              {/*<FormGroup row>
                                     <Col md="1">
                                         <Label check className="form-check-label" htmlFor="ativo1">Ativo</Label>
                                         <AppSwitch id="rdAtivo" className={'switch-ativo'}  label color={'success'} defaultChecked size={'sm'}
-                                        value={ativo}
+                                        name={ativo}
                                         onChange={ e => setAtivo(e.target.value)}
-                                        />                                    
-                                    </Col>   
-                                   
-                                </FormGroup>                                
+                                        />
+                                    </Col>
+
+                              </FormGroup>*/}
                             </CardBody>
                             <CardFooter className="text-center">
                                 <Button type="submit" size="sm" color="success" className=" mr-3"><i className="fa fa-check"></i> Salvar</Button>
@@ -73,3 +116,4 @@ export default function SegmentosMercado () {
         </div>
     );
 }
+export default SeguimentoMercado;

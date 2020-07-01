@@ -62,7 +62,7 @@ export default function Listametasvendedores() {
             name: 'Ações',
             sortable: true,
             right: true,
-            cell: row => <Link to={`metas-vendedores/${row.id}`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg"></i>
+            cell: row => <Link to={`metas-vendedores/${row.id}?action=edit`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg"></i>
             Editar</Link>
         },
     ];
@@ -76,7 +76,7 @@ export default function Listametasvendedores() {
 
                             <i className="fa fa-align-justify"></i>Metas Vendedores
 
-                            <Link to={`metas-vendedores`} className="btn btn-secondary float-right">
+                            <Link to={`metas-vendedores/?action=novo`} className="btn btn-secondary float-right">
                                 <i className="cui-file icons mr-1"></i>
                                                     Novo
                                                 </Link>

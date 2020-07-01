@@ -52,7 +52,7 @@ export default function Listametas() {
             sortable: true,
             left: true,
             width: '26%',
-        },        
+        },
         {
             name: 'Status',
             sortable: true,
@@ -65,7 +65,7 @@ export default function Listametas() {
             sortable: true,
             right: true,
             width: '12%',
-            cell: row => <Link to={`metas/${row.id}`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg"></i></Link>
+            cell: row => <Link to={`metas/${row.id}?action=edit`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg"></i></Link>
         },
     ];
     return (
@@ -77,7 +77,7 @@ export default function Listametas() {
 
                             <i className="fa fa-align-justify"></i>Metas
 
-                            <Link to={`metas`} className="btn btn-secondary float-right">
+                            <Link to={`metas/?action=novo`} className="btn btn-secondary float-right">
                                 <i className="cui-file icons mr-1"></i>
                                                     Novo
                                                 </Link>

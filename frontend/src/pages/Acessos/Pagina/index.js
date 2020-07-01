@@ -14,7 +14,7 @@ const Pagina = (props) => {
   const usuarioId = localStorage.getItem('userId');
 
   const [formData, setFormData] = useState({
-      nmoduloId: '',
+      moduloId: '',
       nomePagina: '',
       descricao: '',
   });
@@ -34,8 +34,8 @@ const Pagina = (props) => {
 
               setFormData({
                   ...formData,
-                  nomemodulo: response.data.moduloId,
-                  nomemodulo: response.data.nomePagina,
+                  moduloId: response.data.moduloId,
+                  nomepagina: response.data.nomePagina,
                   descricao: response.data.descricao,
 
               })
