@@ -43,6 +43,9 @@ const Dashboardv3Controller = require('./controllers/Dashboards/Dashboardv3Contr
 //Responsáveis
 const ResponsaveisController = require('./controllers/Responsaveis/ResponsaveisController');
 
+//Vendedores
+const VendedoresController = require('./controllers/Vendedores/VendedoresController');
+
 const routes = express.Router();
 
 // Acessos
@@ -228,6 +231,8 @@ routes.put('/tipos-contato/:id', TiposContatoController.update);
 
 routes.get('/responsaveis', ResponsaveisController.getAll);
 routes.get('/responsaveis/:perfil', ResponsaveisController.getAllPorPerfil);
+
+routes.get('/vendedores', VendedoresController.getAll);
 
 //Dashboards
 // routes.get('/dashboardv1', Dashboardv1Controller.getAll);

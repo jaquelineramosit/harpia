@@ -19,6 +19,7 @@ module.exports = {
         const  { id }  = request.params;
 
         const metasvendedores = await connection('metasvendedores')
+            .where('metasvendedores.id', id)
             .join( 'metas' , 'metas.id' , '=' , 'metasvendedores.metaId')
             .join( 'usuario' , 'usuario.id' , '=' , 'metasvendedores.vendedorId')
             .select([

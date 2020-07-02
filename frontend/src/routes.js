@@ -2,8 +2,8 @@ import React from 'react';
 
 // Dashboards
 const Dashboard = React.lazy(() => import('./pages/Dashboards/Dashboard/Dashboard'));
-const Dashboardv2 = React.lazy(() => import('./pages/Dashboards/Dashboardv2/index'));
-const Dashboardv3 = React.lazy(() => import('./pages/Dashboards/Dashboardv3/index'));
+const Dashboardv2 = React.lazy(() => import('./pages/Dashboards/Dashboardv2'));
+const Dashboardv3 = React.lazy(() => import('./pages/Dashboards/Dashboardv3'));
 
 // Acessos
 const Logon = React.lazy(() => import('./pages/Acessos/Logon'));
@@ -26,7 +26,7 @@ const Clientes = React.lazy(() => import('./pages/Configuracoes/Clientes'));
 const Contatos = React.lazy(() => import('./pages/Configuracoes/Contatos'));
 const Departamentos = React.lazy(() => import('./pages/Configuracoes/Departamentos'));
 const Distribuidores = React.lazy(() => import('./pages/Configuracoes/Distribuidores'));
-const ExpectativasFechamento = React.lazy(() => import('./pages/Configuracoes/ExpectativasFechamento'));
+const TemperaturaFechamento = React.lazy(() => import('./pages/Configuracoes/TemperaturaFechamento'));
 const FasesPipe = React.lazy(() => import('./pages/Configuracoes/FasesPipe'));
 const Marcas = React.lazy(() => import('./pages/Configuracoes/Marcas'));
 const Metas = React.lazy(() => import('./pages/Configuracoes/Metas'));
@@ -43,43 +43,43 @@ const TiposContato = React.lazy(() => import('./pages/Configuracoes/TiposContato
   //Tabelas
 
 //Configuração
-const Listcargos = React.lazy(() => import('./pages/Listas/Configuracoes/Listcargos'));
-const Listcontatos = React.lazy(() => import('./pages/Listas/Configuracoes/Listcontatos'));
-const Listtipocontatos = React.lazy(() => import('./pages/Listas/Configuracoes/Listtipocontatos'));
-const Listdepartamentos = React.lazy(() => import('./pages/Listas/Configuracoes/Listdepartamentos'));
-const Listmetas = React.lazy(() => import('./pages/Listas/Configuracoes/Listmetas'));
-const Listmetasvendedores = React.lazy(() => import('./pages/Listas/Configuracoes/Listmetasvendedores'));
-//const Listpipes = React.lazy(() => import('./pages/Listas/Configuracoes/Listpipes'));
-const Listfasespipes = React.lazy(() => import('./pages/Listas/Configuracoes/Listfasespipes'));
-const Listprodutos = React.lazy(() => import('./pages/Listas/Configuracoes/Listprodutos'));
-const Listdistribuidores = React.lazy(() => import('./pages/Listas/Configuracoes/Listdistribuidores'));
-const Listmarcas = React.lazy(() => import('./pages/Listas/Configuracoes/Listmarcas'));
-const Listclientes = React.lazy(() => import('./pages/Listas/Configuracoes/Listclientes'));
-const Listpaises = React.lazy(() => import('./pages/Listas/Configuracoes/Listpaises'));
-const Listsegmentosmercado = React.lazy(() => import('./pages/Listas/Configuracoes/Listsegmentosmercado'));
-const ListtiposAtividade = React.lazy(() => import('./pages/Listas/Configuracoes/ListtiposAtividade'));
-const Listexpectativasfechamento = React.lazy(() => import('./pages/Listas/Configuracoes/Listexpectativasfechamento'));
-const Listmotivosperda = React.lazy(() => import('./pages/Listas/Configuracoes/Listmotivosperda'));
+const ListaCargos = React.lazy(() => import('./pages/Listas/Configuracoes/ListaCargos'));
+const ListaContatos = React.lazy(() => import('./pages/Listas/Configuracoes/ListaContatos'));
+const ListaTipoContatos = React.lazy(() => import('./pages/Listas/Configuracoes/ListaTipoContatos'));
+const ListaDepartamentos = React.lazy(() => import('./pages/Listas/Configuracoes/ListaDepartamentos'));
+const ListaMetas = React.lazy(() => import('./pages/Listas/Configuracoes/ListaMetas'));
+const ListaMetasVendedores = React.lazy(() => import('./pages/Listas/Configuracoes/ListaMetasVendedores'));
+//const Listapipes = React.lazy(() => import('./pages/Listas/Configuracoes/Listpipes'));
+const ListaFasesPipes = React.lazy(() => import('./pages/Listas/Configuracoes/ListaFasesPipes'));
+const ListaProdutos = React.lazy(() => import('./pages/Listas/Configuracoes/ListaProdutos'));
+const ListaDistribuidores = React.lazy(() => import('./pages/Listas/Configuracoes/ListaDistribuidores'));
+const ListaMarcas = React.lazy(() => import('./pages/Listas/Configuracoes/ListaMarcas'));
+const ListaClientes = React.lazy(() => import('./pages/Listas/Configuracoes/ListaClientes'));
+const ListaPaises = React.lazy(() => import('./pages/Listas/Configuracoes/ListaPaises'));
+const ListaSegmentosMercado = React.lazy(() => import('./pages/Listas/Configuracoes/ListaSegmentosMercado'));
+const ListaTiposAtividade = React.lazy(() => import('./pages/Listas/Configuracoes/ListaTiposAtividade'));
+const ListaTemperaturaFechamento = React.lazy(() => import('./pages/Listas/Configuracoes/ListaTemperaturaFechamento'));
+const ListaMotivosPerda = React.lazy(() => import('./pages/Listas/Configuracoes/ListaMotivosPerda'));
 
 //Atividades
-const Listanotacoes = React.lazy(() => import('./pages/Listas/Atividades/Listanotacoes'));
-const Listoportunidades = React.lazy(() => import('./pages/Listas/Atividades/Listoportunidades'));
-const Listaatividades = React.lazy(() => import('./pages/Listas/Atividades/Listaatividades'));
+const ListaAnotacoes = React.lazy(() => import('./pages/Listas/Atividades/ListaAnotacoes'));
+const ListaOportunidades = React.lazy(() => import('./pages/Listas/Atividades/ListaOportunidades'));
+const ListaAtividades = React.lazy(() => import('./pages/Listas/Atividades/ListaAtividades'));
 
 //Acessos
 const ListaModulos = React.lazy(() => import('./pages/Listas/Acessos/ListaModulos'));
-const Listapaginas = React.lazy(() => import('./pages/Listas/Acessos/Listapaginas'));
-const Listausuarios = React.lazy(() => import('./pages/Listas/Acessos/Listausuarios'));
-const Listaperfisacesso = React.lazy(() => import('./pages/Listas/Acessos/Listaperfisacesso'));
-const Listapermissaoacesso = React.lazy(() => import('./pages/Listas/Acessos/Listapermissaoacesso'));
+const ListaPaginas = React.lazy(() => import('./pages/Listas/Acessos/ListaPaginas'));
+const ListaUsuarios = React.lazy(() => import('./pages/Listas/Acessos/ListaUsuarios'));
+const ListaPerfisAcesso = React.lazy(() => import('./pages/Listas/Acessos/ListaPerfisAcesso'));
+const ListaPermissaoAcesso = React.lazy(() => import('./pages/Listas/Acessos/ListaPermissaoAcesso'));
 
 //Icons
 const ListaIconsSimpleLine = React.lazy(() => import('./pages/Icons/IconsSimpleLine'));
 const ListaIconsFontAwesome = React.lazy(() => import('./pages/Icons/IconsFontAwesome'));
 //Relatórios
-const relcontatonumeroportunidades = React.lazy(() => import('./pages/Relatórios/Contato x Numero Oportunidades'));
-const relcontatovalorganhoperdido = React.lazy(() => import('./pages/Relatórios/Contato x Valor Ganho e Valor Perdido'));
-const relcontatotempoportunidade = React.lazy(() => import('./pages/Relatórios/Contato X Temperatura de Oportunidade'));
+const RelContatoNumeroOportunidades = React.lazy(() => import('./pages/Relatórios/Contato x Numero Oportunidades'));
+const RelContatoValorGanhoPerdido = React.lazy(() => import('./pages/Relatórios/Contato x Valor Ganho e Valor Perdido'));
+const RelContatoTempoOportunidade = React.lazy(() => import('./pages/Relatórios/Contato X Temperatura de Oportunidade'));
 
 const TesteValidaForm = React.lazy(() => import('./pages/TesteValidaForm'));
 
@@ -120,8 +120,9 @@ const routes = [
   { path: '/departamentos', exact:true, name: 'Departamentos', component: Departamentos },
   { path: '/departamentos/:id', name: 'Departamentos', component: Departamentos },
   { path: '/distribuidores', name: 'Distribuidores', component: Distribuidores },
-  { path: '/expectativas-fechamento', name: 'Expectativas de Fechamento', component: ExpectativasFechamento },
-  { path: '/fases-pipe', name: 'Fases do Pipe', component: FasesPipe },
+  { path: '/temperatura-fechamento', name: 'Temperatura de Fechamento', component: TemperaturaFechamento },
+  { path: '/fases-pipe', exact:true, name: 'Fases do Pipe', component: FasesPipe },
+  { path: '/fases-pipe/:id', name: 'Fases do Pipe', component: FasesPipe },
   { path: '/marcas/:id', name: 'Marcas', component: Marcas },
   { path: '/marcas', exact:true, name: 'Marcas', component: Marcas },
   { path: '/metas/:id', name: 'Metas', component: Metas },
@@ -143,43 +144,44 @@ const routes = [
   //Tabelas
 
   //Configuração
-  { path: '/List-cargos', name: 'Lista de Cargos', component: Listcargos },
-  { path: '/List-contatos', name: 'Lista de Contatos', component: Listcontatos },
-  { path: '/List-tipocontato', name: 'Lista de Tipo de Contatos', component: Listtipocontatos },
-  { path: '/List-departamentos', name: 'Lista de Departamentos', component: Listdepartamentos },
-  { path: '/List-metas', name: 'Lista de Metas', component: Listmetas },
-  { path: '/List-metasvendedores', name: 'Lista de Metas de Vendedores', component: Listmetasvendedores },
-  { path: '/List-metasvendedores', name: 'Lista de Metas de Vendedores', component: Listmetasvendedores },
-  { path: '/List-fasespipes', name: 'Lista de Fases do Pipes', component: Listfasespipes},
-  { path: '/List-produtos', name: 'Lista de Fases de Produtos', component: Listprodutos},
-  { path: '/List-distribuidores', name: 'Lista de Distribuidores', component: Listdistribuidores},
-  { path: '/List-marcas', name: 'Lista de Marcas', component: Listmarcas},
-  { path: '/List-clientes', name: 'Lista de Clientes', component: Listclientes},
-  { path: '/List-paises', name: 'Lista de Países', component: Listpaises},
-  { path: '/List-segmentosmercado', name: 'Lista de Segmentos de Mercado', component: Listsegmentosmercado},
-  { path: '/List-tiposatividade', name: 'Lista de Tipos de Atividade', component: ListtiposAtividade },
-  { path: '/List-expectativasfechamento', name: 'Lista de Expectativas de fechamento', component: Listexpectativasfechamento },
-  { path: '/List-motivosperda', name: 'Lista de Motivos de Perda', component: Listmotivosperda },
+  { path: '/lista-cargos', name: 'Lista de Cargos', component: ListaCargos },
+  { path: '/lista-contatos', name: 'Lista de Contatos', component: ListaContatos },
+  { path: '/lista-tipo-contato', name: 'Lista de Tipos de Contatos', component: ListaTipoContatos },
+  { path: '/lista-departamentos', name: 'Lista de Departamentos', component: ListaDepartamentos },
+  { path: '/lista-metas', name: 'Lista de Metas', component: ListaMetas },
+  { path: '/lista-metas-vendedores', name: 'Lista de Metas de Vendedores', component: ListaMetasVendedores },
+  { path: '/lista-metas-vendedores', name: 'Lista de Metas de Vendedores', component: ListaMetasVendedores },
+  { path: '/lista-fases-pipes', name: 'Lista de Fases do Pipes', component: ListaFasesPipes},
+  { path: '/lista-produtos', name: 'Lista de Fases de Produtos', component: ListaProdutos},
+  { path: '/lista-distribuidores', name: 'Lista de Distribuidores', component: ListaDistribuidores},
+  { path: '/lista-marcas', name: 'Lista de Marcas', component: ListaMarcas},
+  { path: '/lista-clientes', name: 'Lista de Clientes', component: ListaClientes},
+  { path: '/lista-paises', name: 'Lista de Países', component: ListaPaises},
+  { path: '/lista-segmentos-mercado', name: 'Lista de Segmentos de Mercado', component: ListaSegmentosMercado},
+  { path: '/lista-tipos-atividade', name: 'Lista de Tipos de Atividade', component: ListaTiposAtividade },
+  { path: '/lista-temperatura-fechamento', name: 'Lista de Temperaturas de Fechamento', component: ListaTemperaturaFechamento },
+  { path: '/lista-motivos-perda', name: 'Lista de Motivos de Perda', component: ListaMotivosPerda },
 
   //Atividades
-  { path: '/List-anotacoes', name: 'Lista de Anotações', component: Listanotacoes },
-  { path: '/List-oportunidades', name: 'Lista de Oportunidades', component: Listoportunidades },
-  { path: '/List-atividades', name: 'Lista de Atividades', component: Listaatividades },
+  { path: '/lista-anotacoes', name: 'Lista de Anotações', component: ListaAnotacoes },
+  { path: '/lista-oportunidades', name: 'Lista de Oportunidades', component: ListaOportunidades },
+  { path: '/lista-atividades', name: 'Lista de Atividades', component: ListaAtividades },
 
   //Acessos
-  { path: '/List-modulos', name: 'Lista de Módulos', component: ListaModulos },
-  { path: '/List-paginas', name: 'Lista de Páginas', component: Listapaginas },
-  { path: '/List-usuarios', name: 'Lista de Usuários', component: Listausuarios },
-  { path: '/List-perfisacesso', name: 'Lista de Perfil de Acesso', component: Listaperfisacesso },
-  { path: '/List-permissaoacesso', name: 'Lista de Permissão de Acesso', component: Listapermissaoacesso },
+  { path: '/lista-modulos', name: 'Lista de Módulos', component: ListaModulos },
+  { path: '/lista-paginas', name: 'Lista de Páginas', component: ListaPaginas },
+  { path: '/lista-usuarios', name: 'Lista de Usuários', component: ListaUsuarios },
+  { path: '/lista-perfis-acesso', name: 'Lista de Perfil de Acesso', component: ListaPerfisAcesso },
+  { path: '/lista-permissao-acesso', name: 'Lista de Permissão de Acesso', component: ListaPermissaoAcesso },
 
   //Icons
-  { path: '/list-icons-fontAwesome', name: 'Lista Font Awesome Icons', component: ListaIconsFontAwesome },
-  { path: '/list-icons-simpleLine', name: 'Lista Simple Line', component: ListaIconsSimpleLine },
+  { path: '/lista-icons-fontAwesome', name: 'Lista Font Awesome Icons', component: ListaIconsFontAwesome },
+  { path: '/lista-icons-simpleLine', name: 'Lista Simple Line', component: ListaIconsSimpleLine },
+  
   //Tabelas
-  { path: '/rel-contatoxnumeroportunidades', name: ' Relatório de Contato X Número de oportunidades', component: relcontatonumeroportunidades },
-  { path: '/rel-contatoxvalorganhoperdido', name: ' Relatório de Contato X Valor Ganho e Valor Perdido', component: relcontatovalorganhoperdido},
-  { path: '/rel-contatoxtempoportunidade', name: ' Relatório de Contato X Temperatura de Oportunidade', component: relcontatotempoportunidade},
+  { path: '/rel-contatoxnumeroportunidades', name: ' Relatório de Contato X Número de oportunidades', component: RelContatoNumeroOportunidades },
+  { path: '/rel-contatoxvalorganhoperdido', name: ' Relatório de Contato X Valor Ganho e Valor Perdido', component: RelContatoValorGanhoPerdido},
+  { path: '/rel-contatoxtempoportunidade', name: ' Relatório de Contato X Temperatura de Oportunidade', component: RelContatoTempoOportunidade},
 
   { path: '/teste-validaForm', name: 'TesteValidaForm', component: TesteValidaForm},
 

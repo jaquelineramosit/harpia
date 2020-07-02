@@ -113,9 +113,10 @@ export default function Oportunidades() {
         <div className="animated fadeIn">
             <Form onSubmit={handleOportunidades}>
                 <Row>
-                    <Col xs="9" md="9">
+                    <Col md="9">
                         <Card>
                             <CardHeader>
+                                <i className="fa fa-money"></i>
                                 <strong>Oportunidades</strong>
                                 <small> novo</small>
                             </CardHeader>
@@ -246,10 +247,11 @@ export default function Oportunidades() {
                             </CardFooter>
                         </Card>
                     </Col>
-                    <Col xs="3" md="3">
+                    <Col md="3">
                     <Card>
                         <CardHeader>
-                            Anotações
+                            <i className="icon-note"></i>
+                            <strong>Anotações</strong>
                         </CardHeader>
                         <CardBody className="card-body-anotacoes">                            
                             <ListGroup className="list-group-accent" tag={'div'}>                                

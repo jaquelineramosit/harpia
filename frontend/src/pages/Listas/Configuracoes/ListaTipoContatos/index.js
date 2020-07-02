@@ -4,13 +4,13 @@ import { Card, CardBody, CardHeader, Col, Row, Badge } from 'reactstrap';
 import api from '../../../../services/api';
 import DataTable from 'react-data-table-component';
 
-export default function Listapipes() {
-    const [fasespipes, setFasespipes] = useState([]);
+export default function ListaTipocontatos() {
+    const [tipocontatos, setTipocontatos] = useState([]);
     const [total, setTotal] = useState(0);
     const usuarioId = localStorage.getItem('userId');
     //logica para pegar o total
     useEffect(() => {
-        api.get('fases-pipeCount', {
+        api.get('tipos-contatoCount', {
             headers: {
                 Authorization: 1,
             }
@@ -19,31 +19,23 @@ export default function Listapipes() {
         })
     }, [1]);
 
-
     useEffect(() => {
-        api.get('fases-pipe', {
+        api.get('tipos-contato', {
             headers: {
                 Authorization: 1,
             }
         }).then(response => {
-            setFasespipes(response.data);
+            setTipocontatos(response.data);
         })
     }, [usuarioId]);
-    const data = fasespipes;
+    const data = tipocontatos;
 
     const columns = [
         {
-            name: 'Nome da Fase',
-            selector: 'nomefase',
+            name: 'Tipo de Contatos',
+            selector: 'tipocontato',
             sortable: true,
 
-
-        },
-        {
-            name: 'Pipe',
-            selector: 'nomepipe',
-            sortable: true,
-            left: true,
 
         },
         {
@@ -56,8 +48,7 @@ export default function Listapipes() {
             name: 'Ações',
             sortable: true,
             right: true,
-            cell: row => <Link to={`fases-pipes/${row.id}`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg mr-1"></i>
-            Editar</Link>
+            cell: row => <Link to={`tipos-contato/${row.id}?action=edit`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg"></i></Link>
         },
     ];
 
@@ -68,18 +59,16 @@ export default function Listapipes() {
                 <Col xs="12" lg="12">
                     <Card>
                         <CardHeader className="links">
-
-                            <i className="fa fa-align-justify"></i>Fases do Pipes
-
-                            <Link to={`fases-pipe`} className="btn btn-secondary float-right">
+                            <i className="fa fa-align-justify"></i>Tipos de Contatos
+                            <Link to={`tipos-contato/?action=novo`} className="btn btn-secondary float-right">
                                 <i className="cui-file icons mr-1"></i>
-                                                    Novo
-                                                </Link>
-
+                                Novo
+                            </Link>
                         </CardHeader>
                         <CardBody>
                             <DataTable className="mt-n3"
-                                title="Fases do Pipes"
+                                noHeader={true}
+                                title="Tipos de Contatos"
                                 columns={columns}
                                 data={data}
                                 striped={true}

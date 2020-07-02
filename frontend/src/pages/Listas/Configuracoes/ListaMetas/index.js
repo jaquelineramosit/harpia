@@ -4,13 +4,14 @@ import { Card, CardBody, CardHeader, Col, Row, Badge } from 'reactstrap';
 import api from '../../../../services/api';
 import DataTable from 'react-data-table-component';
 
-export default function ListaAnotacoes() {
-    const [anotacoes, setAnotacoes] = useState([]);
+export default function Listametas() {
+    const [metas, setMetas] = useState([]);
     const [total, setTotal] = useState(0);
     const usuarioId = localStorage.getItem('userId');
+
     //logica para pegar o total
     useEffect(() => {
-        api.get('anotacoesCount', {
+        api.get('metasCount', {
             headers: {
                 Authorization: 1,
             }
@@ -20,79 +21,69 @@ export default function ListaAnotacoes() {
     }, [1]);
 
     useEffect(() => {
-        api.get('anotacoes', {
+        api.get('metas', {
             headers: {
                 Authorization: 1,
             }
         }).then(response => {
-            setAnotacoes(response.data);
+            setMetas(response.data);
         })
     }, [usuarioId]);
-    const data = anotacoes;
+    const data = metas;
 
     const columns = [
         {
-            name: 'Anotações',
-            selector: 'anotacao',
+            name: 'Metas',
+            selector: 'nomemeta',
             sortable: true,
-            width: '26%',
+            width: '30%',
         },
         {
-            name: 'Cliente',
-            selector: 'nomecliente',
-            sortable: true,
-            left: true,
-            width: '16%',
-        },
-        {
-            name: 'Oportunidade',
-            selector: 'nomeoportunidade',
+            name: 'Valor',
+            //selector: 'valor',
             sortable: true,
             left: true,
             width: '20%',
+            cell: row => <div>{row.valor.toLocaleString("pt-BR", { style: "currency" , currency:"BRL"})}</div>,
         },
         {
-            name: 'Contato',
-            selector: 'nomecontato',
+            name: 'Qtde Oportunidades',
+            selector: 'qtdeoportunidade',
             sortable: true,
             left: true,
-            width: '16%',
+            width: '26%',
         },
         {
             name: 'Status',
             sortable: true,
             left: true,
-            cell: row => <Badge color="success">Ativo</Badge>,
             width: '12%',
+            cell: row => <Badge color="success">Ativo</Badge>,
         },
         {
             name: 'Ações',
             sortable: true,
             right: true,
-            width: '10%',
-            cell: row => <Link to={`anotacoes/${row.id}`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg"></i></Link>
+            width: '12%',
+            cell: row => <Link to={`metas/${row.id}?action=edit`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg"></i></Link>
         },
     ];
-
     return (
         <div className="animated-fadeIn">
             <Row>
                 <Col xs="12" lg="12">
                     <Card>
                         <CardHeader className="links">
-
-                            <i className="fa fa-align-justify"></i>Anotações
-
-                            <Link to={`anotacoes`} className="btn btn-secondary float-right">
+                            <i className="fa fa-align-justify"></i>Metas
+                            <Link to={`metas/?action=novo`} className="btn btn-secondary float-right">
                                 <i className="cui-file icons mr-1"></i>
-                                                    Novo
-                                                </Link>
-
+                                Novo
+                            </Link>
                         </CardHeader>
                         <CardBody>
                             <DataTable className="mt-n3"
                                 noHeader={true}
-                                title="Anotações"
+                                title="Metas"
                                 columns={columns}
                                 data={data}
                                 striped={true}

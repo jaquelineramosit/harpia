@@ -2,24 +2,23 @@ import React, { useState } from 'react';
 import { Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button, CardFooter, Form } from 'reactstrap';
 import { AppSwitch } from '@coreui/react'
 import '../../../global.css';
-import api from '../../../../src/services/api';
+import api from '../../../services/api';
 
-export default function ExpectativasFechamento() {   
-    const [expectativafechamento, setExpectativaFechamento] = useState('');
+export default function TemperaturaFechamento() {   
+    const [temperaturafechamento, setTemperaturaFechamento] = useState('');
     const [ativo, setAtivo] = useState('True');
     const usuarioId = localStorage.getItem('userId');
 
 
-
-    async function handleExpectativasFechamento(e) {
+    async function handleTemperaturasFechamento(e) {
         e.preventDefault();
 
         const data = {
-            expectativafechamento,
+            temperaturafechamento,
             ativo
         }
         try {
-            const response = await api.post('expectativas-fechamento', data, {
+            const response = await api.post('temperaturas-fechamento', data, {
                 headers: {
                     Authorization: usuarioId,
                 }
@@ -34,21 +33,21 @@ export default function ExpectativasFechamento() {
 
     return (
         <div className="animated fadeIn">
-            <Form onSubmit={handleExpectativasFechamento}>
+            <Form onSubmit={handleTemperaturasFechamento}>
                 <Row>
                     <Col xs="12" md="12">
                         <Card>
                             <CardHeader>
-                                <strong>Expectativas de Fechamento</strong>
-                                <small>novo</small>
+                                <strong>Temperaturas de Fechamento</strong>
+                                <small> novo</small>
                             </CardHeader>
                             <CardBody>
                                 <FormGroup row>
                                     <Col md="3">
-                                        <Label htmlFor="expectativaFechamento">Expectativas de Fechamento</Label>
-                                        <Input type="date" required id="txtExpectativaFechamento" placeholder="Digite o nome do Cargo"
-                                            value={expectativafechamento}
-                                            onChange={e => setExpectativaFechamento(e.target.value)} />
+                                        <Label htmlFor="temperaturaFechamento">Temperatura de Fechamento</Label>
+                                        <Input type="date" required id="txttemperaturaFechamento" placeholder="Digite o nome do Cargo"
+                                            value={temperaturafechamento}
+                                            onChange={e => setTemperaturaFechamento(e.target.value)} />
                                     </Col>
                                 </FormGroup>
                                 <FormGroup row>    

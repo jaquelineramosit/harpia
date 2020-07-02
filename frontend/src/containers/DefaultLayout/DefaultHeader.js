@@ -4,8 +4,10 @@ import { Badge, UncontrolledDropdown, DropdownItem, DropdownMenu, DropdownToggle
 import PropTypes from 'prop-types';
 
 import { AppAsideToggler, AppNavbarBrand, AppSidebarToggler } from '@coreui/react';
-import logo from '../../assets/img/brand/LOGO_HARPIA_EXT2.png'
-import sygnet from '../../assets/img/brand/LOGO_HARPIA.png'
+import logo from '../../assets/img/brand/LOGO_HARPIA_EXT2.png';
+import sygnet from '../../assets/img/brand/LOGO_HARPIA.png';
+import '../../global.css';
+
 
 const propTypes = {
   children: PropTypes.node,
@@ -29,7 +31,7 @@ class DefaultHeader extends Component {
         <AppSidebarToggler className="d-md-down-none" display="lg" />
 
         <Nav className="d-md-down-none" navbar>
-          <NavItem className="px-3">
+          {/* <NavItem className="px-3">
             <NavLink to="/dashboard" className="nav-link" >Dashboard</NavLink>
           </NavItem>
           <NavItem className="px-3">
@@ -37,7 +39,7 @@ class DefaultHeader extends Component {
           </NavItem>
           <NavItem className="px-3">
             <NavLink to="#" className="nav-link">Settings</NavLink>
-          </NavItem>
+          </NavItem> */}
         </Nav>
         <Nav className="ml-auto" navbar>
           <NavItem className="d-md-down-none">

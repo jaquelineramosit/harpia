@@ -4,14 +4,13 @@ import { Card, CardBody, CardHeader, Col, Row, Badge } from 'reactstrap';
 import api from '../../../../services/api';
 import DataTable from 'react-data-table-component';
 
-export default function Listametasvendedores() {
-    const [metasvendedores, setMetasvendedores] = useState([]);
+export default function Listapipes() {
+    const [fasespipes, setFasespipes] = useState([]);
     const [total, setTotal] = useState(0);
     const usuarioId = localStorage.getItem('userId');
-
     //logica para pegar o total
     useEffect(() => {
-        api.get('metas-vendedoresCount', {
+        api.get('fases-pipeCount', {
             headers: {
                 Authorization: 1,
             }
@@ -22,32 +21,27 @@ export default function Listametasvendedores() {
 
 
     useEffect(() => {
-        api.get('metas-vendedores', {
+        api.get('fases-pipe', {
             headers: {
                 Authorization: 1,
             }
         }).then(response => {
-            setMetasvendedores(response.data);
+            setFasespipes(response.data);
         })
     }, [usuarioId]);
-    const data = metasvendedores;
+    const data = fasespipes;
 
     const columns = [
         {
-            name: 'Vendedores',
-            selector: 'nomevendedor',
+            name: 'Nome da Fase',
+            selector: 'nomefase',
             sortable: true,
-        },
-        {
-            name: 'Meta',
-            selector: 'nomemeta',
-            sortable: true,
-            left: true,
+
 
         },
         {
-            name: 'Observação',
-            selector: 'observacao',
+            name: 'Pipe',
+            selector: 'nomepipe',
             sortable: true,
             left: true,
 
@@ -62,10 +56,10 @@ export default function Listametasvendedores() {
             name: 'Ações',
             sortable: true,
             right: true,
-            cell: row => <Link to={`metas-vendedores/${row.id}?action=edit`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg"></i>
-            Editar</Link>
+            cell: row => <Link to={`fases-pipe/${row.id}`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg mr-1"></i></Link>
         },
     ];
+
 
     return (
         <div className="animated-fadeIn">
@@ -73,18 +67,16 @@ export default function Listametasvendedores() {
                 <Col xs="12" lg="12">
                     <Card>
                         <CardHeader className="links">
-
-                            <i className="fa fa-align-justify"></i>Metas Vendedores
-
-                            <Link to={`metas-vendedores/?action=novo`} className="btn btn-secondary float-right">
+                            <i className="fa fa-align-justify"></i>Fases do Pipes
+                            <Link to={`fases-pipe`} className="btn btn-secondary float-right">
                                 <i className="cui-file icons mr-1"></i>
-                                                    Novo
-                                                </Link>
-
+                                Novo
+                            </Link>
                         </CardHeader>
                         <CardBody>
                             <DataTable className="mt-n3"
-                                title="Metas Vendedores"
+                                noHeader={true}
+                                title="Fases do Pipes"
                                 columns={columns}
                                 data={data}
                                 striped={true}

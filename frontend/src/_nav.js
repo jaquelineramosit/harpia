@@ -20,18 +20,18 @@ export default {
     },
     {
       name: 'Oportunidades',
-      url: '/list-oportunidades',
+      url: '/lista-oportunidades',
       icon: 'fa fa-money',
     },
     {
       name: 'Atividades',
-      url: '/list-atividades',
+      url: '/lista-atividades',
       icon: 'fa fa-tasks',
     },
     
     {
       name: 'Anotações',
-      url: '/list-anotacoes',
+      url: '/lista-anotacoes',
       icon: 'icon-note',
     },
     {
@@ -48,22 +48,22 @@ export default {
       children: [
         {
           name: 'Contatos',
-          url: '/list-contatos',
+          url: '/lista-contatos',
           icon: 'fa fa-address-book-o',
         },
         {
           name: 'Tipos de Contato',
-          url: '/list-tipocontato',
+          url: '/lista-tipo-contato',
           icon: 'fa fa-address-card',
         },
         {
           name: 'Cargos',
-          url: '/list-cargos',
+          url: '/lista-cargos',
           icon: 'fa fa-mortar-board',
         },
         {
           name: 'Departamentos',
-          url: '/list-departamentos',
+          url: '/lista-departamentos',
           icon: 'fa fa-university',
         },        
       ],
@@ -74,12 +74,12 @@ export default {
       children: [
         {
           name: 'Metas',
-          url: '/list-metas',
+          url: '/lista-metas',
           icon: 'icon-target',
         },
         {
           name: 'Metas Vendedores',
-          url: '/list-metasvendedores',
+          url: '/lista-metas-vendedores',
           icon: 'fa fa-bullseye',
         },        
       ],
@@ -95,7 +95,7 @@ export default {
         },
         {
           name: 'Fases do Pipe',
-          url: '/list-fasespipes',
+          url: '/lista-fases-pipes',
           icon: 'icon-layers',
         },        
       ],
@@ -106,17 +106,17 @@ export default {
       children: [
         {
         name: 'Produtos',
-        url: '/list-produtos',
+        url: '/lista-produtos',
         icon: 'fa fa-th-large',          
         },
         {
           name: 'Distribuidores',
-          url: '/list-distribuidores',
+          url: '/lista-distribuidores',
           icon: 'fa fa-building-o',          
         },        
         {
           name: 'Marcas',
-          url: '/list-marcas',
+          url: '/lista-marcas',
           icon: 'fa fa-tags',
         },        
       ],
@@ -127,34 +127,34 @@ export default {
       children: [
         {
           name: 'Clientes',
-          url: '/list-clientes',
+          url: '/lista-clientes',
           icon: 'fa fa-users',
         },
         {
           name: 'Paises',
-          url: '/list-paises',
+          url: '/lista-paises',
           icon: 'fa fa-flag-o',
         },
         {
           name: 'Segmentos Mercado',
-          url: '/list-segmentosmercado',
+          url: '/lista-segmentos-mercado',
           icon: 'icon-directions',
         },
       ],
     },
     {
       name: 'Tipos de Atividades',
-      url: '/list-tiposatividade',
+      url: '/lista-tipos-atividade',
       icon: 'icon-list',      
     },
     {
-      name: 'Expec. de Fechamento',
-      url: '/list-expectativasfechamento',
-      icon: 'fa fa-handshake-o',      
+      name: 'Temperat. Fechamento',
+      url: '/lista-temperatura-fechamento',
+      icon: 'fa fa-thermometer',      
     },
     {
       name: 'Motivo da Perda',
-      url: '/list-motivosperda',
+      url: '/lista-motivos-perda',
       icon: 'fa fa-comments',      
     },
     {
@@ -163,27 +163,27 @@ export default {
       children: [
         {
           name: 'Usuários',
-          url: '/list-usuarios',
+          url: '/lista-usuarios',
           icon: 'fa fa-user-circle',
         },
         {
           name: 'Perfil de Acesso',
-          url: '/list-perfisacesso',
+          url: '/lista-perfis-acesso',
           icon: 'fa fa-id-card',
         },
         {
           name: 'Permissão de Acesso',
-          url: '/list-permissaoacesso',
+          url: '/lista-permissao-acesso',
           icon: 'fa fa-user-secret',
         },
         {
           name: 'Módulos',
-          url: '/list-modulos',
+          url: '/lista-modulos',
           icon: 'fa fa-puzzle-piece',
         },
         {
           name: 'Páginas',
-          url: '/list-paginas',
+          url: '/lista-paginas',
           icon: 'fa fa-window-maximize',
         },
       ],

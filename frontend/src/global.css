@@ -12,6 +12,11 @@ code {
     monospace;
 }
 
+/*ajuste na imagem do header */
+.app-header .navbar-brand {
+  left: 25%;
+}
+
 /* usado nas listas de home, oportunidades e atividades */
 .icons-oportunidades {    
   margin: 5px 10px 10px 5px;

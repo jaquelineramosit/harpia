@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Card, CardBody, CardHeader, Col, Row,Badge } from 'reactstrap';
+import { Card, CardBody, CardHeader, Col, Row, Badge } from 'reactstrap';
 import api from '../../../../services/api';
 import DataTable from 'react-data-table-component';
 
-export default function ListaCargos() {
-    const [cargos, setCargos] = useState([]);
+export default function ListaDepartamentos() {
+    const [departamentos, setDepartamentos] = useState([]);
     const [total, setTotal] = useState(0);
     const usuarioId = localStorage.getItem('userId');
     //logica para pegar o total
     useEffect(() => {
-        api.get('cargosCount', {
+        api.get('departamentosCount', {
             headers: {
                 Authorization: 1,
             }
@@ -20,20 +20,20 @@ export default function ListaCargos() {
     }, [1]);
 
     useEffect(() => {
-        api.get('cargos', {
+        api.get('departamentos', {
             headers: {
                 Authorization: 1,
             }
         }).then(response => {
-            setCargos(response.data);
+            setDepartamentos(response.data);
         })
     }, [usuarioId]);
-    const data = cargos;
+    const data = departamentos;
 
     const columns = [
         {
-            name: 'Cargos',
-            selector: 'nomecargo',
+            name: 'Departamentos',
+            selector: 'departamento',
             sortable: true,
 
 
@@ -48,28 +48,26 @@ export default function ListaCargos() {
             name: 'Ações',
             sortable: true,
             right: true,
-            cell: row => <Link to={`cargos/${row.id}?action=edit`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg mr-1"></i>
-            Editar</Link>
+            cell: row => <Link to={`departamentos/${row.id}?action=edit`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg"></i></Link>
         },
     ];
+
     return (
         <div className="animated-fadeIn">
             <Row>
                 <Col xs="12" lg="12">
                     <Card>
                         <CardHeader className="links">
-
-                            <i className="fa fa-align-justify"></i>Cargos
-
-                            <Link to={`cargos/?action=novo`} className="btn btn-secondary float-right">
+                            <i className="fa fa-align-justify"></i>Departamentos
+                            <Link to={`departamentos/?action=novo`} className="btn btn-secondary float-right">
                                 <i className="cui-file icons mr-1"></i>
-                                                    Novo
-                                                </Link>
-
+                                Novo
+                            </Link>
                         </CardHeader>
                         <CardBody>
                             <DataTable className="mt-n3"
-                                title="Cargos"
+                                noHeader={true}
+                                title="Departamentos"
                                 columns={columns}
                                 data={data}
                                 striped={true}

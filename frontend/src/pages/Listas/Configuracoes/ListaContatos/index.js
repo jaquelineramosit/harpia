@@ -79,17 +79,15 @@ export default function ListaContatos() {
                 <Col xs="12" lg="12">
                     <Card>
                         <CardHeader className="links">
-
                             <i className="fa fa-align-justify"></i>Contatos
-
-                            <Link to={`contatos`} className="btn btn-secondary float-right">
+                            <Link to={`contatos?action=novo`} className="btn btn-secondary float-right">
                                 <i className="cui-file icons mr-1"></i>
-                                                    Novo
-                                                </Link>
-
+                                Novo
+                             </Link>
                         </CardHeader>
                         <CardBody>
                             <DataTable className="mt-n3"
+                                noHeader={true}
                                 title="Contatos"
                                 columns={columns}
                                 data={data}

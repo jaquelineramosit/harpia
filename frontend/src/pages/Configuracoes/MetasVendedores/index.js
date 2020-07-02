@@ -24,6 +24,7 @@ const MetasVendedores = (props) => {
   useEffect(() => {
     api.get('vendedores').then(response => {
         setVendedoresId(response.data);
+        console.log(response.data);
     })
 }, [usuarioId]);
 
@@ -115,7 +116,7 @@ useEffect(() => {
                                             onChange={handleInputChange}>
                                             <option value={undefined} defaultValue>Selecione...</option>
                                                 {vendedoresId.map(vendedor=> (
-                                                <option value={vendedor.id}>{vendedor.nomeVendedor}</option>
+                                                <option key={`vendedor${vendedor.usuarioId}`} value={vendedor.usuarioId}>{vendedor.nomevendedor}</option>
                                                 ))}
                                             </Input>
                                     </Col>
@@ -126,7 +127,7 @@ useEffect(() => {
                                             onChange={handleInputChange}>
                                             <option value={undefined} defaultValue>Selecione...</option>
                                                 {metasId.map(meta=> (
-                                                <option value={meta.id}>{meta.nomemeta}</option>
+                                                <option key={`meta${meta.id}`} value={meta.id}>{meta.nomemeta}</option>
                                                 ))}
                                             </Input>
                                     </Col>

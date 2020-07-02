@@ -46,13 +46,13 @@ export default function ListaUsuarios() {
             left: true,
 
         },
-        {
-            name: 'Data de Nascimento',
-            selector: 'datanasc',
-            sortable: true,
-            left: true,
+        // {
+        //     name: 'Data de Nascimento',
+        //     selector: 'datanasc',
+        //     sortable: true,
+        //     left: true,
 
-        },
+        // },
         {
             name: 'Cidade',
             selector: 'cidade',
@@ -60,13 +60,13 @@ export default function ListaUsuarios() {
             left: true,
 
         },
-        {
-            name: 'Estado',
-            selector: 'estado',
-            sortable: true,
-            left: true,
+        // {
+        //     name: 'Estado',
+        //     selector: 'estado',
+        //     sortable: true,
+        //     left: true,
 
-        },
+        // },
         {
             name: 'Telefone',
             selector: 'telefone',
@@ -109,17 +109,15 @@ export default function ListaUsuarios() {
                 <Col xs="12" lg="12">
                     <Card>
                         <CardHeader className="links">
-
                             <i className="fa fa-align-justify"></i>Usuários
-
                             <Link to={`usuarios/?action=novo`} className="btn btn-secondary float-right">
                                 <i className="cui-file icons mr-1"></i>
-                                                    Novo
-                                                </Link>
-
+                                Novo
+                            </Link>
                         </CardHeader>
                         <CardBody>
                             <DataTable className="mt-n3"
+                                noHeader={true}
                                 title="Usuários"
                                 columns={columns}
                                 data={data}

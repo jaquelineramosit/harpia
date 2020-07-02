@@ -4,14 +4,13 @@ import { Card, CardBody, CardHeader, Col, Row, Badge } from 'reactstrap';
 import api from '../../../../services/api';
 import DataTable from 'react-data-table-component';
 
-
-export default function ListaExpectativasfechamento() {
-    const [expectativasfechamento, setExpectativasfechamento] = useState([]);
+export default function ListaAnotacoes() {
+    const [anotacoes, setAnotacoes] = useState([]);
     const [total, setTotal] = useState(0);
     const usuarioId = localStorage.getItem('userId');
     //logica para pegar o total
     useEffect(() => {
-        api.get('expectativas-fechamentoCount', {
+        api.get('anotacoesCount', {
             headers: {
                 Authorization: 1,
             }
@@ -21,36 +20,57 @@ export default function ListaExpectativasfechamento() {
     }, [1]);
 
     useEffect(() => {
-        api.get('expectativas-fechamento', {
+        api.get('anotacoes', {
             headers: {
                 Authorization: 1,
             }
         }).then(response => {
-            setExpectativasfechamento(response.data);
+            setAnotacoes(response.data);
         })
     }, [usuarioId]);
-    const data = expectativasfechamento;
+    const data = anotacoes;
 
     const columns = [
         {
-            name: 'Expectativa de Fechamento',
-            selector: 'expectativafechamento',
+            name: 'Anotações',
+            selector: 'anotacao',
             sortable: true,
-
-
+            width: '26%',
+        },
+        {
+            name: 'Cliente',
+            selector: 'nomecliente',
+            sortable: true,
+            left: true,
+            width: '16%',
+        },
+        {
+            name: 'Oportunidade',
+            selector: 'nomeoportunidade',
+            sortable: true,
+            left: true,
+            width: '20%',
+        },
+        {
+            name: 'Contato',
+            selector: 'nomecontato',
+            sortable: true,
+            left: true,
+            width: '16%',
         },
         {
             name: 'Status',
             sortable: true,
             left: true,
             cell: row => <Badge color="success">Ativo</Badge>,
+            width: '12%',
         },
         {
             name: 'Ações',
             sortable: true,
             right: true,
-            cell: row => <Link to={`expectativas-fechamento/${row.id}`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg mr-1"></i>
-            Editar</Link>
+            width: '10%',
+            cell: row => <Link to={`anotacoes/${row.id}`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg"></i></Link>
         },
     ];
 
@@ -60,18 +80,16 @@ export default function ListaExpectativasfechamento() {
                 <Col xs="12" lg="12">
                     <Card>
                         <CardHeader className="links">
-
-                            <i className="fa fa-align-justify"></i>Expectativas de Fechamento
-
-                            <Link to={`expectativas-fechamento`} className="btn btn-secondary float-right">
+                            <i className="fa fa-align-justify"></i>Anotações
+                            <Link to={`anotacoes`} className="btn btn-secondary float-right">
                                 <i className="cui-file icons mr-1"></i>
-                                                    Novo
-                                                </Link>
-
+                                Novo
+                            </Link>
                         </CardHeader>
                         <CardBody>
                             <DataTable className="mt-n3"
-                                title="Expectativas de Fechamento"
+                                noHeader={true}
+                                title="Anotações"
                                 columns={columns}
                                 data={data}
                                 striped={true}

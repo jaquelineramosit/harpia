@@ -4,13 +4,14 @@ import { Card, CardBody, CardHeader, Col, Row, Badge } from 'reactstrap';
 import api from '../../../../services/api';
 import DataTable from 'react-data-table-component';
 
-export default function ListaTipocontatos() {
-    const [tipocontatos, setTipocontatos] = useState([]);
+
+export default function ListaTemperaturafechamento() {
+    const [temperaturafechamento, setTemperaturafechamento] = useState([]);
     const [total, setTotal] = useState(0);
     const usuarioId = localStorage.getItem('userId');
     //logica para pegar o total
     useEffect(() => {
-        api.get('tipos-contatoCount', {
+        api.get('temperatura-fechamentoCount', {
             headers: {
                 Authorization: 1,
             }
@@ -20,23 +21,21 @@ export default function ListaTipocontatos() {
     }, [1]);
 
     useEffect(() => {
-        api.get('tipos-contato', {
+        api.get('temperatura-fechamento', {
             headers: {
                 Authorization: 1,
             }
         }).then(response => {
-            setTipocontatos(response.data);
+            setTemperaturafechamento(response.data);
         })
     }, [usuarioId]);
-    const data = tipocontatos;
+    const data = temperaturafechamento;
 
     const columns = [
         {
-            name: 'Tipo de Contatos',
-            selector: 'tipocontato',
+            name: 'Temperaturas de Fechamento',
+            selector: 'temperaturafechamento',
             sortable: true,
-
-
         },
         {
             name: 'Status',
@@ -48,10 +47,10 @@ export default function ListaTipocontatos() {
             name: 'Ações',
             sortable: true,
             right: true,
-            cell: row => <Link to={`tipos-contato/${row.id}?action=edit`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg"></i></Link>
+            cell: row => <Link to={`temperatura-fechamento/${row.id}`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg mr-1"></i>
+            Editar</Link>
         },
     ];
-
 
     return (
         <div className="animated-fadeIn">
@@ -60,9 +59,9 @@ export default function ListaTipocontatos() {
                     <Card>
                         <CardHeader className="links">
 
-                            <i className="fa fa-align-justify"></i>Tipos de Contatos
+                            <i className="fa fa-align-justify"></i>Temperaturas de Fechamento
 
-                            <Link to={`tipos-contato/?action=novo`} className="btn btn-secondary float-right">
+                            <Link to={`temperatura-fechamento`} className="btn btn-secondary float-right">
                                 <i className="cui-file icons mr-1"></i>
                                                     Novo
                                                 </Link>
@@ -70,7 +69,8 @@ export default function ListaTipocontatos() {
                         </CardHeader>
                         <CardBody>
                             <DataTable className="mt-n3"
-                                title="Tipos de Contatos"
+
+                                title="Temperatura de Fechamento"
                                 columns={columns}
                                 data={data}
                                 striped={true}
