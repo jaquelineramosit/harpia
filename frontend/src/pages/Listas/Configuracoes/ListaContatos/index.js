@@ -36,6 +36,7 @@ export default function ListaContatos() {
             name: 'Contatos',
             selector: 'nomecontato',
             sortable: true,
+            width: '20%',
 
 
         },
@@ -44,6 +45,7 @@ export default function ListaContatos() {
             selector: 'tipocontato',
             sortable: true,
             left: true,
+            width: '20%',
 
         },
         {
@@ -51,6 +53,7 @@ export default function ListaContatos() {
             selector: 'nomecargo',
             sortable: true,
             left: true,
+            width: '20%',
 
         },
         {
@@ -58,6 +61,7 @@ export default function ListaContatos() {
             selector: 'departamento',
             sortable: true,
             left: true,
+            width: '20%',
 
         },
         {

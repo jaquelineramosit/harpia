@@ -35,6 +35,7 @@ export default function ListaTipocontatos() {
             name: 'Tipo de Contatos',
             selector: 'tipocontato',
             sortable: true,
+            width: '45%',
 
 
         },

@@ -230,7 +230,7 @@ export default function Clientes() {
                                                     <option value="TO">Tocantins</option>
                                         </Input>
                                     </Col>
-                                    <Col md="3">
+                                    <Col md="2">
                                     <Label htmlFor="Telefone">Telefone</Label>
                                         <InputGroup>
                                             <Input type="text"  id="txtTelefone" placeholder="(11) 9999-9999"

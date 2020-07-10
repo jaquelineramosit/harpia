@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Card, CardBody, CardHeader, Col,  Row, Badge } from 'reactstrap';
+import { Card, CardBody, CardHeader, Col, Row, Badge } from 'reactstrap';
 import api from '../../../../services/api';
 import DataTable from 'react-data-table-component';
 
@@ -35,6 +35,7 @@ export default function ListaDistribuidores() {
             name: 'Distribuidor',
             selector: 'nomedistribuidor',
             sortable: true,
+            width: '14%',
 
 
         },
@@ -43,6 +44,7 @@ export default function ListaDistribuidores() {
             selector: 'cnpj',
             sortable: true,
             left: true,
+            width: '14%',
 
         },
         {
@@ -50,6 +52,7 @@ export default function ListaDistribuidores() {
             selector: 'razaosocial',
             sortable: true,
             left: true,
+            width: '14%',
 
         },
         {
@@ -57,6 +60,7 @@ export default function ListaDistribuidores() {
             selector: 'contato',
             sortable: true,
             left: true,
+            width: '14%',
 
         },
         {
@@ -64,6 +68,7 @@ export default function ListaDistribuidores() {
             selector: 'telefone',
             sortable: true,
             left: true,
+            width: '14%',
 
         },
         {
@@ -71,6 +76,7 @@ export default function ListaDistribuidores() {
             selector: 'celular',
             sortable: true,
             left: true,
+            width: '14%',
 
         },
         {
@@ -83,8 +89,7 @@ export default function ListaDistribuidores() {
             name: 'Ações',
             sortable: true,
             right: true,
-            cell: row => <Link to={`distribuidores/${row.id}`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg mr-1"></i>
-            Editar</Link>
+            cell: row => <Link to={`distribuidores/${row.id}`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg"></i></Link>
         },
     ];
 
@@ -105,6 +110,7 @@ export default function ListaDistribuidores() {
                         </CardHeader>
                         <CardBody>
                             <DataTable className="mt-n3"
+                                noHeader={true}
                                 title="Distribuidores"
                                 columns={columns}
                                 data={data}

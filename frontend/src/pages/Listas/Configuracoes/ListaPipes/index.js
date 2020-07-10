@@ -49,8 +49,7 @@ export default function Listapipes() {
             name: 'Ações',
             sortable: true,
             right: true,
-            cell: row => <Link to={`pipes/${row.id}`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg mr-1"></i>
-            Editar</Link>
+            cell: row => <Link to={`pipes/${row.id}`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg "></i></Link>
         },
     ];
 
@@ -71,6 +70,7 @@ export default function Listapipes() {
                         </CardHeader>
                         <CardBody>
                             <DataTable className="mt-n3"
+                                noHeader={true}
                                 title="Pipes"
                                 columns={columns}
                                 data={data}

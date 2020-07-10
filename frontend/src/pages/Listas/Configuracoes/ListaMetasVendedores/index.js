@@ -37,12 +37,14 @@ export default function Listametasvendedores() {
             name: 'Vendedores',
             selector: 'nomevendedor',
             sortable: true,
+            width: '25%',
         },
         {
             name: 'Meta',
             selector: 'nomemeta',
             sortable: true,
             left: true,
+            width: '25%',
 
         },
         {
@@ -50,6 +52,7 @@ export default function Listametasvendedores() {
             selector: 'observacao',
             sortable: true,
             left: true,
+            width: '25%',
 
         },
         {
@@ -57,6 +60,7 @@ export default function Listametasvendedores() {
             sortable: true,
             left: true,
             cell: row => <Badge color="success">Ativo</Badge>,
+           
         },
         {
             name: 'Ações',

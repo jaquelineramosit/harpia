@@ -36,6 +36,7 @@ export default function Listapipes() {
             name: 'Nome da Fase',
             selector: 'nomefase',
             sortable: true,
+            width: '32%',
 
 
         },
@@ -44,6 +45,7 @@ export default function Listapipes() {
             selector: 'nomepipe',
             sortable: true,
             left: true,
+            width: '32%',
 
         },
         {
@@ -56,7 +58,7 @@ export default function Listapipes() {
             name: 'Ações',
             sortable: true,
             right: true,
-            cell: row => <Link to={`fases-pipe/${row.id}`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg mr-1"></i></Link>
+            cell: row => <Link to={`fases-pipe/${row.id}`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg "></i></Link>
         },
     ];
 

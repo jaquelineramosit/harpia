@@ -36,6 +36,8 @@ export default function Listapaises() {
             name: 'Páis',
             selector: 'nomepais',
             sortable: true,
+            width: '20%',
+            
 
 
         },
@@ -44,6 +46,7 @@ export default function Listapaises() {
             selector: 'sigla',
             sortable: true,
             left: true,
+            width: '20%',
 
         },
         {
@@ -51,6 +54,7 @@ export default function Listapaises() {
             selector: 'moeda',
             sortable: true,
             left: true,
+            width: '20%',
 
         },
         {
@@ -58,6 +62,7 @@ export default function Listapaises() {
             selector: 'siglamoeda',
             sortable: true,
             left: true,
+            width: '20%',
 
         },
         {
@@ -70,8 +75,7 @@ export default function Listapaises() {
             name: 'Ações',
             sortable: true,
             right: true,
-            cell: row => <Link to={`paises/${row.id}`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg mr-1"></i>
-            Editar</Link>
+            cell: row => <Link to={`paises/${row.id}`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg"></i></Link>
         },
     ];
 
@@ -92,6 +96,7 @@ export default function Listapaises() {
                         </CardHeader>
                         <CardBody>
                             <DataTable className="mt-n3"
+                                noHeader={true}
                                 title="Países"
                                 columns={columns}
                                 data={data}

@@ -83,6 +83,11 @@ const RelContatoTempoOportunidade = React.lazy(() => import('./pages/Relatórios
 
 const TesteValidaForm = React.lazy(() => import('./pages/TesteValidaForm'));
 
+//Erros
+const Erro404 = React.lazy(() => import('./pages/Erros/Erro404'));
+const Erro500 = React.lazy(() => import('./pages/Erros/Erro500'));
+
+
 const routes = [
 
   // Dashboards
@@ -152,7 +157,7 @@ const routes = [
   { path: '/lista-metas-vendedores', name: 'Lista de Metas de Vendedores', component: ListaMetasVendedores },
   { path: '/lista-metas-vendedores', name: 'Lista de Metas de Vendedores', component: ListaMetasVendedores },
   { path: '/lista-fases-pipes', name: 'Lista de Fases do Pipes', component: ListaFasesPipes},
-  { path: '/lista-produtos', name: 'Lista de Fases de Produtos', component: ListaProdutos},
+  { path: '/lista-produtos', name: 'Lista de Produtos', component: ListaProdutos},
   { path: '/lista-distribuidores', name: 'Lista de Distribuidores', component: ListaDistribuidores},
   { path: '/lista-marcas', name: 'Lista de Marcas', component: ListaMarcas},
   { path: '/lista-clientes', name: 'Lista de Clientes', component: ListaClientes},
@@ -184,6 +189,10 @@ const routes = [
   { path: '/rel-contatoxtempoportunidade', name: ' Relatório de Contato X Temperatura de Oportunidade', component: RelContatoTempoOportunidade},
 
   { path: '/teste-validaForm', name: 'TesteValidaForm', component: TesteValidaForm},
+
+  //erros
+  { path: '/erro-404', name: 'Error 404', component: Erro404},
+  { path: '/erro-500', name: 'Error 500', component: Erro500},
 
 ];
 

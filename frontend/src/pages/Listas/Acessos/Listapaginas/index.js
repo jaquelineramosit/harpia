@@ -35,6 +35,7 @@ export default function ListaPaginas() {
             name: 'Módulos',
             selector: 'nomemodulo',
             sortable: true,
+            width: '15%',
 
 
         },
@@ -43,6 +44,7 @@ export default function ListaPaginas() {
             selector: 'nomePagina',
             sortable: true,
             left: true,
+            width: '15%',
 
         },
         {
@@ -50,6 +52,7 @@ export default function ListaPaginas() {
             selector: 'descricao',
             sortable: true,
             left: true,
+            width: '55%',
 
         },
         {
@@ -62,8 +65,7 @@ export default function ListaPaginas() {
             name: 'Ações',
             sortable: true,
             right: true,
-            cell: row => <Link to={`paginas/${row.id}?action=edit`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg mr-1"></i>
-            Editar</Link>
+            cell: row => <Link to={`paginas/${row.id}?action=edit`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg "></i></Link>
         },
     ];
 
@@ -84,6 +86,7 @@ export default function ListaPaginas() {
                         </CardHeader>
                         <CardBody>
                             <DataTable className="mt-n3"
+                                noHeader={true}
                                 title="Páginas"
                                 columns={columns}
                                 data={data}

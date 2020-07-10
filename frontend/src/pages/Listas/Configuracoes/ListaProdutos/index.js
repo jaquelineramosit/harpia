@@ -36,14 +36,17 @@ export default function ListaProdutos() {
             name: 'Produto',
             selector: 'nomeproduto',
             sortable: true,
+            width: '14%',
+            
 
 
         },
         {
             name: 'Fabricante',
-            selector: 'nomefabricante',
+            selector: 'numerofabricante',
             sortable: true,
             left: true,
+            width: '14%',
 
         },
         {
@@ -51,6 +54,7 @@ export default function ListaProdutos() {
             selector: 'quantidade',
             sortable: true,
             left: true,
+            width: '14%',
 
         },
         {
@@ -58,6 +62,7 @@ export default function ListaProdutos() {
             selector: 'valor',
             sortable: true,
             left: true,
+            width: '14%',
 
         },
         {
@@ -65,6 +70,7 @@ export default function ListaProdutos() {
             selector: 'nomedistribuidor',
             sortable: true,
             left: true,
+            width: '14%',
 
         },
         {
@@ -72,6 +78,7 @@ export default function ListaProdutos() {
             selector: 'tempoentrega',
             sortable: true,
             left: true,
+            width: '14%',
 
         },
         {
@@ -84,8 +91,7 @@ export default function ListaProdutos() {
             name: 'Ações',
             sortable: true,
             right: true,
-            cell: row => <Link to={`produtos/${row.id}`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg mr-1"></i>
-            Editar</Link>
+            cell: row => <Link to={`produtos/${row.id}`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg"></i></Link>
         },
     ];
 
@@ -106,6 +112,7 @@ export default function ListaProdutos() {
                         </CardHeader>
                         <CardBody>
                             <DataTable className="mt-n3"
+                                noHeader={true}
                                 title="Produtos"
                                 columns={columns}
                                 data={data}

@@ -37,6 +37,7 @@ export default function ListaMarcas() {
             name: 'Marca',
             selector: 'nomemarca',
             sortable: true,
+            width: '45%',
         },
         {
             name: 'Status',
@@ -48,8 +49,7 @@ export default function ListaMarcas() {
             name: 'Ações',
             sortable: true,
             right: true,
-            cell: row => <Link to={`marcas/${row.id}?action=edit`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg mr-1"></i>
-            Editar</Link>
+            cell: row => <Link to={`marcas/${row.id}?action=edit`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg "></i></Link>
         },
     ];
 
@@ -71,6 +71,7 @@ export default function ListaMarcas() {
                         </CardHeader>
                         <CardBody>
                             <DataTable className="mt-n3"
+                                noHeader={true}
                                 title="Marcas"
                                 columns={columns}
                                 data={data}

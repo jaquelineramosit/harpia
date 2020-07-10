@@ -35,6 +35,7 @@ export default function ListaCargos() {
             name: 'Cargos',
             selector: 'nomecargo',
             sortable: true,
+            width: '45%',
 
 
         },
