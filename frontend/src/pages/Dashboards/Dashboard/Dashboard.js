@@ -116,7 +116,7 @@ export default function Dashboard() {
             selector: 'nomecliente',
             sortable: true,
             left: true,
-            width: '14%',
+            width: '12%',
         },
         {
             name: 'Produto',
@@ -130,14 +130,14 @@ export default function Dashboard() {
             selector: 'nomefase',
             sortable: true,
             left: true,
-            width: '14%',
+            width: '13%',
         },
         {
             name: 'Valor',
             cell: row => <div>{row.valor.toLocaleString("pt-BR", { style: "currency" , currency:"BRL"})}</div>,
             sortable: true,
             left: true,
-            width: '16%',
+            width: '15%',
         },        
         {
             name: 'Ações',

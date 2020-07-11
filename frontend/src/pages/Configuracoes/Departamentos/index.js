@@ -11,22 +11,22 @@ const Departamentos = (props) => {
     var search = props.location.search;
     var params = new URLSearchParams(search);
     var action = params.get('action');
-    var departamentosIdParams = props.match.params.id;
+    var departamentoIdParam = props.match.params.id;
     const usuarioId = localStorage.getItem('userId');
 
     const [departamento, setDepartameneto] = useState('');
     const [ativo, setAtivo] = useState(1);
 
     useEffect(() => {
-        if (action === 'edit' && departamentosIdParams !== '') {
-            api.get(`departamentos/${departamentosIdParams}`).then(response => {
+        if (action === 'edit' && departamentoIdParam !== '') {
+            api.get(`departamentos/${departamentoIdParam}`).then(response => {
                 setDepartameneto(response.data.departamento);
                 response.data.ativo === 1 ? setAtivo(1) : setAtivo(0);
             });
         } else {
             return;
         }
-    }, [departamentosIdParams])
+    }, [departamentoIdParam])
 
     function handleInputChange(event) {
         const { name, value } = event.target;
@@ -55,7 +55,7 @@ const Departamentos = (props) => {
         if (action === 'edit') {
 
             try {
-                const response = await api.put(`/departamentos/${departamentosIdParams}`, data, {
+                const response = await api.put(`/departamentos/${departamentoIdParam}`, data, {
                     headers: {
                         Authorization: 6,
                     }

@@ -26,22 +26,24 @@ module.exports = {
 
         const { nomedistribuidor, cnpj, razaosocial, contato, telefone, celular,
             site, email, ativo } = request.body;
-        
-        const [id] = await connection('distribuidores').insert({
-            nomedistribuidor, 
-            cnpj, 
-            razaosocial, 
-            contato, 
-            telefone, 
-            celular,
-            site, 
-            email,                
-            ativo,
-            dataUltModif,
-            usuarioId
-        })
 
-        return response.json({ id });
+        console.log(request.headers.authorization);
+        
+        // const [id] = await connection('distribuidores').insert({
+        //     nomedistribuidor, 
+        //     cnpj, 
+        //     razaosocial, 
+        //     contato, 
+        //     telefone, 
+        //     celular,
+        //     site, 
+        //     email,                
+        //     ativo,
+        //     dataUltModif,
+        //     usuarioId
+        // })
+
+        // return response.json({ id });
     },
     
     async update (request, response) {
