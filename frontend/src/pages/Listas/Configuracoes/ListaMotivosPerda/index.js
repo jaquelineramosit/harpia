@@ -38,6 +38,7 @@ export default function Listamotivosperda() {
             name: 'Motivos de Perda',
             selector: 'motivoperda',
             sortable: true,
+            width: '45%',
         },
         {
             name: 'Status',
@@ -49,8 +50,7 @@ export default function Listamotivosperda() {
             name: 'Ações',
             sortable: true,
             right: true,
-            cell: row => <Link to={`motivos-perda/${row.id}?action=edit`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg mr-1"></i>
-            Editar</Link>
+            cell: row => <Link to={`motivos-perda/${row.id}?action=edit`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg "></i></Link>
         },
     ];
 
@@ -71,6 +71,7 @@ export default function Listamotivosperda() {
                         </CardHeader>
                         <CardBody>
                             <DataTable className="mt-n3"
+                                noHeader={true}
                                 title="Motivos de Perda"
                                 columns={columns}
                                 data={data}

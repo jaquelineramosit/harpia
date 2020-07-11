@@ -35,6 +35,7 @@ export default function ListaPermissaoacesso() {
             name: 'Perfil',
             selector: 'perfil',
             sortable: true,
+            width: '19%',
 
 
         },
@@ -43,6 +44,7 @@ export default function ListaPermissaoacesso() {
             selector: 'nomemodulo',
             sortable: true,
             left: true,
+            width: '19%',
 
         },
         {
@@ -50,6 +52,7 @@ export default function ListaPermissaoacesso() {
             selector: 'nomepagina',
             sortable: true,
             left: true,
+            width: '19%',
 
         },
         {
@@ -57,6 +60,7 @@ export default function ListaPermissaoacesso() {
             selector: 'nome',
             sortable: true,
             left: true,
+            width: '19%',
 
         },
         {
@@ -69,8 +73,7 @@ export default function ListaPermissaoacesso() {
             name: 'Ações',
             sortable: true,
             right: true,
-            cell: row => <Link to={`permissao-acesso/${row.id}`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg mr-1"></i>
-            Editar</Link>
+            cell: row => <Link to={`permissao-acesso/${row.id}`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg"></i></Link>
         },
     ];
     return (
@@ -90,6 +93,7 @@ export default function ListaPermissaoacesso() {
                         </CardHeader>
                         <CardBody>
                             <DataTable className="mt-n3"
+                                noHeader={true}
                                 title="Permissão de Acesso"
                                 columns={columns}
                                 data={data}

@@ -39,9 +39,10 @@ export default function ListaProdutos() {
         },
         {
             name: 'Fabricante',
-            selector: 'nomefabricante',
+            selector: 'numerofabricante',
             sortable: true,
             left: true,
+            width: '14%',
 
         },
         {
@@ -100,6 +101,7 @@ export default function ListaProdutos() {
                         </CardHeader>
                         <CardBody>
                             <DataTable className="mt-n3"
+                                noHeader={true}
                                 title="Produtos"
                                 columns={columns}
                                 data={data}

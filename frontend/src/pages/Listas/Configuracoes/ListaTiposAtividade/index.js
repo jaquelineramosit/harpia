@@ -37,6 +37,7 @@ export default function ListasetTipoatividades() {
             name: 'Tipo de Atividade',
             selector: 'tipoatividade',
             sortable: true,
+            width: '32%',
 
 
         },
@@ -45,6 +46,7 @@ export default function ListasetTipoatividades() {
             selector: 'descricao',
             sortable: true,
             left: true,
+            width: '35%',
 
         },
         {
@@ -57,8 +59,7 @@ export default function ListasetTipoatividades() {
             name: 'Ações',
             sortable: true,
             right: true,
-            cell: row => <Link to={`tipos-atividade/${row.id}?action=edit`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg mr-1"></i>
-            Editar</Link>
+            cell: row => <Link to={`tipos-atividade/${row.id}?action=edit`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg "></i></Link>
         },
     ];
     return (
@@ -78,6 +79,7 @@ export default function ListasetTipoatividades() {
                         </CardHeader>
                         <CardBody>
                             <DataTable className="mt-n3"
+                                noHeader={true}
                                 title="Tipos de Atividade"
                                 columns={columns}
                                 data={data}

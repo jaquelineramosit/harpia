@@ -35,6 +35,7 @@ export default function ListaPerfisacesso() {
             name: 'Perfil',
             selector: 'perfil',
             sortable: true,
+            width: '25%',
 
 
         },
@@ -43,6 +44,7 @@ export default function ListaPerfisacesso() {
             selector: 'descricao',
             sortable: true,
             left: true,
+            width: '37%',
 
         },
         {
@@ -55,8 +57,7 @@ export default function ListaPerfisacesso() {
             name: 'Ações',
             sortable: true,
             right: true,
-            cell: row => <Link to={`perfis-acesso/${row.id}`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg mr-1"></i>
-            Editar</Link>
+            cell: row => <Link to={`perfis-acesso/${row.id}`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg"></i></Link>
         },
     ];
 
@@ -78,6 +79,7 @@ export default function ListaPerfisacesso() {
                         </CardHeader>
                         <CardBody>
                             <DataTable className="mt-n3"
+                                noHeader={true}
                                 title="Perfis de acesso"
                                 columns={columns}
                                 data={data}

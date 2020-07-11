@@ -36,6 +36,7 @@ export default function ListaUsuarios() {
             name: 'Nome',
             selector: 'nome',
             sortable: true,
+            width: '13%',
 
 
         },
@@ -44,6 +45,7 @@ export default function ListaUsuarios() {
             selector: 'sobrenome',
             sortable: true,
             left: true,
+            width: '18%',
 
         },
         // {
@@ -58,6 +60,7 @@ export default function ListaUsuarios() {
             selector: 'cidade',
             sortable: true,
             left: true,
+            width: '10%',
 
         },
         // {
@@ -72,6 +75,7 @@ export default function ListaUsuarios() {
             selector: 'telefone',
             sortable: true,
             left: true,
+            width: '12%',
 
         },
         {
@@ -79,6 +83,8 @@ export default function ListaUsuarios() {
             selector: 'celular',
             sortable: true,
             left: true,
+            width: '15%',
+            
 
         },
         {
@@ -86,20 +92,21 @@ export default function ListaUsuarios() {
             selector: 'email',
             sortable: true,
             left: true,
+            width: '17%',
 
         },
         {
             name: 'Status',
             sortable: true,
             center: true,
+            width: '6%',
             cell: row => <Badge color="success">Ativo</Badge>,
         },
         {
             name: 'Ações',
             sortable: true,
             right: true,
-            cell: row => <Link to={`usuarios/${row.id}?action=edit`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg mr-1"></i>
-            Editar</Link>
+            cell: row => <Link to={`usuarios/${row.id}?action=edit`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg"></i></Link>
         },
     ];
 

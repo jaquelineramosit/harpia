@@ -36,6 +36,7 @@ export default function ListaClientes() {
             name: 'Cliente',
             selector: 'nomecliente',
             sortable: true,
+            width: '9%',
 
 
         },
@@ -44,6 +45,7 @@ export default function ListaClientes() {
             selector: 'razaosocial',
             sortable: true,
             left: true,
+            width: '11%',
 
         },
         {
@@ -51,6 +53,7 @@ export default function ListaClientes() {
             selector: 'site',
             sortable: true,
             left: true,
+            width: '13%',
 
         },
         {
@@ -58,6 +61,7 @@ export default function ListaClientes() {
             selector: 'email',
             sortable: true,
             left: true,
+            width: '13%',
 
         },
         {
@@ -65,6 +69,7 @@ export default function ListaClientes() {
             selector: 'telefone',
             sortable: true,
             left: true,
+            width: '12%',
 
         },
         {
@@ -72,6 +77,7 @@ export default function ListaClientes() {
             selector: 'cidade',
             sortable: true,
             left: true,
+            width: '12%',
 
         },
         {
@@ -79,6 +85,7 @@ export default function ListaClientes() {
             selector: 'uf',
             sortable: true,
             left: true,
+            width: '13%',
 
         },
         {
@@ -91,8 +98,7 @@ export default function ListaClientes() {
             name: 'Ações',
             sortable: true,
             right: true,
-            cell: row => <Link to={`clientes/${row.id}`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg mr-1"></i>
-            Editar</Link>
+            cell: row => <Link to={`clientes/${row.id}`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg"></i></Link>
         },
     ];
     return (
@@ -112,6 +118,7 @@ export default function ListaClientes() {
                         </CardHeader>
                         <CardBody>
                             <DataTable className="mt-n3"
+                                noHeader={true}
                                 title="Clientes"
                                 columns={columns}
                                 data={data}

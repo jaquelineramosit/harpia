@@ -35,6 +35,7 @@ export default function ListaDepartamentos() {
             name: 'Departamentos',
             selector: 'departamento',
             sortable: true,
+            width: '45%',
 
 
         },

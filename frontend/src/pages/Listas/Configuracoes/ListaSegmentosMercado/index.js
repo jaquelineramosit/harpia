@@ -36,6 +36,7 @@ export default function ListaSegmentomercado() {
             name: 'Segmento de Mercad',
             selector: 'nomesegmento',
             sortable: true,
+            width: '45%',
 
 
         },
@@ -49,8 +50,7 @@ export default function ListaSegmentomercado() {
             name: 'Ações',
             sortable: true,
             right: true,
-            cell: row => <Link to={`segmentos-mercado/${row.id}?action=edit`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg mr-1"></i>
-            Editar</Link>
+            cell: row => <Link to={`segmentos-mercado/${row.id}?action=edit`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg"></i></Link>
         },
     ];
     return (
@@ -70,6 +70,7 @@ export default function ListaSegmentomercado() {
                         </CardHeader>
                         <CardBody>
                             <DataTable className="mt-n3"
+                                noHeader={true}
                                 title="Segmento de Mercado"
                                 columns={columns}
                                 data={data}

@@ -151,7 +151,7 @@ const Register = (props) => {
                                         name="sobrenome"
                                         onChange={handleInputChange}/>
                                     </Col>
-                                    <Col md="4">
+                                    <Col md="2">
                                         <Label htmlFor="DataNasc">Data de Nasc.</Label>
                                         <InputGroup>
                                             <Input type="date" required id="txtDataNasc" className="date"
