@@ -2,22 +2,61 @@ import React, { useState,useEffect } from 'react';
 import { Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button, CardFooter, Form } from 'reactstrap';
 import { AppSwitch } from '@coreui/react'
 import '../../../global.css';
+import { Redirect } from "react-router-dom";
 import api from '../../../../src/services/api';
 
-export default function FasesPipe() {
-    const [nomefase, setNomeFase] = useState('');
-    const [pipeId, setPipeId] = useState('');
-    const [pipesId, setPipesId] = useState([]);
-    const [ativo, setAtivo] = useState('true');
+export default function FasesPipe(props) {
+    const [redirect, setRedirect] = useState(false);
+
+    // parametros
+    var search = props.location.search;
+    var params = new URLSearchParams(search);  
+    var action = params.get('action');
+    var fasePipeIdParam = props.match.params.id;
     const usuarioId = localStorage.getItem('userId');
+    
+    const [nomefase, setNomeFase] = useState('');
+    const [pipeId, setPipeId] = useState('');    
+    const [ativo, setAtivo] = useState(1);
+
+    // combo dinamico
+    const [pipesId, setPipesId] = useState([]);
 
     useEffect(() => {
         api.get('pipes').then(response => {
-        setPipesId(response.data);
+            setPipesId(response.data);
         })
-        }, [usuarioId]);
-     
+    }, []);
 
+    //edit
+    useEffect(() => {
+        if ( action === 'edit' && fasePipeIdParam !== '' ) {
+            api.get(`fases-pipe/${fasePipeIdParam}`).then(response => {                           
+                setNomeFase(response.data.nomefase);
+                setPipeId(response.data.pipeId);                
+                response.data.ativo === 1 ? setAtivo(1) : setAtivo(0);
+            });            
+        } else {
+            return;
+        }
+    }, [fasePipeIdParam]);
+
+    function handleInputChange(event) {
+        var { name, value } = event.target;
+
+        if ( name === 'ativo' ) {
+            if ( ativo === 1 ) {
+                setAtivo(0);
+            } else {
+                setAtivo(1);
+            }
+        }
+    };
+
+    function handleReset() {
+        setRedirect(true);
+    };
+     
     async function handleFasesPipe(e) {
         e.preventDefault();
 
@@ -25,24 +64,41 @@ export default function FasesPipe() {
             nomefase,
             pipeId,
             ativo
-                    }
-        try {
-            const response = await api.post('fases-pipe', data, {
-                headers: {
-                    Authorization: usuarioId,
-                }
-            });
-            alert(`Feito o cadastro com sucesso`);
-
-        } catch (err) {
-
-            alert('Erro no cadastro, tente novamente.');
         }
+
+        if ( action === 'edit' ) {
+            try {
+                const response = await api.put(`/fases-pipe/${fasePipeIdParam}`, data, {
+                    headers: {
+                        Authorization: 6,
+                    }
+                });
+                alert(`Cadastro atualizado com sucesso.`);
+                setRedirect(true);  
+            } catch (err) {
+                alert('Erro na atualização, tente novamente.');
+            }
+        } else {
+            if ( action === 'novo' ) {
+                try {
+                    const response = await api.post('fases-pipe', data, {
+                        headers: {
+                            Authorization: usuarioId,
+                        }
+                    });
+                    alert(`Feito o cadastro com sucesso`);
+                    setRedirect(true);  
+                } catch (err) {
+                    alert('Erro no cadastro, tente novamente.');
+                }
+            }
+        }        
     }
 
     return (
         <div className="animated fadeIn">
-            <Form onSubmit={handleFasesPipe}>
+            { redirect && <Redirect to="/lista-fases-pipes" /> }
+            <Form onSubmit={handleFasesPipe} onReset={handleReset}>
                 <Row>
                     <Col xs="12" md="12">
                         <Card>
@@ -54,29 +110,33 @@ export default function FasesPipe() {
                                 <FormGroup row>
                                     <Col md="4">
                                             <Label htmlFor="nomeFase">Nome da Fase</Label>
-                                            <Input required type="text" name="select" id="txtNomeFase" placeholder="Digite o Nome da Fase"
-                                            value={nomefase}
-                                            onChange={ e => setNomeFase(e.target.value)} />
+                                            <Input required type="text" id="txtNomeFase" placeholder="Digite o Nome da Fase"
+                                                name="nomefase"
+                                                value={nomefase}
+                                                onChange={ e => setNomeFase(e.target.value)}
+                                            />
                                     </Col>                               
                                     <Col md="4">
                                             <Label htmlFor="pipeId">Pipe</Label>
-                                            <Input required type="select" name="select" id="cboPipeId"
-                                            value={pipeId}
+                                            <Input required type="select" id="cboPipeId"
+                                                name="pipeId"
+                                                value={pipeId}
                                                 onChange={ e => setPipeId(e.target.value)}>
                                                     <option value={undefined} defaultValue>Selecione...</option>
                                                     {pipesId.map(pipe=> (
-                                                    <option value={pipe.id}>{pipe.nomepipe}</option>
+                                                        <option value={pipe.id}>{pipe.nomepipe}</option>
                                                     ))}
                                             </Input>    
                                     </Col>
                                 </FormGroup>
                                 <FormGroup row>      
-                                    <Col md="1">
+                                <Col md="1">
                                         <Label check className="form-check-label" htmlFor="ativo1">Ativo</Label>
-                                        <AppSwitch id="rdAtivo" className={'switch-ativo'}  label color={'success'} defaultChecked size={'sm'}
-                                        value={ativo}
-                                        onChange={ e => setAtivo(e.target.value)}
-                                        />                                    
+                                        <AppSwitch id="rdAtivo" className={'switch-ativo'}  label color={'success'} size={'sm'}
+                                            checked={ativo === 1 ? true : false}
+                                            name="ativo"
+                                            onChange={handleInputChange}
+                                        />
                                     </Col>                                      
                                 </FormGroup>
                             </CardBody>

@@ -36,8 +36,6 @@ export default function ListaProdutos() {
             name: 'Produto',
             selector: 'nomeproduto',
             sortable: true,
-
-
         },
         {
             name: 'Fabricante',
@@ -51,40 +49,36 @@ export default function ListaProdutos() {
             selector: 'quantidade',
             sortable: true,
             left: true,
-
         },
         {
             name: 'Valor',
             selector: 'valor',
             sortable: true,
             left: true,
-
         },
         {
             name: 'Distribuidor',
             selector: 'nomedistribuidor',
             sortable: true,
             left: true,
-
         },
         {
             name: 'Tempo de Entrega',
             selector: 'tempoentrega',
             sortable: true,
             left: true,
-
         },
         {
             name: 'Status',
             sortable: true,
             left: true,
-            cell: row => <Badge color="success">Ativo</Badge>,
+            cell: row => row.ativo === 1 ? <Badge color="success">Ativo</Badge> : <Badge color="danger">Inativo</Badge>,
         },
         {
             name: 'Ações',
             sortable: true,
             right: true,
-            cell: row => <Link to={`produtos/${row.id}`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg mr-1"></i>
+            cell: row => <Link to={`produtos/${row.id}?action=edit`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg mr-1"></i>
             Editar</Link>
         },
     ];
@@ -98,7 +92,7 @@ export default function ListaProdutos() {
 
                             <i className="fa fa-align-justify"></i>Produtos
 
-                            <Link to={`produtos`} className="btn btn-secondary float-right">
+                            <Link to={`produtos?action=novo`} className="btn btn-secondary float-right">
                                 <i className="cui-file icons mr-1"></i>
                                                     Novo
                                                 </Link>

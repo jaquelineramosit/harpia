@@ -36,8 +36,6 @@ export default function Listapipes() {
             name: 'Pipes',
             selector: 'nomepipe',
             sortable: true,
-
-
         },
         {
             name: 'Status',
@@ -65,8 +63,8 @@ export default function Listapipes() {
 
                             <Link to={`pipes`} className="btn btn-secondary float-right">
                                 <i className="cui-file icons mr-1"></i>
-                                                    Novo
-                                                </Link>
+                                    Novo
+                            </Link>
 
                         </CardHeader>
                         <CardBody>

@@ -4,9 +4,17 @@ import { AppSwitch } from '@coreui/react'
 import '../../../global.css';
 import {reaisMask} from '../../../mask'
 import api from '../../../../src/services/api';
+import { Redirect } from "react-router-dom";
 
+export default function Produtos(props) {
+    const [redirect, setRedirect] = useState(false);
 
-export default function Produtos() {
+    var search = props.location.search;
+    var params = new URLSearchParams(search);
+    var action = params.get('action');
+    var produtoIdParam = props.match.params.id;
+    const usuarioId = localStorage.getItem('userId');
+
     const [marcaId, setMarcaId] = useState('');
     const [nomeproduto, setNomeProduto] = useState('');
     const [numerofabricante, setNumeroFabricante] = useState('');
@@ -14,22 +22,57 @@ export default function Produtos() {
     const [valor, setValor] = useState('');
     const [distribuidorId, setDistribuidorId] = useState('');
     const [tempoentrega, setTempoEntrega] = useState('');
-    const [ativo, setAtivo] = useState('');
-    const [marcasId, setMArcasId] = useState([]);
-    const [distribuidoresId, setDistribuidoresId] = useState([]);
-    const usuarioId = localStorage.getItem('userId');
+    const [ativo, setAtivo] = useState(1);
 
+    const [marcasId, setMArcasId] = useState([]);    
+    const [distribuidoresId, setDistribuidoresId] = useState([]);
+    
+    // listas
     useEffect(() => {
         api.get('marcas').then(response => {
-        setMArcasId(response.data);
+            setMArcasId(response.data);
         })
-        }, [usuarioId]);
+    }, []);
 
     useEffect(() => {
         api.get('distribuidores').then(response => {
-        setDistribuidoresId(response.data);
+            setDistribuidoresId(response.data);
         })
-        }, [usuarioId]);
+    }, []);
+
+    // edit
+    useEffect(() => {
+        if (action === 'edit' && produtoIdParam !== '') {
+            api.get(`produtos/${produtoIdParam}`).then(response => {
+                setMarcaId(response.data.marcaId);
+                setNomeProduto(response.data.nomeproduto);
+                setNumeroFabricante(response.data.numerofabricante);
+                setQuantidade(response.data.quantidade);
+                setValor(response.data.valor);
+                setDistribuidorId(response.data.distribuidorId);
+                setTempoEntrega(response.data.tempoentrega);
+                response.data.ativo === 1 ? setAtivo(1) : setAtivo(0);
+            });
+        } else {
+            return;
+        }
+    }, [produtoIdParam])
+
+    function handleInputChange(event) {
+        var { name, value } = event.target;
+
+        if ( name === 'ativo' ) {
+            if ( ativo === 1 ) {
+                setAtivo(0);
+            } else {
+                setAtivo(1);
+            }
+        }
+    };
+
+    function handleReset() {
+        setRedirect(true);
+    };
 
     async function handleProdutos(e) {
         e.preventDefault();
@@ -42,33 +85,48 @@ export default function Produtos() {
             valor,
             distribuidorId,
             tempoentrega,
-            ativo,
+            ativo
         }
 
-
-        try {
-            const response = await api.post('produtos', data, {
-                headers: {
-                    Authorization: usuarioId,
+        if ( action === 'edit' ) {
+            try {
+                const response = await api.put(`/produtos/${produtoIdParam}`, data, {
+                    headers: {
+                        Authorization: 6,
+                    }
+                });
+                alert(`Cadastro atualizado com sucesso.`);
+                setRedirect(true);  
+            } catch (err) {
+                alert('Erro na atualização, tente novamente.');
+            }
+        } else {
+            if ( action === 'novo' ) {
+                try {
+                    const response = await api.post('produtos', data, {
+                        headers: {
+                            Authorization: usuarioId,
+                        }
+                    });
+                    alert(`Feito o cadastro com sucesso`);
+                    setRedirect(true);  
+                } catch (err) {
+                    alert('Erro no cadastro, tente novamente.');
                 }
-            });
-            alert(`Feito o cadastro com sucesso`);
-
-        } catch (err) {
-
-            alert('Erro no cadastro, tente novamente.');
+            }
         }
     }
 
     return (
         <div className="animated fadeIn">
-            <Form onSubmit={handleProdutos}>
+            { redirect && <Redirect to="/lista-produtos" /> }
+            <Form onSubmit={handleProdutos} onReset={handleReset}>
                 <Row>
                     <Col xs="12" md="12">
                         <Card>
                             <CardHeader>
                                 <strong>Produtos</strong>
-                                <small> novo</small>
+                                {action === 'novo' ? <small> Novo</small> : <small> Editar</small>}
                             </CardHeader>
                             <CardBody>
                                 <FormGroup row>
@@ -135,9 +193,10 @@ export default function Produtos() {
                                 <FormGroup row>
                                     <Col md="1">
                                         <Label check className="form-check-label" htmlFor="ativo1">Ativo</Label>
-                                        <AppSwitch id="rdAtivo" className={'switch-ativo'}  label color={'success'} defaultChecked size={'sm'}
-                                        value={ativo}
-                                        onChange={ e => setAtivo(e.target.value)}
+                                        <AppSwitch id="rdAtivo" className={'switch-ativo'}  label color={'success'} size={'sm'}
+                                            checked={ativo === 1 ? true : false}
+                                            name="ativo"
+                                            onChange={handleInputChange}
                                         />
                                     </Col>
                                 </FormGroup>

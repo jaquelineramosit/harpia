@@ -58,7 +58,7 @@ export default function Listametas() {
             sortable: true,
             left: true,
             width: '12%',
-            cell: row => <Badge color="success">Ativo</Badge>,
+            cell: row => row.ativo === 1 ? <Badge color="success">Ativo</Badge> : <Badge color="danger">Inativo</Badge>,
         },
         {
             name: 'Ações',

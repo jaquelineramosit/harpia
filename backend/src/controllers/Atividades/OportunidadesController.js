@@ -101,7 +101,8 @@ module.exports = {
         const { nomeoportunidade, proprietarioId,
                 clienteId, contatoId, 
                 produtoId, fasepipeId,
-                motivoperdaId, valor, expectativafechamentoId,
+                motivoperdaId, valor, temperaturafechamentoId,
+                expectativafechamento,
                 anexoId, descricao, ativo } = request.body;
         
         const [id] = await connection('oportunidades').insert({
@@ -113,7 +114,8 @@ module.exports = {
                 fasepipeId,
                 motivoperdaId, 
                 valor, 
-                expectativafechamentoId,
+                temperaturafechamentoId,
+                expectativafechamento,
                 anexoId, 
                 descricao,
                 ativo,
@@ -131,8 +133,8 @@ module.exports = {
         
         const { nomeoportunidade, proprietarioId,
             clienteId, contatoId, 
-            produtoId, fasepipeId,
-            motivoperdaId, valor, expectativafechamentoId,
+            produtoId, fasepipeId, expectativafechamento,
+            motivoperdaId, valor, temperaturafechamentoId,
             anexoId, descricao, ativo } = request.body;
 
         await connection('oportunidades').where('id', id).update({
@@ -144,7 +146,8 @@ module.exports = {
             fasepipeId,
             motivoperdaId, 
             valor, 
-            expectativafechamentoId,
+            expectativafechamento,
+            temperaturafechamentoId,
             anexoId, 
             descricao,
             ativo,

@@ -6,10 +6,16 @@ module.exports = {
     client: 'mysql',
     connection: {
       host : 'mysql.codefour.com.br',
-      user : 'codefo06_jaq',
-      password : 'Code123!@#',
+      user : 'codefo06_gabi',
+      password : 'codefour123!@#',
       database : 'codefo06_harpia'
     },
+    // connection: {
+    //   host : 'localhost',
+    //   user : 'root',
+    //   password : '@dmin',
+    //   database : 'codefo06_harpia'
+    // },
     migrations : {
       directory: './src/database/migrations',
       tableName: 'knex_migrations'
