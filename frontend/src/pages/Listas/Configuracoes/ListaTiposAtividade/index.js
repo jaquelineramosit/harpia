@@ -38,8 +38,6 @@ export default function ListasetTipoatividades() {
             selector: 'tipoatividade',
             sortable: true,
             width: '32%',
-
-
         },
         {
             name: 'Descrição',
@@ -47,13 +45,12 @@ export default function ListasetTipoatividades() {
             sortable: true,
             left: true,
             width: '35%',
-
         },
         {
             name: 'Status',
             sortable: true,
             left: true,
-            cell: row => <Badge color="success">Ativo</Badge>,
+            cell: row => row.ativo === 1 ? <Badge color="success">Ativo</Badge> : <Badge color="danger">Inativo</Badge>,
         },
         {
             name: 'Ações',

@@ -11,7 +11,7 @@ const Marcas = (props) => {
     var search = props.location.search;
     var params = new URLSearchParams(search);
     var action = params.get('action');
-    var marcasIdParams = props.match.params.id;
+    var marcaIdParam = props.match.params.id;
     const usuarioId = localStorage.getItem('userId');
 
     const [nomemarca, setNomemarca] = useState('');
@@ -19,19 +19,19 @@ const Marcas = (props) => {
     const [ativo, setAtivo] = useState(1);
 
     useEffect(() => {
-        if (action === 'edit' && marcasIdParams !== '') {
-            api.get(`marcas/${marcasIdParams}`).then(response => {
+        if (action === 'edit' && marcaIdParam !== '') {
+            api.get(`marcas/${marcaIdParam}`).then(response => {
                 setNomemarca(response.data.nomemarca);
-                setNacional(response.data.nacional)
+                setNacional(response.data.nacional);
                 response.data.ativo === 1 ? setAtivo(1) : setAtivo(0);
             });
         } else {
             return;
         }
-    }, [marcasIdParams])
+    }, [marcaIdParam]);
 
     function handleInputChange(event) {
-        const { name, value } = event.target;
+        const { name } = event.target;
 
         if ( name === 'ativo' ) {
             if ( ativo === 1 ) {
@@ -56,19 +56,17 @@ const Marcas = (props) => {
         };
 
         if (action === 'edit') {
-
             try {
-                const response = await api.put(`/marcas/${marcasIdParams}`, data, {
+                const response = await api.put(`/marcas/${marcaIdParam}`, data, {
                     headers: {
                         Authorization: 6,
                     }
                 });
-                alert(`Cadastro atualizado com sucesso.`);
+                alert('Cadastro atualizado com sucesso.');
                 setRedirect(true);  
             } catch (err) {
                 alert('Erro na atualização, tente novamente.');
             }
-
         } else {
 
             if (action === 'novo') {
@@ -81,7 +79,6 @@ const Marcas = (props) => {
                     alert('Cadastro realizado com sucesso.');
                     setRedirect(true);  
                 } catch (err) {
-
                     alert('Erro no cadastro, tente novamente.');
                 }
             }

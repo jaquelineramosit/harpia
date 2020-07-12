@@ -36,28 +36,28 @@ export default function ListaClientes() {
             name: 'Cliente',
             selector: 'nomecliente',
             sortable: true,
-            width: '9%',
+            width: '12%',
         },
         {
             name: 'Razão Social',
             selector: 'razaosocial',
             sortable: true,
             left: true,
-            width: '11%',
+            width: '12%',
         },
         {
             name: 'Site',
             selector: 'site',
             sortable: true,
             left: true,
-            width: '13%',
+            width: '14%',
         },
         {
             name: 'Email',
             selector: 'email',
             sortable: true,
             left: true,
-            width: '13%',
+            width: '14%',
         },
         {
             name: 'Telefone',
@@ -78,19 +78,21 @@ export default function ListaClientes() {
             selector: 'uf',
             sortable: true,
             left: true,
-            width: '13%',
+            width: '8%',
         },
         {
             name: 'Status',
             sortable: true,
             left: true,
             cell: row => row.ativo === 1 ? <Badge color="success">Ativo</Badge> : <Badge color="danger">Inativo</Badge>,
+            width: '8%',
         },
         {
             name: 'Ações',
             sortable: true,
             right: true,
-            cell: row => <Link to={`clientes/${row.id}?action=edit`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg"></i></Link>
+            cell: row => <Link to={`clientes/${row.id}?action=edit`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg"></i></Link>,
+            width: '8%',
         },
     ];
     return (

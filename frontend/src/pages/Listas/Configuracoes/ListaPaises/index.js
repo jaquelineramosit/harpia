@@ -37,9 +37,6 @@ export default function Listapaises() {
             selector: 'nomepais',
             sortable: true,
             width: '20%',
-            
-
-
         },
         {
             name: 'Sigla',
@@ -47,7 +44,6 @@ export default function Listapaises() {
             sortable: true,
             left: true,
             width: '20%',
-
         },
         {
             name: 'Moeda',
@@ -55,7 +51,6 @@ export default function Listapaises() {
             sortable: true,
             left: true,
             width: '20%',
-
         },
         {
             name: 'Sigla da Moeda',
@@ -63,19 +58,18 @@ export default function Listapaises() {
             sortable: true,
             left: true,
             width: '20%',
-
         },
         {
             name: 'Status',
             sortable: true,
             left: true,
-            cell: row => <Badge color="success">Ativo</Badge>,
+            cell: row => row.ativo === 1 ? <Badge color="success">Ativo</Badge> : <Badge color="danger">Inativo</Badge>,
         },
         {
             name: 'Ações',
             sortable: true,
             right: true,
-            cell: row => <Link to={`paises/${row.id}`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg"></i></Link>
+            cell: row => <Link to={`paises/${row.id}?action=edit`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg"></i></Link>
         },
     ];
 
@@ -88,7 +82,7 @@ export default function Listapaises() {
 
                             <i className="fa fa-align-justify"></i>Países
 
-                            <Link to={`paises`} className="btn btn-secondary float-right">
+                            <Link to={`paises?action=novo`} className="btn btn-secondary float-right">
                                 <i className="cui-file icons mr-1"></i>
                                                     Novo
                                                 </Link>
