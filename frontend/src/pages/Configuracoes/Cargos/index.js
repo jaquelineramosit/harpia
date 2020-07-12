@@ -13,25 +13,25 @@ const Cargos = (props) => {
     var search = props.location.search;
     var params = new URLSearchParams(search);
     var action = params.get('action');
-    var cargosIdParams = props.match.params.id;
+    var cargoIdParam = props.match.params.id;
     const usuarioId = localStorage.getItem('userId');
 
     const [nomecargo, setNomecargo] = useState('');
     const [ativo, setAtivo] = useState(1);
 
     useEffect(() => {
-        if (action === 'edit' && cargosIdParams !== '') {
-            api.get(`cargos/${cargosIdParams}`).then(response => {
+        if (action === 'edit' && cargoIdParam !== '') {
+            api.get(`cargos/${cargoIdParam}`).then(response => {
                 setNomecargo(response.data.nomecargo);
                 response.data.ativo === 1 ? setAtivo(1) : setAtivo(0);
             });
         } else {
             return;
         }
-    }, [cargosIdParams])
+    }, [cargoIdParam]);
 
     function handleInputChange(event) {
-        var { name, value } = event.target;
+        var { name } = event.target;
 
         if ( name === 'ativo' ) {
             if ( ativo === 1 ) {
@@ -56,7 +56,7 @@ const Cargos = (props) => {
 
         if (action === 'edit') {
             try {
-                const response = await api.put(`/cargos/${cargosIdParams}`, data, {
+                const response = await api.put(`/cargos/${cargoIdParam}`, data, {
                     headers: {
                         Authorization: 6,
                     }
@@ -74,7 +74,7 @@ const Cargos = (props) => {
                             Authorization: 6,
                         }
                     });
-                    alert(`Cadastro realizado com sucesso.`);
+                    alert('Cadastro realizado com sucesso.');
                     setRedirect(true);  
                 } catch (erro) {
                     alert('Erro no cadastro, tente novamente.');

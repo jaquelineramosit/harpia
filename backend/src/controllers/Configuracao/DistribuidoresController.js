@@ -27,23 +27,21 @@ module.exports = {
         const { nomedistribuidor, cnpj, razaosocial, contato, telefone, celular,
             site, email, ativo } = request.body;
 
-        console.log(request.headers.authorization);
-        
-        // const [id] = await connection('distribuidores').insert({
-        //     nomedistribuidor, 
-        //     cnpj, 
-        //     razaosocial, 
-        //     contato, 
-        //     telefone, 
-        //     celular,
-        //     site, 
-        //     email,                
-        //     ativo,
-        //     dataUltModif,
-        //     usuarioId
-        // })
+        const [id] = await connection('distribuidores').insert({
+            nomedistribuidor, 
+            cnpj, 
+            razaosocial, 
+            contato, 
+            telefone, 
+            celular,
+            site, 
+            email,                
+            ativo,
+            dataUltModif,
+            usuarioId
+        })
 
-        // return response.json({ id });
+        return response.json({ id });
     },
     
     async update (request, response) {

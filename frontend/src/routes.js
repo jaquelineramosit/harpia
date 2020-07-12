@@ -122,7 +122,8 @@ const routes = [
   //Configuração
   { path: '/cargos', exact: true, name: 'Cargos', component: Cargos },
   { path: '/cargos/:id', name: 'Cargos', component: Cargos },
-  { path: '/clientes', name: 'Clientes', component: Clientes },
+  { path: '/clientes', exact: true, name: 'Clientes', component: Clientes },
+  { path: '/clientes/:id', name: 'Clientes', component: Clientes },
   { path: '/contatos', exact: true, name: 'Contatos', component: Contatos },
   { path: '/contatos/:id', name: 'Contatos', component: Contatos },
   { path: '/departamentos', exact: true, name: 'Departamentos', component: Departamentos },
