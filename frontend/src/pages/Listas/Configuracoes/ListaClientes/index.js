@@ -37,8 +37,6 @@ export default function ListaClientes() {
             selector: 'nomecliente',
             sortable: true,
             width: '9%',
-
-
         },
         {
             name: 'Razão Social',
@@ -46,7 +44,6 @@ export default function ListaClientes() {
             sortable: true,
             left: true,
             width: '11%',
-
         },
         {
             name: 'Site',
@@ -54,7 +51,6 @@ export default function ListaClientes() {
             sortable: true,
             left: true,
             width: '13%',
-
         },
         {
             name: 'Email',
@@ -62,7 +58,6 @@ export default function ListaClientes() {
             sortable: true,
             left: true,
             width: '13%',
-
         },
         {
             name: 'Telefone',
@@ -70,7 +65,6 @@ export default function ListaClientes() {
             sortable: true,
             left: true,
             width: '12%',
-
         },
         {
             name: 'Cidade',
@@ -78,7 +72,6 @@ export default function ListaClientes() {
             sortable: true,
             left: true,
             width: '12%',
-
         },
         {
             name: 'Estado',
@@ -86,19 +79,18 @@ export default function ListaClientes() {
             sortable: true,
             left: true,
             width: '13%',
-
         },
         {
             name: 'Status',
             sortable: true,
             left: true,
-            cell: row => <Badge color="success">Ativo</Badge>,
+            cell: row => row.ativo === 1 ? <Badge color="success">Ativo</Badge> : <Badge color="danger">Inativo</Badge>,
         },
         {
             name: 'Ações',
             sortable: true,
             right: true,
-            cell: row => <Link to={`clientes/${row.id}`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg"></i></Link>
+            cell: row => <Link to={`clientes/${row.id}?action=edit`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg"></i></Link>
         },
     ];
     return (
@@ -110,7 +102,7 @@ export default function ListaClientes() {
 
                             <i className="fa fa-align-justify"></i>Clientes
 
-                            <Link to={`clientes`} className="btn btn-secondary float-right">
+                            <Link to={`clientes?action=novo`} className="btn btn-secondary float-right">
                                 <i className="cui-file icons mr-1"></i>
                                                     Novo
                                                 </Link>

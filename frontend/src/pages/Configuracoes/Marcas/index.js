@@ -3,92 +3,101 @@ import { Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button, 
 import { AppSwitch } from '@coreui/react'
 import '../../../global.css';
 import api from '../../../../src/services/api';
+import { Redirect } from "react-router-dom";
 
 const Marcas = (props) => {
+    const [redirect, setRedirect] = useState(false);
 
-  var search = props.location.search;
-  var params = new URLSearchParams(search);
-  var action = params.get('action');
-  var marcasIdParams = props.match.params.id;
+    var search = props.location.search;
+    var params = new URLSearchParams(search);
+    var action = params.get('action');
+    var marcasIdParams = props.match.params.id;
+    const usuarioId = localStorage.getItem('userId');
 
+    const [nomemarca, setNomemarca] = useState('');
+    const [nacional, setNacional] = useState('');
+    const [ativo, setAtivo] = useState(1);
 
-  const usuarioId = localStorage.getItem('userId');
+    useEffect(() => {
+        if (action === 'edit' && marcasIdParams !== '') {
+            api.get(`marcas/${marcasIdParams}`).then(response => {
+                setNomemarca(response.data.nomemarca);
+                setNacional(response.data.nacional)
+                response.data.ativo === 1 ? setAtivo(1) : setAtivo(0);
+            });
+        } else {
+            return;
+        }
+    }, [marcasIdParams])
 
-  const [formData, setFormData] = useState({
-      nomemarca: '',
-      nacional: '',
-  });
+    function handleInputChange(event) {
+        const { name, value } = event.target;
 
-  useEffect(() => {
-      if (action === 'edit' && marcasIdParams !== '') {
-          api.get(`marcas/${marcasIdParams}`).then(response => {
-              document.getElementById('txtNomeMarca').value = response.data.nomemarca;
-              document.getElementById('txtNacional').value = response.data.nacional;
+        if ( name === 'ativo' ) {
+            if ( ativo === 1 ) {
+                setAtivo(0);
+            } else {
+                setAtivo(1);
+            }
+        }
+    };
 
-              setFormData({
-                  ...formData,
-                  nomemarca: response.data.nomemarca,
-                  nacional: response.data.nacional,
+    function handleReset() {
+        setRedirect(true);
+    };
 
-              })
-          });
-      } else {
-          return;
-      }
-  }, [marcasIdParams])
+    async function handleMarcas(e) {
+        e.preventDefault();
 
-  function handleInputChange(event) {
-      const { name, value } = event.target;
+        const data = {
+            nomemarca,
+            nacional,
+            ativo
+        };
 
-      setFormData({ ...formData, [name]: value });
-  };
+        if (action === 'edit') {
 
-  async function handleMarcas(e) {
-      e.preventDefault();
+            try {
+                const response = await api.put(`/marcas/${marcasIdParams}`, data, {
+                    headers: {
+                        Authorization: 6,
+                    }
+                });
+                alert(`Cadastro atualizado com sucesso.`);
+                setRedirect(true);  
+            } catch (err) {
+                alert('Erro na atualização, tente novamente.');
+            }
 
-      const data = formData;
+        } else {
 
-      if (action === 'edit') {
+            if (action === 'novo') {
+                try {
+                    const response = await api.post('marcas', data, {
+                        headers: {
+                            Authorization: 6,
+                        }
+                    });
+                    alert('Cadastro realizado com sucesso.');
+                    setRedirect(true);  
+                } catch (err) {
 
-          try {
-              const response = await api.put(`/marcas/${marcasIdParams}`, data, {
-                  headers: {
-                      Authorization: 6,
-                  }
-              });
-              alert(`Cadastro atualizado com sucesso.`);
-          } catch (err) {
-
-              alert('Erro na atualização, tente novamente.');
-          }
-
-      } else {
-
-          if (action === 'novo') {
-              try {
-                  const response = await api.post('marcas', data, {
-                      headers: {
-                          Authorization: 6,
-                      }
-                  });
-                  alert(`Cadastro realizado com sucesso.`);
-              } catch (err) {
-
-                  alert('Erro no cadastro, tente novamente.');
-              }
-          }
-      }
-  }
+                    alert('Erro no cadastro, tente novamente.');
+                }
+            }
+        }
+    }
 
     return (
         <div className="animated fadeIn">
-            <Form onSubmit={handleMarcas}>
+            { redirect && <Redirect to="/lista-marcas" /> }
+            <Form onSubmit={handleMarcas} onReset={handleReset}>
                 <Row>
                     <Col xs="12" md="12">
                         <Card>
                             <CardHeader>
                                 <strong>Marcas</strong>
-                                <small> novo</small>
+                                {action === 'novo' ? <small> Novo</small> : <small> Editar</small>}
                             </CardHeader>
                             <CardBody>
                                 <FormGroup row>
@@ -96,24 +105,27 @@ const Marcas = (props) => {
                                         <Label htmlFor="nomeMarca">Nome da Marca</Label>
                                         <Input type="text" required id="txtNomeMarca" placeholder="Digite o nome do Pipe"
                                             name="nomemarca"
-                                            onChange={handleInputChange} />
+                                            value={nomemarca}
+                                            onChange={e => setNomemarca(e.target.value)} />
                                     </Col>
                                     <Col md="4">
                                         <Label htmlFor="nacional">Nacionalidade</Label>
                                         <Input type="text" required id="txtNacional" placeholder="Digite a nacionalidade"
                                             name="nacional"
-                                            onChange={handleInputChange} />
+                                            value={nacional}
+                                            onChange={e => setNacional(e.target.value)} />
                                     </Col>
                                 </FormGroup>
-                                {/*<FormGroup row>
+                                <FormGroup row>
                                     <Col md="1">
                                         <Label check className="form-check-label" htmlFor="ativo1">Ativo</Label>
-                                        <AppSwitch id="rdAtivo" className={'switch-ativo'}  label color={'success'} defaultChecked size={'sm'}
-                                        value={ativo}
-                                        onChange={ e => setAtivo(e.target.value)}
+                                        <AppSwitch id="rdAtivo" className={'switch-ativo'}  label color={'success'} size={'sm'}
+                                            checked={ativo === 1 ? true : false}
+                                            name="ativo"
+                                            onChange={handleInputChange}
                                         />
                                     </Col>
-                                </FormGroup>*/}
+                                </FormGroup>
                             </CardBody>
                             <CardFooter className="text-center">
                                 <Button type="submit" size="sm" color="success" className=" mr-3"><i className="fa fa-check"></i> Salvar</Button>
