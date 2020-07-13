@@ -1,6 +1,7 @@
 const connection = require('../../database/connection');
 const getDate = require('../../utils/getDate');
 module.exports = {
+    
     async getAll (request, response) {
         const anotacoes = await connection('anotacoes')
         .leftJoin( 'clientes' , 'clientes.id' , '=' , 'anotacoes.clienteId')
@@ -35,42 +36,42 @@ module.exports = {
         return response.json(anotacoes);
     },
 
-    async getByOportunidadeId (request, response) {
-        const  { oportunidadeId }  = request.params;
+        async getByOportunidadeId (request, response) {
+            const  { oportunidadeId }  = request.params;
 
-        const anotacoes = await connection('anotacoes')
-            .where('oportunidades.id', oportunidadeId)
-            .leftJoin( 'clientes' , 'clientes.id' , '=' , 'anotacoes.clienteId')
-            .leftJoin( 'oportunidades' , 'oportunidades.id' , '=' , 'anotacoes.oportunidadeId')
-            .leftJoin( 'contatos' , 'contatos.id' , '=' , 'anotacoes.contatoId')
-            .select([
-                'anotacoes.*',
-                'clientes.nomecliente',
-                'oportunidades.nomeoportunidade',
-                'contatos.nomecontato'
-            ]);
-    
-        return response.json(anotacoes);
-    },
-
-    async create(request, response) {
-        const  usuarioId  = request.headers.authorization;
-        const  dataUltModif = getDate();
-
-        const { anotacao, clienteId, oportunidadeId, contatoId, cancelada } = request.body;
+            const anotacoes = await connection('anotacoes')
+                .where('oportunidades.id', oportunidadeId)
+                .leftJoin( 'clientes' , 'clientes.id' , '=' , 'anotacoes.clienteId')
+                .leftJoin( 'oportunidades' , 'oportunidades.id' , '=' , 'anotacoes.oportunidadeId')
+                .leftJoin( 'contatos' , 'contatos.id' , '=' , 'anotacoes.contatoId')
+                .select([
+                    'anotacoes.*',
+                    'clientes.nomecliente',
+                    'oportunidades.nomeoportunidade',
+                    'contatos.nomecontato'
+                ]);
         
-        const [id] = await connection('anotacoes').insert({
-                anotacao,
-                clienteId,
-                oportunidadeId,
-                contatoId,
-                cancelada,
-                dataUltModif,
-                usuarioId
-        })
+            return response.json(anotacoes);
+        },
 
-        return response.json({ id });
-    },
+        async create(request, response) {
+            const  usuarioId  = request.headers.authorization;
+            const  dataUltModif = getDate();
+
+            const { anotacao, clienteId, oportunidadeId, contatoId, cancelada } = request.body;
+            
+            const [id] = await connection('anotacoes').insert({
+                    anotacao,
+                    clienteId,
+                    oportunidadeId,
+                    contatoId,
+                    cancelada,
+                    dataUltModif,
+                    usuarioId
+            })
+
+            return response.json({ id });
+        },
     
         async update (request, response) {
             const   { id }   = request.params;
@@ -90,6 +91,7 @@ module.exports = {
 
             return response.status(204).send();
         },
+
         async getCount (request,response) {        
 
             const [count] = await connection('anotacoes').count()

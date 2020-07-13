@@ -2,93 +2,102 @@ import React, { useState, useEffect } from 'react';
 import { Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button, CardFooter, Form } from 'reactstrap';
 import { AppSwitch } from '@coreui/react'
 import '../../../global.css';
+import { Redirect } from "react-router-dom";
 import api from '../../../../src/services/api';
 
 const TiposAtividade = (props) => {
+    const [redirect, setRedirect] = useState(false);
 
-  var search = props.location.search;
-  var params = new URLSearchParams(search);
-  var action = params.get('action');
-  var tiposAtividadeIdParams = props.match.params.id;
+    var search = props.location.search;
+    var params = new URLSearchParams(search);
+    var action = params.get('action');
+    var tipoAtividadeIdParam = props.match.params.id;
+    const usuarioId = localStorage.getItem('userId');
 
+    const [tipoatividade, setTipoAtividade] = useState('');
+    const [descricao, setDescricao] = useState('');
+    const [ativo, setAtivo] = useState(1);
 
-  const usuarioId = localStorage.getItem('userId');
+    useEffect(() => {
+        if (action === 'edit' && tipoAtividadeIdParam !== '') {
+            api.get(`tipos-atividade/${tipoAtividadeIdParam}`).then(response => {
+                setTipoAtividade(response.data.tipoatividade);
+                setDescricao(response.data.descricao);
+                response.data.ativo === 1 ? setAtivo(1) : setAtivo(0);
+            });
+        } else {
+            return;
+        }
+    }, [tipoAtividadeIdParam])
 
-  const [formData, setFormData] = useState({
-    tipoatividade: '',
-    descricao:'',
-  });
+    function handleInputChange(event) {
+        const { name } = event.target;
 
-  useEffect(() => {
-      if (action === 'edit' && tiposAtividadeIdParams !== '') {
-          api.get(`tipos-atividade/${tiposAtividadeIdParams}`).then(response => {
-              document.getElementById('txtTipoAtividade').value = response.data.tipoatividade;
-              document.getElementById('txtDescricao').value = response.data.descricao;
+        if ( name === 'ativo' ) {
+            if ( ativo === 1 ) {
+                setAtivo(0);
+            } else {
+                setAtivo(1);
+            }
+        }
+    };
 
-              setFormData({
-                  ...formData,
-                  tipoatividade: response.data.tipoatividade,
-                  descricao: response.data.descricao,
+    function handleReset() {
+        setRedirect(true);
+    };
 
-              })
-          });
-      } else {
-          return;
-      }
-  }, [tiposAtividadeIdParams])
+    async function handleTiposAtividades(e) {
+        e.preventDefault();
 
-  function handleInputChange(event) {
-      const { name, value } = event.target;
+        const data = {
+            tipoatividade,
+            descricao,
+            ativo
+        };
 
-      setFormData({ ...formData, [name]: value });
-  };
+        if (action === 'edit') {
 
-  async function handleTiposAtividades(e) {
-      e.preventDefault();
+            try {
+                const response = await api.put(`/tipos-atividade/${tipoAtividadeIdParam}`, data, {
+                    headers: {
+                        Authorization: 6,
+                    }
+                });
+                alert(`Cadastro atualizado com sucesso.`);
+                setRedirect(true);  
+            } catch (err) {
+                alert('Erro na atualização, tente novamente.');
+            }
 
-      const data = formData;
+        } else {
 
-      if (action === 'edit') {
+            if (action === 'novo') {
+                try {
+                    const response = await api.post('tipos-atividade', data, {
+                        headers: {
+                            Authorization: 6,
+                        }
+                    });
+                    alert(`Cadastro realizado com sucesso.`);
+                    setRedirect(true);  
+                } catch (err) {
 
-          try {
-              const response = await api.put(`/tipos-atividade/${tiposAtividadeIdParams}`, data, {
-                  headers: {
-                      Authorization: 6,
-                  }
-              });
-              alert(`Cadastro atualizado com sucesso.`);
-          } catch (err) {
-
-              alert('Erro na atualização, tente novamente.');
-          }
-
-      } else {
-
-          if (action === 'novo') {
-              try {
-                  const response = await api.post('tipos-atividade', data, {
-                      headers: {
-                          Authorization: 6,
-                      }
-                  });
-                  alert(`Cadastro realizado com sucesso.`);
-              } catch (err) {
-
-                  alert('Erro no cadastro, tente novamente.');
-              }
-          }
-      }
-  }
+                    alert('Erro no cadastro, tente novamente.');
+                }
+            }
+        }
+    }
 
     return (
         <div className="animated fadeIn">
-            <Form onSubmit={handleTiposAtividades}>
+            { redirect && <Redirect to="/lista-tipos-atividade" /> }
+            <Form onSubmit={handleTiposAtividades} onReset={handleReset}>
                 <Row>
                     <Col xs="12" md="12">
                         <Card>
                             <CardHeader>
                                 <strong>Tipos de Atividades</strong>
-                                <small> novo</small>
+                                {action === 'novo' ? <small> Novo</small> : <small> Editar</small>}
                             </CardHeader>
                             <CardBody>
                                 <FormGroup row>
@@ -96,7 +105,9 @@ const TiposAtividade = (props) => {
                                         <Label htmlFor="tipoAtividade">Tipo de Atividade</Label>
                                         <Input type="text" required id="txtTipoAtividade" placeholder="Digite o Tipo de Atividade"
                                             name="tipoatividade"
-                                            onChange={handleInputChange} />
+                                            value={tipoatividade}
+                                            onChange={e => setTipoAtividade(e.target.value)}
+                                        />
                                     </Col>
                                 </FormGroup>
                                 <FormGroup row>
@@ -104,18 +115,20 @@ const TiposAtividade = (props) => {
                                         <Label>Descrição</Label>
                                         <Input type="textarea" rows="5" id="txtDescricao"
                                             name="descricao"
-                                            onChange={handleInputChange} />
+                                            value={descricao}
+                                            onChange={e => setDescricao(e.target.value)} />
                                     </Col>
                                 </FormGroup>
-                                {/*<FormGroup row>
+                                <FormGroup row>
                                     <Col md="1">
                                         <Label check className="form-check-label" htmlFor="ativo1">Ativo</Label>
-                                        <AppSwitch id="rdAtivo" className={'switch-ativo'}  label color={'success'} defaultChecked size={'sm'}
-                                        value={ativo}
-                                        onChange={ e => setAtivo(e.target.value)}
+                                        <AppSwitch id="rdAtivo" className={'switch-ativo'}  label color={'success'} size={'sm'}
+                                            checked={ativo === 1 ? true : false}
+                                            name="ativo"
+                                            onChange={handleInputChange}
                                         />
                                     </Col>
-                                </FormGroup>*/}
+                                </FormGroup>
                             </CardBody>
                             <CardFooter className="text-center">
                                 <Button type="submit" size="sm" color="success" className=" mr-3"><i className="fa fa-check"></i> Salvar</Button>

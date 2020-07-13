@@ -3,88 +3,104 @@ import { Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button, 
 import { AppSwitch } from '@coreui/react'
 import '../../../global.css';
 import api from '../../../../src/services/api';
+import { Redirect } from 'react-router-dom';
 
 const TiposContato = (props) => {
+    const [redirect, setRedirect] = useState(false);
 
-  var search = props.location.search;
-  var params = new URLSearchParams(search);
-  var action = params.get('action');
-  var tiposContatoIdParams = props.match.params.id;
+    // parametros
+    var search = props.location.search;
+    var params = new URLSearchParams(search);
+    var action = params.get('action');
+    var tiposContatoIdParams = props.match.params.id;
+    const usuarioId = localStorage.getItem('userId');
 
+    const [tipocontato, setTipoContato] = useState('');
+    const [ativo, setAtivo] = useState(1);
 
-  const usuarioId = localStorage.getItem('userId');
+    useEffect(() => {
+    if (action === 'edit' && tiposContatoIdParams !== '') {
+        api.get(`tipos-contato/${tiposContatoIdParams}`).then(response => {
+            setTipoContato(response.data.tipocontato);
+            response.data.ativo === 1 ? setAtivo(1) : setAtivo(0);
+        });
+    } else {
+        return;
+    }
+    }, [tiposContatoIdParams]);
 
-  const [formData, setFormData] = useState({
-      tipocontato: '',
-  });
+    function handleReset() {
+        setRedirect(true);
+    };
 
-  useEffect(() => {
-      if (action === 'edit' && tiposContatoIdParams !== '') {
-          api.get(`tipos-contato/${tiposContatoIdParams}`).then(response => {
-              document.getElementById('txtTipoContato').value = response.data.tipocontato;
-console.log(response.data.tipocontato);
-              setFormData({
-                  ...formData,
-                  tipocontato: response.data.tipocontato,
+    function handleInputChange(event) {
+        const { name, value } = event.target;
 
-              })
-          });
-      } else {
-          return;
-      }
-  }, [tiposContatoIdParams])
+        switch (name) {            
+            case 'ativo': 
+                if ( ativo === 1 ) {
+                    console.log('entrou ativo change');
+                    setAtivo(0);
+                } else {
+                    console.log('entrou ativo change');
+                    setAtivo(1);
+                }
+                break;           
+        };
+    };
 
-  function handleInputChange(event) {
-      const { name, value } = event.target;
+    async function handleTiposContato(e) {
+        e.preventDefault();
 
-      setFormData({ ...formData, [name]: value });
-  };
+        const data = {
+            tipocontato,
+            ativo
+        };
 
-  async function handleTiposContato(e) {
-      e.preventDefault();
+        if (action === 'edit') {
 
-      const data = formData;
+            try {
+                const response = await api.put(`/tipos-contato/${tiposContatoIdParams}`, data, {
+                    headers: {
+                        Authorization: 6,
+                    }
+                });
+                alert(`Cadastro atualizado com sucesso.`);
+                setRedirect(true); 
+            } catch (err) {
 
-      if (action === 'edit') {
+                alert('Erro na atualização, tente novamente.');
+            }
 
-          try {
-              const response = await api.put(`/tipos-contato/${tiposContatoIdParams}`, data, {
-                  headers: {
-                      Authorization: 6,
-                  }
-              });
-              alert(`Cadastro atualizado com sucesso.`);
-          } catch (err) {
+        } else {
 
-              alert('Erro na atualização, tente novamente.');
-          }
+            if (action === 'novo') {
+                try {
+                    const response = await api.post('tipos-contato', data, {
+                        headers: {
+                            Authorization: 6,
+                        }
+                    });
+                    alert(`Cadastro realizado com sucesso.`);
+                    setRedirect(true); 
+                } catch (err) {
 
-      } else {
+                    alert('Erro no cadastro, tente novamente.');
+                }
+            }
+        }
+    }
 
-          if (action === 'novo') {
-              try {
-                  const response = await api.post('tipos-contato', data, {
-                      headers: {
-                          Authorization: 6,
-                      }
-                  });
-                  alert(`Cadastro realizado com sucesso.`);
-              } catch (err) {
-
-                  alert('Erro no cadastro, tente novamente.');
-              }
-          }
-      }
-  }
     return (
         <div className="animated fadeIn">
-            <Form onSubmit={handleTiposContato}>
+            { redirect && <Redirect to="/lista-tipo-contato" /> }
+            <Form onSubmit={handleTiposContato} onReset={handleReset}>
                 <Row>
                     <Col xs="12" md="12">
                         <Card>
                             <CardHeader>
                                 <strong>Tipos de Contato</strong>
-                                <small> novo</small>
+                                {action === 'novo' ? <small> Novo</small> : <small> Editar</small>}
                             </CardHeader>
                             <CardBody>
                                 <FormGroup row>
@@ -92,18 +108,21 @@ console.log(response.data.tipocontato);
                                         <Label htmlFor="tipocontato">Nome do Tipo do Contato</Label>
                                         <Input type="text" required id="txtTipoContato" placeholder="Digite o nome do Tipo de Contato"
                                             name="tipocontato"
-                                            onChange={handleInputChange} />
-                                    </Col>
-                                </FormGroup>
-                                {/*<FormGroup row>
-                                    <Col md="1">
-                                        <Label check className="form-check-label" htmlFor="ativo1">Ativo</Label>
-                                        <AppSwitch id="rdAtivo" className={'switch-ativo'}  label color={'success'} defaultChecked size={'sm'}
-                                        value={ativo}
-                                        oonChange={ e => setAtivo(e.target.checked)}
+                                            value={tipocontato}
+                                            onChange={e => setTipoContato(e.target.value)}
                                         />
                                     </Col>
-                                </FormGroup>*/}
+                                </FormGroup>
+                                <FormGroup row>
+                                    <Col md="1">
+                                        <Label check className="form-check-label" htmlFor="ativo1">Ativo</Label>
+                                        <AppSwitch id="rdAtivo" className={'switch-ativo'}  label color={'success'} size={'sm'}
+                                            checked={ativo === 1 ? true : false}
+                                            name="ativo"
+                                            onChange={handleInputChange}
+                                        />
+                                    </Col>
+                                </FormGroup>
                             </CardBody>
                             <CardFooter className="text-center">
                                 <Button type="submit" size="sm" color="success" className=" mr-3"><i className="fa fa-check"></i> Salvar</Button>

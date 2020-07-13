@@ -41,7 +41,7 @@ module.exports = {
 
         const { proprietarioId, nomecontato,
             tipocontatoId, cargoId, departamentoId, usuarioautorizador, 
-            telefone, celular, datanasc, email, cep, logradouro, 
+            telefone, celular, datanasc, email, cep, logradouro, numero, 
             complemento, bairro, cidade, uf, ativo } = request.body;
         
         const [id] = await connection('contatos').insert({
@@ -57,6 +57,7 @@ module.exports = {
             email, 
             cep, 
             logradouro, 
+            numero,
             complemento, 
             bairro,   
             cidade, 
@@ -76,7 +77,7 @@ module.exports = {
         
         const { proprietarioId, nomecontato,
             tipocontatoId, cargoId, departamentoId, usuarioautorizador, 
-            telefone, celular, datanasc, email, cep, logradouro, 
+            telefone, celular, datanasc, email, cep, logradouro, numero,
             complemento, bairro, cidade, uf, ativo } = request.body;
 
         await connection('contatos').where('id', id).update({
@@ -92,6 +93,7 @@ module.exports = {
             email, 
             cep, 
             logradouro, 
+            numero,
             complemento, 
             bairro,   
             cidade, 

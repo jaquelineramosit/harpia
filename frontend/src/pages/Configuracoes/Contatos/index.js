@@ -2,137 +2,242 @@ import React, { useState, useEffect } from 'react';
 import { Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button, InputGroup, InputGroupAddon, CardFooter, Form } from 'reactstrap';
 import { AppSwitch } from '@coreui/react'
 import '../../../global.css';
-import {telMask, celMask, cepMask} from '../../../mask'
+import {telMask, celMask, cepMask, numMask} from '../../../mask'
+import { Redirect } from 'react-router-dom';
+
 import api from '../../../../src/services/api';
 
-export default function Contatos() {
+const dateFormat = require('dateformat');
+
+export default function Contatos(props) {
+    const [redirect, setRedirect] = useState(false);
+
+    // parametros
+    var search = props.location.search;
+    var params = new URLSearchParams(search);  
+    var action = params.get('action');
+    var contatoIdParam = props.match.params.id; 
+    const usuarioId = localStorage.getItem('userId');
+    
+    // estados dos inputs
+    const [nomecontato, setNomeContato] = useState('');
     const [proprietarioId, setProprietarioId] = useState('');
-    const [nomecontato, setNomecontato] = useState('');
     const [tipocontatoId, setTipocontatoId] = useState('');
     const [departamentoId, setDepartamentoId] = useState('');
-    const [logradouro, setLogradouro] = useState('');
-    const [cargoId, setCargoId] = useState('');
-    const [complemento, setComplemento] = useState('');
-    const [bairro, setBairro] = useState('');
-    const [cep, setCep] = useState('');
-    const [cidade, setCidade] = useState('');
-    const [uf, setUf] = useState('');
     const [telefone, setTelefone] = useState('');
-    const [usuarioautorizador, setUsuarioautorizador] = useState('');
     const [celular, setCelular] = useState('');
     const [datanasc, setDatanasc] = useState('');
     const [email, setEmail] = useState('');
+    const [cep, setCep] = useState('');
+    const [logradouro, setLogradouro] = useState('');
+    const [numero, setNumero] = useState('');
+    const [cargoId, setCargoId] = useState('');
+    const [complemento, setComplemento] = useState('');
+    const [bairro, setBairro] = useState('');
+    const [cidade, setCidade] = useState('');
+    const [uf, setUf] = useState('');
+    const [usuarioautorizador, setUsuarioautorizador] = useState(1);
+    const [ativo, setAtivo] = useState(1);
+
+    // estados combos dinâmicos
     const [departamentosId, setdepartamentosId] = useState([]);
     const [proprietrariosId, setProprietariosId] = useState([]);
     const [tiposcontatoId, setTiposContatoId] = useState([]);
     const [cargosId, setCargosId] = useState([]);
     const [clientesId, setClientesId] = useState([]);
-    const [ativo, setAtivo] = useState("true");
-    const usuarioId = localStorage.getItem('userId');
 
+    // dados dos combos
     useEffect(() => {
         api.get('clientes').then(response => {
-        setClientesId(response.data);
+            setClientesId(response.data);
         })
-        }, [usuarioId]);
+    }, [usuarioId]);
 
     useEffect(() => {
-        api.get('clientes').then(response => {
-        setProprietariosId(response.data);
+        api.get('usuarios').then(response => {
+            setProprietariosId(response.data);
         })
-        }, [usuarioId]);
+    }, [usuarioId]);
 
     useEffect(() => {
         api.get('departamentos').then(response => {
-        setdepartamentosId(response.data);
+            setdepartamentosId(response.data);
         })
-        }, [usuarioId]);
+    }, [usuarioId]);
 
     useEffect(() => {
         api.get('tipos-contato').then(response => {
-        setTiposContatoId(response.data);
+            setTiposContatoId(response.data);
         })
-        }, [usuarioId]);
+    }, [usuarioId]);
 
     useEffect(() => {
         api.get('cargos').then(response => {
-        setCargosId(response.data);
+            setCargosId(response.data);
         })
-        }, [usuarioId]);
+    }, [usuarioId]);
+
+        useEffect(() => {
+            if ( action === 'edit' && contatoIdParam !== '' ) {
+                api.get(`contatos/${contatoIdParam}`).then(response => {                                         
+                    setNomeContato(response.data.nomecontato);
+                    setProprietarioId(response.data.proprietarioId);
+                    setDepartamentoId(response.data.departamentoId);
+                    setEmail(response.data.email);
+                    response.data.usuarioautorizador === 1 ? setUsuarioautorizador(1) : setUsuarioautorizador(0);
+                    setCargoId(response.data.cargoId);
+                    setTipocontatoId(response.data.tipocontatoId);
+                    response.data.dataNasc === 'null' ? setDatanasc("9999-99-99") : setDatanasc(dateFormat(response.data.datanasc, "yyyy-mm-dd"));
+                    setTelefone(response.data.telefone);
+                    setCelular(response.data.celular);
+                    setLogradouro(response.data.logradouro);
+                    setNumero(response.data.numero);
+                    setComplemento(response.data.complemento);
+                    setBairro(response.data.bairro);
+                    setCep(response.data.cep);
+                    setCidade(response.data.cidade);
+                    setUf(response.data.uf);
+                    response.data.ativo === 1 ? setAtivo(1) : setAtivo(0);                    
+                });            
+            } else {
+                return;
+            }
+        }, [contatoIdParam]);
+    
+        function handleReset() {
+            setRedirect(true);
+        };
+    
+        function handleInputChange(event) {
+            var { name, value } = event.target;
+    
+            switch (name) {
+                case 'ativo': 
+                    if ( ativo === 1 ) {
+                        setAtivo(0);
+                    } else {
+                        setAtivo(1);
+                    }
+                    break;
+                case 'usuarioautorizador': 
+                    if ( usuarioautorizador === 1 ) {
+                        setUsuarioautorizador(0);
+                    } else {
+                        setUsuarioautorizador(1);
+                    }
+                break;
+                case 'cep':
+                    setCep(cepMask(value));
+                    break;
+                case 'numero':
+                    setNumero(numMask(value));
+                    break;
+                case 'telefone':
+                    setTelefone(telMask(value));
+                    break;
+                case 'celular':
+                    setCelular(celMask(value));
+                    break;
+            }
+        };        
 
     async function handleContatos(e) {
         e.preventDefault();
 
-        const data = {
+        const data =  {
             proprietarioId,
             nomecontato,
             tipocontatoId,
             departamentoId,
+            usuarioautorizador,
+            telefone,
+            celular,
+            datanasc,
+            email,
+            cep,
             logradouro,
+            numero,
             cargoId,
             complemento,
             bairro,
             cidade,
             uf,
-            telefone,
-            usuarioautorizador,
-            celular,
-            datanasc,
-            email,
-            cep,
             ativo
+        };
+
+        if( action === 'edit' ) {
+            try {
+                const response = await api.put(`contatos/${contatoIdParam}`, data, {
+                    headers: {
+                        Authorization : usuarioId,
                     }
-        try {
-            const response = await api.post('contatos', data, {
-                headers: {
-                    Authorization : 18,
+                });
+                alert('Cadastro atualizado com sucesso.');    
+                setRedirect(true);  
+            } catch (err) {    
+                alert('Erro na atualização, tente novamente.');        
+            }
+        } else {
+            if ( action === 'novo' ) {
+                try {
+                    const response = await api.post('contatos', data, {
+                        headers: {
+                            Authorization : 18,
+                        }
+                    });
+                    alert('Cadastro realizado com sucesso.');
+                    setRedirect(true);
+                } catch (err) {
+                    alert('Erro no cadastro, tente novamente.');
                 }
-            });
-            alert(`Feito o cadastro com sucesso ${response.id}`);
-
-        } catch (err) {
-
-            alert('Erro no cadastro, tente novamente.');
+            }
         }
     }
 
     return (
         <div className="animated fadeIn">
-            <Form onSubmit={handleContatos}>
+            { redirect && <Redirect to="/lista-contatos" /> }
+            <Form onSubmit={handleContatos} onReset={handleReset}>
                 <Row>
                     <Col xs="12" md="12">
                         <Card>
                             <CardHeader>
                                 <strong>Contatos</strong>
-                                <small> novo</small>
+                                {action === 'novo' ? <small> Novo</small> : <small> Editar</small>}
                             </CardHeader>
                             <CardBody>
                                 <FormGroup row>
                                      <Col md="3">
                                         <Label htmlFor="NomeContato">Nome Contato</Label>
                                         <Input type="text" required id="txtNomecontato" placeholder="Digite o nome do Contato"
-                                        value={nomecontato}
-                                        onChange={ e => setNomecontato(e.target.value)}/>
+                                            name="nomecontato"
+                                            value={nomecontato}
+                                            onChange={e => setNomeContato(e.target.value)}
+                                        />
                                     </Col>
-                                    <Col md="3">
-                                    <Label htmlFor="clienteId">Cliente</Label>
-                                        <Input type="select" required name="select" id="cboClienteId"
-                                        value={departamentoId}
-                                        onChange={ e => setDepartamentoId(e.target.value)}>
+                                    {/* <Col md="3">
+                                        <Label htmlFor="clienteId">Cliente</Label>
+                                        <Input type="select" required id="cboClienteId"
+                                            name="clienteId"
+                                            value={clienteId}
+                                            onChange={e => setC(e.target.value)}
+                                        >
                                         <option value={undefined} defaultValue>Selecione...</option>
                                             {clientesId.map(cliente=> (
-                                            <option value={cliente.id}>{cliente.nomecliente}</option>
+                                                <option value={cliente.id}>{cliente.nomecliente}</option>
                                             ))}
                                         </Input>
-                                    </Col>
+                                    </Col> */}
                                     <Col md="3">
                                     <Label htmlFor="prorpietarioId">Proprietario</Label>
-                                        <Input type="select" required name="select" id="cboProprietarioId"
-                                        value={proprietarioId}
-                                        onChange={ e => setProprietarioId(e.target.value)}>
+                                        <Input type="select" required id="cboProprietarioId"
+                                            name="proprietarioId"
+                                            value={proprietarioId}
+                                            onChange={e => setProprietarioId(e.target.value)}
+                                        >
                                         <option value={undefined} defaultValue>Selecione...</option>
                                             {proprietrariosId.map(proprietario=> (
-                                            <option value={proprietario.id}>{proprietario.nomecliente}</option>
+                                                <option key={`proprietario${proprietario.id}`} value={proprietario.id}>{proprietario.nome}</option>
                                             ))}
 
                                         </Input>
@@ -141,12 +246,14 @@ export default function Contatos() {
                                 <FormGroup row>
                                     <Col md="3">
                                         <Label htmlFor="departamentoId">Departamento</Label>
-                                        <Input type="select" required name="select" id="cboDepartamentoId"
-                                        value={departamentoId}
-                                        onChange={ e => setDepartamentoId(e.target.value)}>
+                                        <Input type="select" required id="cboDepartamentoId"
+                                            name="departamentoId"
+                                            value={departamentoId}
+                                            onChange={e => setDepartamentoId(e.target.value)}
+                                        >
                                         <option value={undefined} defaultValue>Selecione...</option>
                                             {departamentosId.map(departamento=> (
-                                            <option value={departamento.id}>{departamento.departamento}</option>
+                                                <option key={`departamento${departamento.id}`}  value={departamento.id}>{departamento.departamento}</option>
                                             ))}
 
                                         </Input>
@@ -155,60 +262,69 @@ export default function Contatos() {
                                         <Label htmlFor="E-mail">E-mail</Label>
                                         <InputGroup>
                                         <Input type="email" required id="txtEmail" placeholder="Digite o e-mail"
-                                        value={email}
-                                        onChange={ e => setEmail(e.target.value)} />
+                                            name="email"
+                                            value={email}
+                                            onChange={e => setEmail(e.target.value)}
+                                        />
                                             <InputGroupAddon addonType="append">
                                                 <Button type="button" color="secondary icon-envelope"></Button>
                                             </InputGroupAddon>
                                         </InputGroup>
                                     </Col>
                                     <Col md="1">
-                                        <Label check className="form-check-label" htmlFor="ativo1">Autorizador</Label>
-                                        <AppSwitch id="rdAtivo" className={'switch-ativo'}  label color={'success'} defaultChecked size={'sm'}
-                                        value={usuarioautorizador}
-                                        onChange={ e => setUsuarioautorizador(e.target.value)}
+                                        <Label check className="form-check-label" htmlFor="rdUsuarioAutorizador">Autorizador</Label>
+                                        <AppSwitch id="rdUsuarioAutorizador" className={'switch-ativo'}  label color={'success'} size={'sm'}
+                                            checked={usuarioautorizador === 1 ? true : false}
+                                            name="usuarioautorizador"
+                                            onChange={handleInputChange}
                                         />
                                     </Col>
                                  </FormGroup>
                                 <FormGroup row>
                                     <Col md="3">
                                         <Label htmlFor="cargoId">Cargo</Label>
-                                        <Input type="select" required name="select" id="cboCargoId"
-                                        value={cargoId}
-                                        onChange={ e => setCargoId(e.target.value)}>
+                                        <Input type="select" required id="cboCargoId"
+                                            name="cargoId"
+                                            value={cargoId}
+                                            onChange={e => setCargoId(e.target.value)}
+                                        >
                                         <option value={undefined} defaultValue>Selecione...</option>
                                             {cargosId.map(cargo=> (
-                                            <option value={cargo.id}>{cargo.nomecargo}</option>
+                                                <option key={`cargo${cargo.id}`}  value={cargo.id}>{cargo.nomecargo}</option>
                                             ))}
                                         </Input>
                                     </Col>
                                     <Col md="3">
                                         <Label htmlFor="tipoContatoId">Tipo Contato</Label>
-                                        <Input type="select" required name="select" id="cboTipoContatoId"
-                                        value={tipocontatoId}
-                                        onChange={ e => setTipocontatoId(e.target.value)}>
+                                        <Input type="select" required id="cboTipoContatoId"
+                                            name="tipocontatoId"
+                                            value={tipocontatoId}
+                                            onChange={e => setTipocontatoId(e.target.value)}
+                                        >
                                             <option value={undefined}>Selecione...</option>
                                             <option value={undefined} defaultValue>Selecione...</option>
                                             {tiposcontatoId.map(tipoContato=> (
-                                            <option value={tipoContato.id}>{tipoContato.tipocontato}</option>
+                                                <option key={`tipoContato${tipoContato.id}`}  value={tipoContato.id}>{tipoContato.tipocontato}</option>
                                             ))}
                                         </Input>
                                     </Col>
-                                </FormGroup>
-                                 <FormGroup row>
-
-                                     <Col md="3">
+                                    <Col md="3">
                                         <Label htmlFor="datanasc">Data de nascimento</Label>
                                         <Input type="date" required id="txtdatanasc"
-                                        value={datanasc}
-                                        onChange={ e => setDatanasc(e.target.value)} />
+                                            name="datanasc"
+                                            value={datanasc}
+                                            onChange={e => setDatanasc(e.target.value)} />
                                     </Col>
+                                </FormGroup>
+                                 <FormGroup row>                                     
                                     <Col md="3">
                                     <Label htmlFor="Telefone">Telefone</Label>
                                         <InputGroup>
                                             <Input type="text"  id="txtTelefone" placeholder="(11) 9999-9999"
-                                            value={telefone}
-                                            onChange={ e => setTelefone(telMask(e.target.value))} />
+                                                name="telefone"
+                                                value={telefone}
+                                                onChange={e => setTelefone(e.target.value)}
+                                            />
                                             <InputGroupAddon addonType="append">
                                                 <Button type="button" color="secondary icon-phone"></Button>
                                             </InputGroupAddon>
@@ -218,10 +334,25 @@ export default function Contatos() {
                                         <Label htmlFor="Celular">Celular</Label>
                                         <InputGroup>
                                             <Input type="text" required id="txtCelular" placeholder="(11) 99999-9999"
-                                            value={celular}
-                                            onChange={ e => setCelular(celMask(e.target.value))} />
+                                                name="celular"
+                                                value={celular}
+                                                onChange={e => setCelular(e.target.value)}
+                                            />
                                             <InputGroupAddon addonType="append">
                                                 <Button type="button" color="secondary icon-screen-smartphone"></Button>
+                                            </InputGroupAddon>
+                                        </InputGroup>
+                                    </Col>
+                                    <Col md="3">
+                                        <Label htmlFor="CEP">CEP</Label>
+                                        <InputGroup>
+                                            <Input id="txtCEP" size="16" required type="text" placeholder="00000-000"
+                                                name="cep"
+                                                value={cep}
+                                                onChange={e => setCep(e.target.value)}
+                                            />
+                                            <InputGroupAddon addonType="append">
+                                                <Button type="button" color="secondary fa fa-truck"></Button>
                                             </InputGroupAddon>
                                         </InputGroup>
                                     </Col>
@@ -231,41 +362,49 @@ export default function Contatos() {
                                         <Label htmlFor="Logradouro">Logradouro</Label>
                                         <InputGroup>
                                             <Input type="text" required id="txtLogradouro"
-                                            placeholder="Digite o Logradouro"
-                                            value={logradouro}
-                                            onChange={ e => setLogradouro(e.target.value)} />
+                                                placeholder="Digite o Logradouro"
+                                                name="logradouro"
+                                                value={logradouro}
+                                                onChange={e => setLogradouro(e.target.value)}
+                                            />
+                                        </InputGroup>
+                                    </Col>
+                                    <Col md="3">
+                                        <Label htmlFor="numero">Número</Label>
+                                        <InputGroup>
+                                            <Input type="text" required id="txtNumero"
+                                                placeholder="Digite o número"
+                                                name="numero"
+                                                value={numero}
+                                                onChange={e => setNumero(e.target.value)}
+                                            />
                                         </InputGroup>
                                     </Col>
                                     <Col md="3">
                                         <Label htmlFor="Bairro">Bairro</Label>
                                         <Input type="text" required id="txtBairro" placeholder="Digite o Bairro"
-                                        value={bairro}
-                                        onChange={ e => setBairro(e.target.value)} />
-                                    </Col>
-                                    <Col md="3">
-                                        <Label htmlFor="CEP">CEP</Label>
-                                        <InputGroup>
-                                            <Input id="txtCEP" size="16" required type="text" placeholder="00000-000"
-                                            value={cep}
-                                            onChange={ e => setCep(cepMask(e.target.value))}/>
-                                            <InputGroupAddon addonType="append">
-                                                <Button type="button" color="secondary fa fa-truck"></Button>
-                                            </InputGroupAddon>
-                                        </InputGroup>
-                                    </Col>
+                                            name="bairro"
+                                            value={bairro}
+                                            onChange={e => setBairro(e.target.value)}
+                                        />
+                                    </Col>                                    
                                 </FormGroup>
                                 <FormGroup row>
                                     <Col md="3">
                                         <Label htmlFor="Cidade">Cidade</Label>
-                                        <Input type="text" required id="txtcidade" placeholder="Digite a Cidade"
-                                        value={cidade}
-                                        onChange={ e => setCidade(e.target.value)} />
+                                        <Input type="text" required id="txtCidade" placeholder="Digite a Cidade"
+                                            name="cidade"
+                                            value={cidade}
+                                            onChange={e => setCidade(e.target.value)}
+                                        />
                                     </Col>
                                     <Col md="3">
                                         <Label htmlFor="UF">UF</Label>
-                                        <Input type="select" required name="select" id="cboUF"
-                                        value={uf}
-                                        onChange={ e => setUf(e.target.value)}>
+                                        <Input type="select" required id="cboUF"
+                                            name="uf"
+                                            value={uf}
+                                            onChange={e => setUf(e.target.value)}
+                                        >
                                                     <option value={undefined}>Selecione...</option>
                                                     <option value="SP">São Paulo</option>
                                                     <option value="RJ">Rio de Janeiro</option>
@@ -298,16 +437,19 @@ export default function Contatos() {
                                     <Col md="3">
                                         <Label htmlFor="Complemento">Complemento</Label>
                                         <Input type="text" id="txtComplemento" placeholder="Digite o Complemento"
-                                        value={complemento}
-                                        onChange={ e => setComplemento(e.target.value)}/>
+                                            name="complemento"
+                                            value={complemento}
+                                            onChange={e => setComplemento(e.target.value)}
+                                        />
                                     </Col>
                                 </FormGroup>
                                 <FormGroup row>
                                     <Col md="1">
-                                        <Label check className="form-check-label" htmlFor="ativo1">Ativo</Label>
-                                        <AppSwitch id="rdAtivo" className={'switch-ativo'}  label color={'success'} defaultChecked size={'sm'}
-                                        value={ativo}
-                                        onChange={ e => setAtivo(e.target.value)}
+                                        <Label check className="form-check-label" htmlFor="rdAtivo">Ativo</Label>
+                                        <AppSwitch id="rdAtivo" className={'switch-ativo'}  label color={'success'} size={'sm'}
+                                            checked={ativo === 1 ? true : false}
+                                            name="ativo"
+                                            onChange={handleInputChange}
                                         />
                                     </Col>
 

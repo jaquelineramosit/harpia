@@ -4,88 +4,95 @@ import { AppSwitch } from '@coreui/react'
 import '../../../global.css';
 import api from '../../../../src/services/api';
 import { defaultThemes } from 'react-data-table-component';
+import { Redirect } from "react-router-dom";
 
 const Cargos = (props) => {
+    const [redirect, setRedirect] = useState(false);
 
-  var search = props.location.search;
-  var params = new URLSearchParams(search);
-  var action = params.get('action');
-  var cargosIdParams = props.match.params.id;
+    //parametros
+    var search = props.location.search;
+    var params = new URLSearchParams(search);
+    var action = params.get('action');
+    var cargoIdParam = props.match.params.id;
+    const usuarioId = localStorage.getItem('userId');
 
-  const usuarioId = localStorage.getItem('userId');
-  const [ativo, setAtivo] = useState('');
-  const [formData, setFormData] = useState({
-      nomecargo: '',
-      ativo: '',
+    const [nomecargo, setNomecargo] = useState('');
+    const [ativo, setAtivo] = useState(1);
 
-  });
+    useEffect(() => {
+        if (action === 'edit' && cargoIdParam !== '') {
+            api.get(`cargos/${cargoIdParam}`).then(response => {
+                setNomecargo(response.data.nomecargo);
+                response.data.ativo === 1 ? setAtivo(1) : setAtivo(0);
+            });
+        } else {
+            return;
+        }
+    }, [cargoIdParam]);
 
-  useEffect(() => {
-      if (action === 'edit' && cargosIdParams !== '') {
-          api.get(`cargos/${cargosIdParams}`).then(response => {
-              document.getElementById('txtNomeCargo').value = response.data.nomecargo;
+    function handleInputChange(event) {
+        var { name } = event.target;
 
-              setFormData({
-                  ...formData,
-                  nomecargo: response.data.nomecargo,
-              })
-          });
-      } else {
-          return;
-      }
-  }, [cargosIdParams])
+        if ( name === 'ativo' ) {
+            if ( ativo === 1 ) {
+                setAtivo(0);
+            } else {
+                setAtivo(1);
+            }
+        }
+    };
 
-  function handleInputChange(event) {
-      const { name, value } = event.target;
+    function handleReset() {
+        setRedirect(true);
+    };
 
-      setFormData({ ...formData, [name]: value });
-  };
+    async function handleCargos(e) {
+        e.preventDefault();
 
-  async function handleCargos(e) {
-      e.preventDefault();
+        const data = {
+            nomecargo,
+            ativo
+        };
 
-      const data = formData;
+        if (action === 'edit') {
+            try {
+                const response = await api.put(`/cargos/${cargoIdParam}`, data, {
+                    headers: {
+                        Authorization: 6,
+                    }
+                });
+                alert(`Cadastro atualizado com sucesso.`);
+                setRedirect(true);  
+            } catch (err) {
+                alert('Erro na atualização, tente novamente.');
+            }
+        } else {
+            if (action === 'novo') {
+                try {
+                    const response = await api.post('cargos', data, {
+                        headers: {
+                            Authorization: 6,
+                        }
+                    });
+                    alert('Cadastro realizado com sucesso.');
+                    setRedirect(true);  
+                } catch (erro) {
+                    alert('Erro no cadastro, tente novamente.');
+                }
+            }
+        }
+    }
 
-      if (action === 'edit') {
-
-          try {
-              const response = await api.put(`/cargos/${cargosIdParams}`, data, {
-                  headers: {
-                      Authorization: 6,
-                  }
-              });
-              alert(`Cadastro atualizado com sucesso.`);
-          } catch (err) {
-
-              alert('Erro na atualização, tente novamente.');
-          }
-
-      } else {
-
-          if (action === 'novo') {
-              try {
-                  const response = await api.post('cargos', data, {
-                      headers: {
-                          Authorization: 6,
-                      }
-                  });
-                  alert(`Cadastro realizado com sucesso.`);
-              } catch (erro) {
-
-                  alert('Erro no cadastro, tente novamente.');
-              }
-          }
-      }
-  }
     return (
         <div className="animated fadeIn">
-            <Form onSubmit={handleCargos}>
+            { redirect && <Redirect to="/lista-cargos" /> }
+            <Form onSubmit={handleCargos} onReset={handleReset}>
                 <Row>
                     <Col xs="12" md="12">
                         <Card>
                             <CardHeader>
                                 <strong>Cargos</strong>
-                                <small>novo</small>
+                                {action === 'novo' ? <small> Novo</small> : <small> Editar</small>}
                             </CardHeader>
                             <CardBody>
                                 <FormGroup row>
@@ -93,15 +100,17 @@ const Cargos = (props) => {
                                         <Label htmlFor="nomeCargo">Nome do Cargo</Label>
                                         <Input type="text" required id="txtNomeCargo" placeholder="Digite o nome do Cargo"
                                             name="nomecargo"
-                                            onChange={handleInputChange} />
+                                            value={nomecargo}
+                                            onChange={e => setNomecargo(e.target.value)} />
                                     </Col>
                                 </FormGroup>
                                 <FormGroup row>
                                     <Col md="1">
                                         <Label check className="form-check-label" htmlFor="ativo1">Ativo</Label>
-                                        <AppSwitch id="rdAtivo" className={'switch-ativo'}  label color={'success'} defaultChecked size={'sm'}
-                                        value={ativo}
-                                        onChange={ e => setAtivo(e.target.value)}
+                                        <AppSwitch id="rdAtivo" className={'switch-ativo'}  label color={'success'} size={'sm'}
+                                            checked={ativo === 1 ? true : false}
+                                            name="ativo"
+                                            onChange={handleInputChange}
                                         />
                                     </Col>
                                 </FormGroup>

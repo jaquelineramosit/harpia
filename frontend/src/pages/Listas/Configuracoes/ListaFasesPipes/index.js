@@ -36,29 +36,24 @@ export default function Listapipes() {
             name: 'Nome da Fase',
             selector: 'nomefase',
             sortable: true,
-            width: '32%',
-
-
         },
         {
             name: 'Pipe',
             selector: 'nomepipe',
             sortable: true,
             left: true,
-            width: '32%',
-
         },
         {
             name: 'Status',
             sortable: true,
             left: true,
-            cell: row => <Badge color="success">Ativo</Badge>,
+            cell: row => row.ativo === 1 ? <Badge color="success">Ativo</Badge> : <Badge color="danger">Inativo</Badge>,
         },
         {
             name: 'Ações',
             sortable: true,
             right: true,
-            cell: row => <Link to={`fases-pipe/${row.id}`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg "></i></Link>
+            cell: row => <Link to={`fases-pipe/${row.id}?action=edit`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg mr-1"></i></Link>
         },
     ];
 
@@ -70,7 +65,7 @@ export default function Listapipes() {
                     <Card>
                         <CardHeader className="links">
                             <i className="fa fa-align-justify"></i>Fases do Pipes
-                            <Link to={`fases-pipe`} className="btn btn-secondary float-right">
+                            <Link to={`fases-pipe?action=novo`} className="btn btn-secondary float-right">
                                 <i className="cui-file icons mr-1"></i>
                                 Novo
                             </Link>

@@ -2,91 +2,100 @@ import React, { useState, useEffect } from 'react';
 import { Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button ,CardFooter, Form,  } from 'reactstrap';
 import { AppSwitch } from '@coreui/react'
 import '../../../global.css';
+import { Redirect } from "react-router-dom";
 import api from '../../../../src/services/api';
 
 const MotivoPerda = (props) => {
+    const [redirect, setRedirect] = useState(false);
 
-  var search = props.location.search;
-  var params = new URLSearchParams(search);
-  var action = params.get('action');
-  var motivoPerdaIdParams = props.match.params.id;
+    var search = props.location.search;
+    var params = new URLSearchParams(search);
+    var action = params.get('action');
+    var motivoPerdaIdParams = props.match.params.id;
+    const usuarioId = localStorage.getItem('userId');
 
+    const [motivoperda, setMotivoperda] = useState('');
+    const [ativo, setAtivo] = useState(1);
 
-  const usuarioId = localStorage.getItem('userId');
+    useEffect(() => {
+        if (action === 'edit' && motivoPerdaIdParams !== '') {
+            api.get(`motivos-perda/${motivoPerdaIdParams}`).then(response => {
+                setMotivoperda(response.data.motivoperda);
+                response.data.ativo === 1 ? setAtivo(1) : setAtivo(0);
+            });
+        } else {
+            return;
+        }
+    }, [motivoPerdaIdParams])
 
-  const [formData, setFormData] = useState({
-    motivoperda: '',
-    ativo: 1,
-  });
+    function handleInputChange(event) {
+        const { name } = event.target;
 
-  useEffect(() => {
-      if (action === 'edit' && motivoPerdaIdParams !== '') {
-          api.get(`motivos-perda/${motivoPerdaIdParams}`).then(response => {
-              document.getElementById('txtMotivoPerda').value = response.data.motivoperda;
-              setFormData({
-                  ...formData,
-                  motivoperda: response.data.motivoperda,
+        if ( name === 'ativo' ) {
+            if ( ativo === 1 ) {
+                setAtivo(0);
+            } else {
+                setAtivo(1);
+            }
+        }
+    };
 
-              })
-          });
-      } else {
-          return;
-      }
-  }, [motivoPerdaIdParams])
+    function handleReset() {
+        setRedirect(true);
+    };
 
-  function handleInputChange(event) {
-      const { name, value } = event.target;
+    async function handleMotivosPerda(e) {
+        e.preventDefault();
 
-      setFormData({ ...formData, [name]: value });
-  };
+        const data = {
+            motivoperda,
+            ativo
+        };
 
-  async function handleMotivosPerda(e) {
-      e.preventDefault();
+        if (action === 'edit') {
 
-      const data = formData;
+            try {
+                const response = await api.put(`/motivos-perda/${motivoPerdaIdParams}`, data, {
+                    headers: {
+                        Authorization: 6,
+                    }
+                });
+                alert(`Cadastro atualizado com sucesso.`);
+                setRedirect(true);  
+            } catch (err) {
+                alert('Erro na atualização, tente novamente.');
+            }
 
-      if (action === 'edit') {
+        } else {
 
-          try {
-              const response = await api.put(`/motivos-perda/${motivoPerdaIdParams}`, data, {
-                  headers: {
-                      Authorization: 6,
-                  }
-              });
-              alert(`Cadastro atualizado com sucesso.`);
-          } catch (err) {
+            if (action === 'novo') {
+                try {
+                    const response = await api.post('motivos-perda', data, {
+                        headers: {
+                            Authorization: 6,
+                        }
+                    });
+                    alert(`Cadastro realizado com sucesso.`);
+                    setRedirect(true);  
+                } catch (err) {
 
-              alert('Erro na atualização, tente novamente.');
-          }
-
-      } else {
-
-          if (action === 'novo') {
-              try {
-                  const response = await api.post('motivos-perda', data, {
-                      headers: {
-                          Authorization: 6,
-                      }
-                  });
-                  alert(`Cadastro realizado com sucesso.`);
-              } catch (err) {
-
-                  alert('Erro no cadastro, tente novamente.');
-              }
-          }
-      }
-  }
+                    alert('Erro no cadastro, tente novamente.');
+                }
+            }
+        }
+    }
 
 
     return (
         <div className="animated fadeIn">
-            <Form onSubmit={handleMotivosPerda}>
+            { redirect && <Redirect to="/lista-motivos-perda" /> }
+            <Form onSubmit={handleMotivosPerda} onReset={handleReset}>
                 <Row>
                     <Col xs="12" md="12">
                         <Card>
                             <CardHeader>
                                 <strong>Motivos de perda</strong>
-                                <small>novo</small>
+                                {action === 'novo' ? <small> Novo</small> : <small> Editar</small>}
                             </CardHeader>
                             <CardBody>
                                 <FormGroup row>
@@ -94,18 +103,20 @@ const MotivoPerda = (props) => {
                                         <Label htmlFor="motivoPerda">Motivo da Perda</Label>
                                         <Input type="text" required id="txtMotivoPerda" placeholder="Digite um motivo"
                                             name="motivoperda"
-                                            onChange={handleInputChange} />
+                                            value={motivoperda}
+                                            onChange={e => setMotivoperda(e.target.value)} />
                                     </Col>
                                 </FormGroup>
-                                {/*<FormGroup row>
+                                <FormGroup row>
                                     <Col md="1">
                                         <Label check className="form-check-label" htmlFor="ativo1">Ativo</Label>
-                                        <AppSwitch id="rdAtivo" className={'switch-ativo'}  label color={'success'} defaultChecked size={'sm'}
-                                        value={ativo}
-                                        onChange={ e => setAtivo(e.target.value)}
+                                        <AppSwitch id="rdAtivo" className={'switch-ativo'}  label color={'success'} size={'sm'}
+                                            checked={ativo === 1 ? true : false}
+                                            name="ativo"
+                                            onChange={handleInputChange}
                                         />
                                     </Col>
-                                </FormGroup>*/}
+                                </FormGroup>
                             </CardBody>
                             <CardFooter className="text-center">
                                 <Button type="submit" size="sm" color="success" className=" mr-3"><i className="fa fa-check"></i> Salvar</Button>

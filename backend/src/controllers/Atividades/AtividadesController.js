@@ -74,8 +74,7 @@ module.exports = {
         const   { id }   = request.params;
         const  usuarioId  = request.headers.authorization;
         const  dataUltModif = getDate();
-        const { 
-            responsavelId, atividade, descricao, clienteId, contatoId, tipoatividadeId, dataatividade,
+        const { responsavelId, atividade, descricao, clienteId, contatoId, tipoatividadeId, dataatividade,
             datainicio, datafim, temponotificacao, exibenotificacao, anexoId,  cancelado } = request.body;
 
 

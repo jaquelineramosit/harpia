@@ -62,7 +62,7 @@ export default function ListaAnotacoes() {
             name: 'Status',
             sortable: true,
             left: true,
-            cell: row => <Badge color="success">Ativo</Badge>,
+            cell: row => row.cancelada === 1 ? <Badge color="success">Ativo</Badge> : <Badge color="danger">Inativo</Badge> ,
             width: '12%',
         },
         {
@@ -70,7 +70,7 @@ export default function ListaAnotacoes() {
             sortable: true,
             right: true,
             width: '10%',
-            cell: row => <Link to={`anotacoes/${row.id}`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg"></i></Link>
+            cell: row => <Link to={`anotacoes/${row.id}?action=edit`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg"></i></Link>
         },
     ];
 
@@ -81,7 +81,7 @@ export default function ListaAnotacoes() {
                     <Card>
                         <CardHeader className="links">
                             <i className="fa fa-align-justify"></i>Anotações
-                            <Link to={`anotacoes`} className="btn btn-secondary float-right">
+                            <Link to={`/anotacoes?action=novo`} className="btn btn-secondary float-right">
                                 <i className="cui-file icons mr-1"></i>
                                 Novo
                             </Link>

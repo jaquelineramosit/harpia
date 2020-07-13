@@ -35,9 +35,7 @@ export default function ListaDistribuidores() {
             name: 'Distribuidor',
             selector: 'nomedistribuidor',
             sortable: true,
-            width: '14%',
-
-
+            width: '13%',
         },
         {
             name: 'CNPJ',
@@ -45,7 +43,6 @@ export default function ListaDistribuidores() {
             sortable: true,
             left: true,
             width: '14%',
-
         },
         {
             name: 'Razão Social',
@@ -53,15 +50,13 @@ export default function ListaDistribuidores() {
             sortable: true,
             left: true,
             width: '14%',
-
         },
         {
             name: 'Contato',
             selector: 'contato',
             sortable: true,
             left: true,
-            width: '14%',
-
+            width: '13%',
         },
         {
             name: 'Telefone',
@@ -69,7 +64,6 @@ export default function ListaDistribuidores() {
             sortable: true,
             left: true,
             width: '14%',
-
         },
         {
             name: 'Celular',
@@ -77,19 +71,20 @@ export default function ListaDistribuidores() {
             sortable: true,
             left: true,
             width: '14%',
-
         },
         {
             name: 'Status',
             sortable: true,
             left: true,
-            cell: row => <Badge color="success">Ativo</Badge>,
+            cell: row => row.ativo === 1 ? <Badge color="success">Ativo</Badge> : <Badge color="danger">Inativo</Badge>,
+            width: '8%'
         },
         {
             name: 'Ações',
             sortable: true,
             right: true,
-            cell: row => <Link to={`distribuidores/${row.id}`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg"></i></Link>
+            cell: row => <Link to={`distribuidores/${row.id}?action=edit`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg"></i></Link>,
+            width: '8%'
         },
     ];
 
@@ -102,7 +97,7 @@ export default function ListaDistribuidores() {
 
                             <i className="fa fa-align-justify"></i>Distribuidores
 
-                            <Link to={`distribuidores`} className="btn btn-secondary float-right">
+                            <Link to={`distribuidores?action=novo`} className="btn btn-secondary float-right">
                                 <i className="cui-file icons mr-1"></i>
                                                     Novo
                                                 </Link>

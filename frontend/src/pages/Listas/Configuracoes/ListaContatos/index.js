@@ -68,13 +68,13 @@ export default function ListaContatos() {
             name: 'Status',
             sortable: true,
             left: true,
-            cell: row => <Badge color="success">Ativo</Badge>,
+            cell: row => row.ativo === 1 ? <Badge color="success">Ativo</Badge> : <Badge color="danger">Inativo</Badge>,
         },
         {
             name: 'Ações',
             sortable: true,
             right: true,
-            cell: row => <Link to={`contatos/${row.id}`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg"></i></Link>
+            cell: row => <Link to={`contatos/${row.id}?action=edit`} className="btn-sm btn-primary"><i className="fa fa-pencil fa-lg"></i></Link>
         },
     ];
     return (

@@ -2,46 +2,55 @@ import React, { useState, useEffect } from 'react';
 import { Row, Col, Card, CardHeader, CardBody, FormGroup, Label, Input, Button, CardFooter, Form  } from 'reactstrap';
 import { AppSwitch } from '@coreui/react'
 import '../../../global.css';
+import { Redirect } from "react-router-dom";
 import api from '../../../../src/services/api';
 
 const SeguimentoMercado = (props) => {
+    const [redirect, setRedirect] = useState(false);
 
-  var search = props.location.search;
-  var params = new URLSearchParams(search);
-  var action = params.get('action');
-  var segMercadoIdParams = props.match.params.id;
+    var search = props.location.search;
+    var params = new URLSearchParams(search);
+    var action = params.get('action');
+    var segMercadoIdParams = props.match.params.id;
+    const usuarioId = localStorage.getItem('userId');
 
+    const [nomesegmento, setNomeSegmento] = useState('');
+    const [ativo, setAtivo] = useState(1);
 
-  const usuarioId = localStorage.getItem('userId');
+    useEffect(() => {
+        if (action === 'edit' && segMercadoIdParams !== '') {
+            api.get(`segmentos-mercado/${segMercadoIdParams}`).then(response => {
+                setNomeSegmento(response.data.nomesegmento);
+                response.data.ativo === 1 ? setAtivo(1) : setAtivo(0);                
+            });
+        } else {
+            return;
+        }
+    }, [segMercadoIdParams])
 
-  const [formData, setFormData] = useState({
-      nomesegmento: '',
-  });
+    function handleInputChange(event) {
+        const { name } = event.target;
 
-  useEffect(() => {
-      if (action === 'edit' && segMercadoIdParams !== '') {
-          api.get(`segmentos-mercado/${segMercadoIdParams}`).then(response => {
-              document.getElementById('txtNomeSegmento').value = response.data.nomesegmento;
-              setFormData({
-                  ...formData,
-                  nomesegmento: response.data.nomesegmento,
-              })
-          });
-      } else {
-          return;
-      }
-  }, [segMercadoIdParams])
+        if ( name === 'ativo' ) {
+            if ( ativo === 1 ) {
+                setAtivo(0);
+            } else {
+                setAtivo(1);
+            }
+        }
+    };
 
-  function handleInputChange(event) {
-      const { name, value } = event.target;
-
-      setFormData({ ...formData, [name]: value });
-  };
+    function handleReset() {
+        setRedirect(true);
+    };
 
   async function handleSegmentoMercado(e) {
       e.preventDefault();
 
-      const data = formData;
+      const data = {
+          nomesegmento,
+          ativo
+      };
 
       if (action === 'edit') {
 
@@ -51,12 +60,11 @@ const SeguimentoMercado = (props) => {
                       Authorization: 6,
                   }
               });
-              alert(`Cadastro atualizado com sucesso.`);
-          } catch (err) {
-
+              alert('Cadastro atualizado com sucesso.');
+              setRedirect(true);  
+            } catch (err) {
               alert('Erro na atualização, tente novamente.');
           }
-
       } else {
 
           if (action === 'novo') {
@@ -66,9 +74,9 @@ const SeguimentoMercado = (props) => {
                           Authorization: 6,
                       }
                   });
-                  alert(`Cadastro realizado com sucesso.`);
-              } catch (err) {
-
+                  alert('Cadastro realizado com sucesso.');
+                  setRedirect(true);  
+                } catch (err) {
                   alert('Erro no cadastro, tente novamente.');
               }
           }
@@ -77,13 +85,14 @@ const SeguimentoMercado = (props) => {
 
     return (
         <div className="animated fadeIn">
-            <Form onSubmit={handleSegmentoMercado}>
+            { redirect && <Redirect to="/lista-segmentos-mercado" /> }
+            <Form onSubmit={handleSegmentoMercado} onReset={handleReset}>
                 <Row>
                     <Col xs="12" md="12">
                         <Card>
                             <CardHeader>
                                 <strong>Segmentos de Mercado</strong>
-                                <small> novo</small>
+                                {action === 'novo' ? <small> Novo</small> : <small> Editar</small>}
                             </CardHeader>
                             <CardBody>
                                 <FormGroup row>
@@ -91,19 +100,21 @@ const SeguimentoMercado = (props) => {
                                         <Label htmlFor="nomeSegmento">Nome do Segmento de Mercado</Label>
                                         <Input type="text" required id="txtNomeSegmento" placeholder="Digite o nome do Segmento"
                                             name="nomesegmento"
-                                            onChange={handleInputChange} />
-                                    </Col>
-                                </FormGroup>
-                              {/*<FormGroup row>
-                                    <Col md="1">
-                                        <Label check className="form-check-label" htmlFor="ativo1">Ativo</Label>
-                                        <AppSwitch id="rdAtivo" className={'switch-ativo'}  label color={'success'} defaultChecked size={'sm'}
-                                        name={ativo}
-                                        onChange={ e => setAtivo(e.target.value)}
+                                            value={nomesegmento}
+                                            onChange={e => setNomeSegmento(e.target.value)}
                                         />
                                     </Col>
-
-                              </FormGroup>*/}
+                                </FormGroup>
+                                <FormGroup row>
+                                    <Col md="1">
+                                        <Label check className="form-check-label" htmlFor="ativo1">Ativo</Label>
+                                        <AppSwitch id="rdAtivo" className={'switch-ativo'}  label color={'success'} size={'sm'}
+                                            checked={ativo === 1 ? true : false}
+                                            name="ativo"
+                                            onChange={handleInputChange}
+                                        />
+                                    </Col>
+                                </FormGroup>
                             </CardBody>
                             <CardFooter className="text-center">
                                 <Button type="submit" size="sm" color="success" className=" mr-3"><i className="fa fa-check"></i> Salvar</Button>
