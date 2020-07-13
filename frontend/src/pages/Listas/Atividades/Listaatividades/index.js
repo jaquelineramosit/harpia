@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Badge } from 'reactstrap';
 import DataTable from 'react-data-table-component';
 import {Link } from 'react-router-dom';
 import {Card, CardBody, CardHeader, Col, Pagination, PaginationItem, PaginationLink, Row, Table, Input, FormGroup, Label} from 'reactstrap';
