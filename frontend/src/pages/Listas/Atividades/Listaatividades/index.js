@@ -101,7 +101,7 @@ export default function ListaAtividades() {
                                         <i className="fa fa-envelope-open fa-2x"></i>
                                     </Link>
                                     <Link to={`atividades/?action=novo&tipo=Campanha`} className="btn btn-primary icons-oportunidades">
-                                        <i className="fa fa-bullseye fa-2x"></i>
+                                        <i className="fa fa-crosshairs fa-2x"></i>
                                     </Link>
                                     <Link to={`atividades?action=novo`} className="btn btn-primary icons-oportunidades">
                                         <i className="fa fa-plus-circle fa-2x"></i>

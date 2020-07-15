@@ -47,7 +47,7 @@ export default {
       icon: 'fa fa-address-book-o',
       children: [
         {
-          name: 'Contatos',
+          name: 'Cadastro Contatos',
           url: '/lista-contatos',
           icon: 'fa fa-address-book-o',
         },
@@ -73,7 +73,7 @@ export default {
       icon: 'icon-target',
       children: [
         {
-          name: 'Metas',
+          name: 'Cadastro Metas',
           url: '/lista-metas',
           icon: 'icon-target',
         },
@@ -105,15 +105,21 @@ export default {
       icon: 'fa fa-th-large',
       children: [
         {
-        name: 'Produtos',
+        name: 'Cadastro Produto',
         url: '/lista-produtos',
         icon: 'fa fa-th-large',          
         },
         {
           name: 'Distribuidores',
           url: '/lista-distribuidores',
-          icon: 'fa fa-building-o',          
-        },        
+          icon: 'fa fa-building-o', 
+                   
+        },    
+        {
+          name: 'Paises',
+          url: '/lista-paises',
+          icon: 'fa fa-flag-o',
+        },    
         {
           name: 'Marcas',
           url: '/lista-marcas',
@@ -126,15 +132,11 @@ export default {
       icon: 'fa fa-users',
       children: [
         {
-          name: 'Clientes',
+          name: 'Cadastro Cliente',
           url: '/lista-clientes',
           icon: 'fa fa-users',
         },
-        {
-          name: 'Paises',
-          url: '/lista-paises',
-          icon: 'fa fa-flag-o',
-        },
+        
         {
           name: 'Segmentos Mercado',
           url: '/lista-segmentos-mercado',

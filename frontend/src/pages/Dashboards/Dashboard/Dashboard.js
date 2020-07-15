@@ -148,32 +148,18 @@ export default function Dashboard() {
                             <i className="fa fa-align-justify"></i>Oportunidades
                         </CardHeader>
                         <CardBody>
-                            <FormGroup row className="border-bottom">
-                                <Col xs="4" lg="4" md="4" className="text-right">
-                                    {/* <Link to={`oportunidades`} className="btn btn-primary icons-oportunidades">
-                                        <i className="fa fa-phone fa-2x"></i>
-                                    </Link>
-                                    <Link to={`oportunidades`} className="btn btn-primary icons-oportunidades">
-                                        <i className="fa fa-users fa-2x"></i>
-                                    </Link>
-                                    <Link to={`oportunidades`} className="btn btn-primary icons-oportunidades">
-                                        <i className="fa fa-envelope-open fa-2x"></i>
-                                    </Link>
-                                    <Link to={`oportunidades`} className="btn btn-primary icons-oportunidades">
-                                        <i className="fa fa-bullseye fa-2x"></i>
-                                    </Link> */}
-                                    <Link to={`oportunidades`} className="btn btn-primary icons-oportunidades">
-                                        <i className="fa fa-plus-circle fa-2x"></i>
-                                    </Link>
-                                </Col>
-                                <Col xs="7" lg="7" md="7" className="search">
-                                    <Input type="text" id="txtSearch"  />
+                            <FormGroup row className="border-bottom">                              
+                                <Col  lg="5" md="5" className="search">
+                                    <Input className="fa fa-search fa-2x" type="text" id="txtSearch"  />
                                 </Col>
                                 <Col xs="1" lg="1" md="1" className="search pl-0">
                                     <Link to={`oportunidades`} >
                                         <i className="fa fa-search fa-2x" style={{ color: '#20a8d8'}}></i>
-                                    </Link>                                   
+                                    </Link>    
                                 </Col>
+                                <Link to={`oportunidades`} className="btn btn-primary icons-oportunidades">
+                                        <i className="fa fa-plus-circle fa-2x"></i>
+                                    </Link>      
                             </FormGroup>
                             <DataTable className="mt-n3"
                                 noHeader={true}
