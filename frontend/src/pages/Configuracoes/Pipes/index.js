@@ -190,7 +190,7 @@ const FasePipe = () => {
     const [fasesPipe, setFasesPipe] = useState([]);
     
     useEffect(() => {
-        api.get('fases-pipe-pipeId/4', {
+        api.get('fases-pipe-pipeId/6', {
             headers: {
                 Authorization: 1,
             }           
