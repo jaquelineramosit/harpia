@@ -133,11 +133,10 @@ const Atividades = (props) => {
 
         try {
             if (action === 'edit') {
-                alert(`ddd`);
                 try {
                     const response = await api.put(`/atividades/${atividadeIdParam}`, data, {
                         headers: {
-                            Authorization: usuarioId,
+                            Authorization: 6,
                         }
                     });
                     alert(`Cadastro atualizado com sucesso.`);
@@ -152,7 +151,7 @@ const Atividades = (props) => {
                     try {
                         const response = await api.post('atividades', data, {
                             headers: {
-                                Authorization: usuarioId,
+                                Authorization: 6,
                             }
                         });
                         alert(`Cadastro realizado com sucesso.`);

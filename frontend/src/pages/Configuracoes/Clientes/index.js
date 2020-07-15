@@ -144,7 +144,7 @@ export default function Clientes(props) {
                 try {
                     const response = await api.post('clientes', data, {
                         headers: {
-                            Authorization : usuarioId,
+                            Authorization : 6,
                         }
                     });
                     alert('Cadastro realizado com sucesso.');

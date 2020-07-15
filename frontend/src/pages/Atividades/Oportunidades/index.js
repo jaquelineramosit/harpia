@@ -35,7 +35,7 @@ export default function Oportunidades(props) {
     const [temperaturafechamentoId, setTemperaturaFechamentoId] = useState('');
     const [expectativafechamento, setExpectativaFechamento] = useState('');    
     const [anexoId, setAnexoId] = useState(1);
-    const [motivoperdaId, setMotivoperdaId] = useState(1);
+    const [motivoperdaId, setMotivoperdaId] = useState(13);
     const [ativo, setAtivo] = useState(1);
 
     // combos dinâmicos
@@ -74,7 +74,7 @@ export default function Oportunidades(props) {
     }, []);
 
     useEffect(() => {
-        api.get('fases-pipe-nomePipe/Harpia').then(response => {
+        api.get('fases-pipe-nomePipe/Vendas').then(response => {
             setlstFasesPipe(response.data);
         })
     }, []);
@@ -160,7 +160,7 @@ export default function Oportunidades(props) {
             try {
                 const response = await api.put(`oportunidades/${oportunidadeIdParam}`, data, {
                     headers: {
-                        Authorization : usuarioId,
+                        Authorization : 6,
                     }
                 });
                 alert('Cadastro atualizado com sucesso.');    
@@ -173,7 +173,7 @@ export default function Oportunidades(props) {
                 try {
                     const response = await api.post('oportunidades', data, {
                         headers: {
-                            Authorization: usuarioId,
+                            Authorization: 6,
                         }
                     });
                     alert(`Feito o cadastro com sucesso`);

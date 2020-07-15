@@ -83,7 +83,7 @@ export default function FasesPipe(props) {
                 try {
                     const response = await api.post('fases-pipe', data, {
                         headers: {
-                            Authorization: usuarioId,
+                            Authorization: 6,
                         }
                     });
                     alert(`Feito o cadastro com sucesso`);

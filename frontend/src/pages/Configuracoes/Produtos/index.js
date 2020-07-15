@@ -105,7 +105,7 @@ export default function Produtos(props) {
                 try {
                     const response = await api.post('produtos', data, {
                         headers: {
-                            Authorization: usuarioId,
+                            Authorization: 6,
                         }
                     });
                     alert(`Feito o cadastro com sucesso`);
